@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "PHPNW 2013 (1)"
-date: 2013-12-31 11:21
+date: 2014-01-04 22:30
 comments: true
 categories:
 - BEAR
@@ -9,7 +9,7 @@ categories:
 ---
 
 2014年、あけましておめでとうございます。
-年が変わってしまいましたが、2013年のBEAR.Sundayにとって最大のイベント、phpnw13に参加した事を記事にします。
+年が変わってしまいましたが、2013年のBEAR.Sundayにとって最大のイベントphpnw13に参加した事を記事にします。
 
 ## 20 June; CFP (Call for Paper)
 
@@ -23,7 +23,7 @@ phpnw(PHP North West)カンファレンスはイギリスのマンチェスタ�
  * Think differently, REST centric approach solve REST problem effectively.
  * A resource orientated framework using the DI /AOP/REST Triangle
 
-採用されたのは３つ目です。そのタイトルに沿った詳細な紹介文を通訳兼共同発表者のリチャードさん[@macstar](https://twitter.com/mackstar)に用意してもらって応募しました。
+採用されたのは３つ目です。そのタイトルに沿った詳細な紹介文を通訳兼共同発表者のリチャード（[@mackstar](https://twitter.com/mackstar)）さんに用意してもらって応募しました。
 
 > Many web developers have a REST or API part of their app when offering it as a service. In this session I will show you how in making REST a central part of your design you can have a huge amount of consistency at the core of how you code. REST gives us much of the power we need in development and is not just for API's. This session will completely change the way you think about REST.
 BEAR.Sunday is a REST-centric framework that makes you think totally different about how to go about architecting web-apps and platforms to the maximum potential with elegance.
@@ -34,7 +34,7 @@ BEAR.Sunday is a REST-centric framework that makes you think totally different a
 
 > We were delighted to hear from you and we would love to extend an invitation for you to give your talk "A resource orientated framework using the DI /AOP/REST Triangle" at our conference.
 
-採用された事に驚きました。そして今スイスにいるのにまた三ヶ月後にイギリス！？とも思いましたが、友人は「行くしか無い、他の選択肢はない」とはっきり言い切ります。
+採用された事に驚きました。そして今スイスにいるのにまた三ヶ月後にイギリスに返るのかとも思いましたが、友人は「行くしか無い、他の選択肢はない」とはっきり言い切ります。
 英語のプレゼンも、舞台の大きさも、完全に自分のキャパシティを超えてましたが腹を決め渡英するとの連絡をしました。
 
 採用のプロセスは厳しくキュレーターが４人全ての人の採点が10点中の9か10が必要です。200以上の応募があり採用率は15%以下。
@@ -61,6 +61,7 @@ BEAR.Sunday is a REST-centric framework that makes you think totally different a
 
 {% img /images/blog/phpnw13.15.jpg 800 BBC %}
 {% img /images/blog/phpnw13.07.jpg 800 BBC %}
+{% img /images/blog/phpnw13.07.jpg 800 BBC %}
 {% img /images/blog/phpnw13.06.jpg 800 BBC %}
 
 BBCでの経験は驚きの連続です。世界最高のメディア企業でのWebプロダクト制作、その現場です。
@@ -86,27 +87,30 @@ BBCでの経験は驚きの連続です。世界最高のメディア企業で�
 
 {% img /images/blog/phpnw13.31.jpg 800 phpnw13 %}
 
-セッション1時間前に「speaker shadowです」１人のスタッフが現れましす。どうもスピーカーの世話をする人の事をshadowというようです。
+セッションは土曜日から始まります。オープニングキーノートはLorna MitchellさんとIvo Janschさんの **[0x0F Ways to be a Better Developer](http://conference.phpnw.org.uk/phpnw13/schedule/lorna-mitchell-ivo-jansch/)**
+（より良いディベロッパーになる0x0Fの方法）。
+<script async class="speakerdeck-embed" data-id="2a6e79d01160013121333e135808c36d" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
+
+会場は２つに別れていて、二人のスピーカーを映像で繋げそれぞれ交互に変わりながらプレゼンテーションを行うといった凝った仕掛けです。キーノートのテーマがPHPの進化や特定技術ではなくて「より良い開発者になる」というのは印象的でした。
+例えば*"Get Out of Your Comfort Zone"* 「普段の安全で良く知った自分のフィールドから飛び出し、リスクをとって"Enjoy the unknown"しましょう」という事ですが、
+「今回マンチェスターで自作のフレームワークのプレゼンテーションを行うのは充分`Get Out`してますしてます。`the unknown`を楽しんでます！」と頷きながら聞いてました。
+
+自分達の発表の練習や最後の準備もしなければなりませんが、聞きたいセッションも沢山あります。プレンゼンテーションの内容は非常に充実していて、スピーカーも普段もネットで目にするような有名な人ばかりです。
+
+phpnw13  Schedule
+http://conference.phpnw.org.uk/phpnw13/schedule/
+
+「speaker shadowです」１人のスタッフが現れました。どうもスピーカーの世話をする人の事をspeaker shadowというようです。かっこいい言い方するんだなあとか思いながら、装備するワイヤレスマイクや接続するMacの手順などの打ち合わせをします。
+
 スピーカーに対するケアがとても手厚いのです。phpnwは有料カンファレンスで、チケットは£135.00（現在12/31のレートで23,430円）します。
 スピーカーに報酬はありませんが、滞在中の食事や宿泊費は全て賄われます。ホテルの部屋にはエッセンシャルキットと言って、ミネラルウォーターや洗面道具のキットのwelcomeセットのようなものが部屋に用意されています。
 スピーカーだけにトレーナーやギフトもありました。食事は例えば、スピーカーディナーはコース料理なのですがそのメニューは事前にwebで注文しておく事ができ、例えばベジタリアンの人などへの配慮もあります。
+スピーカー同士の交流が図られるという事が大事です。食事の度に顔を合わせて一緒に話したりするので自然と交流が持て色々な話が聞けます。
 
-賄われるということより、スピーカー同士の交流が図られるという事が大事です。食事の度に顔を合わせて一緒に話したりするので自然と交流が持て色々な話が聞けます。これは貴重です。
-海外ではどのようなフレームワークが使われてるか、Google TrendやGitHubのスターで語られる事がありますが、自分の興味は「誰が」選んでいるか？ということです。
-その視点をかいた比較や、多数の初心者に好まれるものよりこういったカンファレンスに登壇する人達、つまりアーキテクトやシニアディベロッパーの方々が何を基準にどういうものを選んでいるのかに興味があります。
-スピーカーになるという事はそういう一時情報に直接関われるということでもありました。
-
-「フレームワーク選択の話題にみんな興味がない」..これは聞いていました。事前に予想もたてていました。「欧州なのでまあSymfonyが最初に来てそれに続いてzf2、あとはまとめて"その他"、そして恐らく思われてるより自社製フレームワークは多いだろう」
-..そしてこの予想は当たらずとも遠からず（個人の印象です）でした。日本でよく話題になるFWの話はありません「どのようなFWが流行ってるか、あるいは流行りそうか」そういう話題もありませんでした。
-
-それに思ったよりずっと自社製のFWが多い。これはカンファレンスの内容にも反映されていたと思うのですが、新しいアーキテクチャを模索する動きも感じました。
-
-多様化する開発ニーズのためのそれぞれのドメインのフレームワークを構築する。モノリシックで巨大な１つの解答（ソリューション）より、構成可能で持続的な部品の疎結合の要求、継続可能性、それらの欲求を満たすアーキテクチャの模索、そういう方向性を感じました。
-(※私はBEAR.Sundayの開発者でそのbiasがかかってるのに注意）
 
 いよいよ、時間が近づいてきました。
-前のセッションはDrupal。世界のPHP開発者の誰もが知るプロダクトでスピーカーはその制作者、立ち見がでるくらい満員です。
+前のセッションはDrupal。世界のPHP開発者の誰もが知るプロダクトでスピーカーはその開発者、立ち見がでるくらい満員です。
 
-その次が自分の番、世界の誰も知らない「僕のつくったフレームワーク」の発表です。
+その次が自分達の番、世界の誰も知らない「僕のつくったフレームワーク」の発表です。
 
 （続く）
