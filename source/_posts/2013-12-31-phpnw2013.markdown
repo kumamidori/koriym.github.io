@@ -65,16 +65,18 @@ BEAR.Sunday is a REST-centric framework that makes you think totally different a
 
 BBCでの経験は驚きの連続です。世界最高のメディア企業でのWebプロダクト制作、その現場です。
 とにかくかっこよくて、詳しい事が書けないのは残念です。一日始業から終わりまでインターンのように過ごす機会にも恵まれその現場の空気やワークフローの実際に立ち会う事ができました。
-シニアアーキテクトの方とのランチの機会も頂きました。「軽いおしゃべり」という予定だったのですが、ほとんどの時間はBEAR.Sundayについての質問とその答えというやり取りになりました。
+シニアアーキテクトのマシューさんとのランチの機会も頂きました。「軽いおしゃべり」という予定だったのですが、ほとんどの時間はBEAR.Sundayについての質問とその答えというやり取りになりました。
 質問が非常にシャープで的確です。「そのアーキテクチャのポイントを、ノンテクニカルな人に3分で伝えるとしたらどう話す？」等、こちらが試されるような質問の連続です。
 真剣な質問に真剣に答えます。手応えのあるやりとりは満足のできるものでした。
 
+{% img /images/blog/phpnw13.002.jpg 800 BBC %}
 {% img /images/blog/phpnw13.16.jpg 800 BBC %}
 {% img /images/blog/phpnw13.17.jpg 800 BBC %}
 
 とても緊張してプレゼンテーションを行いました。イギリスのバーの二階でやったleedsphpユーザーグループの時と違って、就業中に時間をさいて集まってくれたBBCのWebエンジニアの方々はとても真剣です。
 しかし内容を高く評価してもらいphpnwでの発表が少し安心できるものになりました。またアーキテクチャにとても関心が高い事の確信も得られました。
-
+{% img /images/blog/phpnw13.001.jpg 800 BBC %}
+（BBC Future Media SportsのSenior Technical Architectの[マシュー・クラーク](http://www.bbc.co.uk/blogs/internet/authors/Matthew_Clark)さんとリチャードさんの三人とBCの食堂でランチ。)
 ## phpnw13
 
 ### 02 Oct; Hackason
