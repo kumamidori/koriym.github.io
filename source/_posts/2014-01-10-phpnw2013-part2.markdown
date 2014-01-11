@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "PHPNW 2013(2)-Presentation"
+title: "PHPNW 2013(2) - Presentation"
 date: 2014-01-10 19:53
 comments: true
 categories:
@@ -339,9 +339,13 @@ Let’s look at a simple example.
 ---
 
 {% img /images/blog/phpnw13-slide/bear-sunday.040.jpg BEAR.Sunday@PHPNW13 %}
+
 * Consumer and method stay exactly the same
+
 * We don’t need to change them
+
 * There is no base class
+
 * There is no special way of writing these classes or calling them
 
 The magic I will show you later.
@@ -359,6 +363,7 @@ The interception is registered upon binding.
 * Pull out the logging etc - this is not business logic, they are app logic
 
 An aspect
+
 * cross-cuts a method
 * is readable
 * testable
@@ -725,7 +730,7 @@ No water, No trees or flowers.
 There is nothing here that's common in western gardens.
 
 But you will notice after some time,
-it offers nothing but perfect harmony.
+it offers nothing but **perfect harmony**.
 
 This garden has only abstraction. Your imagination and your mind can reflect on this garden (when it's ready.)
 
