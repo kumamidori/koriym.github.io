@@ -10,9 +10,9 @@ footer: false
 <div style="font-size:32px;">Akihito Koriyama</div>
 <p>PHP Architect. Speaker. Traveller.</p>
 
-## Projects
+## PHP Projects
 
- * [BEAR.Sunday](https://github.com/koriym/BEAR.Sunday) - Resource oriented framework
+ * [BEAR.Sunday](https://github.com/koriym/BEAR.Sunday) - A resource oriented framework
  * [Ray.Di](https://github.com/koriym/Ray.Di) - Guice style DI and AOP framework
 
 ## Speaking
@@ -25,13 +25,18 @@ footer: false
  * [Github](https://github.com/koriym)
  * [Twitter](https://twitter.com/koriym)
  * [Facebook](https://www.facebook.com/koriyama)
- * [joinin](https://joind.in/user/view/21191)
+ * [joind.in](https://joind.in/user/view/21191)
 
 ## TEDxTokyo Conference
 
  * [2013 Participant](http://koriym.github.io/tedxtokyo2013/)
  * 2014 Participant
 
+## Games
+ * 1989 NES [Quinty](http://ja.wikipedia.org/wiki/%E3%82%AF%E3%82%A4%E3%83%B3%E3%83%86%E3%82%A3) / [Mendel Palace](http://en.wikipedia.org/wiki/Mendel_Palace)
+ * 1991 NES,GameBoy [Yoshi no tamago](http://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%83%E3%82%B7%E3%83%BC%E3%81%AE%E3%81%9F%E3%81%BE%E3%81%94)  / [Yoshi](http://en.wikipedia.org/wiki/Yoshi_(video_game) ) / Yoshi and Mario
+ * 1994 3DO [Star Blade](http://en.wikipedia.org/wiki/Starblade)
+ 
 ## Contact
 
  * akihito.koriyama @ gmail.com
