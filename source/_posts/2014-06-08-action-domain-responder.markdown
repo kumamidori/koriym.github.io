@@ -11,6 +11,8 @@ categories:
 <br clear=all>
 https://github.com/pmjones/mvc-refinement
 
+Here is my random thought about [ADR](https://github.com/pmjones/mvc-refinement).
+
 It seems the each component seems to have their own each distinct and meaningful role. Devs will follow a more natural workflow with it. Domains become first class citizens compared to a “data provider” to their GOD controller in some MVC framework.
 
  I like the fact that an action returns a responder (not actually invoking the action). Data can then be retrieved and tested. Actions can call other actions creating a hierarchical information structure  for which MVC stuggles to provide a solution. Testing and gaining 100% code coverage also seems much easier without using a web driver.

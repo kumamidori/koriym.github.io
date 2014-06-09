@@ -18,7 +18,7 @@ footer: false
 ## Speaking
 
  * [PHPNW 2013](http://conference.phpnw.org.uk/phpnw13/schedule/akihito-koriyama-richard-mcintyre/) "A resource orientated framework using the DI/AOP/REST Triangle"
- * [phpmatsuri 2012](http://www.phpmatsuri.net/2012/session.html) "PHP: Dis Is It"
+ * [phpmatsuri 2012](http://www.phpmatsuri.net/2012/session.html) "PHP: DIS IS IT"
 
 ## Web presence
 
