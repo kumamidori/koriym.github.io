@@ -37,9 +37,9 @@ footer: false
  * 1994 3DO [Starblade](http://en.wikipedia.org/wiki/Starblade)
 
 ## Travels
- * First - Tokyo to [Hunza Valley](http://en.wikipedia.org/wiki/Hunza_Valley) via Uygur and [KKH](http://en.wikipedia.org/wiki/Karakoram_Highway)
- * Longest - Eurasia ([silk road](http://en.wikipedia.org/wiki/Silk_route) + [transsib](http://en.wikipedia.org/wiki/Transsib)) 18 month
- * Latest - 2013 [England](/blog/2014/01/04/phpnw2013/)
+ * First - Tokyo to [Hunza Valley](http://en.wikipedia.org/wiki/Hunza_Valley) via Uygur and [KKH](http://en.wikipedia.org/wiki/Karakoram_Highway) (1990)
+ * Longest - Eurasia ([silk road](http://en.wikipedia.org/wiki/Silk_route) + [transsib](http://en.wikipedia.org/wiki/Transsib)) 18 month (1999-2000)
+ * Latest - [England](/blog/2014/01/04/phpnw2013/) (2013)
 
 ## Contact
 
