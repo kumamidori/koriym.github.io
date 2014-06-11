@@ -24,19 +24,23 @@ footer: false
 
  * [Github](https://github.com/koriym)
  * [Twitter](https://twitter.com/koriym)
- * [Facebook](https://www.facebook.com/koriyama)
  * [joind.in](https://joind.in/user/view/21191)
 
 ## TEDxTokyo Conference
 
  * [2013 Participant](http://koriym.github.io/tedxtokyo2013/)
- * 2014 Participant
+ * [2014 Participant](http://koriym.github.io/blog/2014/06/10/tedxtokyo-2014/)
 
 ## Games
  * 1989 NES [Quinty](http://ja.wikipedia.org/wiki/%E3%82%AF%E3%82%A4%E3%83%B3%E3%83%86%E3%82%A3) / [Mendel Palace](http://en.wikipedia.org/wiki/Mendel_Palace)
- * 1991 NES,GameBoy [Yoshi no tamago](http://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%83%E3%82%B7%E3%83%BC%E3%81%AE%E3%81%9F%E3%81%BE%E3%81%94)  / [Yoshi](http://en.wikipedia.org/wiki/Yoshi_(video_game) ) / Yoshi and Mario
- * 1994 3DO [Star Blade](http://en.wikipedia.org/wiki/Starblade)
- 
+ * 1991 NES,GameBoy [Yoshi no tamago](http://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%83%E3%82%B7%E3%83%BC%E3%81%AE%E3%81%9F%E3%81%BE%E3%81%94)  / [Yoshi / Yoshi and Mario](http://en.wikipedia.org/wiki/Yoshi_(video_game)
+ * 1994 3DO [Starblade](http://en.wikipedia.org/wiki/Starblade)
+
+## Travels
+ * First - Tokyo to [Hunza Valley](http://en.wikipedia.org/wiki/Hunza_Valley) via Uygur and [KKH](http://en.wikipedia.org/wiki/Karakoram_Highway)
+ * Longest - Eurasia ([silk road](http://en.wikipedia.org/wiki/Silk_route) + [transsib](http://en.wikipedia.org/wiki/Transsib)) 18 month
+ * Latest - 2013 [England](/blog/2014/01/04/phpnw2013/)
+
 ## Contact
 
- * akihito.koriyama @ gmail.com
+ * akihito.koriyama@gmail.com
