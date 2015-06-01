@@ -23,7 +23,7 @@ Symfonyユーザー会でも何度もお話させていただきました。(BEA
 エキサイトの [@usomillp](https://twitter.com/usomillp) さん、[@gokigendori](https://twitter.com/gokigendori)さん、iwafujiさん、fukushimaさん、kobayashiさん、toshinaiさん他
 BEAR.Saturdayの時からずっとBEARのファンでいてくれる [@ryo88c](https://twitter.com/ryo88c) [@zingooo](https://twitter.com/zingooo) [TOM](http://profile.hatena.ne.jp/stellaqua/) さん
 大勢の方にコードやアイデアのコントリビュートをいただきました。[@iteman](https://twitter.com/iteman) にはフレームワークの拡張点として視点、
-[@mugeso](https://twitter.com/mugeso)さんや[@kenjis](https://twitter.com/kenjis)さんにはいくつものPR、
+[@mugeso](https://twitter.com/mugeso)さんや[@kenji_s](https://twitter.com/kenji_s)さんにはいくつものPR、
 [@hidenorigoto](https://twitter.com/hidenorigoto)さんには[雑誌で紹介](http://phpmentors.jp/post/43944158326/web-db-press)していただきました。[@kuma_nana](https://twitter.com/kuma_nana)には音声入りの画面チュートリアルをつくってもらいました。
 
 海外の方にもお世話になりました。Guiceの使用経験もないのにRay.Diをつくっていた私に[@akkie](https://twitter.com/akkie)は色々と教えてくれました。
