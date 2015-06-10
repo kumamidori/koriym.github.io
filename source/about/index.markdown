@@ -5,7 +5,7 @@ comments: false
 sharing: false
 footer: false
 ---
-![Akihito Koriyama](/images/akihito_koriyama.jpg)
+![Akihito Koriyamasss](/images/akihito_koriyama.jpg)
 
 <div style="font-size:32px;">Akihito Koriyama</div>
 <p>PHP Architect. Speaker. Traveller.</p>
@@ -17,8 +17,10 @@ footer: false
 
 ## Speaking
 
- * [PHPNW 2013](http://conference.phpnw.org.uk/phpnw13/schedule/akihito-koriyama-richard-mcintyre/) "A resource orientated framework using the DI/AOP/REST Triangle"
- * [phpmatsuri 2012](http://www.phpmatsuri.net/2012/session.html) "PHP: DIS IS IT"
+ * [2015 PHP Conference Fukuoka Keynote](http://phpcon.fukuoka.jp/) - 全てを結ぶ力
+ * [2014 PHP Conference Osaka Keynote](http://conference.kphpug.jp/2014/) - 全てを結ぶ力 [スライド](http://www.slideshare.net/akihito.koriyama/php2014-gm) [YouTube](https://www.youtube.com/watch?v=wMYW-ox3BIg)
+ * [2013 PHPNW](http://conference.phpnw.org.uk/phpnw13/schedule/akihito-koriyama-richard-mcintyre/) - A resource orientated framework using the DI/AOP/REST Triangle
+ * [2012 phpmatsuri](http://www.phpmatsuri.net/2012/session.html) - PHP: DIS IS IT
 
 ## Web presence
 
@@ -39,7 +41,7 @@ footer: false
 ## Travels
  * First - Tokyo to [Hunza Valley](http://en.wikipedia.org/wiki/Hunza_Valley) via Uygur and [KKH](http://en.wikipedia.org/wiki/Karakoram_Highway) (1990)
  * Longest - Eurasia ([silk road](http://en.wikipedia.org/wiki/Silk_route) + [transsib](http://en.wikipedia.org/wiki/Transsib)) 18 month (1999-2000)
- * Latest - [England](/blog/2014/01/04/phpnw2013/) (2013)
+ * Latest - [England and Scotland](/blog/2014/01/04/phpnw2013/) (2014)
 
 ## Contact
 
