@@ -1,0 +1,488 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Advent Day 4: Manual DI « BEAR Blog</title>
+  <meta name="author" content="Akihito Koriyama">
+
+  
+  <meta name="description" content="Tweet DI考察ブログエントリー @Hirakuさんが自身のブログで「PHPのDIで動的にオブジェクトを確保する考察」というDIのエントリーをポストされてます。 Dependency InjectionがPHPでも流行っているそうです。が、未だによくわからないので、 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://koriym.github.io/adv4">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="BEAR Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  <meta property="og:title" content="Advent Day 4: Manual DI - BEAR Blog" />
+<meta property="og:description" content="Tweet DI考察ブログエントリー @Hirakuさんが自身のブログで「PHPのDIで動的にオブジェクトを確保する考察」というDIのエントリーをポストされてます。 Dependency InjectionがPHPでも流行っているそうです。が、未だによくわからないので、 &hellip;" />
+<meta property="og:url" content="http://koriym.github.io/adv4" />
+<meta property="og:image" content="http://bearsunday.github.io/images/icon/favicon-144.png" />
+<meta property="og:author" content="Akihito Koriyama" />
+<meta property="og:site_name" content="BEAR Blog" />
+<meta property="og:locale" content="ja_JP" />
+<meta property="og:type" content="article" />
+<meta property="fb:app_id" content="516362398477090" />
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-6074569-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEAR Blog</a></h1>
+  
+    <h2>Because everything is a resource.</h2>
+  
+</hgroup>
+
+<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:koriym.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Advent Day 4: Manual DI</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-04T00:00:00+09:00" pubdate data-updated="true">Dec 4<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/adv4">Tweet</a>
+</div>
+
+
+<h2>DI考察ブログエントリー</h2>
+
+<p><a href="https://twitter.com/Hiraku">@Hiraku</a>さんが自身のブログで「PHPのDIで動的にオブジェクトを確保する考察」というDIのエントリーをポストされてます。</p>
+
+<blockquote><p><em>Dependency InjectionがPHPでも流行っているそうです。が、未だによくわからないので、わからないところを自分なりに考察してみます。</em></p>
+
+<p><a href="http://blog.tojiru.net/article/304867046.html">PHPのDIで動的にオブジェクトを確保する考察</a></p></blockquote>
+
+<p>この記事の中で@Hirakuさんは特定のDIコンテナを使わないで、DIというパターンを考察しています。依存を手動で渡す様々な方法を試し、それらのメリット、デメリットを考察しています。</p>
+
+<blockquote><p>確かに、DBやLoggerなど、クラスの中で一つだけあれば十分なものも多く、そういうオブジェクトはコンストラクタに渡す形で「外から突っ込む」ことができるでしょう。<br/>
+しかし、動的にオブジェクトを作るケースだって山ほどあるはずです。「必要なオブジェクトはクラスの生成時に全部できあがっている」なんて状態はそうそうあるもんじゃありません。</p></blockquote>
+
+<blockquote class="twitter-tweet" data-in-reply-to="275127780000284672" width="550" lang="ja">
+
+    @<a href="https://twitter.com/hiraku">hiraku</a> DIの記事読ませて頂きました。後半のConfigの例についてですが、ランタイムにしか決まらない内容があるのであれば、それはオブジェクトのコンストラクションとは別メソッドに分けるという方向になるかと私は思います。
+
+  
+
+    &mdash; Hidenori Gotoさん (@hidenorigoto) <a href="https://twitter.com/hidenorigoto/status/275228755713216512" data-datetime="2012-12-02T13:23:43+00:00">12月 2, 2012</a>
+
+</blockquote>
+
+
+<p>この記事の例で言うと基本的には@hidenorigotoさんの意見に+1です。</p>
+
+<h2>３つのInject</h2>
+
+<p>エントリーの中でランタイムでの動的取得に対して３つの方法をあげられています。</p>
+
+<ul>
+<li>factoryをinjectする</li>
+<li>クラス名をinjectする</li>
+<li>プロトタイプをinjectする</li>
+</ul>
+
+
+<blockquote><p>他にいいやり方があったら教えてください。</p></blockquote>
+
+<p>&#8230;考えてみました。<br/>
+例えばfactory名をinjectするというのはどうでしょうか？</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">function</span> <span class="nf">setConfig</span><span class="p">(</span><span class="nx">ConfigInterface</span> <span class="nv">$config</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">config</span> <span class="o">=</span> <span class="nv">$config</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nv">$configFactory</span> <span class="o">=</span> <span class="s1">&#39;ConfigFactory&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setConfig</span><span class="p">((</span><span class="k">new</span> <span class="nv">$configFactory</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">());</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>利用コードはクラス名を渡すのと同様です</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$c</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">C</span><span class="p">(</span><span class="s1">&#39;MockConfigFactory&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>型の保証が必要でないならsetterメソッドを除去して直接代入します。</p>
+
+<p>また、以下のようなインスタンス生成スクリプトで渡す方法も考えてみました。<sup><a href="#footnote_0_1288" id="identifier_0_1288" class="footnote-link footnote-identifier-link" title="factoryの方が良さそうですね&hellip;">1</a></sup></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nv">$configFactoryScript</span> <span class="o">=</span> <span class="s1">&#39;ConfigFactoryScript&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">config</span> <span class="o">=</span> <span class="k">include</span> <span class="nx">INSTANCE_DIR</span> <span class="o">.</span> <span class="nv">$configFactoryScript</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>これらの方法は懸念された問題のうちいくつかを解決しています。factoryによる自由な生成と呼び出しコードの簡素化、必要個数のランタイムでの取得も可能になります。</p>
+
+<h2>手動DIの限界</h2>
+
+<p>しかしやはり、考察を続けると色々な懸念が出て来ます。これらのインジェクトをシングルトン、あるいは限定個数で行う場合は？また依存にもまた依存が必要です。それらの依存もアプリケーションコンテキストで変化していきます。</p>
+
+<p>以下はBEAR.Sundayのリソースクライアントの生成コードです。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$config</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Config</span><span class="p">(</span><span class="k">new</span> <span class="nx">Annotation</span><span class="p">(</span><span class="k">new</span> <span class="nx">Definition</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Reader</span><span class="p">));</span>
+</span><span class='line'><span class="nv">$injector</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Injector</span><span class="p">(</span><span class="k">new</span> <span class="nx">Container</span><span class="p">(</span><span class="k">new</span> <span class="nx">Forge</span><span class="p">(</span><span class="nv">$config</span><span class="p">)));</span>
+</span><span class='line'><span class="nv">$injector</span><span class="o">-&gt;</span><span class="na">setModule</span><span class="p">(</span><span class="k">new</span> <span class="nx">TestModule</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$scheme</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SchemeCollection</span><span class="p">;</span>
+</span><span class='line'><span class="nv">$scheme</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">scheme</span><span class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">host</span><span class="p">(</span><span class="s1">&#39;self&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">toAdapter</span><span class="p">(</span><span class="k">new</span> <span class="nx">App</span><span class="p">(</span><span class="nv">$injector</span><span class="p">,</span> <span class="s1">&#39;testworld&#39;</span><span class="p">,</span> <span class="s1">&#39;ResourceObject&#39;</span><span class="p">));</span>
+</span><span class='line'><span class="nv">$scheme</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">scheme</span><span class="p">(</span><span class="s1">&#39;page&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">host</span><span class="p">(</span><span class="s1">&#39;self&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">toAdapter</span><span class="p">(</span><span class="k">new</span> <span class="nx">App</span><span class="p">(</span><span class="nv">$injector</span><span class="p">,</span> <span class="s1">&#39;testworld&#39;</span><span class="p">,</span> <span class="s1">&#39;Page&#39;</span><span class="p">));</span>
+</span><span class='line'><span class="nv">$scheme</span><span class="o">-&gt;</span><span class="na">scheme</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">host</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">toAdapter</span><span class="p">(</span><span class="k">new</span> <span class="nx">\BEAR\Resource\Adapter\Http</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$invoker</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Invoker</span><span class="p">(</span>
+</span><span class='line'>    <span class="nv">$config</span><span class="p">,</span>
+</span><span class='line'>    <span class="k">new</span> <span class="nx">Linker</span><span class="p">(</span><span class="k">new</span> <span class="nx">Reader</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">new</span> <span class="nx">Manager</span><span class="p">(</span><span class="k">new</span> <span class="nx">HandlerFactory</span><span class="p">,</span> <span class="k">new</span> <span class="nx">ResultFactory</span><span class="p">,</span> <span class="k">new</span> <span class="nx">ResultCollection</span><span class="p">)</span>
+</span><span class='line'><span class="p">);</span>
+</span><span class='line'><span class="nv">$resource</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Resource</span><span class="p">(</span>
+</span><span class='line'>    <span class="nv">$new</span> <span class="nx">Factory</span><span class="p">(</span><span class="nv">$scheme</span><span class="p">),</span>
+</span><span class='line'>    <span class="nv">$invoker</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Request</span><span class="p">(</span><span class="nv">$invoker</span><span class="p">)</span>
+</span><span class='line'><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>こんな複雑なオブジェクトの生成をコンストラクタで毎回記述するわけにもいきません。factoryを利用することになりますが、ではこれらの生成のうち一部だけを違うものに差し替えたりするのはどうしたらいいでしょうか？実際にBEAR.SundayではDevモードの時はInvokerはDevInvokerに変わっています。ContainerもPersistentContainerに変更したいと思っています。</p>
+
+<p>このインスタンスを都度生成するのではなくてシングルトンで供給したい時にはどうしたらいいでしょうか？あるいはこの生成にも依存が必要ならどうしたらいいでしょうか？その依存にもそのまた依存があるはずです。</p>
+
+<p>手動によるDIを実践あるいは深く考察することはDIの理解に有意義な事ですが、ある時点からその限界が見えて来る事に気付きます。テストコードやごく小規模の開発では問題にならないでしょう。しかしこういう手続きの記述で複雑なオブジェクトを構成するのは、柔軟性や結合度、DRY原則で問題が出て来ます。しかしそれは同時にDependency Injectorにどのような役割や機能が求められるかの考察にもなるでしょう。<br/>
+<strong><br/>
+オブジェクトの生成・構成を手続きの記述ではなくルールに基づいたロジックで行う</strong>ことでこれらの問題を解決します。次回Day 5はその考察を行います。</p>
+
+<ol class="footnotes">
+  <li id="footnote_0_1288" class="footnote">
+    factoryの方が良さそうですね&#8230; [<a href="#identifier_0_1288" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-04T00:00:00+09:00" pubdate data-updated="true">Dec 4<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/advent2012/'>Advent2012</a>, <a class='category' href='/blog/categories/bear/'>BEAR</a>, <a class='category' href='/blog/categories/php/'>PHP</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://koriym.github.io/adv4" data-via="koriym" data-counturl="http://koriym.github.io/adv4" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+    <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button"
+       data-hatena-bookmark-layout="standard"
+       data-hatena-bookmark-url="http://koriym.github.io/adv4">
+        <img src="http://b.st-hatena.com/images/entry-button/button-only.gif"
+             alt="このエントリーをはてなブックマークに追加" width="20" height="20"
+             style="border: none">
+    </a>
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/adv1" title="Previous Post: Advent Day 1: include">&laquo; Advent Day 1: include</a>
+      
+      
+        <a class="basic-alignment right" href="/adv5" title="Next Post: Advent Day 5: DI Terminology">Advent Day 5: DI Terminology &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/12/04/php7-dot-0-0/">PHP7.0.0</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/08/haphpy-birthday/">HaPHPy Birthday PHP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/31/first-bear-sunday-stable-release/">First BEAR.Sunday Stable Release !</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/29/phpkansai2014/">基調講演「全てを結ぶ力」</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/koriym">@koriym</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'koriym',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+<section class="googleplus googleplus-hidden">
+  <h1>
+    <a href="https://plus.google.com/102811656239290261200?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Akihito Koriyama -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.</span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'koriym';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/ja_JP/all.js#appId=516362398477090&xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+<script>
+    (function(w,d){
+        var c,e=d.createDocumentFragment(),f=d.getElementsByTagName("script")[0],
+                a=function(a,b){if(!d.getElementById(b)){c=d.createElement("script");
+                    c.src=a;c.id=b||null;c.async=true;e.appendChild(c);}};
+                a("//b.st-hatena.com/js/bookmark_button_wo_al.js");
+                f.parentNode.insertBefore(e,f);
+            })(this,document);
+</script>
+
+
+</body>
+</html>

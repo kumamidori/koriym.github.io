@@ -1,0 +1,458 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>PHPもやらなきゃJenkins « BEAR Blog</title>
+  <meta name="author" content="Akihito Koriyama">
+
+  
+  <meta name="description" content="Tweet 改名なのかフォークなのか、とにかくHudsonプロジェクトはHudsonとJenkinsに分かれました。（開発者はフォークではなく改名と主張していて、この辺りの話はinfoQが詳しいようです。http://www.infoq.com/jp/hudson )
+※ &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://koriym.github.io/2011/05/php%e3%82%82%e3%82%84%e3%82%89%e3%81%aa%e3%81%8d%e3%82%83jenkins/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="BEAR Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  <meta property="og:title" content="PHPもやらなきゃJenkins - BEAR Blog" />
+<meta property="og:description" content="Tweet 改名なのかフォークなのか、とにかくHudsonプロジェクトはHudsonとJenkinsに分かれました。（開発者はフォークではなく改名と主張していて、この辺りの話はinfoQが詳しいようです。http://www.infoq.com/jp/hudson )
+※ &hellip;" />
+<meta property="og:url" content="http://koriym.github.io/2011/05/php%e3%82%82%e3%82%84%e3%82%89%e3%81%aa%e3%81%8d%e3%82%83jenkins/" />
+<meta property="og:image" content="http://bearsunday.github.io/images/icon/favicon-144.png" />
+<meta property="og:author" content="Akihito Koriyama" />
+<meta property="og:site_name" content="BEAR Blog" />
+<meta property="og:locale" content="ja_JP" />
+<meta property="og:type" content="article" />
+<meta property="fb:app_id" content="516362398477090" />
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-6074569-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEAR Blog</a></h1>
+  
+    <h2>Because everything is a resource.</h2>
+  
+</hgroup>
+
+<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:koriym.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">PHPもやらなきゃJenkins</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-20T00:00:00+09:00" pubdate data-updated="true">May 20<span>th</span>, 2011</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2011/05/php%e3%82%82%e3%82%84%e3%82%89%e3%81%aa%e3%81%8d%e3%82%83jenkins/">Tweet</a>
+</div>
+
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2011/05/2793401dfcd60fa8778cab5a1524cd8f.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2011/05/2793401dfcd60fa8778cab5a1524cd8f.png" alt="" title="Jenkins" width="415" height="147" class="alignnone size-full wp-image-376" /></a>
+改名なのかフォークなのか、とにかくHudsonプロジェクトはHudsonとJenkinsに分かれました。（開発者はフォークではなく改名と主張していて、この辺りの話はinfoQが詳しいようです。<a href="http://www.infoq.com/jp/hudson">http://www.infoq.com/jp/hudson</a> )<br/>
+※前回の記事で紹介したphp-hudson-template はphp-jenkins-template に変わっています。</p>
+
+<p>またPHPUnitで有名なSebastian氏がbuld.xmlを自動で作成してくれるPPW (<a href="https://github.com/sebastianbergmann/php-project-wizard">PHP Project Wizard </a>)というツールをリリースして、面倒だったプロジェクトの設定ファイルbuld.xmlの作成がとても簡単になりました。</p>
+
+<p>Sebastian氏は<a href="http://jenkins-php.org/">http://jenkins-php.org/</a>というPHPでJenkinsを使うためのガイドをするサイトも用意しています。以下はその補足です。</p>
+
+<h3>Jenkins インストール</h3>
+
+<h4>本体</h4>
+
+<ol>
+<li>Jenkinsをインストール<br/>
+<a href="http://jenkins-ci.org/">Jenkins公式サイト http://jenkins-ci.org</a>あらダウンロードしてインストールします。Windows/OSX/Ubuntu等のネイティブインストーラーもあるのでそれを利用するのがいいんじゃないでしょうか。自分はOSXのネイティブインストーラを使用しました。以下の例はOSXでのものです。</li>
+</ol>
+
+
+<p>起動はCLIで行います。<br/>
+<code>
+$ java -jar /Applications/Jenkins/jenkins.war
+</code></p>
+
+<p><a href="http://localhost:8080%E3%81%A7Jenkins%E3%81%AE%E7%94%BB%E9%9D%A2%E3%81%8C%E7%A2%BA%E8%AA%8D%E3%81%A7%E3%81%8D%E3%82%8B%E3%81%AF%E3%81%9A%E3%81%A7%E3%81%99%E3%80%82">http://localhost:8080%E3%81%A7Jenkins%E3%81%AE%E7%94%BB%E9%9D%A2%E3%81%8C%E7%A2%BA%E8%AA%8D%E3%81%A7%E3%81%8D%E3%82%8B%E3%81%AF%E3%81%9A%E3%81%A7%E3%81%99%E3%80%82</a></p>
+
+<p>続いてJenkins用プラグインをインストールをします</p>
+
+<p><code>
+wget http://localhost:8080/jnlpJars/jenkins-cli.jar
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin checkstyle
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin clover
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin dry
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin htmlpublisher
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin jdepend
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin plot
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin pmd
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin violations
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin xunit
+java -jar jenkins-cli.jar -s http://localhost:8080 install-plugin git
+java -jar jenkins-cli.jar -s http://localhost:8080 safe-restart
+mv jenkins-cli.jar /Applications/Jenkins/
+</code></p>
+
+<p>次はPHPのツールです。</p>
+
+<p><code>
+sudo pear channel-discover pear.pdepend.org
+sudo pear channel-discover pear.phpmd.org
+sudo pear channel-discover pear.phpunit.de
+sudo pear channel-discover components.ez.no
+sudo pear channel-discover pear.symfony-project.com
+sudo pear install pdepend/PHP_Depend
+sudo pear install phpmd/PHP_PMD
+sudo pear install phpunit/phpcpd
+sudo pear install phpunit/phploc
+sudo pear install PHPDocumentor
+sudo pear install PHP_CodeSniffer
+sudo pear install --alldeps phpunit/PHP_CodeBrowser
+sudo pear install --alldeps phpunit/PHPUnit
+sudo pear install phpunit/ppw
+</code></p>
+
+<h4>PHP Project Wizard (PPW)を使ってbuild.xmlを作成</h4>
+
+<p>プロジェクト用の設定ファイルbuild.xmlファイルを作成します。リポジトリに対して一つ用意します。通常はパッケージのトップディレクトリに配置します。</p>
+
+<p>作成はPPWというツールを使えば簡単です。</p>
+
+<p>例えばzf2の場合はbuild.xmlが用意されていませんが、下記のようにppwコマンドでzf2/build.xmlとzf2/phpunit.xml.distが作成できます。</p>
+
+<p><code>
+$ git clone git://git.zendframework.com/zf.git zf2
+$ cd zf2
+$ ppw -name zf2 --source library/Zend/Acl --tests tests/Zend/Acl/ --bootstrap tests/Bootstrap.php --phpcs Zend .
+</code></p>
+
+<p>Wrote build script for Apache Ant to ./build.xml<br/>
+Wrote configuration for PHPUnit to ./phpunit.xml.dist</p>
+
+<p><code>
+$ cd zf2
+$ ant
+</code><br/>
+buildがうまくできると、zf2/build/に出力結果が保存されます。作成されたcode browserを開いてみましょう。<br/>
+<code>
+$ open build/code-browser/index.html
+</code><br/>
+<a href="http://www.bear-project.net/blog/wp-content/uploads/2011/05/0b7a8c9337217359309b72646469bd89.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2011/05/0b7a8c9337217359309b72646469bd89-300x83.png" alt="" title="CodeBrowser" width="300" height="83" class="alignnone size-medium wp-image-372" /></a><br/>
+Jenkinsで試す前にまずantでbuildができるか試してみるのがいいと思います。</p>
+
+<h3>Jenkinsでプロジェクト作成</h3>
+
+<h4>プロジェクトのテンプレート作成</h4>
+
+<p>jobフォルダにgitでプロジェクトテンプレートを用意します。</p>
+
+<p><code>
+$ cd ~/.hudson/jobs
+$ git clone git://github.com/sebastianbergmann/php-jenkins-template.git php-template
+$ java -jar /Applications/Jenkins/jenkins-cli.jar -s http://localhost:8080 reload-configuration
+</code></p>
+
+<h3>新規プロジェクト作成</h3>
+
+<p>利用可能にしたプロジェクトテンプレートを指定して、新規プロジェクトを作成します。</p>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2011/05/70b01b700a5d3988c82ac32f33a03345.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2011/05/70b01b700a5d3988c82ac32f33a03345.png" alt="" title="新規プロジェクト" width="586" height="431" class="alignnone size-full wp-image-370" /></a>
+次の画面で、ビルド無効化 のチェックを外し、ソースコード管理システムを編集してソースコードレポジトリ情報を設定します。プロジェクト設定を保存し、ビルドを実行します。</p>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2011/05/40103152c2ea101b4041d7d00f05f97f.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2011/05/40103152c2ea101b4041d7d00f05f97f.png" alt="" title="新規プロジェクト" width="544" height="293" class="alignnone size-full wp-image-392" /></a></p>
+
+<h3>まとめ</h3>
+
+<ul>
+<li>HudsonはJenkinsに</li>
+<li>Sebastian氏がppwというbuild.xml作成ツールとプロジェクトテンプレートを用意し利用が楽に</li>
+<li>PHPコミュニティに多大な貢献をしてる氏に感謝</li>
+<li>CIしよう</li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-20T00:00:00+09:00" pubdate data-updated="true">May 20<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/php/'>PHP</a>, <a class='category' href='/blog/categories/test/'>Test</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://koriym.github.io/2011/05/php%e3%82%82%e3%82%84%e3%82%89%e3%81%aa%e3%81%8d%e3%82%83jenkins/" data-via="koriym" data-counturl="http://koriym.github.io/2011/05/php%e3%82%82%e3%82%84%e3%82%89%e3%81%aa%e3%81%8d%e3%82%83jenkins/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+    <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button"
+       data-hatena-bookmark-layout="standard"
+       data-hatena-bookmark-url="http://koriym.github.io/2011/05/php%e3%82%82%e3%82%84%e3%82%89%e3%81%aa%e3%81%8d%e3%82%83jenkins/">
+        <img src="http://b.st-hatena.com/images/entry-button/button-only.gif"
+             alt="このエントリーをはてなブックマークに追加" width="20" height="20"
+             style="border: none">
+    </a>
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2011/01/php%e3%82%82%e3%82%84%e3%82%89%e3%81%aa%e3%81%8d%e3%82%83hudson/" title="Previous Post: PHPもやらなきゃHudson">&laquo; PHPもやらなきゃHudson</a>
+      
+      
+        <a class="basic-alignment right" href="/2011/07/bear1-to-saturday/" title="Next Post: BEAR1 to Saturday (2003, 2011)">BEAR1 to Saturday (2003, 2011) &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/12/04/php7-dot-0-0/">PHP7.0.0</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/08/haphpy-birthday/">HaPHPy Birthday PHP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/31/first-bear-sunday-stable-release/">First BEAR.Sunday Stable Release !</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/29/phpkansai2014/">基調講演「全てを結ぶ力」</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/koriym">@koriym</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'koriym',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+<section class="googleplus googleplus-hidden">
+  <h1>
+    <a href="https://plus.google.com/102811656239290261200?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Akihito Koriyama -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.</span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'koriym';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/ja_JP/all.js#appId=516362398477090&xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+<script>
+    (function(w,d){
+        var c,e=d.createDocumentFragment(),f=d.getElementsByTagName("script")[0],
+                a=function(a,b){if(!d.getElementById(b)){c=d.createElement("script");
+                    c.src=a;c.id=b||null;c.async=true;e.appendChild(c);}};
+                a("//b.st-hatena.com/js/bookmark_button_wo_al.js");
+                f.parentNode.insertBefore(e,f);
+            })(this,document);
+</script>
+
+
+</body>
+</html>

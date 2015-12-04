@@ -1,0 +1,2821 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>BEAR Blog</title>
+  <meta name="author" content="Akihito Koriyama">
+
+  
+  <meta name="description" content="Tweet Dependency Injection BEAR.Sundayではオブジェクトが必要とするインスタンスを、自ら取得しないでインジェクターに代入してもらうことを期待します。 コンストラクタやセッターメソッド経由で外部から代入されることをインジェクション（注入）、 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://koriym.github.io/blog/page/5/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="BEAR Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  <meta property="og:title" content="BEAR Blog" />
+<meta property="og:description" content="Tweet Dependency Injection BEAR.Sundayではオブジェクトが必要とするインスタンスを、自ら取得しないでインジェクターに代入してもらうことを期待します。 コンストラクタやセッターメソッド経由で外部から代入されることをインジェクション（注入）、 &hellip;" />
+<meta property="og:url" content="http://koriym.github.io/blog/page/5/" />
+<meta property="og:image" content="http://bearsunday.github.io/images/icon/favicon-144.png" />
+<meta property="og:author" content="Akihito Koriyama" />
+<meta property="og:site_name" content="BEAR Blog" />
+<meta property="og:locale" content="ja_JP" />
+<meta property="og:type" content="blog" />
+<meta property="fb:app_id" content="516362398477090" />
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-6074569-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEAR Blog</a></h1>
+  
+    <h2>Because everything is a resource.</h2>
+  
+</hgroup>
+
+<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:koriym.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/04/di/">Object Framework &#8211; Ray.Di</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-25T00:00:00+09:00" pubdate data-updated="true">Apr 25<span>th</span>, 2012</time>
+        
+         | <a href="/2012/04/di/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2012/04/di/">Tweet</a>
+</div>
+
+
+<h2>Dependency Injection</h2>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02-1.0102.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02-1.0102.png" alt="" title="bear-sunday-tmp-111219033305-phpapp02-1.010" class="alignnone size-full wp-image-1368" /></a><br/>
+BEAR.Sundayではオブジェクトが必要とするインスタンスを、自ら取得しないでインジェクターに代入してもらうことを期待します。</p>
+
+<p>コンストラクタやセッターメソッド経由で外部から代入されることをインジェクション（注入）、必要とするものをディペンデンシー（依存）と呼びます。ディペンデンシーを利用するクラスはコンシュマーと呼びます。</p>
+
+<p>特に特定タスクを担当しオブジェクトがツールとして使うオブジェクトをサービスオブジェクトと呼びますが、依存はサービスオブジェクトに限りません。DB接続オブジェクトや、配列やスカラー値などの値も含みます。</p>
+
+<p>前回記事の挨拶リソースに戻りましょう。このリソースはメッセージを返す為に、$messageデータを必要としています。<sup><a href="#footnote_0_1296" id="identifier_0_1296" class="footnote-link footnote-identifier-link" title="つまりこのリソースは$messageデータに依存しています">1</a></sup></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Greetings</span> <span class="k">extends</span> <span class="nx">AbstractObject</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$message</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s1">&#39;en&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hello World&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s1">&#39;ja&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Konichiwa Sekai&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s1">&#39;es&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hola Mundo&#39;</span>
+</span><span class='line'>    <span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$lang</span> <span class="o">=</span> <span class="err">‘</span><span class="nx">en</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$greeting</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">message</span><span class="p">[</span><span class="nv">$lang</span><span class="p">];</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$greeting</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>$messageデータをクラスに固定で持たないで、外部から代入するように変更してみましょう。<br/>
+このようなセッターメソッドが必要です。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * @Inject</span>
+</span><span class='line'><span class="sd"> * @Name(“greeting_message”)</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">setMessage</span><span class="p">(</span><span class="k">array</span> <span class="nv">$message</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">message</span> <span class="o">=</span> <span class="nv">$message</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>固定されていたデータが外部から代入できるようになりました。</p>
+
+<p>ディペンデンシーをセッターメソッド経由でインジェクションしてるので、これをセッターインジェクションと呼びます。 またコンストラクターにインジェクトするのをコンストラクターインジェクションと呼びます。BEAR.SundayはRai.DiというDIフレームワークを使っていますが、サポートするインジェクションはこの２つのみです。<sup><a href="#footnote_1_1296" id="identifier_1_1296" class="footnote-link footnote-identifier-link" title="プロパティにインジェクトするプロパティインジェクションはサポートされません。">2</a></sup></p>
+
+<p>このインジェクションを行うのがディペンデンシーインジェクターです。インジェクターは決められたルールでオブジェクトのコンストラクションを行います。クラスをインスタンス化しディペンデンシーをインジェクトします。コンストラクション後に行われる初期化メソッドの呼び出しや、オブジェクト破棄の直前に呼ばれるメソッドの呼び出し予約など「オブジェクトライフサイクル」に関する設定も行います。BEAR.Sundayでは原則的に全てのオブジェクトの生成はこのディペンデンシー・インジェクターが行い、オブジェクトの中からディペンデンシーを取得することは推奨されません。</p>
+
+<h2>インジェクションポイントと@Inject</h2>
+
+<p>ユーザーがセッターメソッドに@Injectと注記（アノテート）することでRay.Diは『ここに依存の注入が必要だ』ということが分かります。この「外部からの代入を期待する部分」を<strong>インジェクションポイント</strong>と呼びます。</p>
+
+<p>※注）アノテーションはDoctrine.CommonsのAnnotationを使用していて、このアノテーションを使うためのuse文が必要です。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">use</span> <span class="nx">Ray\Di\Di\Inject</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Ray\Di\Di\Named</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>インジェクションポイントに実際に何をセットするかは<strong>モジュール</strong>で設定します。モジュールではインジェクションポイントとインスタンスをバインドします。バインドの方法はいくつかありますがここでは特定の名前をつけてインジェクションポイントを指定する方法を使用していています。</p>
+
+<p>実際のモジュールのコードはこのようになります。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">AppModule</span> <span class="k">extends</span> <span class="nx">AbstractModule</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">protected</span> <span class="k">function</span> <span class="nf">configure</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$message</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>            <span class="s1">&#39;en&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hello World&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="s1">&#39;ja&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Konichiwa Sekai&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="s1">&#39;es&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hola Mundo&#39;</span>
+</span><span class='line'>        <span class="p">];</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bind</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">named</span><span class="p">(</span><span class="err">‘</span><span class="nx">greeting_message</span><span class="err">’</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">toInsntance</span><span class="p">(</span><span class="nv">$message</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>インジェクターの生成とオブジェクトグラフ生成</h2>
+
+<p>インジェクターを使ってこのクラスにディペンデンシーをインジェクトしてインスタンスを取得します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$injector</span> <span class="o">=</span> <span class="nx">Injector</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="k">new</span> <span class="nx">AppModule</span><span class="p">]);</span>
+</span><span class='line'><span class="nv">$injector</span><span class="o">-&gt;</span><span class="na">getInstance</span><span class="p">(</span><span class="err">‘</span><span class="nx">name\space\Greeting</span><span class="err">’</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>モジュールにはインジェクションポイントに対してどのインスタンスを提供するかという、いわばアプリケーションの構成知識が凝縮されています。その構成知識を使ってインジェクターはオブジェクトのコンストラクション（生成、インジェクト、ライフサイクルのセット）を行いインスタンスを返します。</p>
+
+<h2>インジェクションの連鎖とオブジェクトグラフ</h2>
+
+<p>ディペンデンシーインジェクションは専用のライブラリを使わなくても、手動でも行う事ができます。</p>
+
+<p>たとえばUserクラスはDbクラスのインスタンスが必要でDbクラスはDB接続情報の文字列が必要だとします。これを手動のインジェクトするためには例えばこのようなコードが必要でしょう。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$dsn</span> <span class="o">=</span> <span class="nv">$_ENV</span><span class="p">[</span><span class="s1">&#39;master_db&#39;</span><span class="p">];</span>
+</span><span class='line'><span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Db</span><span class="p">(</span><span class="nv">$dsn</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="nv">$db</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>一行だとこうです</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="k">new</span> <span class="nx">Db</span><span class="p">(</span><span class="nv">$_ENV</span><span class="p">[</span><span class="s1">&#39;master_db&#39;</span><span class="p">]));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>このコードで明らかなのは、依存に依存があればその「依存の依存」から先に用意して順番に次の依存に渡さなければならないことです。Userクラスを生成する前に、DBオブジェクトの生成が完了してる必要があります。DBオブジェクトを生成するにはDB接続情報を取得しておく必要があります。これは通常のプログラムではごく当たり前のことです。</p>
+
+<p>ところがRay.DIはUserクラスを作る前にDbオブジェクトを予め作っておく必要はありません。オブジェクトの構成知識を知っているインジェクターは必要な依存を遡って生成、インジェクトしてオブジェクトグラフをコンストラクションします。</p>
+
+<p>例をあげます。</p>
+
+<p>Userクラスを生成するときにRay.DiはそのクラスをつくるためにはDbオブジェクトが必要だと言う事を検知します。Dbオブジェクトを生成しようとしますが、ところがその生成にはDB接続情報が必要とも検知します。インジェクターがもつ構成知識でDB接続情報は得られます。得られた情報を使ってDBオブジェクトを生成します。そうやって依存の依存を順番に辿り依存性の解決（Dependency Resolution)を行い元のインスタンスを生成します。依存がツリー構造になっているこのオブジェクトをオブジェクトグラフと呼びます。</p>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02-1.035.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02-1.035.png" alt="" title="Object Graph" class="alignnone size-full wp-image-1370" /></a></p>
+
+<h2>コンストラクションの再利用</h2>
+
+<p>BEAR.Sundayではプログラムの中でいつでもインジェクターを使い必要なインスタンスをオンデマンドで生成できますが、実際にはほとんどその出番はありません。boot時のルートオブジェクトグラフ（ページリソースやリソースクライアント）が生成される時に必要なオブジェクト、またはファクトリーの生成が全て完了するからです。<sup><a href="#footnote_2_1296" id="identifier_2_1296" class="footnote-link footnote-identifier-link" title="現在のBEAR.Sundayで登場する独立したオブジェクトはアプリケーションはappリソースを除くと基本的には３つしかありません。アプリケーションとリソースクライアントとページリソースです。その他のオブジェクトをそれらの「ルートオブジェクト」を構成するプロパティでしかない場合がほとんどです。
+">3</a></sup></p>
+
+<p>前バージョンBEAR.Saturday (2008年）ではアプリケーションスクリプトからnew演算子を取り除くことが一つの目標でしたが、BEAR.Sundayではフレームワークサイドでもnewの利用はほとんどありあません。オブジェクトはコンストラクションされるとAPCのストレージに格納され、リクエストをまたいで再利用されます。</p>
+
+<p>つまり現在のBEAR.Sundayではリクエスト毎に異なった処理をコンストラクタで記述することはできません。この制約はメリットとデメリットがあります。オブジェクトシリアライズ前提のためシリアライズできないクロージャや組み込みオブジェクトをコンストラクション時にプロパティにセットできません。一方、固定化されたオブジェクトグラフとより安定したフロー、強力で容易なキャッシュ機構、アノテーションやDI、AOP等を採用しながらも維持している強力なパフォーマンス等は大きなメリットです。</p>
+
+<p>再利用はオブジェクトグラフの膨大な取得コスト<sup><a href="#footnote_3_1296" id="identifier_3_1296" class="footnote-link footnote-identifier-link" title="アノテーションが必要とするコメント文のパースだけでなくアノテーションの名前解決のためのPHPスクリプトのパースも行われてます">4</a></sup> を最小限にします。30,000を超えるindexページのファンクションコールは500以下になり、実行速度は数十倍になっています。</p>
+
+<p>オブジェクトのコンストラクタは基本的にサービス開始の最初の１リクエストしか通りません。その特徴をv0.1.0alphaインストールの時に用意されるindexページでみてます。</p>
+
+<h5>indexページ画面</h5>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2012/04/77289491623cb7d47294d7b9e69ed064.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2012/04/77289491623cb7d47294d7b9e69ed064.png" alt="" title="Indexページ" class="alignnone size-full wp-image-1371" /></a></p>
+
+<h5>indexページリソーススクリプト</h5>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Index</span> <span class="k">extends</span> <span class="nx">Page</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">use</span> <span class="nx">ResourceInject</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="p">[</span><span class="s1">&#39;greeting&#39;</span><span class="p">]</span> <span class="o">=</span><span class="err">‘</span><span class="nx">Hello</span><span class="p">,</span> <span class="nx">BEAR</span><span class="o">.</span><span class="nx">Sunday</span><span class="o">.</span><span class="err">’</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>            <span class="s1">&#39;php&#39;</span>  <span class="o">=&gt;</span> <span class="nb">phpversion</span><span class="p">(),</span>
+</span><span class='line'>            <span class="s1">&#39;BEAR&#39;</span> <span class="o">=&gt;</span> <span class="nx">Framework</span><span class="o">::</span><span class="na">VERSION</span>
+</span><span class='line'>        <span class="p">];</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="p">[</span><span class="s1">&#39;extentions&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>            <span class="s1">&#39;apc&#39;</span>  <span class="o">=&gt;</span> <span class="nb">extension_loaded</span><span class="p">(</span><span class="s1">&#39;apc&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="nb">phpversion</span><span class="p">(</span><span class="s1">&#39;apc&#39;</span><span class="p">)</span> <span class="o">:</span> <span class="s1">&#39;n/a&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="s1">&#39;memcache&#39;</span>  <span class="o">=&gt;</span> <span class="nb">extension_loaded</span><span class="p">(</span><span class="s1">&#39;memcache&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="nb">phpversion</span><span class="p">(</span><span class="s1">&#39;memcache&#39;</span><span class="p">)</span> <span class="o">:</span> <span class="s1">&#39;n/a&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="s1">&#39;mysqlnd&#39;</span>  <span class="o">=&gt;</span> <span class="nb">extension_loaded</span><span class="p">(</span><span class="s1">&#39;mysqlnd&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="nb">phpversion</span><span class="p">(</span><span class="s1">&#39;mysqlnd&#39;</span><span class="p">)</span> <span class="o">:</span> <span class="s1">&#39;n/a&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="s1">&#39;pdo_sqlite&#39;</span>  <span class="o">=&gt;</span> <span class="nb">extension_loaded</span><span class="p">(</span><span class="s1">&#39;pdo_sqlite&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="nb">phpversion</span><span class="p">(</span><span class="s1">&#39;pdo_sqlite&#39;</span><span class="p">)</span> <span class="o">:</span> <span class="s1">&#39;n/a&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="s1">&#39;Xdebug&#39;</span>  <span class="o">=&gt;</span> <span class="nb">extension_loaded</span><span class="p">(</span><span class="s1">&#39;Xdebug&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="nb">phpversion</span><span class="p">(</span><span class="s1">&#39;Xdebug&#39;</span><span class="p">)</span> <span class="o">:</span> <span class="s1">&#39;n/a&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="s1">&#39;xhprof&#39;</span> <span class="o">=&gt;</span> <span class="nb">extension_loaded</span><span class="p">(</span><span class="s1">&#39;xhprof&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="nb">phpversion</span><span class="p">(</span><span class="s1">&#39;xhprof&#39;</span><span class="p">)</span> <span class="o">:</span> <span class="s1">&#39;n/a&#39;</span>
+</span><span class='line'>        <span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * Get</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$cache</span> <span class="o">=</span> <span class="nb">apc_cache_info</span><span class="p">(</span><span class="err">‘</span><span class="nx">user</span><span class="err">’</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="p">[</span><span class="s1">&#39;apc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>           <span class="s1">&#39;total&#39;</span> <span class="o">=&gt;</span> <span class="nv">$cache</span><span class="p">[</span><span class="s1">&#39;num_entries&#39;</span><span class="p">],</span>
+</span><span class='line'>           <span class="err">‘</span><span class="nx">size</span><span class="err">’</span> <span class="o">=&gt;</span> <span class="nv">$cache</span><span class="p">[</span><span class="s1">&#39;mem_size&#39;</span><span class="p">]</span>
+</span><span class='line'>        <span class="p">];</span>
+</span><span class='line'>        <span class="c1">// page / sec</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="p">[</span><span class="s1">&#39;performance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">resource</span><span class="o">-&gt;</span><span class="na">get</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="err">‘</span><span class="nx">app</span><span class="o">://</span><span class="nx">self</span><span class="o">/</span><span class="nx">performance</span><span class="err">’</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">();</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>トレイトを使ったセッターインジェクション</h2>
+
+<p>違うクラスでも求める依存が同じなら、同じセッターが利用できます。セッターメソッドはクラスをまたいで横断的に再利用できます。モジュールに新たな設定はありません。 メソッドの横断的利用、PHP5.4の新機能のtraitにすると便利で表記も簡潔になります。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">use</span> <span class="nx">Ray\Di\Di\Inject</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Ray\Di\Di\Named</span><span class="p">;</span>
+</span><span class='line'><span class="k">trait</span> <span class="nx">MessageInject</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">private</span> <span class="nv">$message</span><span class="p">;</span>
+</span><span class='line'>  <span class="sd">/**</span>
+</span><span class='line'><span class="sd">   * @Inject</span>
+</span><span class='line'><span class="sd">   * @Name(“greeting_message”)</span>
+</span><span class='line'><span class="sd">   */</span>
+</span><span class='line'>  <span class="k">public</span> <span class="k">function</span> <span class="nf">setMessage</span><span class="p">(</span><span class="k">array</span> <span class="nv">$message</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">message</span> <span class="o">=</span> <span class="nv">$message</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>アノテーションのuse文も入っているので、利用クラスでは簡単にインジェクションが表記できます。まとめるとこうなります。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Greetings</span> <span class="k">extends</span> <span class="nx">AbstractObject</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">use</span> <span class="nx">MessageInject</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$lang</span> <span class="o">=</span> <span class="err">‘</span><span class="nx">en</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$greeting</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">message</span><span class="p">[</span><span class="nv">$lang</span><span class="p">];</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$greeting</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ボイラープレートになりがちなセッターインジェクションコードがスッキリ一行になり、依存関係を記すセルフドキュメントのようになってるのではないでしょうか。</p>
+
+<h2>プロバイダー<sup><a href="#footnote_5_1296" id="identifier_5_1296" class="footnote-link footnote-identifier-link" title="このセクションはstackoverflowの記事を元にしています。http://stackoverflow.com/questions/2504798/dependency-injection-in-constructors ">6</a></sup></h2>
+
+<p>Day.DiによるDIは次の２つのパートで成り立っています。</p>
+
+<ul>
+<li>モジュールでのオブジェクトコンストラクション（<strong>Construction</strong>）</li>
+<li>コンシュマーでの利用（<strong>Execution</strong>）</li>
+</ul>
+
+
+<p>コンストラクションはモジュールで完了させ、コンシュマーでは利用だけを行います。
+<strong>肝心なのはコンストラクションとエクスキューションを完全に分離して混ぜないことです。</strong>コンシュマーにディペンシーインジェクターやサービスコンテナを渡したりする事は推奨されません。<sup><a href="#footnote_6_1296" id="identifier_6_1296" class="footnote-link footnote-identifier-link" title="コンシュマーがインジェクターを使ってサービスを取得することは、デメテルの法則（最小知識の法則）に違反します。">7</a></sup><sup><a href="#footnote_7_1296" id="identifier_7_1296" class="footnote-link footnote-identifier-link" title="例外はそのコンシュマーがファクトリークラスの場合です。BEAR.Sundayで唯一インジェクターを依存として受け取りオブジェクトコンストラクションをしてるのはリソースのnewInstance()メソッドです。">8</a></sup>
+ンシュマー内で新しいインスタンスが都度欲しい時は<strong>プロバイダー</strong>を使います。プロバイダーは最小のファクトリーで、引き数なしのget()というメソッドだけを持ちます。たとえばテンポラリーファイルのハンドルが都度、複数欲しいなら(Provider)$tmpFilePorviderをインジェクトしてもらって、このように使います。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$tmpFile1</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tmpFileProvider</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
+</span><span class='line'><span class="nv">$tmpFile2</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tmpFileProvider</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>プロバイダーはどのようにインスタンスを作るかという知識を全て持っています。引き数は渡す事ができず、最小化されたこのファクトリーに伝える事ができるのは生成のタイミングだけです。
+なお、newは絶対に使っていけないというわけではありません。ごく小さなオブジェクトやPHPの組み込みオブジェクトなどは問題ないでしょう。</p>
+
+<h2>コンテナ?</h2>
+
+<p>Ray.Diでは内部でライフサイクル（シングルトンなど）の管理にオブジェクトコンテナを使いますが、依存性の解決には使いません。ユーザーがコンテナを触る必要も出番もほとんどありません。依存性は原則インターフェイスによって解決されます。SOLIDのD、 依存関係逆転の原則（DIP：Dependency Inversion Principle)です。</p>
+
+<h2>bootstrapのみで出現</h2>
+
+<p>このディペンデンシーインジェクターは通常、bootstrapスクリプト時にルートとなるアプリケーションオブジェクトを取得するのみです。ランタイムではオブジェクトの生成は原則行いません。<code>provider</code>や<code>PHPのclone</code>で複製をつくります。</p>
+
+<h2>Conclusion</h2>
+
+<p>この記事では、BEAR.Sundayアプリケーションの役割と働きをみてきました。Ray.Diは<a href="http://code.google.com/p/google-guice/">Google Guice</a>のクローンです。<sup><a href="#footnote_8_1296" id="identifier_8_1296" class="footnote-link footnote-identifier-link" title="Guiceが使われているGoogleの代表的なプロダクトにAdSenseがあります">9</a></sup> 全ての機能が移植されてるわけではありませんが、ここで紹介した機能以外にも沢山の機能があります。<a href="http://docs.doctrine-project.org/projects/doctrine-common/en/latest/reference/annotations.html">Doctrine.Commons.Annotation</a>ライブラリを使い、AuraというPHP5.4フレームワークの<a href="https://github.com/auraphp/Aura.Di">Aura.Di</a>ライブラリを拡張して作成しています。またRay.Diインジェクター自身の依存も手動でインジェクトされ拡張可能です。</p>
+
+<p><a href="http://code.google.com/p/rayphp/">Ray.Di – Guice style annotation-driven dependency injection framework for PHP</a></p>
+
+<p>インジェクションポイントとディペンデンシーのバイディングはモジュールで設定し、インジェクターはどのオプジェクとが求められればどのインスタンスを渡すかという知識を持っています。モジュールはクラスをどのようにコンストラクトするかではなく<strong>求められた依存に対してどのインスタンスを渡すか</strong>という設定が行われています。そのため同じ依存を要求する違うクラスに新たな設定は必要なく、セッターメソッドのtraitを使ってより簡素な記述でディペンデンシーが取得できます。</p>
+
+<p>Ray.Diの特徴はオブジェクトの生成と利用が完全に分離されていること<sup><a href="#footnote_9_1296" id="identifier_9_1296" class="footnote-link footnote-identifier-link" title="利用クラスでサービスコンテナへの依存がない">10</a></sup>、モジュールでのDSLによるバインディング、APCを使ったオブジェクトグラフコンストラクションの再利用等です。<sup><a href="#footnote_10_1296" id="identifier_10_1296" class="footnote-link footnote-identifier-link" title="コンストラクションは常にキャッシュされ、再利用されることを考慮したコーディングが必要です。">11</a></sup></p>
+
+<p>Ray.Diは<strong>可変点の明確化と最小化</strong>というBEAR.Sundayのアーキテクチャ全体を通しての原則を支持します。</p>
+
+<p>またRay.Diはモジュールで特定メソッドの実行にインターセプターをバインドすることが可能で、アスペクト指向プログラミングが利用できます。BEAR.Sundayではフレームワークやアプリケーションの動作や役割を様々なアスペクトの集合だと考えています。次回の記事ではAOPをサポートすRay.AopのBEAR.Sundayでの役割、アスペクト指向デザイン(AOD)により実装されたアプリケーション機能を紹介します。</p>
+
+<div class="wp_social_bookmarking_light">
+<div>
+</div>
+
+<div>
+</div>
+
+<div>
+<a href="http://b.hatena.ne.jp/entry/http://www.bear-project.net/blog/2012/04/di/" title="はてなブックマーク - Object Framework – Ray.Di" rel="nofollow" class="wp_social_bookmarking_light_a" target="_blank"><img src="http://b.hatena.ne.jp/entry/image/http://www.bear-project.net/blog/2012/04/di/" alt="はてなブックマーク - Object Framework – Ray.Di" title="はてなブックマーク - Object Framework – Ray.Di" class="wp_social_bookmarking_light_img" /></a>
+</div>
+
+<div>
+<div id="___plusone_0" style="height: 20px; width: 90px; display: inline-block; text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline;">
+</div>
+</div>
+
+<div>
+<a href="http://www.tumblr.com/share?v=3&u=http%3A%2F%2Fwww.bear-project.net%2Fblog%2F2012%2F04%2Fdi%2F&t=Object%20Framework%20%26%238211%3B%20Ray.Di" title="" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:61px; height:20px; background:url('http://platform.tumblr.com/v1/share_2.png') top left no-repeat transparent;"></a>
+</div>
+</div>
+
+
+
+
+<br class="wp_social_bookmarking_light_clear" /> <ol class="footnotes">
+
+
+<p><li id="footnote_0_1296" class="footnote">
+  つまりこのリソースは$messageデータに依存しています [<a href="#identifier_0_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_1_1296" class="footnote">
+  プロパティにインジェクトするプロパティインジェクションはサポートされません。 [<a href="#identifier_1_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_2_1296" class="footnote">
+  現在のBEAR.Sundayで登場する独立したオブジェクトはアプリケーションはappリソースを除くと基本的には３つしかありません。アプリケーションとリソースクライアントとページリソースです。その他のオブジェクトをそれらの「ルートオブジェクト」を構成するプロパティでしかない場合がほとんどです。 [<a href="#identifier_2_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_3_1296" class="footnote">
+  アノテーションが必要とするコメント文のパースだけでなくアノテーションの名前解決のためのPHPスクリプトのパースも行われてます [<a href="#identifier_3_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_4_1296" class="footnote">
+  例えばYAMLファイルのCSVファイルのパースなどをコンストラクタで行いコンテンツとしてセットすると再利用されるので個別にキャッシュしたりする必要がありません。 [<a href="#identifier_4_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_5_1296" class="footnote">
+  このセクションはstackoverflowの記事を元にしています。<a href="http://stackoverflow.com/questions/2504798/dependency-injection-in-constructors">http://stackoverflow.com/questions/2504798/dependency-injection-in-constructors</a> [<a href="#identifier_5_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_6_1296" class="footnote">
+  コンシュマーがインジェクターを使ってサービスを取得することは、<a href="http://ja.wikipedia.org/wiki/%E3%83%87%E3%83%A1%E3%83%86%E3%83%AB%E3%81%AE%E6%B3%95%E5%89%87">デメテルの法則（最小知識の法則）</a>に違反します。 [<a href="#identifier_6_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_7_1296" class="footnote">
+  例外はそのコンシュマーがファクトリークラスの場合です。BEAR.Sundayで唯一インジェクターを依存として受け取りオブジェクトコンストラクションをしてるのはリソースのnewInstance()メソッドです。 [<a href="#identifier_7_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_8_1296" class="footnote">
+  Guiceが使われているGoogleの代表的なプロダクトにAdSenseがあります [<a href="#identifier_8_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_9_1296" class="footnote">
+  利用クラスでサービスコンテナへの依存がない [<a href="#identifier_9_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_10_1296" class="footnote">
+  コンストラクションは常にキャッシュされ、再利用されることを考慮したコーディングが必要です。 [<a href="#identifier_10_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+</ol></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/04/bear-resource/">BEAR.Resource</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-25T00:00:00+09:00" pubdate data-updated="true">Apr 25<span>th</span>, 2012</time>
+        
+         | <a href="/2012/04/bear-resource/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2012/04/bear-resource/">Tweet</a>
+</div>
+
+
+<p>BEAR.Sundayは<strong>DI</strong>、<strong>AOP</strong>、<strong>REST</strong>、この３つの技術をコアにしたオブジェクトフレームワークをベースにしています。<br/>
+<a href="http://www.bear-project.net/blog/wp-content/uploads/2012/04/2bear-sunday-tmp-111219033305-phpapp02.002-001.png"><img class="alignnone size-full wp-image-1257" title="2bear-sunday-tmp-111219033305-phpapp02.002-001" src="http://www.bear-project.net/blog/wp-content/uploads/2012/04/2bear-sunday-tmp-111219033305-phpapp02.002-001.png" alt="" /></a><br/>
+このオブジェクトフレームワークがある程度完成したのを機に、今回v0.1.0alphaとして一旦まとめました。<sup><a href="#footnote_0_1178" id="identifier_0_1178" class="footnote-link footnote-identifier-link" title="HelloWorldしか出ない状態が長く続いたのにも関わらずソースをみたり関心を持ってもらった方がおられました。ありがとうございます">1</a></sup> まだ実用レベルではなくこれからこのオブジェクトフレームワークの上に、APIフレームワーク、webアプリケーションフレームワークと、フレームワークのレイヤーを重ねていく予定です。</p>
+
+<p>この記事では現在のv0.1.0alpha実装からBEAR.Sundayの特徴を紹介します。</p>
+
+<h2>リソースオブジェクト</h2>
+
+<p>BEAR.Sudayで中心になるのがリソースオブジェクトです。MVCで言うとモデルに近いものですがwebからアクセスされる最初のリソースレイヤーの<strong>pageリソース</strong>はコントローラーのように振る舞います。</p>
+
+<p>それぞれのリソースはURIで表すことができ、スキーマに応じて処理の仕組みが変わります。最も標準的なものはリソースURIとPHPクラスがマップされるリソースオブジェクトです。HTTPのリクエストメソッドに準じたインターフェイスメソッドを持ち、リクエスト処理を記述します。役割に応じてpageリソースやappリソースとスキーマや呼び方は代わりますが基本的な仕組みは同じです。</p>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02.005-001.png"><img class="alignnone size-full wp-image-1263" title="page resource" src="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02.005-001.png" alt="" /></a></p>
+
+<p>ウエブページのようなオブジェクトと思ってみてください。</p>
+
+<p>例えばGETリクエストすればリクエスト用のメソッドがコールされ、結果でもあるリソースオブジェクト自身が帰ってきます。</p>
+
+<p>まずはHello Worldページです。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Hello</span> <span class="k">extends</span> <span class="nx">Page</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">body</span> <span class="o">=</span> <span class="err">‘</span><span class="nx">Hello</span> <span class="err">‘</span> <span class="o">.</span> <span class="nv">$name</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>$nameを受け取り連結して返すだけのページです。bodyプロパティに代入して自身を返してる事に注目してください。</p>
+
+<p>このページクラスは以下のように表記しても同じです。<sup><a href="#footnote_1_1178" id="identifier_1_1178" class="footnote-link footnote-identifier-link" title="シンタックスシュガー ">2</a></sup>文字列を返しても、クライアントにはbodyプロパティがセットされたオブジェクトが返ります。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Hello</span> <span class="k">extends</span> <span class="nx">Page</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="err">‘</span><span class="nx">Hello</span> <span class="err">‘</span> <span class="o">.</span> <span class="nv">$name</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>４つの公開されたプロパティ</h2>
+
+<p>リソースクラスは以下の４つのpublicプロパティを持ちます。</p>
+
+<ul>
+<li>リソースコード</li>
+<li>リソースメタ情報（ヘッダー）</li>
+<li>リソースコンテンツ（リソース状態）</li>
+<li>リソース表現
+コードはHTTPステータスコードに準じたリソースの状態がはいっています。リソースの本質的な値はリソースコンテンツに入っていますが、クライアントが利用するリソース表現は別のプロパティが用意されています。</li>
+</ul>
+
+
+<p>このHelloページリソースではリソーススコンテンツ$bodyプロパティをセットしてクライアントに返しています。</p>
+
+<h2>レイヤード・リソース</h2>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02.005.jpg"><img src="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02.005.jpg" alt="" title="Layerd Resource" class="alignnone size-full wp-image-1301" /></a><br/>
+pageリソースはwebクライアウントから最初にコールされるリソースレイヤーです。多くの場合、（更に関心を細分化した）appリソースをページからリクエストします。コントローラーがモデルをリクエストするようなもので、pageリソースは<strong>pageコントローラー</strong>、appリソースは<strong>内部APIとして振る舞うモデル</strong>として機能します。</p>
+
+<p>最初の例の単純な例のpageリソースはコントローラーとして機能するよりも、リソースコンテンツを変更することで自身を構成しています。自身がレスポンスオブジェクトのようですがこれは不作法なことではありません。リソースは関心に応じてレイヤリングしますが、単純なHelloページではそのページだけで完結する場合もあるでしょう。一方、appリソースでも必要があれば関心にレイヤリングを適用して、適切なネストのレイヤーを持つのが良いでしょう。</p>
+
+<p>最初にwebブラウザのリクエストURIに応じてルートされたpageリソースがリクエストされます。pageリソースはappリソースやその他のリソースをリクエストしますが、他のpageリソースもリクエストすることができます。階層構造MVCのように振る舞います。</p>
+
+<h2>アプリケーション(app)リソース</h2>
+
+<p>アプリケーションリソースはいわば内部APIです。MVCでの主役がMであるように、BEAR.Sundayでもアプリケーション価値の多くはこのappリソースにあります。<sup><a href="#footnote_2_1178" id="identifier_2_1178" class="footnote-link footnote-identifier-link" title="一方、pageリソースの役割はリクエストURIに応じて複数のappリソースをアクセスする事がほとんどです。">3</a></sup></p>
+
+<p>appリソースの簡単な例をコードで紹介します。$lang(言語)を引数で渡すと挨拶文字列を返す 「挨拶リソース」です。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Greetings</span> <span class="k">extends</span> <span class="nx">AbstractObject</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">private</span> <span class="nv">$message</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s1">&#39;en&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hello World&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s1">&#39;ja&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Konichiwa Sekai&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s1">&#39;es&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hola Mundo&#39;</span>
+</span><span class='line'>    <span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$lang</span> <span class="o">=</span> <span class="err">‘</span><span class="nx">en</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$greeting</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">message</span><span class="p">[</span><span class="nv">$lang</span><span class="p">];</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$greeting</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>これはpageリソースで説明したように、以下のコードと同じものです。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$lang</span> <span class="o">=</span> <span class="err">‘</span><span class="nx">en</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">body</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">message</span><span class="p">[</span><span class="nv">$lang</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>挨拶のデータは$messageプロパティに格納されていて、引数$lang（言語）によって指定されたメッセージを返します。このリソースクラスはonGetメソッドがあり、GETリクエストだけを行う事ができます。</p>
+
+<p>リソースクライアントからはのリクエストはこのようにして作る事ができます。withQuery()メソッドで与えてるのは順番による引数ではなくて、変数名を指定した名前付き引数（named parameter)であることに注意してください。引数の順番は関係ありません。</p>
+
+<h2>リソースリクエスト</h2>
+
+<p>リソースリクエストは以下のように記述します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$request</span> <span class="o">=</span> <span class="nv">$resource</span>
+</span><span class='line'>           <span class="o">-&gt;</span><span class="na">get</span>
+</span><span class='line'>           <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="err">‘</span><span class="nx">app</span><span class="o">://</span><span class="nx">self</span><span class="o">/</span><span class="nx">greeting</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'>           <span class="o">-&gt;</span><span class="na">withQuery</span><span class="p">([</span><span class="s1">&#39;lang&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="err">‘</span><span class="nx">ja</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'>           <span class="o">-&gt;</span><span class="na">request</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>この文で作られたのは<strong>リクエスト</strong>です。このリクエストを実際に行うにはこのリクエストオブジェクトをクロージャのように扱います。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$result</span> <span class="o">=</span> <span class="nv">$request</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>リクエストは再利用することができます。引数を指定して指定した名前付き引数に追加、上書きすることができます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$result</span> <span class="o">=</span> <span class="nv">$request</span><span class="p">([</span><span class="s1">&#39;lang&#39;</span> <span class="o">=&gt;</span> <span class="err">&#39;</span><span class="nx">en</span><span class="p">]);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>イーガーリクエスト</h3>
+
+<p>リクエストの結果をすぐに求めるにはリクエストに eagerをつけます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$result</span> <span class="o">=</span> <span class="nv">$resource</span>
+</span><span class='line'>          <span class="o">-&gt;</span><span class="na">get</span>
+</span><span class='line'>          <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="err">‘</span><span class="nx">app</span><span class="o">://</span><span class="nx">self</span><span class="o">/</span><span class="nx">greeting</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'>          <span class="o">-&gt;</span><span class="na">withQuery</span><span class="p">([</span><span class="s1">&#39;lang&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="err">‘</span><span class="nx">ja</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'>          <span class="o">-&gt;</span><span class="na">eager</span>
+</span><span class='line'>          <span class="o">-&gt;</span><span class="na">request</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>この文ではすぐにリクエストが行われます。</p>
+
+<h2>リソースのレンダリング</h2>
+
+<p>リクエストにより求められたリソースオブジェクトはプロパティにリソースの状態を持っています。プロパティを直接使う事もできますが、それよりオブジェクトとして利用するのがスマートです。オブジェクトはコンテキストに応じて評価されます。</p>
+
+<p>連想配列として扱うとリソースコンテンツのエレメントが取り出せます。例えばユーザーリソースのID等です。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">echo</span> <span class="nv">$result</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span> <span class="c1">// $result-&gt;body[&#39;id&#39;] と同じ</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>オブジェクトなのでメソッドを利用することはもちろんできます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">echo</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="na">log</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>文字列として扱うと、そのリソースはコンテンツを表現に変えようとします。</p>
+
+<p>BEAR.Sundayではリソースからデータを受け取ってテンプレートエンジンに渡すのではなく、<strong>リソースがテンプレートエンジンを保持</strong>し（データを外部に公開することなく）<strong>自身がレンダリング</strong>を行います。</p>
+
+<p>図をご覧下さい。</p>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02.008.jpg"><img src="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02.008.jpg" alt="" title="Web MVC" class="alignnone size-full wp-image-1303" /></a><br/>
+<a href="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02.009.jpg"><img src="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02.009.jpg" alt="" title="BEAR.Resource" class="alignnone size-full wp-image-1304" /></a></p>
+
+<p>存在するリソースの１つ１つのオブジェクトがレンダラー（Viewオブジェクト）を保持します。<sup><a href="#footnote_3_1178" id="identifier_3_1178" class="footnote-link footnote-identifier-link" title="アプリケーションスコープでシングルトン">4</a></sup>　</p>
+
+<p>例えばユーザーリソースのコンテンツは以下のようなものだとします。</p>
+
+<pre>$user->body = ['name' => 'koriym', 'gender' => 'male']</pre>
+
+
+<p>このJSON表現はこうなります。</p>
+
+<pre>{"name":"koriym","gender":"male"}</pre>
+
+
+<p>このレンダリングはjson_encode()関数を使うだけの単純なものでしょう。</p>
+
+<p>また、HTML表現は例えば以下のようなものになります。リソース専用のテンプレートを用意してレンダリングしています。</p>
+
+<pre><span id="user">ユーザー名:koriym 性別:male </span></pre>
+
+
+<p>リソースは自身の構成やコンテンツに関して関心を持ちますが、表現には直接関心をもたず、セットされたリソースレンダラーに自身（$this)を渡してレンダリングを命じます。</p>
+
+<p>レンダリングはリソースオブジェクトが文字列として評価されたときに行われます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">echo</span> <span class="nv">$user</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// または</span>
+</span><span class='line'><span class="nv">$userHtml</span> <span class="o">=</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span><span class="nv">$user</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>レンダラーの保持はオプションです。もしリソースがレンダラーを持たなくても、コンテンツが文字列として評価可能ならコンテンツを表現にします。リソースコンテンツが文字列表現ができないフォーマット（例えばarray型）で、レンダラーも持たないときに文字列として評価されれば文字列”を返します。</p>
+
+<h2>リソースリクエストのレンダ    リング</h2>
+
+<p>リソースリクエストが文字列として扱われたときには、リクエストを行い、その結果をレンダリングした結果の文字列が得られます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">echo</span> <span class="nv">$request</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// または</span>
+</span><span class='line'><span class="nv">$userHtml</span> <span class="o">=</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span><span class="nv">$request</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>レイジーリクエストとレイジーレンダリング</h2>
+
+<p>リソースクライアントが生成したリクエストオブジェクトは文字列として評価されるときに初めてリクエストを行います。</p>
+
+<p>v0.1.0alphaでインストールされるindexデモ画面。これにapp://self/performanceというフレームワーク実行パフォーマンスを測定するappリソースがありindexページではpageのGETリクエストに応じてセットしています。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$this</span><span class="p">[</span><span class="s1">&#39;performance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$this</span>
+</span><span class='line'>                       <span class="o">-&gt;</span><span class="na">resource</span>
+</span><span class='line'>                       <span class="o">-&gt;</span><span class="na">get</span>
+</span><span class='line'>                       <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="err">‘</span><span class="nx">app</span><span class="o">://</span><span class="nx">self</span><span class="o">/</span><span class="nx">performance</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'>                       <span class="o">-&gt;</span><span class="na">request</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>page / secで表示されている値がそうです。<br/>
+<a href="http://www.bear-project.net/blog/wp-content/uploads/2012/04/9bed6295cf4f6d5746d67365cba086de.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2012/04/9bed6295cf4f6d5746d67365cba086de.png" alt="" title="スクリーンショット 2012-04-25 4.15.17" class="alignnone size-full wp-image-1358" /></a></p>
+
+<p>これはeagerが使われていないので、bodyのperformanceにapp://self/performanceへのGETリクエストがセットされたことになります。このリソースが実際に行われるのはコンパイル済みのテンプレートでこのリソースが出現するタイミングです。</p>
+
+<p>smartyのコンパイル済みテンプレートではこの部分です。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;&amp;</span><span class="nb">copy</span><span class="p">;</span> <span class="mi">2012</span> <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="err">”</span><span class="nx">https</span><span class="o">://</span><span class="nx">twitter</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="c1">#!/bearsunday”&gt;@BEARSunday&lt;/a&gt; (&lt;?php echo $_smarty_tpl-&gt;tpl_vars[&#39;performance&#39;]-&gt;value;?&gt;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ここで初めてリクエストが行われます。パフォーマンスを測定するという目的からすればよページクラスのメソッドで計測するより、テンプレートで表示される直前に計測される値の方がより正確でしょう。またこのパフォーマンスリソースはテンプレートで出現しなければ計測されることもありません。実際に利用されるかされないかを気にしないでページはテンプレートにリクエストをセットすることができます。</p>
+
+<h2>リソースキャッシュ</h2>
+
+<p>パフォーマンスappリソースを使ったページリソースをキャッシュしても、パフォーマンスリソースの値は正しく反映されることに注目してみてください。これはページが保持してるのはリソースリクエストの結果ではなく、リソースリクエストの方法だからです。リクエスト方法はキャッシュされ再利用されても、その値は毎回変わります。</p>
+
+<h2>リソースまとめ</h2>
+
+<ul>
+<li>リソースリクエストはリクエストの生成と実行というライフスタイルを持ちます。</li>
+<li>リソースはURIから生成され、リソースリクエストを実行するアダプターはURIのスキーマで決まります。</li>
+<li>リソースリクエストはURI文字列で表現されます。</li>
+<li>リソースリクエストの引き数はネームドパラメーターで渡されます</li>
+<li>作成されたリソースリクエストはクロージャのように扱えます</li>
+<li>リソースはレンダラーを個別に保持し自身をリソース状態からリソース表現にレンダリングすることができます。</li>
+<li>リソース表現は文字列評価することで得られます。</li>
+<li>レンダラーの使用はオプションです。なければコンテンツが表現にならないか検討します。</li>
+<li>レンダラーはユーザーが記述することができます。</li>
+<li>レンダラーはテンプレートエンジンを持ちます。設計上固定化されたものはありませんが、現在のデモではSmarty3が使われています。</li>
+</ul>
+
+
+<p>他にもサービスを通じて一度しか行われないオブジェクトコンストラクション、不足している引き数を補充するパラメータープロバイダー、スキーマアダプターを構成するDSL、リソースの関係性を内部で持つリソースリンク、webブラウザでタブを開くようにリンク先を加えていくnewリンク、リソースリンクをクローリングしてリソースのリンク構造を構成するクローラーリンク、リソースリンクを露出することなくアプリケーション状態を変更するHATEOUS（Hypermedia as the Engine of Application State）等様々な機能がありますがまた別の機会に紹介したいと思います。<sup><a href="#footnote_4_1178" id="identifier_4_1178" class="footnote-link footnote-identifier-link" title="きっともうお腹一杯でしょう！">5</a></sup></p>
+
+<h2>次回はRay.Di</h2>
+
+<p>次回の記事はDIです。BEAR.SundayはRay.Diというディペンデンシーインジェクターを用いてオブジェクトのコンストラションおよびインジェクションを行います。Ray.DiはBEAR.Sundayのために開発したGoogle GuiceクローンのDIフレームワークです。アノテーションを用いつつサービスコンテナにも依存しないよりクリーンなDIが可能です。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/02/php-annotation/">PHPでアノテーション</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-18T00:00:00+09:00" pubdate data-updated="true">Feb 18<span>th</span>, 2012</time>
+        
+         | <a href="/2012/02/php-annotation/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2012/02/php%E3%81%A7%E3%82%A2%E3%83%8E%E3%83%86%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3/">Tweet</a>
+</div>
+
+
+<h2>アノテーションとは</h2>
+
+<blockquote><p>プログラミングでは、コード中に登場する要素(クラス、メソッドなど)に対して、それ自体に関する情報(メタデータ)を注記できる仕組みのことをアノテーションという。「このメソッドはテスト用である」「ここでコンパイラは警告を出してはならない」「このメソッドはオーバーライドである」などの情報を付記し、コンパイル時や実行時に参照させることができる。</p></blockquote>
+
+<p><p style="text-align: right;">
+  <a href="http://e-words.jp/w/E382A2E3838EE38386E383BCE382B7E383A7E383B3.html">IT用語辞典</a></p>
+
+<p>このように説明されるアノテーションですが、その源流を調べてると次の文章に出会いました。</p>
+
+<blockquote><p>アノテーションとは、JDK 1.5で新たに追加される言語仕様であり、Javaコード上でメタデータ（コードそのものではなくコードに関する付加情報）を記述可能にする。これは、マイクロソフトC#における属性（attribute）に相当するシンタックスで、アノテーションはそれを後追いした仕様といえる。</p></blockquote>
+
+<p>[2004年の@ITnoの記事][1]です。</p>
+
+<p>つまりJavaのアノテーションはC#のアトリビュートに強く影響を受けたものみたいです。<br/>
+そのことについてC#の作者、[アンダース・ヘルスバーグ][2]氏のインタビューが@ITの[C#への期待。アンダースからの返答][3]という記事の中で見つかりました。</p>
+
+<blockquote><p>■Java言語の進化（例：Annotationなど）についてどのように考えているか？</p>
+
+<p>アノテーション（Annotation）に関しては、.NETの属性（Attribute）のJavaバージョンといえると思うが、このように.NETで実装してきていることを、やはりJavaでも行ってきているという印象だ。実際にJavaの最新バージョン5.0に搭載された新機能の中で、（先ほどのアノテーションも含めて）.NETに触発されて導入されたと思われるものがいくつもある。</p></blockquote>
+
+<p>その.Netの[属性ページ][4]ではこのように説明されています。</p>
+
+<blockquote><p>属性は、プログラムにメタデータを追加します。 メタデータは、プログラム内で定義されている型に関する情報です。 すべての .NET アセンブリに、指定した一連のメタデータが含まれ、そこにはそのアセンブリ内で定義されている型および型のメンバーが記述されています。 カスタム属性を追加すると、必要な任意の追加情報を指定できます。</p>
+
+<p>アセンブリ全体、モジュール全体、クラスやプロパティなどの小さいプログラム要素に、1 つ以上の属性を適用できます。</p>
+
+<p>属性は、メソッドやプロパティの場合と同じ方法で引数を受け取ることができます。</p>
+
+<p>プログラムは、リフレクションを使用することにより、そのプログラム専用のメタデータや他のプログラム内のメタデータを調べることができます。</p></blockquote>
+
+<p>Javaの[注釈][5]ではこのように説明されています。</p>
+
+<blockquote><p>注釈はプログラムのセマンティクスに直接影響しませんが、ツールやライブラリがプログラムを扱う方法に影響します。そのため、実行中のプログラムのセマンティクスに影響する場合があります。注釈はソースファイル、クラスファイル、または実行時にリフレクションとして読み取ることができます。</p></blockquote>
+
+<h2>PHPでのアノテーション</h2>
+
+<p>PHPはアノテーションはネイティブサポートさていませんが、&#8221;Status: Under Discussion”のアノテーション提案があります。</p>
+
+<ul>
+<li>[Annotations in DocBlock][6]</li>
+</ul>
+
+
+<p>※[Class Metadata][7]という前の提案は否決されたようです</p>
+
+<p>アノテーションの定義</p>
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">ReflectionAnnotation</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">private</span> <span class="nv">$value</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">\stdClass</span> <span class="nv">$value</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">&ndash;&gt;</span><span class="na">value</span> <span class="o">=</span> <span class="nv">$value</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">getValue</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="o">&ndash;&gt;</span><span class="na">value</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>アノテーションの表記</p>
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/<em><em></span>
+</span><span class='line'><span class="sd"> * Foo class.</span>
+</span><span class='line'><span class="sd"> </em></span>
+</span><span class='line'><span class="sd"> * @Entity {&quot;repositoryClass&quot;: &quot;FooRepository&quot;}</span>
+</span><span class='line'><span class="sd"> * @Table  {&quot;name&quot;: &quot;foos&quot;}</span>
+</span><span class='line'><span class="sd"> </em></span>
+</span><span class='line'><span class="sd"> * @author &quot;Guilherme Blanco&quot;</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Foo</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="c1">// …</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>アノテーションの利用</p>
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$reflClass</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\ReflectionClass</span><span class="p">(</span><span class="err">‘</span><span class="nx">Foo</span><span class="err">’</span><span class="p">);</span>
+</span><span class='line'><span class="nb">var_dump</span><span class="p">(</span><span class="nv">$reflClass</span><span class="o">&ndash;&gt;</span><span class="na">getAnnotations</span><span class="p">());</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>PHPの言語としてのサポートにが無いのにも関わらず、現在多くのライブラリ・フレームワークでアノテーションがサポートされています。なぜアノテーションを必要と考えるのでしょうか？提案者はこのように説明しています。</p>
+
+<blockquote><h3><a id="why_do_we_need_class_metadata" name="why_do_we_need_class_metadata">Why do we need Class Metadata?</a></h3></blockquote>
+
+<p><quote></p>
+
+<pre><code>Frameworks in general rely on metadata information in order to correctly work. They can use it for many purposes:
+
+    phpUnit Providing meta functionality for test cases, examples: @dataProvider for test data iteration, @expectedException for catching exceptions, etc.
+    Doctrine For Object-Relational mapping, examples: @Entity, @OneToOne, @Id, etc.
+    Zend Framework Server classes Used to automate mappings for XML-RPC, SOAP, etc.
+    FLOW3 for dependency injection and validation
+    Symfony2 for routing rules
+    Others One clear thing that comes to my mind is Validation, Functional Behavior injection (which could take advantage of Traits), etc. Also, any Framework could take advantage of it somehow.
+
+So, any meta mapping injection could be easily achieved via the implementation of a centralized Annotations support.
+
+The .NET framework uses Data Annotation: http://www.asp.net/mvc/tutorials/validation-with-the-data-annotation-validators-cs
+
+An advantage here is the .net framework will process some annotations and inject behavior into the compiled source code.
+
+It's important to note that annotations exist in java and .net but many strong use cases exist in these languages to provide hints to the compiler (@NotNull).
+
+These types of use cases (hints to the Zend lexer/parser or other PHP implementations) are not presented in this RFC.
+</code></pre>
+
+<p></quote></p>
+
+<p>他に自分が知ってる範囲では、Java Beanの影響を強く受けた[DIng][8]やRESTful PHP frameworkの[Recess][9] や[Zend Framwork2のDi][10]でもアノテーションが使われています。</p>
+
+<p>ネイティブサポートがないという事はPHPでDocCommentの部分<sup><a href="#footnote_0_1148" id="identifier_0_1148" class="footnote-link footnote-identifier-link" title="リフレクションで取得できます">1</a></sup> をPHPでパースしなくてはならなく、速度的にも不利なところがあるのですが、このようにPHPでもフレームワーク・ライブラリを中心に使われるようになってきているようです。デ・ファクトと言えるようなライブラリがないのか、各ライブラリが独自でパースしてるものが多く、GuiceクローンのアノテーションベースのDIコンテナ [Ray.Di][11] を実装したときも最初はそうしていました。</p>
+
+<h2>Doctrine\Commons\Annotations</h2>
+
+<p>ORMで有名なDoctrineですが、ORMの他にもプロジェクトがいくつか登録されていてライブラリとしてdoctrine ORM使用しているものを単体使用できるようになっています。<sup><a href="#footnote_1_1148" id="identifier_1_1148" class="footnote-link footnote-identifier-link" title=" (Zend Frameworkのように）このようにライブラリ・ファーストとして部分をライブラリとして単体使用できるのが、最新フレームワークの特徴だと思います">2</a></sup></p>
+
+<p>[Docotrine Commons][12]というライブラリがあります。</p>
+
+<blockquote><p>Common</p>
+
+<p>The Doctrine Common project is a library that provides extensions to core PHP functionality.</p></blockquote>
+
+<p>&#8220;PHPの機能を拡張するライブラリです&#8221;という説明で、Doctrineが使っているAutoloaderやCacheもあるのですが、注目は[Doctrine Annotations][13]<sup><a href="#footnote_2_1148" id="identifier_2_1148" class="footnote-link footnote-identifier-link" title=" このドキュメントは2.1のものです ">3</a></sup> です。</p>
+
+<p>RFC提案されてるようにアノテーションを扱います。</p>
+
+<p>アノテーションの定義</p>
+
+<p>@Annotation、@Targetは Doctrineが使用するアノテーションのアノテーションです。<br/>
+このアノテーションはクラスとメソッドにアノテートすることができます。</p>
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/<em><em></span>
+</span><span class='line'><span class="sd"> * Inject</span>
+</span><span class='line'><span class="sd"> </em></span>
+</span><span class='line'><span class="sd"> * @Annotation</span>
+</span><span class='line'><span class="sd"> * @Target(&quot;CLASS&quot;)</span>
+</span><span class='line'><span class="sd"> * @Target(&quot;METHOD&quot;)</span>
+</span><span class='line'><span class="sd"> </em></span>
+</span><span class='line'><span class="sd"> * @package    Ray.Di</span>
+</span><span class='line'><span class="sd"> * @subpackage Annotation</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">final</span> <span class="k">class</span> <span class="nc">Inject</span> <span class="k">implements</span> <span class="nx">Annotation</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>setDbメソッドを@Injectとアノテートしました。</p>
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/<em><em></span>
+</span><span class='line'><span class="sd"> * @Inject</span>
+</span><span class='line'><span class="sd"> </em></span>
+</span><span class='line'><span class="sd"> * @param DbInterface $db</span>
+</span><span class='line'><span class="sd"> </em>/</span>
+</span><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">setDb</span><span class="p">(</span><span class="nx">DbInterface</span> <span class="nv">$db</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">&ndash;&gt;</span><span class="na">db</span> <span class="o">=</span> <span class="nv">$db</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>アノテーションの利用</p>
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$reflMethod</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ReflectionMethod</span><span class="p">(</span><span class="err">‘</span><span class="nx">MyCompany\Entity\User</span><span class="err">’</span><span class="p">,</span> <span class="err">‘</span><span class="nx">setDb</span><span class="err">’</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$methodAnnotations</span> <span class="o">=</span> <span class="nv">$reader</span><span class="o">&ndash;&gt;</span><span class="na">getMethodAnnotations</span><span class="p">(</span><span class="nv">$reflMethod</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>これで全てのアノテーションが取得できます。<br/>
+あるいは以下のようにして特定アノテーションの値が取得できます。</p>
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$methodAnnotation</span> <span class="o">=</span> <span class="nv">$reader</span><span class="o">&ndash;&gt;</span><span class="na">getMethodAnnotation</span><span class="p">(</span><span class="nv">$reflMethod</span><span class="p">,</span> <span class="nv">$annotation</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Doctrine\Common\Annotations\AnnotationReader が標準的なアノテーションリーダーです。 (Symfony2では標準でサービスコンテナに登録されてるようです)。
+他にはそのAnnotationReaderを利用するCachedReader、use文による名前解決を行わない、より簡素な SimpleAnnotationReaderがあります。</p>
+
+<p>またReaderを使わずパースライブラリとして使いたいなら、doc内のアノテーションを行うDoctrine\Common\Annotations\DocParser や PHPスクリプトを解析してのuse文の名前解決を行う Doctrine\Common\Annotations\PhpParser も有用だと思います。use文の名前解決については Symfony2のブログ [Symfony2: アノテーションが改善されました][14]も参考になると思います。<sup><a href="#footnote_3_1148" id="identifier_3_1148" class="footnote-link footnote-identifier-link" title=" Fabienさんの記事で、@masakielasticさん翻訳の記事です ">4</a></sup></p>
+
+<p>※他には[addendum][15] , [php-annotations][16]というライブラリもあります。</p>
+
+<h2>Conclusion</h2>
+
+<p>PHPではアノテーションのネイティブサポートはなく、以前は使用はあまり一般的ではありませんでした。しかしPHPUnitでもすっかりおなじみのようにメタプログラミングを実現するためのツールとしてPHP界でも認知されつつあります。自作のライブラリやアプリケーションでも Doctrine Annoattion を用いれば利用の敷居は下がります。速度的な懸念も CachedReaderを使用したり、Configrationに用いたりすることで問題にならない場合も多いでしょう。</p>
+
+<p>ではどのように使うのが良いのでしょうか？広く使われてる割にはなかなかベストプラクティス系の記事が見つかりませんが、１つ見つけました。興味ある方は一読すれば参考になると思います。</p>
+
+<p>[Annotations Gotchas and Best Practices<br/>
+][17]</p>
+
+<p>Ray.DiでもこのDoctrine Annotationを採用しリファクタリングを行いました。</p>
+
+<p><ol class="footnotes">
+<li id="footnote_0_1148" class="footnote">
+リフレクションで取得できます [<a href="#identifier_0_1148" class="footnote-link footnote-back-link">&#8617;</a>]
+</li>
+<li id="footnote_1_1148" class="footnote">
+(Zend Frameworkのように）このようにライブラリ・ファーストとして部分をライブラリとして単体使用できるのが、最新フレームワークの特徴だと思います [<a href="#identifier_1_1148" class="footnote-link footnote-back-link">&#8617;</a>]
+</li>
+<li id="footnote_2_1148" class="footnote">
+このドキュメントは2.1のものです [<a href="#identifier_2_1148" class="footnote-link footnote-back-link">&#8617;</a>]
+</li>
+<li id="footnote_3_1148" class="footnote">
+Fabienさんの記事で、@masakielasticさん翻訳の記事です [<a href="#identifier_3_1148" class="footnote-link footnote-back-link">&#8617;</a>]
+</li>
+</ol></p>
+
+<p> [1]: <a href="http://www.atmarkit.co.jp/fjava/kaisetsu/j2eewatch02/j2eewatch02.html">http://www.atmarkit.co.jp/fjava/kaisetsu/j2eewatch02/j2eewatch02.html</a>
+ [2]: <a href="http://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%B3%E3%83%80%E3%83%BC%E3%82%B9%E3%83%BB%E3%83%98%E3%83%AB%E3%82%B9%E3%83%90%E3%83%BC%E3%82%B0">http://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%B3%E3%83%80%E3%83%BC%E3%82%B9%E3%83%BB%E3%83%98%E3%83%AB%E3%82%B9%E3%83%90%E3%83%BC%E3%82%B0</a>
+ [3]: <a href="http://www.atmarkit.co.jp/fdotnet/insiderseye/20060215cscommunity/cscommunity_01.html">http://www.atmarkit.co.jp/fdotnet/insiderseye/20060215cscommunity/cscommunity_01.html</a>
+ [4]: <a href="http://msdn.microsoft.com/ja-jp/library/z0w1kczw.aspx">http://msdn.microsoft.com/ja-jp/library/z0w1kczw.aspx</a>
+ [5]: <a href="http://java.sun.com/j2se/1.5.0/ja/docs/ja/guide/language/annotations.html">http://java.sun.com/j2se/1.5.0/ja/docs/ja/guide/language/annotations.html</a>
+ [6]: <a href="https://wiki.php.net/rfc/annotations-in-docblock">https://wiki.php.net/rfc/annotations-in-docblock</a>
+ [7]: <a href="https://wiki.php.net/rfc/annotations">https://wiki.php.net/rfc/annotations</a>
+ [8]: <a href="http://marcelog.github.com/Ding/">http://marcelog.github.com/Ding/</a>
+ [9]: <a href="http://www.recessframework.org/">http://www.recessframework.org/</a>
+ [10]: <a href="https://github.com/ralphschindler/zf2-di-use-cases/blob/master/09-runtime-setter-injection-with-annotation.php">https://github.com/ralphschindler/zf2-di-use-cases/blob/master/09-runtime-setter-injection-with-annotation.php</a>
+ [11]: <a href="https://github.com/koriym/Ray.Di">https://github.com/koriym/Ray.Di</a>
+ [12]: <a href="http://www.doctrine-project.org/projects/common">http://www.doctrine-project.org/projects/common</a>
+ [13]: <a href="http://docs.doctrine-project.org/projects/doctrine-common/en/latest/reference/annotations.html">http://docs.doctrine-project.org/projects/doctrine-common/en/latest/reference/annotations.html</a>
+ [14]: <a href="http://www.symfony.gr.jp/blog/20110523-symfony2-annotations-gets-better">http://www.symfony.gr.jp/blog/20110523-symfony2-annotations-gets-better</a>
+ [15]: <a href="http://code.google.com/p/addendum/">http://code.google.com/p/addendum/</a>
+ [16]: <a href="http://code.google.com/p/php-annotations/">http://code.google.com/p/php-annotations/</a>
+ [17]: <a href="http://willcode4beer.com/design.jsp?set=annotations_gotchas_best_practices">http://willcode4beer.com/design.jsp?set=annotations_gotchas_best_practices</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/12/php-dis-is-it/">PHP: Dis Is It.</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-18T00:00:00+09:00" pubdate data-updated="true">Dec 18<span>th</span>, 2011</time>
+        
+         | <a href="/2011/12/php-dis-is-it/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2011/12/php-dis-is-it/">Tweet</a>
+</div>
+
+
+<p><a href="http://www.slideshare.net/slideshow/embed_code/10628706">http://www.slideshare.net/slideshow/embed_code/10628706</a></p>
+
+<p>昨日2011.12.17にPHP Apocalypse というイベントで”PHP: Dis Is It”と題した発表をしました。PHP DisをそのDisそのものよりDisのありようやDis周辺つまり”Meta Dis”視点で考察を行い、PHPという言語のネイチャーを探ろうとしました。</p>
+
+<iframe src="http://www.slideshare.net/slideshow/embed_code/10628706" width="510" height="420" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen> </iframe>
+
+
+<p> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/akihito.koriyama/php-dis-is-it-10628706" title="PHP: Dis Is It" target="_blank">PHP: Dis Is It</a> </strong> from <strong><a href="http://www.slideshare.net/akihito.koriyama" target="_blank">Akihito Koriyama</a></strong> </div></p>
+
+<h2>PHPに未来を感じる方いますか？</h2>
+
+<p>「PHPに未来を感じる方いますか？」こういう質問をされた発表者の方がいました。僕は勢いよく…と言わないまでも挙手したのですが、周囲を見渡してみると自分一人のようでした。その方の発表では「恐らくPHPは緩やかな下降線を辿っていくと、現在ターミナル医療のような状態だ」というような趣旨の発言で、TL見る限りはそれに同意する方も少なくないようでした。<sup><a href="#footnote_0_1084" id="identifier_0_1084" class="footnote-link footnote-identifier-link" title="つまり自分は少数派だったのですが、同時にだからこそ発表の価値もあるのではと思いました。">1</a></sup>　</p>
+
+<h2>Inconsistency</h2>
+
+<p>inconsistency（一貫性の欠如）という誰もが認めるPHPの欠点をキーワードにその原因を”混血”にあるという仮説を立てます。そしてそのInconsistencyを「PHP Disそのもの」にも適用し、本当に言語として駄目設計なら、そのPHP批判にもConsistencyがあるはずなのでは？<sup><a href="#footnote_1_1084" id="identifier_1_1084" class="footnote-link footnote-identifier-link" title=" 名前空間やクロージャなど誰もが指摘してた欠陥が少なくなってきた現在のPHPなら尚更です ">2</a></sup> そこにConsistencyが無ければどういう理由なのだろうと考察します。</p>
+
+<h2>X Sucks</h2>
+
+<p>ソフトウエアバッシングというのはPHPだけではありません。時代を通じでずっと存在し、あらゆる言語にあり、OSにあり、UNIXにもあります。<br/>
+UNIXはいわば”Mother of Software” 過去から今日にいたってあらゆるソフトウエアのファンデーションなのではないか？それを「時代遅れの異臭のするOS」という批判、歴史的で最大の、しかもUNIX制作者によるUNIX批判を紹介しました。そしてその批判の挫折、失敗の考察を紹介し、ではPHPはどうなのかと繋げます。</p>
+
+<h2>最良の者が生き残るのではない</h2>
+
+<blockquote><p>最も強いものが生き残るのではなく、最も賢いものが生き延びるわけでもない。<br/>
+唯一、生き残るのは変化できるものだけである。</p></blockquote>
+
+<p>ダーウィンの名著「種の起源」での一節です。PHPは強いアイデンティティを持ちません。<sup><a href="#footnote_2_1084" id="identifier_2_1084" class="footnote-link footnote-identifier-link" title="カリスマによる強いグランドデザインがありません">3</a></sup> 過去現在に渡って躊躇なく変化してきました。そしてその変化の度に少なからず批判を受けてきたように思います。<sup><a href="#footnote_3_1084" id="identifier_3_1084" class="footnote-link footnote-identifier-link" title="「だから、PHPにXXXなんか要らないんだって」XXXに色々な言葉がはいってきたように思えます。 ">4</a></sup>　</p>
+
+<p>しかし、その変化し続けるという姿勢が、その変化そのものより重要なのであり、<sup><a href="#footnote_4_1084" id="identifier_4_1084" class="footnote-link footnote-identifier-link" title="マクルーハンの「メディアはメッセージである」とおなじように ">5</a></sup> 自分はそこに未来を見る。これが僕の「 This Is It」です。このように「Dis Is It」で始まったプレゼンテーションを「This Is It」で結びました。</p>
+
+<h2>Outlook is Gold.</h2>
+
+<p>伝えたかった事はもう一つあります。</p>
+
+<blockquote><p>物事には常に多面性があって自分たちが見ているのは、常にコインのどちらか片方でしかない。</p></blockquote>
+
+<p>「物事を深く広く知れば知るほどこの単純な真実に敬意を示し、反対の立場や考えの異なる人に対する物言いに慎重さや思慮深さが出てくる」．．．ところが現実はそれとは全く反対の方は少なくありません。</p>
+
+<p>「環境に適用しようと変化し続けるものには未来がある可能性が高い」コンピュータ言語の生存をダーウィニズムになぞらえたこの自分の主張も、その多面性のある対象の一考察でしかありません。</p>
+
+<p>高名な専門家が驚くほど一面的で一方的な持論を展開することがあります。その時でも「これも何かその理由があるんだろう」と常にその背景考察を問いかけ続け、自らに対しても「コインの片側だけで語ってないか？」と疑問を持ち続ける事ができる限り、自分の”自己規律ランプ”はグリーンに点灯できてるんじゃないかと思います。エンジニアとして、問題解決の多面性に対峙する仕事人として、もう少し長く生存できるんじゃないかと考えてます。</p>
+
+<p>「アウトルックにこそ価値がある」…これがもう一つ伝えたかった事です。</p>
+
+<p><sup><a href="#footnote_5_1084" id="identifier_5_1084" class="footnote-link footnote-identifier-link" title="物事の視点、見解">6</a></sup><sup><a href="#footnote_6_1084" id="identifier_6_1084" class="footnote-link footnote-identifier-link" title="http://lists.sugarlabs.org/archive/iaep/2009-July/006940.html">7</a></sup></p>
+
+<p>自分でタイトルを決めてpublicな場で発表するのはこれが初めてでした。聞いて下さった方、主催関係者の方々、みなさんありがとうございました。</p>
+
+<ol class="footnotes">
+  <li id="footnote_0_1084" class="footnote">
+    つまり自分は少数派だったのですが、同時にだからこそ発表の価値もあるのではと思いました。 [<a href="#identifier_0_1084" class="footnote-link footnote-back-link">↩</a>]
+  </li>
+  <li id="footnote_1_1084" class="footnote">
+    名前空間やクロージャなど誰もが指摘してた欠陥が少なくなってきた現在のPHPなら尚更です [<a href="#identifier_1_1084" class="footnote-link footnote-back-link">↩</a>]
+  </li>
+  <li id="footnote_2_1084" class="footnote">
+    カリスマによる強いグランドデザインがありません [<a href="#identifier_2_1084" class="footnote-link footnote-back-link">↩</a>]
+  </li>
+  <li id="footnote_3_1084" class="footnote">
+    「だから、PHPにXXXなんか要らないんだって」XXXに色々な言葉がはいってきたように思えます。 [<a href="#identifier_3_1084" class="footnote-link footnote-back-link">↩</a>]
+  </li>
+  <li id="footnote_4_1084" class="footnote">
+    マクルーハンの「メディアはメッセージである」とおなじように [<a href="#identifier_4_1084" class="footnote-link footnote-back-link">↩</a>]
+  </li>
+  <li id="footnote_5_1084" class="footnote">
+    物事の視点、見解 [<a href="#identifier_5_1084" class="footnote-link footnote-back-link">↩</a>]
+  </li>
+  <li id="footnote_6_1084" class="footnote">
+    http://lists.sugarlabs.org/archive/iaep/2009-July/006940.html [<a href="#identifier_6_1084" class="footnote-link footnote-back-link">↩</a>]
+  </li>
+</ol>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/10/ray-di-on-aura-di/">Ray.Di on Aura.Di</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-26T00:00:00+09:00" pubdate data-updated="true">Oct 26<span>th</span>, 2011</time>
+        
+         | <a href="/2011/10/ray-di-on-aura-di/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2011/10/ray-di-on-aura-di/">Tweet</a>
+</div>
+
+
+<h2>Aura.Di</h2>
+
+<p>Ray.DiはAura.Diを使用しています。<a href="http://auraphp.github.com/">Aura</a>はPHP5.3用フレームワークで、Paul M.Jones.氏がリードのPHP5.2用フレームワークSolarPHPの現在のメジャーバージョンです。有名なフレームワークでは無いかもしれませんが、ライブラリファースト、コンパクトでクリーンなコード、100%テストカバレッジ等、リファレンスとすべき多くの点があるのではと思います。</p>
+
+<p>Ray.Diは基本的にはアノテーションベースのDIコンテナですが、アノテーションを全く使わないAura.Diの上に構築されています。なのでどちらの方法でも依存性の注入を行う事ができます。前回の記事ではアノテーションを使った方法だけ紹介しましたが、この記事では両方の方法を紹介してそれぞれ比較したいと思います。</p>
+
+<p>まずはそのどちらも使えるインジェクターの生成からです。</p>
+
+<h2>インジェクターの生成</h2>
+
+<p>Containerクラスのインスタンスと、インターフェイスとクラスを紐付けるモジュールの二つを引き数に取ります。ContainerクラスにはForge、ForgeにはConfig、ConfigにはAnnotationインスタンスが必要です。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$di</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Injector</span><span class="p">(</span><span class="k">new</span> <span class="nx">Container</span><span class="p">(</span><span class="k">new</span> <span class="nx">Forge</span><span class="p">(</span><span class="k">new</span> <span class="nx">Config</span><span class="p">(</span><span class="k">new</span> <span class="nx">Annotation</span><span class="p">))),</span> <span class="k">new</span> <span class="nx">AppModule</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>あるいは、</p>
+
+<p>instance.php</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">require_once</span>  <span class="s1">&#39;/path/to/Ray.Di/src.php&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="k">return</span> <span class="k">new</span> <span class="nx">Injector</span><span class="p">(</span><span class="k">new</span> <span class="nx">Container</span><span class="p">(</span><span class="k">new</span> <span class="nx">Forge</span><span class="p">(</span><span class="k">new</span> <span class="nx">Config</span><span class="p">(</span><span class="k">new</span> <span class="nx">Annotation</span><span class="p">))),</span> <span class="k">new</span> <span class="nx">AppModule</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>このようにincludeを使って</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$di</span> <span class="o">=</span> <span class="k">include</span> <span class="s1">&#39;/path/to/scripts/instance.php&#39;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>インスタンスをスクリプトから代入します。</p>
+
+<h3>クリーンな依存関係</h3>
+
+<p>使用される全てのクラスがインターフェイスを持ち、それぞれ必要とされるクラスのコンストラクタで受け取っています。固定化されたクラス関係は存在せずクラスの依存関係はクリーンで、ユーザー作成のコンポーネントとも入れ替え可能です。DIコンテナが扱うクラスだけでなく、DIコンテナそのものも実装（実クラス）ではなく、インターフェイスでつながれています。<sup><a href="#footnote_0_950" id="identifier_0_950" class="footnote-link footnote-identifier-link" title="InjectorとAnnotation以外は全てAuraのコンポーネントです。Configだけ一部機能追加してますが他のクラスはAura.Diそのままです。">1</a></sup></p>
+
+<h2>コンストラクタ・インジェクトション</h2>
+
+<p>Ray.Diはコンストラクターインジェクションとセッターインジェクション（メソッドを使ったインジェクション）をサポートします。<sup><a href="#footnote_1_950" id="identifier_1_950" class="footnote-link footnote-identifier-link" title="現在プロパティインジェクションは実装されていません">2</a></sup>。3rdパーティのものや既存のライブラリ等、アノテーションが使えない場合の方法と使う方法を別にして紹介します。</p>
+
+<h3>ターゲットクラス</h3>
+
+<p>ターゲットになるクラスです。ListerクラスのコンストラクタにFindインターフェイスを実装したインスタンス（Finder)を渡す必要があります。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">namespace</span> <span class="nx">MovieApp</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">class</span> <span class="nc">Lister</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">public</span> <span class="nv">$finder</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">Find</span> <span class="nv">$finder</span><span class="p">){</span>
+</span><span class='line'>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">finder</span> <span class="o">=</span> <span class="nv">$finder</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">class</span> <span class="nc">Finder</span> <span class="k">implements</span> <span class="nx">Find</span> <span class="p">{}</span>
+</span><span class='line'>    <span class="k">interface</span> <span class="nx">Find</span><span class="p">{}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>アノテーションを使わないコンストラクタ・インジェクション</h3>
+
+<h4>イーガーセット</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>    <span class="nv">$di</span> <span class="o">=</span> <span class="k">include</span> <span class="nx">__DIR__</span> <span class="o">.</span> <span class="s1">&#39;/scripts/instance.php&#39;</span><span class="p">;</span>
+</span><span class='line'>    <span class="nv">$di</span><span class="o">-&gt;</span><span class="na">getContainer</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">params</span><span class="p">[</span><span class="s1">&#39;MovieApp\Lister&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>       <span class="s1">&#39;finder&#39;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">MovieApp\Finder</span>
+</span><span class='line'>    <span class="p">);</span>
+</span><span class='line'>    <span class="nv">$lister</span> <span class="o">=</span> <span class="nv">$di</span><span class="o">-&gt;</span><span class="na">getInstance</span><span class="p">(</span><span class="s1">&#39;MovieApp\Lister&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>params[クラス名]として、ネームドパラメーター<sup><a href="#footnote_2_950" id="identifier_2_950" class="footnote-link footnote-identifier-link" title="引き数を順番ではなく変数名で指定">3</a></sup> で引き数を指定します。この準備は通常アプリケーションのブート時等に1度だけ行います。getInstance()時にはコンストラクタ引き数を指定していませんが、&#8221;予約&#8221;した方法で引き数が渡されインスタンスが生成されます。</p>
+
+<h4>レイジーセット</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>    <span class="nv">$di</span> <span class="o">=</span> <span class="k">include</span> <span class="nx">__DIR__</span> <span class="o">.</span> <span class="s1">&#39;/scripts/instance.php&#39;</span><span class="p">;</span>
+</span><span class='line'>    <span class="nv">$di</span><span class="o">-&gt;</span><span class="na">getContainer</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">params</span><span class="p">[</span><span class="s1">&#39;MovieApp\Lister&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>        <span class="s1">&#39;finder&#39;</span> <span class="o">=&gt;</span> <span class="nv">$di</span><span class="o">-&gt;</span><span class="na">getContainer</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">lazyNew</span><span class="p">(</span><span class="s1">&#39;MovieApp\Finder&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">);</span>
+</span><span class='line'>    <span class="nv">$lister</span> <span class="o">=</span> <span class="nv">$di</span><span class="o">-&gt;</span><span class="na">getInstance</span><span class="p">(</span><span class="s1">&#39;MovieApp\Lister&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>イーガーセットでは準備の段階で引き数に必要なインスタンスを生成しましたが、もしかしたら使わないかも、あるいは準備時にはまだインスタンスが確定できないものはlazyNewというメソッドを使ったレイジーセットが行えます。インスタンスの代わりにインスタンスの生成方法をセットしておいてgetInstance()時に遅延実行されコンストラクタ引き数として渡されます。引き数１つめにクラス名、２つ目に引き数をネームドパラメーターで指定します。</p>
+
+<p>クラス同様、コンストラクタインジェクションの<strong>設定も親クラスから小クラスに継承されます</strong>。つまり、Finderクラスを継承した子クラスの取得時にも適用されます。またgetInstance()の第二引き数でインスタンス取得時に、設定した引き数を指定したパラメーターだけ上書きすることができます。<sup><a href="#footnote_3_950" id="identifier_3_950" class="footnote-link footnote-identifier-link" title="$host, $id, $passを引き数に取るようなコンストラクタでgetInstance($class, array(&lsquo;host&rsquo; => $host);と指定すると$id, $passはデフォルトの値で$hostだけを指定できます。&#8221;>4</a></sup></p>
+
+<h3>アノテーションを使うコンストラクタ・インジェクション</h3>
+
+<p>ターゲットのメソッドに<strong>@Inject</strong>アノテーションでマークします。Ray.Diにインスタンスを代入しなければならない事が伝わります。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">namespace</span> <span class="nx">MovieApp</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">class</span> <span class="nc">Lister</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">public</span> <span class="nv">$finder</span><span class="p">;</span>
+</span><span class='line'>        <span class="sd">/**</span>
+</span><span class='line'><span class="sd">         * @Inject</span>
+</span><span class='line'><span class="sd">         */</span>
+</span><span class='line'>        <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">Find</span> <span class="nv">$finder</span><span class="p">){</span>
+</span><span class='line'>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">finder</span> <span class="o">=</span> <span class="nv">$finder</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">class</span> <span class="nc">Finder</span> <span class="k">implements</span> <span class="nx">Find</span> <span class="p">{}</span>
+</span><span class='line'>    <span class="k">interface</span> <span class="nx">Find</span><span class="p">{}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>AbstractModuleを継承したモジュールのconfigureメソッド内でインターフェイスと実クラスを指定します。AbstractModuleにはインターフェイスとクラスを結ぶ様々なメソッドがあり、英語表現のようなDSL<sup><a href="#footnote_4_950" id="identifier_4_950" class="footnote-link footnote-identifier-link" title="Guiceでこのように表現されてました">5</a></sup> でインターフェイスとクラスを紐づけます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>    <span class="k">class</span> <span class="nc">Module</span> <span class="k">extends</span> <span class="nx">\Ray\Di\AbstractModule</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">public</span> <span class="k">function</span> <span class="nf">configure</span><span class="p">()</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bind</span><span class="p">(</span><span class="s1">&#39;MovieApp\Find)-&gt;to(&#39;</span><span class="nx">MovieApp\Finder</span><span class="err">&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">in</span><span class="p">(</span><span class="nx">Scope</span><span class="o">::</span><span class="na">SINGLETON</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>前回の記事ではインスタンスを直接してしましたが、この例では実クラスを指定してin()でそのクラスはシングルトンスコープで利用されるように指定しています。二回目以降の注入には同じインスタンスが再利用されます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>    <span class="nv">$di</span><span class="o">-&gt;</span><span class="na">setModule</span><span class="p">(</span><span class="k">new</span> <span class="nx">Module</span><span class="p">);</span>
+</span><span class='line'>    <span class="nv">$lister</span> <span class="o">=</span> <span class="nv">$di</span><span class="o">-&gt;</span><span class="na">getInstance</span><span class="p">(</span><span class="s1">&#39;MovieApp\Lister&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>そのモジュールをセットしたインジェクターでインスタンスを取得します。</p>
+
+<h3>Conclusion</h3>
+
+<p>アノテーションを使用しないでクラス名やメソッド名を指定してそこの何を入れるかを指定する方法と、アノテーションを使ってインジェクトするポイントを指定しインターフェイスとクラスをワイアリングする方法と、依存オブジェクトの２つの指定の方法、Ray.Diはそのどちらも可能という事を見てきました。前者はXMLやYAMLファイルなどのスタティックな設定を持つことが多く、Symfomy2やFlow3、Ding等はこの方式です。<strong>何処で注入するかと場所に注目</strong>して指定する方法と、<strong>何が注入されるかに注目</strong>する指定する方法、の２つとも言えないでしょうか。<sup><a href="#footnote_5_950" id="identifier_5_950" class="footnote-link footnote-identifier-link" title="個人的には前者はコンテナやコンパイルなど実装の都合から生まれた方法で、後者はインターフェイス指向をより意識した方法ではないかと思うのですがどうでしょうか">6</a></sup></p>
+
+<ul>
+<li>サンプル <a href="https://github.com/koriym/Ray.Di/tree/annotation/doc">https://github.com/koriym/Ray.Di/tree/annotation/doc</a></li>
+</ul>
+
+
+<ol class="footnotes">
+  <li id="footnote_0_950" class="footnote">
+    InjectorとAnnotation以外は全てAuraのコンポーネントです。Configだけ一部機能追加してますが他のクラスはAura.Diそのままです。 [<a href="#identifier_0_950" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_1_950" class="footnote">
+    現在プロパティインジェクションは実装されていません [<a href="#identifier_1_950" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_2_950" class="footnote">
+    引き数を順番ではなく変数名で指定 [<a href="#identifier_2_950" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_3_950" class="footnote">
+    $host, $id, $passを引き数に取るようなコンストラクタでgetInstance($class, array(&#8216;host&#8217; => $host);と指定すると$id, $passはデフォルトの値で$hostだけを指定できます。 [<a href="#identifier_3_950" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_4_950" class="footnote">
+    Guiceでこのように表現されてました [<a href="#identifier_4_950" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_5_950" class="footnote">
+    個人的には前者はコンテナやコンパイルなど実装の都合から生まれた方法で、後者はインターフェイス指向をより意識した方法ではないかと思うのですがどうでしょうか [<a href="#identifier_5_950" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/10/ray-annotation-based-di-system-for-php/">Ray &#8211; Annotation Based Dependency Injection System for PHP</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-24T00:00:00+09:00" pubdate data-updated="true">Oct 24<span>th</span>, 2011</time>
+        
+         | <a href="/2011/10/ray-annotation-based-di-system-for-php/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2011/10/ray-annotation-based-di-system-for-php/">Tweet</a>
+</div>
+
+
+<h1>Ray.Di</h1>
+
+<p>Ray.Di は DI (Dependency Injection: 依存性注入) のためのフレームワークです。<a href="http://code.google.com/p/google-guice/">Google Guice</a>にインスパイアされ、<a href="http://auraphp.github.com/Aura.Di/">Aura.Di</a>を利用したPHP用DIコンテナです。メソッドインターセプターによるアスペクト指向プログラミングをサポートします。</p>
+
+<p>この記事は初学者向けのDIやAOPの解説は含みませんが、１サンプルを通じてなるべく分かりやすく全体構成を説明したいと思います。</p>
+
+<h3>ターゲットオブジェクト</h3>
+
+<p>インジェクト対象となるメソッドに<strong>@Inject</strong>とマークします。<strong>@PostConstuct</strong>はインスタンスコンストラクトされ後の初期化メソッドを表します。@Transactional, @Templateはユーザーが定義した<a href="http://ja.wikipedia.org/wiki/%E3%82%A2%E3%82%B9%E3%83%9A%E3%82%AF%E3%83%88%E6%8C%87%E5%90%91%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0">アスペクト指向プログラミング</a>のためのアノテーションで、<strong>@Aspect</strong>と共に用い、そのメソッドが<a href="http://codezine.jp/article/detail/3264">インターセプト</a>される事を指定します。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * @Aspect</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">User</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">private</span> <span class="nv">$db</span><span class="p">;</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * @Inject</span>
+</span><span class='line'><span class="sd">     * @Named(&quot;pdo=pdo_user&quot;)</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">\PDO</span> <span class="nv">$pdo</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span> <span class="o">=</span> <span class="nv">$pdo</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * @PostConstruct</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">init</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// if not exist...</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;CREATE TABLE User (Id INTEGER PRIMARY KEY, Name TEXT, Age INTEGER)&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * @Transactional</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">createUser</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$age</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$sth</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">&quot;INSERT INTO User (Name, Age) VALUES (:name, :age)&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$sth</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;:name&#39;</span> <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">,</span> <span class="s1">&#39;:age&#39;</span> <span class="o">=&gt;</span> <span class="nv">$age</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * @Template</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">readUsers</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$sth</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;SELECT name, age FROM User&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$sth</span><span class="o">-&gt;</span><span class="na">fetchAll</span><span class="p">(</span><span class="nx">\PDO</span><span class="o">::</span><span class="na">FETCH_ASSOC</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$result</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>モジュール</h2>
+
+<p>モジュールではインターフェイスと実クラスやインスタンス、ファクトリを紐づけるコードを記述します。ユーザー定義の<a href="http://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%8E%E3%83%86%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3">アノテーション</a>はインターセプターと紐づけます。インターセプターはネスト可能でこの例では@TransactionalとマークされたメソッドはTimerとTransactionの機能がネストされて適用されます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">UserModule</span> <span class="k">extends</span> <span class="nx">AbstractModule</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">protected</span> <span class="k">function</span> <span class="nf">configure</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$pdo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\PDO</span><span class="p">(</span><span class="s1">&#39;sqlite::memory:&#39;</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="k">null</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bind</span><span class="p">(</span><span class="s1">&#39;PDO&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">annotatedWith</span><span class="p">(</span><span class="s1">&#39;pdo_user&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">toInstance</span><span class="p">(</span><span class="nv">$pdo</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerInterceptAnnotation</span><span class="p">(</span><span class="s1">&#39;Transactional&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="k">new</span> <span class="nx">Timer</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Transaction</span><span class="p">));</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerInterceptAnnotation</span><span class="p">(</span><span class="s1">&#39;Template&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="k">new</span> <span class="nx">Template</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>インターセプター</h2>
+
+<p>メソッド実行に割り込み、元メソッドの前後の処理をコーディングします。このタイマーインターセプターでは タイマーのスタートとストップの間に<strong>$invocation->proceed();</strong>として元のメソッドが実行されています。 <strong>array(new Timer, new Transaction)</strong>と指定することで、タイマースタート、トランザクションスタート、元メソッド実行、トランザクションコミット、タイマーストップと処理がネストされインターセプターに挟まれたその中心で元メソッドが実行されます。</p>
+
+<p><a href="http://www.atmarkit.co.jp/fjava/rensai3/jaee5mgrtn01/jaee5mgrtn01_2.html"><img alt="" src="http://www.atmarkit.co.jp/fjava/rensai3/jaee5mgrtn01/fig1.gif" title="インターセプター" class="alignnone" width="490" height="300" /></a><br/>
+<a href="http://www.atmarkit.co.jp/fjava/rensai3/jaee5mgrtn01/jaee5mgrtn01_2.html">＠IT総合トップ > ＠IT CORE > Java Solution > Java EE 5マイグレーションプラクティス（1</a>）より</p>
+
+<p><a href="http://manjeshgowda.blogspot.com/2011/04/aspect-oriented-programming-and-unity.html"><img alt="" src="http://3.bp.blogspot.com/-aYpZ8uR26To/TZ9SqqPHzMI/AAAAAAAABOk/XQmeIefqhKU/s1600/Unity%2BInterception%2BPipeline.png" title="Unity" class="alignnone" width="700" height="255" /></a><br/>
+<a href="http://manjeshgowda.blogspot.com/2011/04/aspect-oriented-programming-and-unity.html">Manjesh&#8217;s Blog Aspect Oriented Programming and Unity 2.0 </a>より</p>
+
+<h4>タイマーインターセプター</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * Timer interceptor</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Timer</span> <span class="k">implements</span> <span class="nx">MethodInterceptor</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">invoke</span><span class="p">(</span><span class="nx">MethodInvocation</span> <span class="nv">$invocation</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">echo</span> <span class="s2">&quot;Timer start</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$mtime</span> <span class="o">=</span> <span class="nb">microtime</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$invocation</span><span class="o">-&gt;</span><span class="na">proceed</span><span class="p">();</span>
+</span><span class='line'>        <span class="nv">$time</span> <span class="o">=</span> <span class="nb">microtime</span><span class="p">(</span><span class="k">true</span><span class="p">)</span> <span class="o">-</span> <span class="nv">$mtime</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">echo</span> <span class="s2">&quot;Timer stop:[&quot;</span> <span class="o">.</span> <span class="nb">sprintf</span><span class="p">(</span><span class="s1">&#39;%01.7f&#39;</span><span class="p">,</span> <span class="nv">$time</span><span class="p">)</span> <span class="o">.</span> <span class="s2">&quot;] sec</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>トランザクションインターセプター</h4>
+
+<p>リフレクションを使い元オブジェクトのプライベートプロパティのPDOオブジェクトを操作してトランザクションを実現しています。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * Transaction interceptor</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Transaction</span> <span class="k">implements</span> <span class="nx">MethodInterceptor</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">invoke</span><span class="p">(</span><span class="nx">MethodInvocation</span> <span class="nv">$invocation</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$object</span> <span class="o">=</span> <span class="nv">$invocation</span><span class="o">-&gt;</span><span class="na">getThis</span><span class="p">();</span>
+</span><span class='line'>        <span class="nv">$ref</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\ReflectionProperty</span><span class="p">(</span><span class="nv">$object</span><span class="p">,</span> <span class="s1">&#39;db&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$ref</span><span class="o">-&gt;</span><span class="na">setAccessible</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$db</span> <span class="o">=</span> <span class="nv">$ref</span><span class="o">-&gt;</span><span class="na">getValue</span><span class="p">(</span><span class="nv">$object</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">beginTransaction</span><span class="p">();</span>
+</span><span class='line'>        <span class="k">try</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">echo</span> <span class="s2">&quot;begin Transaction&quot;</span> <span class="o">.</span> <span class="nb">json_encode</span><span class="p">(</span><span class="nv">$invocation</span><span class="o">-&gt;</span><span class="na">getArguments</span><span class="p">())</span> <span class="o">.</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span>
+</span><span class='line'>            <span class="nv">$invocation</span><span class="o">-&gt;</span><span class="na">proceed</span><span class="p">();</span>
+</span><span class='line'>            <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">commit</span><span class="p">();</span>
+</span><span class='line'>            <span class="k">echo</span> <span class="s2">&quot;commit</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">\Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">roleback</span><span class="p">();</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>テンプレートインターセプター</h4>
+
+<p>連想配列をフォーマットされた文字列に変換しています。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd">* Template interceptor</span>
+</span><span class='line'><span class="sd">*/</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Template</span> <span class="k">implements</span> <span class="nx">MethodInterceptor</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">invoke</span><span class="p">(</span><span class="nx">MethodInvocation</span> <span class="nv">$invocation</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$view</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$invocation</span><span class="o">-&gt;</span><span class="na">proceed</span><span class="p">();</span>
+</span><span class='line'>        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$result</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$view</span> <span class="o">.=</span> <span class="s2">&quot;Name:</span><span class="si">{</span><span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\t</span><span class="s2">Age:</span><span class="si">{</span><span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$view</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>インジェクター</h3>
+
+<p>インジェクターを生成し、モジュールをセットして対象のインスタンスを取得します。インスタンス取得時にオブジェクトグラフ（必要オブジェクトのリレーション）が解決され依存するオブジェクトが全て生成（またはレイジーロード可能なオブジェクトを取り出す機能のみを持ったオブジェクトプロバイダー）がセットされ対象インスタンスが生成されます。</p>
+
+<p>モジュールは通常のwebアプリケーションならbootstrapで１回だけ作成します。<strong>@Aspect</strong>とマークされメソッドインターセプトされるオブジェクトは、<strong>Weaveオブジェクト</strong>というメソッドがインターセプトされ代理実行されるプロキシーオブジェクトに変わります。元のオブジェクトのメソッドを受付け、元のオブジェクトのように振る舞う代理オブジェクトです。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$injector</span> <span class="o">=</span> <span class="k">include</span> <span class="s1">&#39;path/to/scripts/instance.php&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="nv">$injector</span><span class="o">-&gt;</span><span class="na">setModule</span><span class="p">(</span><span class="k">new</span> <span class="nx">UserModule</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$user</span> <span class="o">=</span> <span class="nv">$injector</span><span class="o">-&gt;</span><span class="na">getInstance</span><span class="p">(</span><span class="s1">&#39;Ray\Di\Sample\User&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="cm">/* @var $user \Ray\Di\Sample\User */</span>
+</span><span class='line'><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">createUser</span><span class="p">(</span><span class="s1">&#39;Koriym&#39;</span><span class="p">,</span> <span class="nx">rand</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">35</span><span class="p">));</span>
+</span><span class='line'><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">createUser</span><span class="p">(</span><span class="s1">&#39;Bear&#39;</span><span class="p">,</span> <span class="nx">rand</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">35</span><span class="p">));</span>
+</span><span class='line'><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">createUser</span><span class="p">(</span><span class="s1">&#39;Yoshi&#39;</span><span class="p">,</span> <span class="nx">rand</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">35</span><span class="p">));</span>
+</span><span class='line'><span class="nv">$users</span> <span class="o">=</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">readUsers</span><span class="p">();</span>
+</span><span class='line'><span class="nb">var_export</span><span class="p">(</span><span class="nv">$users</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>実行結果</h4>
+
+<p><code>
+Timer start
+begin Transaction["Koriym",33]
+commit
+Timer stop:[0.0001919] sec
+Timer start
+begin Transaction["Bear",32]
+commit
+Timer stop:[0.0001190] sec
+Timer start
+begin Transaction["Yoshi",27]
+commit
+Timer stop:[0.0001149] sec
+Name:Koriym Age:19
+Name:Bear Age:28
+Name:Yoshi Age:18
+</code></p>
+
+<h4>オリジナル実行</h4>
+
+<p>オリジナルのメソッドをそのまま実行した場合する場合のコードと結果です。ターゲットクラスに依存技術がなく、プレーンな形で実行とテストが可能です。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$pdo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\PDO</span><span class="p">(</span><span class="s1">&#39;sqlite::memory:&#39;</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="k">null</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Ray\Di\Sample\User</span><span class="p">(</span><span class="nv">$pdo</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">init</span><span class="p">();</span>
+</span><span class='line'><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">createUser</span><span class="p">(</span><span class="s1">&#39;Koriym&#39;</span><span class="p">,</span> <span class="nx">rand</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">35</span><span class="p">));</span>
+</span><span class='line'><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">createUser</span><span class="p">(</span><span class="s1">&#39;Bear&#39;</span><span class="p">,</span> <span class="nx">rand</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">35</span><span class="p">));</span>
+</span><span class='line'><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">createUser</span><span class="p">(</span><span class="s1">&#39;Yoshi&#39;</span><span class="p">,</span> <span class="nx">rand</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">35</span><span class="p">));</span>
+</span><span class='line'><span class="nv">$users</span> <span class="o">=</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">readUsers</span><span class="p">();</span>
+</span><span class='line'><span class="nb">var_export</span><span class="p">(</span><span class="nv">$users</span><span class="p">);</span>
+</span><span class='line'><span class="k">array</span> <span class="p">(</span>
+</span><span class='line'>  <span class="mi">0</span> <span class="o">=&gt;</span>
+</span><span class='line'>  <span class="k">array</span> <span class="p">(</span>
+</span><span class='line'>    <span class="s1">&#39;Name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Koriym&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s1">&#39;Age&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;33&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">),</span>
+</span><span class='line'>  <span class="mi">1</span> <span class="o">=&gt;</span>
+</span><span class='line'>  <span class="k">array</span> <span class="p">(</span>
+</span><span class='line'>    <span class="s1">&#39;Name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Bear&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s1">&#39;Age&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;20&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">),</span>
+</span><span class='line'>  <span class="mi">2</span> <span class="o">=&gt;</span>
+</span><span class='line'>  <span class="k">array</span> <span class="p">(</span>
+</span><span class='line'>    <span class="s1">&#39;Name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Yoshi&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s1">&#39;Age&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;27&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">),</span>
+</span><span class='line'><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Conclusion</h3>
+
+<p>依存オブジェクトが注入される元のクラスには特定のベースクラスの継承や、DIコンテナ等特定の技術に対する依存がありません。利用するオブジェクトや値は全て外部から入力されます。インターフェイスやアノテーションを、クラスやインスタンスまたはファクトトリークラスと結びつけたモジュールを用いて、インジェクターが必要とするオブジェクトを注入 <sup><a href="#footnote_0_904" id="identifier_0_904" class="footnote-link footnote-identifier-link" title="外部から代入">1</a></sup> します。</p>
+
+<p>アノテーションでマークされたメソッドはインターセプトされるメソッドと解釈され、代理オブジェクトによってそのメソッドが代理実行されます。各処理を横断的に共有する関心の実行に役立つと同時に、メソッド内の処理を本質的なものと付帯的なもの、それぞれドメインロジック（ビジネスルール）、アプリケーションロジック（認証やロギング）と分離する事にも役立ちます。オブジェクト指向プログラミングの大原則に関心事の分離があるとするとアスペクト指向プログラミングはそれを補完する横断的関心事の分離に他なりません。</p>
+
+<p>この記事ではRayの基本的な使用法の紹介だけにとどめ、DIやAOPの効用や用語、概念の詳しい解説は行いませんでした。またパフォーマンスやこの技術が向いている問題領域、不向きな領域、アプリケーションでの可能性や、現在ある課題にも触れていません。プレビューリリースとして基本機能を簡単にご紹介しました。</p>
+
+<h3>DIに関するより良い議論</h3>
+
+<p>先日行われたZendConでZend FrameworkチームのエンジニアのRalph Schlenderさんがzf2のZend Diについてスライドを公開しています。zf2のDIだけでなく、特に前半DIについて語られています。素晴らしい内容で、共感する内容も多いです。紹介します。</p>
+
+<div style="width:425px" id="__ss_9776384">
+  <strong style="display:block;margin:12px 0 4px"><a href="http://www.slideshare.net/ralphschindler/zend-di-in-zf-20" title="Zend Di in ZF 2.0" target="_blank">Zend Di in ZF 2.0</a></strong> <div style="padding:5px 0 12px">
+    View more <a href="http://www.slideshare.net/" target="_blank">presentations</a> from <a href="http://www.slideshare.net/ralphschindler" target="_blank">Ralph Schindler</a>
+  </div>
+</div>
+
+
+<h3>Try it</h3>
+
+<p>ここで紹介したサンプルアプリはこの<a href="https://gist.github.com/1307280">テスト</a>で簡単に実行することができます。ご協力頂ければ大変ありがたいです。現在は簡単な英文マニュアルがあるだけですが<a href="https://github.com/koriym/Ray.Di">koriym/Aura.Di</a>で公開しています。</p>
+
+<ol class="footnotes">
+  <li id="footnote_0_904" class="footnote">
+    外部から代入 [<a href="#identifier_0_904" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/10/stevejobs1955-2011/">Steve Jobs 1955-2011</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-07T00:00:00+09:00" pubdate data-updated="true">Oct 7<span>th</span>, 2011</time>
+        
+         | <a href="/2011/10/stevejobs1955-2011/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2011/10/stevejobs1955-2011/">Tweet</a>
+</div>
+
+
+<p>2011年10月5日 Steve Jobs氏死去。<br/>
+謹んでご冥福をお祈りします。</p>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2011/10/t_hero.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2011/10/t_hero.png" alt="Steve Jobs" title="Steve Jobs" width="706" height="644" class="alignleft size-full wp-image-832" /></a></p>
+
+<br clear="all" />
+
+
+<p>16の時にApple IIcを使い始めて以来のApple製品ユーザーです。</p>
+
+<p><img src="/wp-content/uploads/2011/10/Apple_IIc_with_monitor-300x300.jpg">
+<img src="/wp-content/uploads/2011/10/Se30-289x300.jpg">
+<img src="/wp-content/uploads/2011/10/108703301-300x194.jpg">
+<img src="/uploads/2011/10/9757489-300x225.jpg"">
+<img src="/wp-content/uploads/2011/10/20091004-first-gen-ipod-300x300.jpg"></p>
+
+<p>人々を引きつける彼のプレゼンテーションでも最も特別なのはやはりMacworld 2007 Keynoteでしょう。その冒頭でJobsは「世の中を変えてしまう製品というのがある。一度でも幸運なことだが、Appleは過去に2つやりとげた。1984年のMacintosh, 2001年のiPod &#8230;」とそれから初めて発表するiPhoneへの紹介に繋げます。</p>
+
+<p>この2つの製品の登場は今も強い印象を持っています。ただし単なる熱狂ではなくて疑問と期待が入り交じった不思議なものでした。MacintoshはApple IIで成功した要素「カラー、拡張性、TVをモニターにできる、ゲームに向いた機能」の「全て」を持っていませんでした。</p>
+
+<p>iPodが出現したときには128MのメモリのMP3プレーヤーに人気があり、市場に「ハードディスクを首からぶら下げて持ってる曲を全部持ち運びたい」という要求はありませんでした。iPodの日本初お披露目は（自分の記憶によれば)「ラフォーレ原宿」のロビーのところです。ガラスケースに入った発売前のiPodがうやうやしく回転してました。たまに見る人もいましたが、それがコンピューターメーカーの製品、ましてやすぐ数年後に音楽の聞き方を全く変えてしまう革新的な製品であると見てる人は全然いなかったと思います。</p>
+
+<p>MacintoshもiPodも価格が高すぎるとも言われ、どちらも市場に登場した時には少なからず批判もありました。</p>
+
+<br clear="all" />  
+
+
+<p>今は分かります。<br/>
+真にイノベイティブな製品は同時代の人に登場の時からすぐに熱狂的に支持されるものではないということを。</p>
+
+<p>Keynoteの中でJobsは我々の世界の先駆者としてAllan Kayの言葉を引用します。</p>
+
+<blockquote><p>ソフトウェアに対して本当に真剣な人は、独自のハードウェアを作るべきだ。</p></blockquote>
+
+<p>iPhone登場30年前の言葉ですが、今のAppleそのものです。<br/>
+そのAllan Kayが好んで使った言葉があります。</p>
+
+<blockquote><p>&#8220;Perspective is worth 80 IQ.&#8221;</p>
+
+<p>&#8220;Knowledge is silver. Outlook is gold. IQ is a lead weight.&#8221;</p></blockquote>
+
+<p>物事を見る視点や見解の大切さを説いた言葉ですが、Steve Jobsは正に世界を人と違った視点で見てた人だと思います。人とは違う考えを持つことを恐れず、世界を変えられるとの信念を持つ大胆さ、そしてそれを実行できる能力を兼ね備えていた、世界はそういう惜しい人を無くしました。自分も今日は大きな喪失感と共に一日を終えました。</p>
+
+<p>最後にJobsが制作に最も拘ったと言われるCM映像<sup><a href="#footnote_0_831" id="identifier_0_831" class="footnote-link footnote-identifier-link" title="http://jp.wsj.com/japanrealtime/2011/10/06/%EF%BD%97%EF%BD%93%EF%BD%8A%E6%97%A5%E6%9C%AC%E7%89%88%E7%B7%A8%E9%9B%86%E9%95%B7%E3%81%8C%E8%A6%8B%E3%81%9F%E3%82%B8%E3%83%A7%E3%83%96%E3%82%BA%E6%B0%8F%E3%81%AE%E5%AE%8C%E3%81%BA%E3%81%8D%E4%B8%BB/">1</a></sup> を紹介してこの記事を終えます。追放されたAppleに復帰したJobsがどん底のAppleの再生を願い制作したそうです。</p>
+
+<p>Steve Jobs本人のナレーションによる「Think Different」です。</p>
+
+<div class="embed-video-container"><iframe src="http://www.youtube.com/embed/8rwsuXHA7RA "></iframe></div>
+
+
+<p>クレージーな人達がいる。<br/>
+反逆者，厄介者と呼ばれる人達。<br/>
+四角い穴に、丸い杭を打ち込むように<br/>
+物事をまるで違う目で見る人たち。</p>
+
+<p>彼らは規制を嫌う。彼らは現状を肯定しない。</p>
+
+<p>彼らの言葉に心をうたれる人がいる。<br/>
+反対する人も、賞賛する人も、けなす人もいる。<br/>
+しかし、彼らを無視することは、<br/>
+誰にも出来ない。</p>
+
+<p>なぜなら彼らは物事を変えたからだ。<br/>
+彼らは人間を前進させた。</p>
+
+<p>彼らはクレージーと言われるが、<br/>
+私たちは彼らを天才と思う。</p>
+
+<p>自分が世界を変えられること<br/>
+本気で信じる人達こそが、<br/>
+本当に世界を変えているのだから。</p>
+
+<ol class="footnotes">
+  <li id="footnote_0_831" class="footnote">
+    <a href="http://jp.wsj.com/japanrealtime/2011/10/06/%EF%BD%97%EF%BD%93%EF%BD%8A%E6%97%A5%E6%9C%AC%E7%89%88%E7%B7%A8%E9%9B%86%E9%95%B7%E3%81%8C%E8%A6%8B%E3%81%9F%E3%82%B8%E3%83%A7%E3%83%96%E3%82%BA%E6%B0%8F%E3%81%AE%E5%AE%8C%E3%81%BA%E3%81%8D%E4%B8%BB/">http://jp.wsj.com/japanrealtime/2011/10/06/%EF%BD%97%EF%BD%93%EF%BD%8A%E6%97%A5%E6%9C%AC%E7%89%88%E7%B7%A8%E9%9B%86%E9%95%B7%E3%81%8C%E8%A6%8B%E3%81%9F%E3%82%B8%E3%83%A7%E3%83%96%E3%82%BA%E6%B0%8F%E3%81%AE%E5%AE%8C%E3%81%BA%E3%81%8D%E4%B8%BB/</a> [<a href="#identifier_0_831" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/10/the-new-era-of-php-web-development/">The New Era of PHP Web Development</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-02T00:00:00+09:00" pubdate data-updated="true">Oct 2<span>nd</span>, 2011</time>
+        
+         | <a href="/2011/10/the-new-era-of-php-web-development/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2011/10/the-new-era-of-php-web-development/">Tweet</a>
+</div>
+
+
+
+
+<div style="width:595px" id="__ss_9506430">
+  <strong style="display:block;margin:12px 0 4px"><a href="http://www.slideshare.net/akihito.koriyama/the-new-era-of-php-web-development" title="The new era of PHP web development." target="_blank">The new era of PHP web development.</a></strong> <div style="padding:5px 0 12px">
+    View more <a href="http://www.slideshare.net/" target="_blank">presentations</a> from <a href="http://www.slideshare.net/akihito.koriyama" target="_blank">BEAR-project</a>
+  </div>
+</div>
+
+
+<p>カンファレンスの基調講演かよというような大げさなタイトルですが、参加したPHP勉強会@関東で空き時間があって、持っていったMacBook Airに入っていた以前つくった資料の断片がありその場で飛び入りを決め発表させてもらいました。</p>
+
+<p>元々は自分が5.3+専用のフレームワークをつくるときに、何故作るのか、今求められるものとは何か、現在のweb開発、PHP、フレームワークの潮流とはどういうものなのか、等と自分のフレームワーク制作用に調べた時につくった資料の断片で公開の予定のないものでした。</p>
+
+<p>自分なりに客観性を持って考察したのですが、やはりこういう観察や考察は多分に主観的なところとかあると思います。これと別スライドの<a href="http://www.bear-project.net/blog/2011/07/bear-sunday/">CQRSパターン</a>とMozilla laboのCANVASを使った<a href="http://panda.bear-project.net/panda_sample/">Aceエディター</a>が前のbespineから大分進化してて充分実用レベルです、デザイナーや開発者どうしでのコラボレーションに充分使えます。GitHubで使われてますが、開発で使うと使い勝手いいですよいう話、以上３つの話をいたしました。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/09/php5-4%e3%83%90%e3%82%a4%e3%83%8a%e3%83%aa%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab/">OSX PHP 5.4バイナリインストール</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-09-14T00:00:00+09:00" pubdate data-updated="true">Sep 14<span>th</span>, 2011</time>
+        
+         | <a href="/2011/09/php5-4%e3%83%90%e3%82%a4%e3%83%8a%e3%83%aa%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2011/09/php5-4%e3%83%90%e3%82%a4%e3%83%8a%e3%83%aa%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab/">Tweet</a>
+</div>
+
+
+<p>詳細は<a href="http://php-osx.liip.ch/">http://php-osx.liip.ch/</a>を参照。以下元記事の間違い <sup><a href="#footnote_0_798" id="identifier_0_798" class="footnote-link footnote-identifier-link" title="sudo tar -C /  -xzf /tmp/packager.tgzになっている。issue報告済み">1</a></sup>を訂正したまとめです。</p>
+
+<h3>PHPのインストール</h3>
+
+<p>/usr/local/php5/にインストールされます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>curl -s -o /tmp/packager.tgz http://php-osx.liip.ch/packager/packager.tgz
+</span><span class='line'>sudo tar -C /usr/local -xzf /tmp/packager.tgz
+</span><span class='line'>sudo /usr/local/packager/packager.py install beta-frontenddev
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>確認</h4>
+
+<p>現在PHP 5.4.0beta2-dev というバージョンがインストールされます。<sup><a href="#footnote_1_798" id="identifier_1_798" class="footnote-link footnote-identifier-link" title="2011/10/24">2</a></sup></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>/usr/local/php5/bin/php -v
+</span><span class='line'>
+</span><span class='line'>PHP 5.4.0beta1-dev <span class="o">(</span>cli<span class="o">)</span> <span class="o">(</span>built: Aug 23 2011 11:16:42<span class="o">)</span>
+</span><span class='line'>Copyright <span class="o">(</span>c<span class="o">)</span> 1997-2011 The PHP Group
+</span><span class='line'>Zend Engine v2.4.0, Copyright <span class="o">(</span>c<span class="o">)</span> 1998-2011 Zend Technologies
+</span><span class='line'>with Xdebug v2.2.0-dev, Copyright <span class="o">(</span>c<span class="o">)</span> 2002-2011, by Derick Rethans
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>apapcheのhttpd.conf</h3>
+
+<p>OSX純正のapache2の場合</p>
+
+<p>/etc/apache2/httpd.conf</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>LoadModule php5_module libexec/apache2/libphp5.so
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>を</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>LoadModule php5_module /usr/local/php5/libphp5.so
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>に変更</p>
+
+<h3>アンインストール</h3>
+
+<p>httpd.confを元のものに直してからphp5ディレクトリを消去します。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rm -rf /usr/local/php5
+</span><span class='line'><span class="nv">$ </span>rm -rf /usr/local/packager/
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>試してみよう</h3>
+
+<ul>
+<li><a href="http://d.hatena.ne.jp/jmtaro/20110908/1315508354">PHP5.4 でプロトタイプベースのオブジェクト指向を実現する &#8211; 国道十六号高架下</a></li>
+<li><a href="http://d.hatena.ne.jp/anatoo/20110707/1310045371">PHP5.4のtraitを使ったシングルトンパターン実装によるtrait入門 &#8211; id:anatooのブログ </a></li>
+<li><a href="http://meme.efcl.info/2011/07/php54.html">PHP5.4でビルトインウェブサーバーを使って反復実行環境の構築 | MemeTodo meme.efcl.info</a></li>
+<li><a href="https://github.com/yuya-takeyama/LisPHP">yuya-takeyama / LisPHP</a>
+などなど。現在は不十分ですがこの<a href="http://php.net/manual/ja/migration54.php">PHP 5.3.x から PHP 5.4.x への移行</a>ドキュメントも整ってくると思われます。 </ul>
+
+<h3>PHP開発コミュニティへの協力</h3></li>
+</ul>
+
+
+<p>Rasmus Lerdorさんが<a href="https://plus.google.com/113641248237520845183/posts/R8qAfsM8qcs">&#8220;make test&#8221;の協力の呼びかけ</a>を行っています。ソースをコンパイルしてmake testとすると、test結果が自動的に送信されるような仕組みになっています。簡単に行えます。この記事とは直接の関係はありませんが紹介します。</p>
+
+<h3>まとめ</h3>
+
+<p>簡単です。インストールに時間もかからず、リンクエラーに悩まされる事も無く多くのextensionもサポートされていて開発用に良いんじゃないでしょうか。php5.3環境をmacports、php5.4環境をosx純正+このバイナリインストールのPHP5.4と使い分けています。</p>
+
+<ol class="footnotes">
+  <li id="footnote_0_798" class="footnote">
+    sudo tar -C / -xzf /tmp/packager.tgzになっている。issue報告済み [<a href="#identifier_0_798" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_1_798" class="footnote">
+    2011/10/24 [<a href="#identifier_1_798" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/09/gdd2011-devquiz/">GDD2011 DevQuiz</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-09-13T00:00:00+09:00" pubdate data-updated="true">Sep 13<span>th</span>, 2011</time>
+        
+         | <a href="/2011/09/gdd2011-devquiz/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2011/09/gdd2011-devquiz/">Tweet</a>
+</div>
+
+
+<p>今年もGoogle Developers Days 2011のDevQuizに挑戦しました。<br/>
+以下、その記録です。</p>
+
+<h3>Web Game</h3>
+
+<p>Chromeのエクステンションを作成。サンプルに少し追加して全てのカードをクリックするようにして解答しました。</p>
+
+<p>多くの人が思ったようにChromeのエクステンションは簡単にできるのよく分かりました。solver.jsとmanifest.jsonの２つのファイルを作成するだけです。</p>
+
+<p>このエクステンションは<a href="http://gdd-2011-quiz-japan.appspot.com/webgame/problem%E3%81%AE%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AB%E5%87%BA%E7%8F%BE%E3%81%99%E3%82%8B%E5%85%A8%E3%81%A6%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%89%E3%82%92%E3%82%AF%E3%83%AA%E3%83%83%E3%82%AF%E3%81%97%E3%81%BE%E3%81%99%E3%80%82">http://gdd-2011-quiz-japan.appspot.com/webgame/problem%E3%81%AE%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AB%E5%87%BA%E7%8F%BE%E3%81%99%E3%82%8B%E5%85%A8%E3%81%A6%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%89%E3%82%92%E3%82%AF%E3%83%AA%E3%83%83%E3%82%AF%E3%81%97%E3%81%BE%E3%81%99%E3%80%82</a></p>
+
+<p>solver.js</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="nx">cont</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span><span class='line'><span class="k">while</span> <span class="p">(</span><span class="nx">cont</span> <span class="o">==</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">element0</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;card&#39;</span> <span class="o">+</span> <span class="nx">i</span><span class="p">);</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">element1</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;card&#39;</span> <span class="o">+</span> <span class="nx">j</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">j</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nx">element0</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">cont</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nx">element1</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Card element is not found. Check element id.&#39;</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">i</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'>      <span class="nx">j</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">myevent</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createEvent</span><span class="p">(</span><span class="s1">&#39;MouseEvents&#39;</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">myevent</span><span class="p">.</span><span class="nx">initEvent</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">element0</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="nx">myevent</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">element1</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="nx">myevent</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Card color is &quot;&#39;</span> <span class="o">+</span> <span class="nx">element1</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">backgroundColor</span> <span class="o">+</span> <span class="s1">&#39;&quot;.&#39;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="nx">j</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>manifest.json<br/>
+`
+{
+  &ldquo;name&rdquo;: &ldquo;ChromeExtensionSolverHint&rdquo;,
+  &ldquo;version&rdquo;: &ldquo;1.0&rdquo;,
+  &ldquo;description&rdquo;: &ldquo;Open the first card and show background color of the card.&rdquo;,
+  &ldquo;content_scripts&rdquo;: [</p>
+
+<pre><code>{
+  "matches": [
+    "http://gdd-2011-quiz-japan.appspot.com/webgame/problem*"
+  ],
+  "js": [
+    "solver.js"
+  ]
+}
+</code></pre>
+
+<p>  ],
+  &ldquo;permissions&rdquo;: [
+  ]
+}
+`</p>
+
+<h3>Go</h3>
+
+<p>Go言語で与えられた画像ファイルの使用色数を答える関数を作成するという問題です。</p>
+
+<p>まずはOSX/LionにGoをインストールです。このサイトを参考にしました。<sup><a href="#footnote_0_763" id="identifier_0_763" class="footnote-link footnote-identifier-link" title="コンパイルとリンクを行うスクリプトもあって便利です。">1</a></sup><br/>
+<a href="http://jeremyhubert.com/articles/installing-google-go-on-osx-snow-leopard.html">http://jeremyhubert.com/articles/installing-google-go-on-osx-snow-leopard.html</a></p>
+
+<p>Go言語は初めてだったのですが触ってすぐに色々な興味深い特徴に気がつきます。<sup><a href="#footnote_1_763" id="identifier_1_763" class="footnote-link footnote-identifier-link" title="例えば、変数名の後に型が続く事や、大文字始まりならpublic宣言など。また未使用変数があればコンパイルにすら通りません。">2</a></sup><br/>
+静的型付けのコンパイラ言語なのですが、丁寧に削られた簡素な記述のおかげかスクリプト言語のような柔軟でソフトな印象を感じました。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>package main
+</span><span class='line'>import (
+</span><span class='line'>    "fmt"
+</span><span class='line'>    "io"
+</span><span class='line'>    "strings"
+</span><span class='line'>  imagep "image/png"
+</span><span class='line'>    /* add more */
+</span><span class='line'>)
+</span><span class='line'>func CountColor(png io.Reader) int {
+</span><span class='line'>  image, err := imagep.Decode(png)
+</span><span class='line'>  if err != nil {
+</span><span class='line'>      fmt.Printf("Error from png.Decode: %s\n", err)
+</span><span class='line'>  }
+</span><span class='line'>  width := image.Bounds().Size().X
+</span><span class='line'>  height := image.Bounds().Size().Y
+</span><span class='line'>    //fmt.Printf("width: %d, %d\n", width, height)
+</span><span class='line'>  result := map[uint32]bool{}
+</span><span class='line'>  var idx uint32
+</span><span class='line'>  for y:=0 ; y &lt; height ; y++{
+</span><span class='line'>      for x:= 0 ; x &lt; width ; x++ {
+</span><span class='line'>          color := image.At(x, y)
+</span><span class='line'>          //fmt.Printf("x, y, color: %d %d %x\n", x, y, color)
+</span><span class='line'>          r, g, b, _ := color.RGBA();
+</span><span class='line'>          idx = r*0x100*0x100 + g*0x100 + b
+</span><span class='line'>          result[idx] = true
+</span><span class='line'>      }
+</span><span class='line'>  }
+</span><span class='line'>  cnt := len(result)
+</span><span class='line'>    return cnt
+</span><span class='line'>}
+</span><span class='line'>/* これらの関数は提出時に自動挿入されます。 */
+</span><span class='line'>func main() {
+</span><span class='line'>    png := GetPngBinary()
+</span><span class='line'>    cnt := CountColor(png)
+</span><span class='line'>    fmt.Println(cnt)
+</span><span class='line'>}
+</span><span class='line'>func GetPngBinary() io.Reader {
+</span><span class='line'>    // img_strの中身は提出するたびに変化します。
+</span><span class='line'>    img_str := "\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x18\x00\x00\x00\x08\x08\x06\x00\x00\x00\xe3\xa1?c\x00\x00\x02\xeeiCCPICC Profile\x00\x00x\x01\x85T\xcfk\x13A\x14\xfe6n\xa9\xd0\"\x08Zk\x0e\xb2x\x90\"IY\xabhE\xd46\xfd\x11bk\x0c\xdb\x1f\xb6E\x90d3I\xd6n6\xeb\xee&#038;\xb5\xa5\x88\xe4\xe2\xd1*\xdeE\xed\xa1\x07\xff\x80\x1ez\xf0d/J\x85ZE(\xde\xab(b\xa1\x17-\xf1\xcdnL\xb6\xa5\xea\xc0\xce~\xf3\xde7\xef}ov\xdf\x00\rr\xd24\xf5\x80\x04\xe4\r\xc7R\xa2\x11il|Bj\xfc\x88\x00\x8e\xa2\tA4%U\xdb\xecN$\x06A\x83s\xf9{\xe7\xd8z\x0f\x81[V\xc3{\xfbw\xb2w\xad\x9a\xd2\xb6\x9a\x07\x84\xfd@\xe0G\x9a\xd9*\xb0\xef\x17q\nY\x12\x02\x88&lt;\xdf\xa1)\xc7t\x08\xdf\xe3\xd8\xf2\xec\x8f9Nyx\xc1\xb5\x0f+=\xc4Y\"|@5-\xce\x7fM\xb8S\xcd%\xd3@\x83H8\x94\xf5qR&gt;\x9c\xd7\x8b\x94\xd7\x1d\x07inf\xc6\xc8\x10\xbdO\x90\xa6\xbb\xcc\xee\xabb\xa1\x9cN\xf6\x0e\x90\xbd\x9d\xf4~N\xb3\xde&gt;\xc2!\xc2\x0b\x19\xad?F\xb8\x8d\x9e\xf5\x8c\xd5?\xe2a\xe1\xa4\xe6\xc4\x86=\x1c\x185\xf4\xf8`\x15\xb7\x1a\xa9\xf85\xc2\x14_\x10M'\xa2Tq\xd9.\r\xf1\x98\xae\xfdV\xf2J\x82p\x908\xcada\x80sZHO\xd7Ln\xf8\xba\x87\x05}&#038;\xd7\x13\xaf\xe2wVQ\xe1y\x8f\x13g\xde\xd4\xdd\xefE\xda\x02\xaf0\x0e\x1d\x0c\x1a\x0c\x9a\rHP\x10E\x04a\x98\xb0P@\x86&lt; \x1a14\xb2r?#\xab\x06\x1b\x93{2u$j\xbbtbD\xb1A{6\xdc=\xb7Q\xa4\xdd&lt;\xfe(\"q\x94C\xb5\x08\x92\xfcA\xfe*\xaf\xc9O\xe5y\xf9\xcb\\\xb0\xd8V\xf7\x94\xad\x9b\x9a\xba\xf2\xe0;\xc5\xe5\x99\xb9\x1a\x1e\xd7\xd3\xc8\xe3sM^|\x95\xd4v\x93WG\x96\xacyz\xbc\x9a\xec\x1a?\xecW\x971\xe6\x825\x8f\xc4s\xb0\xfb\xf1-_\x95\xcc\x97)\x8c\x14\xc5\xe3U\xf3\xeaK\x84uZ17\xdf\x9fl\x7f;=\xe2.\xcf.\xb5\xd6s\xad\x89\x8b7V\x9b\x97g\xfdjH\xfb\xee\xaa\xbc\x93\xe6U\xf9O^\xf5\xf1\xfcg\xcd\xc4c\xe2)1&#038;v\x8a\xe7!\x89\x97\xc5.\xf1\x92\xd8K\xab\x0b\xe2`m\xc7\x08\x9d\x95\x86)\xd2m\x91\xfa$\xd5``\x9a\xbc\xf5/]?[x\xbdF\x7f\x0c\xf5Q\x94\x19\xcc\xd2T\x89\xf7\x7f\xc2*d4\x9d\xb9\x0eo\xfa\x8f\xdb\xc7\xfc\x17\xe4\xf7\x8a\xe7\x9f(\x02/l\xe0\xc8\x99\xbamSq\xef\x10\xa1e\xa5ns\xae\x02\x17\xbf\xd1}\xf0\xb6nk\xa3~8\xfc\x04X&lt;\xab\x16\xadR5\x9f \xbc\x01\x1cv\x87z\x1e\xe8)\x98\xd3\x96\x96\xcd9R\x87,\x9f\x93\xba\xe9\xcabR\xccP\xdbCRR\xd7%\xd7eK\x16\xb3\x99Ub\xe9v\xd8\x99\xd3\x1dn\x1c\xa19B\xf7\xc4\xa7Je\x93\xfa\xaf\xf1\x11\xb0\xfd\xb0R\xf9\xf9\xacR\xd9~N\x1a\xd6\x81\x97\xfao\xc0\xbc\xfdE\xc0x\x8b\x89\x00\x00\x00\x97IDAT(\x15\x9d\x92\x81\x0e\x80 \x08D\xa5\xf9m\xf5Y\xad\xcf\xaa\x9f#nz$\xba\xb9\xca\xad\x85\xc1\xbd\x03S\xd4\x96H\xf2\xa5\xea\xe1\xeb@\x8e\x02\xd0}\x14/\x80\x03\xca\xa75{\xeb0\x80\x01\xa9\xa0\xdcC|\x02:\xf1\xc3U\xc7\\K\x97}\xda9HPcq0pQ\x8aE\xe94y\x05'3\x92M[\x86\xc7\xc1\xa4n\x82\x01\x8ci\xe2\xc5\x7f\x02N`\xda\xdcCK\xaeqbqsD\xbd\x86=\xe0g\xdb\x9dy\xba\xb4Xp\x8bX\xf0\xe7\x8d\x89g\x84pD_\x0cx\x9438x7\xa4yC\r7\x04z\xae\x00\x00\x00\x00IEND\xaeB`\x82"
+</span><span class='line'>    return strings.NewReader(img_str)
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+ポイントというほどの所もないですが、色を数えるのに各色8bitなので16進数3桁の数字にしてキーにしその数を数えました。</p>
+
+<h3>スライドパズル</h3>
+
+<p>大きさが色々あり、盤面の中にも壁がある<a href="http://ja.wikipedia.org/wiki/15%E3%83%91%E3%82%BA%E3%83%AB">15パズル</a>の変形版のようなパズルを5000問解くという問題です。一問0.1点。これまでの３つのクイズの合計100点あったのですが、101点になるために今までの100点獲得の労力を軽く超えるような難易度でした。難しかったです。</p>
+
+<p>CPU100%でファンを全開で一晩中計算し続けさせるようなパズルの解法のプログラムは、ms単位で処理の終わる普段のwebプログラムと全く違う世界です。AIプログラミングの基礎的な事から分かってなかったのでその学習から始めました。前回のGDD Pacman問題の反省です。<sup><a href="#footnote_2_763" id="identifier_2_763" class="footnote-link footnote-identifier-link" title="自分で適当に考え実装し後からああ自分の実装はBFSというやつだったのか..などとならないように！">3</a></sup>　</p>
+
+<p>まず大事なのは問題をツリー構造にモデル化することです。問題プロセスの状態を節点（node）、その状態遷移を枝（branch)で表します。一番初めの節点を根（root）、一番末端を葉とした状の不可逆のツリー構造をモデルとし、そのルートからゴールまでの状態遷移に様々な探索方法をあてはめ解法を求めます。</p>
+
+<p>競技用プログラムやAIプログラムに慣れてる方ならこの辺りの話は基礎の基礎なのだと思いますが、自分は一つ一つをあーなるほどと理解するところから始めました。</p>
+
+<ul>
+<li><a href="http://goo.gl/t8lz0">幅優先探索 BFS Breadth first search,</a></li>
+<li><a href="http://goo.gl/YKjur">反復深化深さ優先探索 IDDFS diterative deepening depth-first search</a></li>
+<li><a href="http://goo.gl/xXEAd">最良優先探索 Best-first search A*</a></li>
+</ul>
+
+
+<p>最良優先探索はいくつもあるのですが、向いてそうなのは A*、評価関数はオーソドックスな<a href="http://ja.wikipedia.org/wiki/%E3%83%9E%E3%83%B3%E3%83%8F%E3%83%83%E3%82%BF%E3%83%B3%E8%B7%9D%E9%9B%A2">マンハッタン距離</a>に少しオリジナルな関数を加えたらと考えました。</p>
+
+<h4>言語の選択</h4>
+
+<p>最初は普通に考えて速度の速いコンパイル言語をと、ちょっと学習してみたGoか普段使わないC/C++/Javaに挑戦するかとか考えました。<sup><a href="#footnote_3_763" id="identifier_3_763" class="footnote-link footnote-identifier-link" title=" Cはその昔SonyのPlayStation用ゲーム制作の一部を手伝った事があるくらいでポリゴンで3Dの関節プログラムとか、アセンブラのゲームの移植とか、すっかり忘れてるのですが再挑戦も面白いと思いました">4</a></sup> しかし#gdd11jpでPythonで高得点を取ってる方がいたのを見たのと <sup><a href="#footnote_4_763" id="identifier_4_763" class="footnote-link footnote-identifier-link" title="Cythonというコンパイラがあって超高速で実行できるのは後で知りました＾＾； ">5</a></sup>　使った事のないPHP5.3の機能ややってみたい実装があったのでPHPにしました。<sup><a href="#footnote_5_763" id="identifier_5_763" class="footnote-link footnote-identifier-link" title="どうせならPHP5.4でやれば良かったですね">6</a></sup>。目標として（使い切りだし時間も限られてますが）丁寧なOOPでマンハッタン距離+αのヒューストリックのA*で実装というのを立てます。</p>
+
+<h4>実装</h4>
+
+<p><a href="https://github.com/koriym/gdd11jp">https://github.com/koriym/gdd11jp</a></p>
+
+<p>以下、READMEからです。</p>
+
+<blockquote><p>■slide.php<br/>
+本体。answer.txtがあれば解答済みファイルとしてスキップに利用、答えはoutput.txtで出力。<br/>
+どのパズルをスキップするか、およびパズルに応じたタスク管理を選択するロジックをクロージャで渡して演算を開始。</p>
+
+<p>幅優先探索は、反復深化深さ優先探索ははどちらもブラインドサーチで3x3と3x4,4/3のみに対応。それ以上は=(壁)検知付きマンハッタン距離、正位置にあるピースに重みづけ、それに手数削減のための過去の移動距離をそれぞれコストとして合計したものを関数としてヒューリスティック探索。繰り返し検知、逆探索検索付き。消費メモリ、消費時間に応じて無回答。制限時間になってもヒューリスティック関数の値が上昇し続けてたら時間制限を延長する”もう少しかも、頑張れ&#8221;機能。&#8221;下端を除くゲーム盤面の端で1つ足りないだけの状態にペナルティの効果&#8221;は今ひとつ。</p>
+
+<p>演算コスト削減は、マンハッタン距離コストマップ、移動可否マップの事前演算。メモリ省力化として配列のSplFixedArray使用等。基本的な探索実装で目標スコア3000後半程度。肝心のソルバーは強くないが想定の範囲は大体実装。</p>
+
+<p>クラス</p>
+
+<p><strong>PuzzuleRepository</strong><br/>
+ファイルからパズルオブジェクトを取り出せるリポジトリクラス。<br/>
+<strong>Puzzle</strong><br/>
+パズルの基本データ。プロパティの公開されているデータ構造クラス。<br/>
+<strong>Game</strong><br/>
+ゲーム状態を保持しパズルの基本操作ができるオブジェクト。方向と合わせてタスクとして登録される。<br/>
+<strong>Play</strong><br/>
+ルールを知りプレイを行うクラス。ゲーム完了するまでループ実行。<br/>
+<strong>Task</strong><br/>
+BFS, IDDFS, A*探索を行うためのタスクマネージメントクラス。<br/>
+それぞれPHPのSplQueue、SplStack、SplPriorityQueueクラスを利用。</p></blockquote>
+
+<p>PHPには A*にそのまま適用できる<a href="http://jp.php.net/manual/ja/class.splpriorityqueue.php">SplPriorityQueue</a> クラス、幅優先探索に<a href="http://jp.php.net/manual/ja/class.splqueue.php">SplQueue</a>クラス、深さ優先探索 に<a href="http://jp.php.net/manual/ja/class.splstack.php">SplStack </a>クラスという標準的なデータ構造用のクラスが5.3から用意されていてこれを利用しました。<br/>
+肝心のソルバーはマンハッタン距離（途中の壁検知付の）と移動ヒストリーの長さを合算してコストにするものと、その逆探索の基本的なものですが、パズルを二次元配列にしないで高速化と処理の簡素化のために一次元にしたのと、移動処理の時のif R, if L &hellip;と4つ続ける冗長さを排除したのが小さなこだわりです。双方向探索の実装をしてれば大きくスコアを伸ばせたのではないかと思います。高速な言語に移植する方法もありましたがPHPと基本的なアルゴリズムでどれくらいのスコアが取れるのだろうという興味もありました。少しの改善で4000ありえるかなあというところでタイムアップでした。3750/5000です。高得点とは言えませんが、幅優先実装してたった0.57点でPHPじゃやっぱり&hellip;と途方にくれた時から考えると大きな前進でした。</p>
+
+<h4>Clean Code</h4>
+
+<p>限られた時間である程度の結果を出しながら多くのOOP原則に従ったClean Codeで記述というのも今回の目標の一つでした<sup><a href="#footnote_6_763" id="identifier_6_763" class="footnote-link footnote-identifier-link" title="点にはなりませんが">7</a></sup><br/>
+単一責任原則（SRP:the Single Responsibility Principle） 、デメテルの法則（Law of Demetre (LoD)）、おまえが呼ぶな、俺が呼ぶの「ハリウッドの原則」、オープン・クローズドの原則（OCP）、gettr/setterの排除、等々意識したのですが不十分な所も多々あり反省の残るところです。それでも&#8221;次&#8221;にはかなり再利用できそうです。また、PHPのコーディングでprivate/protectedのprefixに_（アンダースコア）を使わないスタイルがいいのでは？にというトレンドが一部であるようで今回はそれに従ってみました。その他は現在のPHPのごく標準的なコード規約に従ってると思います。</p>
+
+<h4>実行方法</h4>
+
+<pre>$ git clone git@github.com:koriym/gdd11jp.git
+$ cd gdd11jp/puzzle
+$ php slide.php
+</pre>
+
+
+<h4>まとめ</h4>
+
+<p>コンテストと違ったイベント感、使用言語を超え同じ取り組みをする事で生まれる共有感、高得点の人もそうでない人も、DevQuizはプログラミングが本来持つコーディングの楽しみが実感できる素晴らしい機会だと思います。<sup><a href="#footnote_7_763" id="identifier_7_763" class="footnote-link footnote-identifier-link" title="中学生の時にはじめてプログラミングしたワクワク感が少し甦りました。">8</a></sup> 機会を与えてくれた主催者の方々と<a href="http://twitter.com/search/%23gdd11jp">#gdd11jp</a>で楽しい時間を共有してくれた皆様には感謝を申し上げます。ありがとうございました。GDD11でお会いしましょう！</p>
+
+<ol class="footnotes">
+  <li id="footnote_0_763" class="footnote">
+    コンパイルとリンクを行うスクリプトもあって便利です。 [<a href="#identifier_0_763" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_1_763" class="footnote">
+    例えば、変数名の後に型が続く事や、大文字始まりならpublic宣言など。また未使用変数があればコンパイルにすら通りません。 [<a href="#identifier_1_763" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_2_763" class="footnote">
+    自分で適当に考え実装し後からああ自分の実装はBFSというやつだったのか..などとならないように！ [<a href="#identifier_2_763" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_3_763" class="footnote">
+    Cはその昔SonyのPlayStation用ゲーム制作の一部を手伝った事があるくらいでポリゴンで3Dの関節プログラムとか、アセンブラのゲームの移植とか、すっかり忘れてるのですが再挑戦も面白いと思いました [<a href="#identifier_3_763" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_4_763" class="footnote">
+    Cythonというコンパイラがあって超高速で実行できるのは後で知りました＾＾； [<a href="#identifier_4_763" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_5_763" class="footnote">
+    どうせならPHP5.4でやれば良かったですね [<a href="#identifier_5_763" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_6_763" class="footnote">
+    点にはなりませんが [<a href="#identifier_6_763" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_7_763" class="footnote">
+    中学生の時にはじめてプログラミングしたワクワク感が少し甦りました。 [<a href="#identifier_7_763" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/6/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/4/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/12/04/php7-dot-0-0/">PHP7.0.0</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/08/haphpy-birthday/">HaPHPy Birthday PHP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/31/first-bear-sunday-stable-release/">First BEAR.Sunday Stable Release !</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/29/phpkansai2014/">基調講演「全てを結ぶ力」</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/koriym">@koriym</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'koriym',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+<section class="googleplus googleplus-hidden">
+  <h1>
+    <a href="https://plus.google.com/102811656239290261200?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Akihito Koriyama -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.</span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'koriym';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/ja_JP/all.js#appId=516362398477090&xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+<script>
+    (function(w,d){
+        var c,e=d.createDocumentFragment(),f=d.getElementsByTagName("script")[0],
+                a=function(a,b){if(!d.getElementById(b)){c=d.createElement("script");
+                    c.src=a;c.id=b||null;c.async=true;e.appendChild(c);}};
+                a("//b.st-hatena.com/js/bookmark_button_wo_al.js");
+                f.parentNode.insertBefore(e,f);
+            })(this,document);
+</script>
+
+
+</body>
+</html>

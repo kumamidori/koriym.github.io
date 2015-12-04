@@ -1,0 +1,754 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Object Framework &#8211; Ray.Di « BEAR Blog</title>
+  <meta name="author" content="Akihito Koriyama">
+
+  
+  <meta name="description" content="Tweet Dependency Injection BEAR.Sundayではオブジェクトが必要とするインスタンスを、自ら取得しないでインジェクターに代入してもらうことを期待します。 コンストラクタやセッターメソッド経由で外部から代入されることをインジェクション（注入）、 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://koriym.github.io/2012/04/di/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="BEAR Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  <meta property="og:title" content="Object Framework &#8211; Ray.Di - BEAR Blog" />
+<meta property="og:description" content="Tweet Dependency Injection BEAR.Sundayではオブジェクトが必要とするインスタンスを、自ら取得しないでインジェクターに代入してもらうことを期待します。 コンストラクタやセッターメソッド経由で外部から代入されることをインジェクション（注入）、 &hellip;" />
+<meta property="og:url" content="http://koriym.github.io/2012/04/di/" />
+<meta property="og:image" content="http://bearsunday.github.io/images/icon/favicon-144.png" />
+<meta property="og:author" content="Akihito Koriyama" />
+<meta property="og:site_name" content="BEAR Blog" />
+<meta property="og:locale" content="ja_JP" />
+<meta property="og:type" content="article" />
+<meta property="fb:app_id" content="516362398477090" />
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-6074569-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEAR Blog</a></h1>
+  
+    <h2>Because everything is a resource.</h2>
+  
+</hgroup>
+
+<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:koriym.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Object Framework &#8211; Ray.Di</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-25T00:00:00+09:00" pubdate data-updated="true">Apr 25<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2012/04/di/">Tweet</a>
+</div>
+
+
+<h2>Dependency Injection</h2>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02-1.0102.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02-1.0102.png" alt="" title="bear-sunday-tmp-111219033305-phpapp02-1.010" class="alignnone size-full wp-image-1368" /></a><br/>
+BEAR.Sundayではオブジェクトが必要とするインスタンスを、自ら取得しないでインジェクターに代入してもらうことを期待します。</p>
+
+<p>コンストラクタやセッターメソッド経由で外部から代入されることをインジェクション（注入）、必要とするものをディペンデンシー（依存）と呼びます。ディペンデンシーを利用するクラスはコンシュマーと呼びます。</p>
+
+<p>特に特定タスクを担当しオブジェクトがツールとして使うオブジェクトをサービスオブジェクトと呼びますが、依存はサービスオブジェクトに限りません。DB接続オブジェクトや、配列やスカラー値などの値も含みます。</p>
+
+<p>前回記事の挨拶リソースに戻りましょう。このリソースはメッセージを返す為に、$messageデータを必要としています。<sup><a href="#footnote_0_1296" id="identifier_0_1296" class="footnote-link footnote-identifier-link" title="つまりこのリソースは$messageデータに依存しています">1</a></sup></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Greetings</span> <span class="k">extends</span> <span class="nx">AbstractObject</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$message</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s1">&#39;en&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hello World&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s1">&#39;ja&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Konichiwa Sekai&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s1">&#39;es&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hola Mundo&#39;</span>
+</span><span class='line'>    <span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$lang</span> <span class="o">=</span> <span class="err">‘</span><span class="nx">en</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$greeting</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">message</span><span class="p">[</span><span class="nv">$lang</span><span class="p">];</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$greeting</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>$messageデータをクラスに固定で持たないで、外部から代入するように変更してみましょう。<br/>
+このようなセッターメソッドが必要です。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * @Inject</span>
+</span><span class='line'><span class="sd"> * @Name(“greeting_message”)</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">setMessage</span><span class="p">(</span><span class="k">array</span> <span class="nv">$message</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">message</span> <span class="o">=</span> <span class="nv">$message</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>固定されていたデータが外部から代入できるようになりました。</p>
+
+<p>ディペンデンシーをセッターメソッド経由でインジェクションしてるので、これをセッターインジェクションと呼びます。 またコンストラクターにインジェクトするのをコンストラクターインジェクションと呼びます。BEAR.SundayはRai.DiというDIフレームワークを使っていますが、サポートするインジェクションはこの２つのみです。<sup><a href="#footnote_1_1296" id="identifier_1_1296" class="footnote-link footnote-identifier-link" title="プロパティにインジェクトするプロパティインジェクションはサポートされません。">2</a></sup></p>
+
+<p>このインジェクションを行うのがディペンデンシーインジェクターです。インジェクターは決められたルールでオブジェクトのコンストラクションを行います。クラスをインスタンス化しディペンデンシーをインジェクトします。コンストラクション後に行われる初期化メソッドの呼び出しや、オブジェクト破棄の直前に呼ばれるメソッドの呼び出し予約など「オブジェクトライフサイクル」に関する設定も行います。BEAR.Sundayでは原則的に全てのオブジェクトの生成はこのディペンデンシー・インジェクターが行い、オブジェクトの中からディペンデンシーを取得することは推奨されません。</p>
+
+<h2>インジェクションポイントと@Inject</h2>
+
+<p>ユーザーがセッターメソッドに@Injectと注記（アノテート）することでRay.Diは『ここに依存の注入が必要だ』ということが分かります。この「外部からの代入を期待する部分」を<strong>インジェクションポイント</strong>と呼びます。</p>
+
+<p>※注）アノテーションはDoctrine.CommonsのAnnotationを使用していて、このアノテーションを使うためのuse文が必要です。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">use</span> <span class="nx">Ray\Di\Di\Inject</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Ray\Di\Di\Named</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>インジェクションポイントに実際に何をセットするかは<strong>モジュール</strong>で設定します。モジュールではインジェクションポイントとインスタンスをバインドします。バインドの方法はいくつかありますがここでは特定の名前をつけてインジェクションポイントを指定する方法を使用していています。</p>
+
+<p>実際のモジュールのコードはこのようになります。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">AppModule</span> <span class="k">extends</span> <span class="nx">AbstractModule</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">protected</span> <span class="k">function</span> <span class="nf">configure</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$message</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>            <span class="s1">&#39;en&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hello World&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="s1">&#39;ja&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Konichiwa Sekai&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="s1">&#39;es&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hola Mundo&#39;</span>
+</span><span class='line'>        <span class="p">];</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bind</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">named</span><span class="p">(</span><span class="err">‘</span><span class="nx">greeting_message</span><span class="err">’</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">toInsntance</span><span class="p">(</span><span class="nv">$message</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>インジェクターの生成とオブジェクトグラフ生成</h2>
+
+<p>インジェクターを使ってこのクラスにディペンデンシーをインジェクトしてインスタンスを取得します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$injector</span> <span class="o">=</span> <span class="nx">Injector</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="k">new</span> <span class="nx">AppModule</span><span class="p">]);</span>
+</span><span class='line'><span class="nv">$injector</span><span class="o">-&gt;</span><span class="na">getInstance</span><span class="p">(</span><span class="err">‘</span><span class="nx">name\space\Greeting</span><span class="err">’</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>モジュールにはインジェクションポイントに対してどのインスタンスを提供するかという、いわばアプリケーションの構成知識が凝縮されています。その構成知識を使ってインジェクターはオブジェクトのコンストラクション（生成、インジェクト、ライフサイクルのセット）を行いインスタンスを返します。</p>
+
+<h2>インジェクションの連鎖とオブジェクトグラフ</h2>
+
+<p>ディペンデンシーインジェクションは専用のライブラリを使わなくても、手動でも行う事ができます。</p>
+
+<p>たとえばUserクラスはDbクラスのインスタンスが必要でDbクラスはDB接続情報の文字列が必要だとします。これを手動のインジェクトするためには例えばこのようなコードが必要でしょう。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$dsn</span> <span class="o">=</span> <span class="nv">$_ENV</span><span class="p">[</span><span class="s1">&#39;master_db&#39;</span><span class="p">];</span>
+</span><span class='line'><span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Db</span><span class="p">(</span><span class="nv">$dsn</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="nv">$db</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>一行だとこうです</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="k">new</span> <span class="nx">Db</span><span class="p">(</span><span class="nv">$_ENV</span><span class="p">[</span><span class="s1">&#39;master_db&#39;</span><span class="p">]));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>このコードで明らかなのは、依存に依存があればその「依存の依存」から先に用意して順番に次の依存に渡さなければならないことです。Userクラスを生成する前に、DBオブジェクトの生成が完了してる必要があります。DBオブジェクトを生成するにはDB接続情報を取得しておく必要があります。これは通常のプログラムではごく当たり前のことです。</p>
+
+<p>ところがRay.DIはUserクラスを作る前にDbオブジェクトを予め作っておく必要はありません。オブジェクトの構成知識を知っているインジェクターは必要な依存を遡って生成、インジェクトしてオブジェクトグラフをコンストラクションします。</p>
+
+<p>例をあげます。</p>
+
+<p>Userクラスを生成するときにRay.DiはそのクラスをつくるためにはDbオブジェクトが必要だと言う事を検知します。Dbオブジェクトを生成しようとしますが、ところがその生成にはDB接続情報が必要とも検知します。インジェクターがもつ構成知識でDB接続情報は得られます。得られた情報を使ってDBオブジェクトを生成します。そうやって依存の依存を順番に辿り依存性の解決（Dependency Resolution)を行い元のインスタンスを生成します。依存がツリー構造になっているこのオブジェクトをオブジェクトグラフと呼びます。</p>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02-1.035.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02-1.035.png" alt="" title="Object Graph" class="alignnone size-full wp-image-1370" /></a></p>
+
+<h2>コンストラクションの再利用</h2>
+
+<p>BEAR.Sundayではプログラムの中でいつでもインジェクターを使い必要なインスタンスをオンデマンドで生成できますが、実際にはほとんどその出番はありません。boot時のルートオブジェクトグラフ（ページリソースやリソースクライアント）が生成される時に必要なオブジェクト、またはファクトリーの生成が全て完了するからです。<sup><a href="#footnote_2_1296" id="identifier_2_1296" class="footnote-link footnote-identifier-link" title="現在のBEAR.Sundayで登場する独立したオブジェクトはアプリケーションはappリソースを除くと基本的には３つしかありません。アプリケーションとリソースクライアントとページリソースです。その他のオブジェクトをそれらの「ルートオブジェクト」を構成するプロパティでしかない場合がほとんどです。
+">3</a></sup></p>
+
+<p>前バージョンBEAR.Saturday (2008年）ではアプリケーションスクリプトからnew演算子を取り除くことが一つの目標でしたが、BEAR.Sundayではフレームワークサイドでもnewの利用はほとんどありあません。オブジェクトはコンストラクションされるとAPCのストレージに格納され、リクエストをまたいで再利用されます。</p>
+
+<p>つまり現在のBEAR.Sundayではリクエスト毎に異なった処理をコンストラクタで記述することはできません。この制約はメリットとデメリットがあります。オブジェクトシリアライズ前提のためシリアライズできないクロージャや組み込みオブジェクトをコンストラクション時にプロパティにセットできません。一方、固定化されたオブジェクトグラフとより安定したフロー、強力で容易なキャッシュ機構、アノテーションやDI、AOP等を採用しながらも維持している強力なパフォーマンス等は大きなメリットです。</p>
+
+<p>再利用はオブジェクトグラフの膨大な取得コスト<sup><a href="#footnote_3_1296" id="identifier_3_1296" class="footnote-link footnote-identifier-link" title="アノテーションが必要とするコメント文のパースだけでなくアノテーションの名前解決のためのPHPスクリプトのパースも行われてます">4</a></sup> を最小限にします。30,000を超えるindexページのファンクションコールは500以下になり、実行速度は数十倍になっています。</p>
+
+<p>オブジェクトのコンストラクタは基本的にサービス開始の最初の１リクエストしか通りません。その特徴をv0.1.0alphaインストールの時に用意されるindexページでみてます。</p>
+
+<h5>indexページ画面</h5>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2012/04/77289491623cb7d47294d7b9e69ed064.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2012/04/77289491623cb7d47294d7b9e69ed064.png" alt="" title="Indexページ" class="alignnone size-full wp-image-1371" /></a></p>
+
+<h5>indexページリソーススクリプト</h5>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Index</span> <span class="k">extends</span> <span class="nx">Page</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">use</span> <span class="nx">ResourceInject</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="p">[</span><span class="s1">&#39;greeting&#39;</span><span class="p">]</span> <span class="o">=</span><span class="err">‘</span><span class="nx">Hello</span><span class="p">,</span> <span class="nx">BEAR</span><span class="o">.</span><span class="nx">Sunday</span><span class="o">.</span><span class="err">’</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>            <span class="s1">&#39;php&#39;</span>  <span class="o">=&gt;</span> <span class="nb">phpversion</span><span class="p">(),</span>
+</span><span class='line'>            <span class="s1">&#39;BEAR&#39;</span> <span class="o">=&gt;</span> <span class="nx">Framework</span><span class="o">::</span><span class="na">VERSION</span>
+</span><span class='line'>        <span class="p">];</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="p">[</span><span class="s1">&#39;extentions&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>            <span class="s1">&#39;apc&#39;</span>  <span class="o">=&gt;</span> <span class="nb">extension_loaded</span><span class="p">(</span><span class="s1">&#39;apc&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="nb">phpversion</span><span class="p">(</span><span class="s1">&#39;apc&#39;</span><span class="p">)</span> <span class="o">:</span> <span class="s1">&#39;n/a&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="s1">&#39;memcache&#39;</span>  <span class="o">=&gt;</span> <span class="nb">extension_loaded</span><span class="p">(</span><span class="s1">&#39;memcache&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="nb">phpversion</span><span class="p">(</span><span class="s1">&#39;memcache&#39;</span><span class="p">)</span> <span class="o">:</span> <span class="s1">&#39;n/a&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="s1">&#39;mysqlnd&#39;</span>  <span class="o">=&gt;</span> <span class="nb">extension_loaded</span><span class="p">(</span><span class="s1">&#39;mysqlnd&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="nb">phpversion</span><span class="p">(</span><span class="s1">&#39;mysqlnd&#39;</span><span class="p">)</span> <span class="o">:</span> <span class="s1">&#39;n/a&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="s1">&#39;pdo_sqlite&#39;</span>  <span class="o">=&gt;</span> <span class="nb">extension_loaded</span><span class="p">(</span><span class="s1">&#39;pdo_sqlite&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="nb">phpversion</span><span class="p">(</span><span class="s1">&#39;pdo_sqlite&#39;</span><span class="p">)</span> <span class="o">:</span> <span class="s1">&#39;n/a&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="s1">&#39;Xdebug&#39;</span>  <span class="o">=&gt;</span> <span class="nb">extension_loaded</span><span class="p">(</span><span class="s1">&#39;Xdebug&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="nb">phpversion</span><span class="p">(</span><span class="s1">&#39;Xdebug&#39;</span><span class="p">)</span> <span class="o">:</span> <span class="s1">&#39;n/a&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="s1">&#39;xhprof&#39;</span> <span class="o">=&gt;</span> <span class="nb">extension_loaded</span><span class="p">(</span><span class="s1">&#39;xhprof&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="nb">phpversion</span><span class="p">(</span><span class="s1">&#39;xhprof&#39;</span><span class="p">)</span> <span class="o">:</span> <span class="s1">&#39;n/a&#39;</span>
+</span><span class='line'>        <span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * Get</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$cache</span> <span class="o">=</span> <span class="nb">apc_cache_info</span><span class="p">(</span><span class="err">‘</span><span class="nx">user</span><span class="err">’</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="p">[</span><span class="s1">&#39;apc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>           <span class="s1">&#39;total&#39;</span> <span class="o">=&gt;</span> <span class="nv">$cache</span><span class="p">[</span><span class="s1">&#39;num_entries&#39;</span><span class="p">],</span>
+</span><span class='line'>           <span class="err">‘</span><span class="nx">size</span><span class="err">’</span> <span class="o">=&gt;</span> <span class="nv">$cache</span><span class="p">[</span><span class="s1">&#39;mem_size&#39;</span><span class="p">]</span>
+</span><span class='line'>        <span class="p">];</span>
+</span><span class='line'>        <span class="c1">// page / sec</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="p">[</span><span class="s1">&#39;performance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">resource</span><span class="o">-&gt;</span><span class="na">get</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="err">‘</span><span class="nx">app</span><span class="o">://</span><span class="nx">self</span><span class="o">/</span><span class="nx">performance</span><span class="err">’</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">();</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>トレイトを使ったセッターインジェクション</h2>
+
+<p>違うクラスでも求める依存が同じなら、同じセッターが利用できます。セッターメソッドはクラスをまたいで横断的に再利用できます。モジュールに新たな設定はありません。 メソッドの横断的利用、PHP5.4の新機能のtraitにすると便利で表記も簡潔になります。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">use</span> <span class="nx">Ray\Di\Di\Inject</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Ray\Di\Di\Named</span><span class="p">;</span>
+</span><span class='line'><span class="k">trait</span> <span class="nx">MessageInject</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">private</span> <span class="nv">$message</span><span class="p">;</span>
+</span><span class='line'>  <span class="sd">/**</span>
+</span><span class='line'><span class="sd">   * @Inject</span>
+</span><span class='line'><span class="sd">   * @Name(“greeting_message”)</span>
+</span><span class='line'><span class="sd">   */</span>
+</span><span class='line'>  <span class="k">public</span> <span class="k">function</span> <span class="nf">setMessage</span><span class="p">(</span><span class="k">array</span> <span class="nv">$message</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">message</span> <span class="o">=</span> <span class="nv">$message</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>アノテーションのuse文も入っているので、利用クラスでは簡単にインジェクションが表記できます。まとめるとこうなります。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Greetings</span> <span class="k">extends</span> <span class="nx">AbstractObject</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">use</span> <span class="nx">MessageInject</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$lang</span> <span class="o">=</span> <span class="err">‘</span><span class="nx">en</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$greeting</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">message</span><span class="p">[</span><span class="nv">$lang</span><span class="p">];</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$greeting</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ボイラープレートになりがちなセッターインジェクションコードがスッキリ一行になり、依存関係を記すセルフドキュメントのようになってるのではないでしょうか。</p>
+
+<h2>プロバイダー<sup><a href="#footnote_5_1296" id="identifier_5_1296" class="footnote-link footnote-identifier-link" title="このセクションはstackoverflowの記事を元にしています。http://stackoverflow.com/questions/2504798/dependency-injection-in-constructors ">6</a></sup></h2>
+
+<p>Day.DiによるDIは次の２つのパートで成り立っています。</p>
+
+<ul>
+<li>モジュールでのオブジェクトコンストラクション（<strong>Construction</strong>）</li>
+<li>コンシュマーでの利用（<strong>Execution</strong>）</li>
+</ul>
+
+
+<p>コンストラクションはモジュールで完了させ、コンシュマーでは利用だけを行います。
+<strong>肝心なのはコンストラクションとエクスキューションを完全に分離して混ぜないことです。</strong>コンシュマーにディペンシーインジェクターやサービスコンテナを渡したりする事は推奨されません。<sup><a href="#footnote_6_1296" id="identifier_6_1296" class="footnote-link footnote-identifier-link" title="コンシュマーがインジェクターを使ってサービスを取得することは、デメテルの法則（最小知識の法則）に違反します。">7</a></sup><sup><a href="#footnote_7_1296" id="identifier_7_1296" class="footnote-link footnote-identifier-link" title="例外はそのコンシュマーがファクトリークラスの場合です。BEAR.Sundayで唯一インジェクターを依存として受け取りオブジェクトコンストラクションをしてるのはリソースのnewInstance()メソッドです。">8</a></sup>
+ンシュマー内で新しいインスタンスが都度欲しい時は<strong>プロバイダー</strong>を使います。プロバイダーは最小のファクトリーで、引き数なしのget()というメソッドだけを持ちます。たとえばテンポラリーファイルのハンドルが都度、複数欲しいなら(Provider)$tmpFilePorviderをインジェクトしてもらって、このように使います。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$tmpFile1</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tmpFileProvider</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
+</span><span class='line'><span class="nv">$tmpFile2</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tmpFileProvider</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>プロバイダーはどのようにインスタンスを作るかという知識を全て持っています。引き数は渡す事ができず、最小化されたこのファクトリーに伝える事ができるのは生成のタイミングだけです。
+なお、newは絶対に使っていけないというわけではありません。ごく小さなオブジェクトやPHPの組み込みオブジェクトなどは問題ないでしょう。</p>
+
+<h2>コンテナ?</h2>
+
+<p>Ray.Diでは内部でライフサイクル（シングルトンなど）の管理にオブジェクトコンテナを使いますが、依存性の解決には使いません。ユーザーがコンテナを触る必要も出番もほとんどありません。依存性は原則インターフェイスによって解決されます。SOLIDのD、 依存関係逆転の原則（DIP：Dependency Inversion Principle)です。</p>
+
+<h2>bootstrapのみで出現</h2>
+
+<p>このディペンデンシーインジェクターは通常、bootstrapスクリプト時にルートとなるアプリケーションオブジェクトを取得するのみです。ランタイムではオブジェクトの生成は原則行いません。<code>provider</code>や<code>PHPのclone</code>で複製をつくります。</p>
+
+<h2>Conclusion</h2>
+
+<p>この記事では、BEAR.Sundayアプリケーションの役割と働きをみてきました。Ray.Diは<a href="http://code.google.com/p/google-guice/">Google Guice</a>のクローンです。<sup><a href="#footnote_8_1296" id="identifier_8_1296" class="footnote-link footnote-identifier-link" title="Guiceが使われているGoogleの代表的なプロダクトにAdSenseがあります">9</a></sup> 全ての機能が移植されてるわけではありませんが、ここで紹介した機能以外にも沢山の機能があります。<a href="http://docs.doctrine-project.org/projects/doctrine-common/en/latest/reference/annotations.html">Doctrine.Commons.Annotation</a>ライブラリを使い、AuraというPHP5.4フレームワークの<a href="https://github.com/auraphp/Aura.Di">Aura.Di</a>ライブラリを拡張して作成しています。またRay.Diインジェクター自身の依存も手動でインジェクトされ拡張可能です。</p>
+
+<p><a href="http://code.google.com/p/rayphp/">Ray.Di – Guice style annotation-driven dependency injection framework for PHP</a></p>
+
+<p>インジェクションポイントとディペンデンシーのバイディングはモジュールで設定し、インジェクターはどのオプジェクとが求められればどのインスタンスを渡すかという知識を持っています。モジュールはクラスをどのようにコンストラクトするかではなく<strong>求められた依存に対してどのインスタンスを渡すか</strong>という設定が行われています。そのため同じ依存を要求する違うクラスに新たな設定は必要なく、セッターメソッドのtraitを使ってより簡素な記述でディペンデンシーが取得できます。</p>
+
+<p>Ray.Diの特徴はオブジェクトの生成と利用が完全に分離されていること<sup><a href="#footnote_9_1296" id="identifier_9_1296" class="footnote-link footnote-identifier-link" title="利用クラスでサービスコンテナへの依存がない">10</a></sup>、モジュールでのDSLによるバインディング、APCを使ったオブジェクトグラフコンストラクションの再利用等です。<sup><a href="#footnote_10_1296" id="identifier_10_1296" class="footnote-link footnote-identifier-link" title="コンストラクションは常にキャッシュされ、再利用されることを考慮したコーディングが必要です。">11</a></sup></p>
+
+<p>Ray.Diは<strong>可変点の明確化と最小化</strong>というBEAR.Sundayのアーキテクチャ全体を通しての原則を支持します。</p>
+
+<p>またRay.Diはモジュールで特定メソッドの実行にインターセプターをバインドすることが可能で、アスペクト指向プログラミングが利用できます。BEAR.Sundayではフレームワークやアプリケーションの動作や役割を様々なアスペクトの集合だと考えています。次回の記事ではAOPをサポートすRay.AopのBEAR.Sundayでの役割、アスペクト指向デザイン(AOD)により実装されたアプリケーション機能を紹介します。</p>
+
+<div class="wp_social_bookmarking_light">
+<div>
+</div>
+
+<div>
+</div>
+
+<div>
+<a href="http://b.hatena.ne.jp/entry/http://www.bear-project.net/blog/2012/04/di/" title="はてなブックマーク - Object Framework – Ray.Di" rel="nofollow" class="wp_social_bookmarking_light_a" target="_blank"><img src="http://b.hatena.ne.jp/entry/image/http://www.bear-project.net/blog/2012/04/di/" alt="はてなブックマーク - Object Framework – Ray.Di" title="はてなブックマーク - Object Framework – Ray.Di" class="wp_social_bookmarking_light_img" /></a>
+</div>
+
+<div>
+<div id="___plusone_0" style="height: 20px; width: 90px; display: inline-block; text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline;">
+</div>
+</div>
+
+<div>
+<a href="http://www.tumblr.com/share?v=3&u=http%3A%2F%2Fwww.bear-project.net%2Fblog%2F2012%2F04%2Fdi%2F&t=Object%20Framework%20%26%238211%3B%20Ray.Di" title="" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:61px; height:20px; background:url('http://platform.tumblr.com/v1/share_2.png') top left no-repeat transparent;"></a>
+</div>
+</div>
+
+
+
+
+<br class="wp_social_bookmarking_light_clear" /> <ol class="footnotes">
+
+
+<p><li id="footnote_0_1296" class="footnote">
+  つまりこのリソースは$messageデータに依存しています [<a href="#identifier_0_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_1_1296" class="footnote">
+  プロパティにインジェクトするプロパティインジェクションはサポートされません。 [<a href="#identifier_1_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_2_1296" class="footnote">
+  現在のBEAR.Sundayで登場する独立したオブジェクトはアプリケーションはappリソースを除くと基本的には３つしかありません。アプリケーションとリソースクライアントとページリソースです。その他のオブジェクトをそれらの「ルートオブジェクト」を構成するプロパティでしかない場合がほとんどです。 [<a href="#identifier_2_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_3_1296" class="footnote">
+  アノテーションが必要とするコメント文のパースだけでなくアノテーションの名前解決のためのPHPスクリプトのパースも行われてます [<a href="#identifier_3_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_4_1296" class="footnote">
+  例えばYAMLファイルのCSVファイルのパースなどをコンストラクタで行いコンテンツとしてセットすると再利用されるので個別にキャッシュしたりする必要がありません。 [<a href="#identifier_4_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_5_1296" class="footnote">
+  このセクションはstackoverflowの記事を元にしています。<a href="http://stackoverflow.com/questions/2504798/dependency-injection-in-constructors">http://stackoverflow.com/questions/2504798/dependency-injection-in-constructors</a> [<a href="#identifier_5_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_6_1296" class="footnote">
+  コンシュマーがインジェクターを使ってサービスを取得することは、<a href="http://ja.wikipedia.org/wiki/%E3%83%87%E3%83%A1%E3%83%86%E3%83%AB%E3%81%AE%E6%B3%95%E5%89%87">デメテルの法則（最小知識の法則）</a>に違反します。 [<a href="#identifier_6_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_7_1296" class="footnote">
+  例外はそのコンシュマーがファクトリークラスの場合です。BEAR.Sundayで唯一インジェクターを依存として受け取りオブジェクトコンストラクションをしてるのはリソースのnewInstance()メソッドです。 [<a href="#identifier_7_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_8_1296" class="footnote">
+  Guiceが使われているGoogleの代表的なプロダクトにAdSenseがあります [<a href="#identifier_8_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_9_1296" class="footnote">
+  利用クラスでサービスコンテナへの依存がない [<a href="#identifier_9_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_10_1296" class="footnote">
+  コンストラクションは常にキャッシュされ、再利用されることを考慮したコーディングが必要です。 [<a href="#identifier_10_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+</ol></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-25T00:00:00+09:00" pubdate data-updated="true">Apr 25<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/wei-fen-lei/'>未分類</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://koriym.github.io/2012/04/di/" data-via="koriym" data-counturl="http://koriym.github.io/2012/04/di/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+    <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button"
+       data-hatena-bookmark-layout="standard"
+       data-hatena-bookmark-url="http://koriym.github.io/2012/04/di/">
+        <img src="http://b.st-hatena.com/images/entry-button/button-only.gif"
+             alt="このエントリーをはてなブックマークに追加" width="20" height="20"
+             style="border: none">
+    </a>
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2012/04/bear-resource/" title="Previous Post: BEAR.Resource">&laquo; BEAR.Resource</a>
+      
+      
+        <a class="basic-alignment right" href="/2012/04/object-framework-ray-aop/" title="Next Post: Object Framework – Ray.Aop">Object Framework – Ray.Aop &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/12/04/php7-dot-0-0/">PHP7.0.0</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/08/haphpy-birthday/">HaPHPy Birthday PHP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/31/first-bear-sunday-stable-release/">First BEAR.Sunday Stable Release !</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/29/phpkansai2014/">基調講演「全てを結ぶ力」</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/koriym">@koriym</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'koriym',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+<section class="googleplus googleplus-hidden">
+  <h1>
+    <a href="https://plus.google.com/102811656239290261200?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Akihito Koriyama -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.</span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'koriym';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/ja_JP/all.js#appId=516362398477090&xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+<script>
+    (function(w,d){
+        var c,e=d.createDocumentFragment(),f=d.getElementsByTagName("script")[0],
+                a=function(a,b){if(!d.getElementById(b)){c=d.createElement("script");
+                    c.src=a;c.id=b||null;c.async=true;e.appendChild(c);}};
+                a("//b.st-hatena.com/js/bookmark_button_wo_al.js");
+                f.parentNode.insertBefore(e,f);
+            })(this,document);
+</script>
+
+
+</body>
+</html>

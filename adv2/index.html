@@ -1,0 +1,444 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Advent Day 2: DI for Readability « BEAR Blog</title>
+  <meta name="author" content="Akihito Koriyama">
+
+  
+  <meta name="description" content="Tweet Dependency Injection Benefits Jakob Jenkovさんのブログ記事&#8221;Dependency Injection Benefits&#8220;でDIのメリットを以下の様に述べてます。 Reduced Dependencies
+Reduced &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://koriym.github.io/adv2">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="BEAR Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  <meta property="og:title" content="Advent Day 2: DI for Readability - BEAR Blog" />
+<meta property="og:description" content="Tweet Dependency Injection Benefits Jakob Jenkovさんのブログ記事&#8221;Dependency Injection Benefits&#8220;でDIのメリットを以下の様に述べてます。 Reduced Dependencies
+Reduced &hellip;" />
+<meta property="og:url" content="http://koriym.github.io/adv2" />
+<meta property="og:image" content="http://bearsunday.github.io/images/icon/favicon-144.png" />
+<meta property="og:author" content="Akihito Koriyama" />
+<meta property="og:site_name" content="BEAR Blog" />
+<meta property="og:locale" content="ja_JP" />
+<meta property="og:type" content="article" />
+<meta property="fb:app_id" content="516362398477090" />
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-6074569-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEAR Blog</a></h1>
+  
+    <h2>Because everything is a resource.</h2>
+  
+</hgroup>
+
+<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:koriym.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Advent Day 2: DI for Readability</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-03T00:00:00+09:00" pubdate data-updated="true">Dec 3<span>rd</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/adv2">Tweet</a>
+</div>
+
+
+<h2>Dependency Injection Benefits</h2>
+
+<p>Jakob Jenkovさんのブログ記事&#8221;<a href="http://tutorials.jenkov.com/dependency-injection/dependency-injection-benefits.html">Dependency Injection Benefits</a>&#8220;でDIのメリットを以下の様に述べてます。</p>
+
+<ul>
+<li>Reduced Dependencies</li>
+<li>Reduced Dependency Carrying</li>
+<li>More Reusable Code</li>
+<li>More Testable Code</li>
+<li>More Readable Code</li>
+</ul>
+
+
+<p>DIの技術的紹介記事は数多くありますが、このうち多くはテストの容易性やモジュラティーの向上による再利用性の高さをメリットとしてあげていますが、この記事ではDIの他のメリットとして可読性の向上を紹介します。</p>
+
+<p>BEAR.Sundayではインターフェイスを通してオブジェクトを受け取ります。インターフェイスとオブジェクトの生成の関係を知るインジェクターがbootstrap時に必要な依存を注入（外部から代入）します。コンストラクタで受け取るものとセッターメソッドによるインジェクションがあります。</p>
+
+<h3>コンストラクタインジェクション</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * Set resource</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @param ResourceInterface $resource</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @Inject</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">ResourceInterface</span> <span class="nv">$resource</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">resource</span> <span class="o">=</span> <span class="nv">$resource</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>セッターインジェクション</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * Set resource</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @param ResourceInterface $resource</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @Inject</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">setResource</span><span class="p">(</span><span class="nx">ResourceInterface</span> <span class="nv">$resource</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">resource</span> <span class="o">=</span> <span class="nv">$resource</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>メソッドには<strong>@Inject</strong>がアノテートされ、外部からの注入が行われる事を示しています。これはコードを読むプログラマにとっても、注入ポイントを知る必要があるインジェクターにとっても文字通りアノテーション（注記）となっています。</p>
+
+<p>外部のインスタンスを取得方法は前回記事のincludeと同じく最小化されています。取得方法のコーディングが必要ないということは、依存の取得が容易であると同時に依存提供の方法や依存内容も変更可能だということを意味します。インターフェイスを通じて受け取る方法は<strong>「詳細ではなく抽象に依存せよ」</strong>という<a href="http://www.bear-project.net/blog/2012/05/dip%EF%BC%9Adependency-inversion-principle/">DIP原則</a>にも従っています。</p>
+
+<p>また依存の利用個所はクラス前半に記述してあるコンストラクタとセッターメソッドに集約されていてそのクラスがどの依存を利用するかをすぐに知るのは容易です。依存を知るためにコードの全てを見る必要がありません。依存は外部から代入され、ランタイム（実行時のコード途中で）で&#8221;PULL&#8221;されないためです。<sup><a href="#footnote_0_1259" id="identifier_0_1259" class="footnote-link footnote-identifier-link" title="この点はSLより優れています">1</a></sup></p>
+
+<h2>トレイトによるセッターインジェクション</h2>
+
+<p>PHP5.4では横断的に利用するメソッドをtraitで集約できます。BEAR.SundayではこれをDIのボイラープレート削減のために使用することができます。これを利用したクラスはこのようになります。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">A</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">use</span> <span class="nx">ResourceInject</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">use</span> <span class="nx">LoggerInject</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">use</span> <span class="nx">WebContextInject</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>一つの依存が一行で表さ集約されました。コンパクトになりクラスの依存が簡潔に表現されています。</p>
+
+<p>一方、そのインターフェイスはtraitファイルを見なければならなくなりました。この点はSLと同じと割り切るか、出現頻度の高いオブジェクトに限るなどの工夫をするのが良いかも知れません。</p>
+
+<ol class="footnotes">
+  <li id="footnote_0_1259" class="footnote">
+    この点はSLより優れています [<a href="#identifier_0_1259" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-03T00:00:00+09:00" pubdate data-updated="true">Dec 3<span>rd</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/advent2012/'>Advent2012</a>, <a class='category' href='/blog/categories/bear/'>BEAR</a>, <a class='category' href='/blog/categories/php/'>PHP</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://koriym.github.io/adv2" data-via="koriym" data-counturl="http://koriym.github.io/adv2" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+    <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button"
+       data-hatena-bookmark-layout="standard"
+       data-hatena-bookmark-url="http://koriym.github.io/adv2">
+        <img src="http://b.st-hatena.com/images/entry-button/button-only.gif"
+             alt="このエントリーをはてなブックマークに追加" width="20" height="20"
+             style="border: none">
+    </a>
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/binding" title="Previous Post: 早期束縛、遅延束縛">&laquo; 早期束縛、遅延束縛</a>
+      
+      
+        <a class="basic-alignment right" href="/adv3" title="Next Post: Advent Day 3:  Dependency Carrying">Advent Day 3:  Dependency Carrying &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/12/04/php7-dot-0-0/">PHP7.0.0</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/08/haphpy-birthday/">HaPHPy Birthday PHP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/31/first-bear-sunday-stable-release/">First BEAR.Sunday Stable Release !</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/29/phpkansai2014/">基調講演「全てを結ぶ力」</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/koriym">@koriym</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'koriym',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+<section class="googleplus googleplus-hidden">
+  <h1>
+    <a href="https://plus.google.com/102811656239290261200?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Akihito Koriyama -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.</span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'koriym';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/ja_JP/all.js#appId=516362398477090&xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+<script>
+    (function(w,d){
+        var c,e=d.createDocumentFragment(),f=d.getElementsByTagName("script")[0],
+                a=function(a,b){if(!d.getElementById(b)){c=d.createElement("script");
+                    c.src=a;c.id=b||null;c.async=true;e.appendChild(c);}};
+                a("//b.st-hatena.com/js/bookmark_button_wo_al.js");
+                f.parentNode.insertBefore(e,f);
+            })(this,document);
+</script>
+
+
+</body>
+</html>

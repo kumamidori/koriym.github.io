@@ -1,0 +1,2425 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>BEAR Blog</title>
+  <meta name="author" content="Akihito Koriyama">
+
+  
+  <meta name="description" content="Tweet DI用語 Day５はDay4に続かないでDIで使われる用語を色々取り上げてみます。 DI関係の記事を色々見るに言葉がよく分からない事があります。もうあまり使われてる言葉でなかったり、あるいは書かれてる時期や人で使い方やスコープが違うような感じがするときもあります。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://koriym.github.io/blog/page/4/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="BEAR Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  <meta property="og:title" content="BEAR Blog" />
+<meta property="og:description" content="Tweet DI用語 Day５はDay4に続かないでDIで使われる用語を色々取り上げてみます。 DI関係の記事を色々見るに言葉がよく分からない事があります。もうあまり使われてる言葉でなかったり、あるいは書かれてる時期や人で使い方やスコープが違うような感じがするときもあります。 &hellip;" />
+<meta property="og:url" content="http://koriym.github.io/blog/page/4/" />
+<meta property="og:image" content="http://bearsunday.github.io/images/icon/favicon-144.png" />
+<meta property="og:author" content="Akihito Koriyama" />
+<meta property="og:site_name" content="BEAR Blog" />
+<meta property="og:locale" content="ja_JP" />
+<meta property="og:type" content="blog" />
+<meta property="fb:app_id" content="516362398477090" />
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-6074569-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEAR Blog</a></h1>
+  
+    <h2>Because everything is a resource.</h2>
+  
+</hgroup>
+
+<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:koriym.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/adv5">Advent Day 5: DI Terminology</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-06T00:00:00+09:00" pubdate data-updated="true">Dec 6<span>th</span>, 2012</time>
+        
+         | <a href="/adv5#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/adv5">Tweet</a>
+</div>
+
+
+<h2>DI用語</h2>
+
+<p>Day５はDay4に続かないでDIで使われる用語を色々取り上げてみます。</p>
+
+<p>DI関係の記事を色々見るに言葉がよく分からない事があります。もうあまり使われてる言葉でなかったり、あるいは書かれてる時期や人で使い方やスコープが違うような感じがするときもあります。</p>
+
+<p>よく分からないながらも色々掘り起こして並べてみました。</p>
+
+<h2>dependency</h2>
+
+<p>依存。オブジェクトに限らず単純な値も含みます。</p>
+
+<h2>dependent (dependent consumer)</h2>
+
+<p>依存を利用するクライアント</p>
+
+<h2>injector / provider / container</h2>
+
+<p>wikiによると&#8221;an injector (sometimes referred to as a provider or container)&#8221;<br/>
+依存をdependentに用意する。&#8221;DIコンテナ&#8221;</p>
+
+<h2>dependency resolution</h2>
+
+<p>依存の解決、依存の取得方法。</p>
+
+<h2>Dependency Lookup<sup><a href="#footnote_0_1326" id="identifier_0_1326" class="footnote-link footnote-identifier-link" title="Service Locator ?">1</a></sup></h2>
+
+<p>直接の訳語は「依存の参照」</p>
+
+<p><a href="http://en.wikipedia.org/wiki/Dependency_injection">wikipedia</a>では通常の処理でDIとは逆。と簡単に説明してます</p>
+
+<p><a href="http://xunitpatterns.com%E3%81%A8%E3%81%84%E3%81%86%E3%82%B5%E3%82%A4%E3%83%88%E3%81%A7%E3%81%AF%E3%81%93%E3%81%AE%E3%82%88%E3%81%86%E3%81%AB%E8%AA%AC%E6%98%8E%E3%81%97%E3%81%A6%E3%81%84%E3%81%BE%E3%81%99%E3%80%82">http://xunitpatterns.com%E3%81%A8%E3%81%84%E3%81%86%E3%82%B5%E3%82%A4%E3%83%88%E3%81%A7%E3%81%AF%E3%81%93%E3%81%AE%E3%82%88%E3%81%86%E3%81%AB%E8%AA%AC%E6%98%8E%E3%81%97%E3%81%A6%E3%81%84%E3%81%BE%E3%81%99%E3%80%82</a></p>
+
+<p>Dependency Lookup is characterized by the following:</p>
+
+<ul>
+<li>Either a Singleton[GOF], a Registry[PEAA] or some kind of Thread-Specific Storage[POSA2],</li>
+<li>with an interface that fully encapsulated which implementation we are using,</li>
+<li>with a built-in substitution mechanism for replacing the returned object<br/>
+with a Test Double</li>
+<li>accessed via well-known global name.</li>
+</ul>
+
+
+<p>Dependency Lookupは２つに分かれるそうです。<br/>
+<a href="http://life.neophi.com/danielr/files/InversionOfControl.pdf">http://life.neophi.com/danielr/files/InversionOfControl.pdf</a></p>
+
+<h2>Dependency Pull</h2>
+
+<p>&#8220;中央&#8221;にある依存管理コンテナなどに問い合わせて依存を取得します。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$foo</span> <span class="o">=</span> <span class="nx">Service</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Contextualized Dependency Lookup (CDL)</h2>
+
+<p>&#8220;渡された&#8221;コンテナから取得します。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">do</span><span class="p">(</span><span class="nx">ConteinerInterface</span> <span class="nv">$container</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">foo</span> <span class="o">=</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Global Registry</h2>
+
+<p>Dependency Pullが用いる中央のレジストリ/コンテナ。</p>
+
+<h2>Service Locator</h2>
+
+<p>Dependency Lookupと<a href="http://xunitpatterns.com/Dependency%20Lookup.html">同じ（？）</a>、他にObject Factory, Component Broker, Component Registry等。</p>
+
+<h2>Dependency Injection (DI)</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">do</span><span class="p">(</span><span class="nx">FooInterface</span> <span class="nv">$foo</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">foo</span> <span class="o">=</span> <span class="nv">$foo</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>感想、ちょっと一言</h2>
+
+<ul>
+<li>dependency lookupは広義では外部を参照するという意味で使われれ、狭義では特定のパターンを指すような感じがします</li>
+<li>CDLやLookupの言い方はちょっと古くService Locator(SL)で総称されているような感じがします。</li>
+<li>一般的に「DIコンテナ」が使われますがwikiにあるように「injector」が表記としてより妥当であると思いました。</li>
+<li>用語解説のよい記事になかなか巡り会えませんでした</li>
+</ul>
+
+
+<ol class="footnotes">
+  <li id="footnote_0_1326" class="footnote">
+    Service Locator ? [<a href="#identifier_0_1326" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/adv4">Advent Day 4: Manual DI</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-04T00:00:00+09:00" pubdate data-updated="true">Dec 4<span>th</span>, 2012</time>
+        
+         | <a href="/adv4#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/adv4">Tweet</a>
+</div>
+
+
+<h2>DI考察ブログエントリー</h2>
+
+<p><a href="https://twitter.com/Hiraku">@Hiraku</a>さんが自身のブログで「PHPのDIで動的にオブジェクトを確保する考察」というDIのエントリーをポストされてます。</p>
+
+<blockquote><p><em>Dependency InjectionがPHPでも流行っているそうです。が、未だによくわからないので、わからないところを自分なりに考察してみます。</em></p>
+
+<p><a href="http://blog.tojiru.net/article/304867046.html">PHPのDIで動的にオブジェクトを確保する考察</a></p></blockquote>
+
+<p>この記事の中で@Hirakuさんは特定のDIコンテナを使わないで、DIというパターンを考察しています。依存を手動で渡す様々な方法を試し、それらのメリット、デメリットを考察しています。</p>
+
+<blockquote><p>確かに、DBやLoggerなど、クラスの中で一つだけあれば十分なものも多く、そういうオブジェクトはコンストラクタに渡す形で「外から突っ込む」ことができるでしょう。<br/>
+しかし、動的にオブジェクトを作るケースだって山ほどあるはずです。「必要なオブジェクトはクラスの生成時に全部できあがっている」なんて状態はそうそうあるもんじゃありません。</p></blockquote>
+
+<blockquote class="twitter-tweet" data-in-reply-to="275127780000284672" width="550" lang="ja">
+
+    @<a href="https://twitter.com/hiraku">hiraku</a> DIの記事読ませて頂きました。後半のConfigの例についてですが、ランタイムにしか決まらない内容があるのであれば、それはオブジェクトのコンストラクションとは別メソッドに分けるという方向になるかと私は思います。
+
+  
+
+    &mdash; Hidenori Gotoさん (@hidenorigoto) <a href="https://twitter.com/hidenorigoto/status/275228755713216512" data-datetime="2012-12-02T13:23:43+00:00">12月 2, 2012</a>
+
+</blockquote>
+
+
+<p>この記事の例で言うと基本的には@hidenorigotoさんの意見に+1です。</p>
+
+<h2>３つのInject</h2>
+
+<p>エントリーの中でランタイムでの動的取得に対して３つの方法をあげられています。</p>
+
+<ul>
+<li>factoryをinjectする</li>
+<li>クラス名をinjectする</li>
+<li>プロトタイプをinjectする</li>
+</ul>
+
+
+<blockquote><p>他にいいやり方があったら教えてください。</p></blockquote>
+
+<p>&#8230;考えてみました。<br/>
+例えばfactory名をinjectするというのはどうでしょうか？</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">function</span> <span class="nf">setConfig</span><span class="p">(</span><span class="nx">ConfigInterface</span> <span class="nv">$config</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">config</span> <span class="o">=</span> <span class="nv">$config</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nv">$configFactory</span> <span class="o">=</span> <span class="s1">&#39;ConfigFactory&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setConfig</span><span class="p">((</span><span class="k">new</span> <span class="nv">$configFactory</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">());</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>利用コードはクラス名を渡すのと同様です</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$c</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">C</span><span class="p">(</span><span class="s1">&#39;MockConfigFactory&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>型の保証が必要でないならsetterメソッドを除去して直接代入します。</p>
+
+<p>また、以下のようなインスタンス生成スクリプトで渡す方法も考えてみました。<sup><a href="#footnote_0_1288" id="identifier_0_1288" class="footnote-link footnote-identifier-link" title="factoryの方が良さそうですね&hellip;">1</a></sup></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nv">$configFactoryScript</span> <span class="o">=</span> <span class="s1">&#39;ConfigFactoryScript&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">config</span> <span class="o">=</span> <span class="k">include</span> <span class="nx">INSTANCE_DIR</span> <span class="o">.</span> <span class="nv">$configFactoryScript</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>これらの方法は懸念された問題のうちいくつかを解決しています。factoryによる自由な生成と呼び出しコードの簡素化、必要個数のランタイムでの取得も可能になります。</p>
+
+<h2>手動DIの限界</h2>
+
+<p>しかしやはり、考察を続けると色々な懸念が出て来ます。これらのインジェクトをシングルトン、あるいは限定個数で行う場合は？また依存にもまた依存が必要です。それらの依存もアプリケーションコンテキストで変化していきます。</p>
+
+<p>以下はBEAR.Sundayのリソースクライアントの生成コードです。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$config</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Config</span><span class="p">(</span><span class="k">new</span> <span class="nx">Annotation</span><span class="p">(</span><span class="k">new</span> <span class="nx">Definition</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Reader</span><span class="p">));</span>
+</span><span class='line'><span class="nv">$injector</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Injector</span><span class="p">(</span><span class="k">new</span> <span class="nx">Container</span><span class="p">(</span><span class="k">new</span> <span class="nx">Forge</span><span class="p">(</span><span class="nv">$config</span><span class="p">)));</span>
+</span><span class='line'><span class="nv">$injector</span><span class="o">-&gt;</span><span class="na">setModule</span><span class="p">(</span><span class="k">new</span> <span class="nx">TestModule</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$scheme</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SchemeCollection</span><span class="p">;</span>
+</span><span class='line'><span class="nv">$scheme</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">scheme</span><span class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">host</span><span class="p">(</span><span class="s1">&#39;self&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">toAdapter</span><span class="p">(</span><span class="k">new</span> <span class="nx">App</span><span class="p">(</span><span class="nv">$injector</span><span class="p">,</span> <span class="s1">&#39;testworld&#39;</span><span class="p">,</span> <span class="s1">&#39;ResourceObject&#39;</span><span class="p">));</span>
+</span><span class='line'><span class="nv">$scheme</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">scheme</span><span class="p">(</span><span class="s1">&#39;page&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">host</span><span class="p">(</span><span class="s1">&#39;self&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">toAdapter</span><span class="p">(</span><span class="k">new</span> <span class="nx">App</span><span class="p">(</span><span class="nv">$injector</span><span class="p">,</span> <span class="s1">&#39;testworld&#39;</span><span class="p">,</span> <span class="s1">&#39;Page&#39;</span><span class="p">));</span>
+</span><span class='line'><span class="nv">$scheme</span><span class="o">-&gt;</span><span class="na">scheme</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">host</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">toAdapter</span><span class="p">(</span><span class="k">new</span> <span class="nx">\BEAR\Resource\Adapter\Http</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$invoker</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Invoker</span><span class="p">(</span>
+</span><span class='line'>    <span class="nv">$config</span><span class="p">,</span>
+</span><span class='line'>    <span class="k">new</span> <span class="nx">Linker</span><span class="p">(</span><span class="k">new</span> <span class="nx">Reader</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">new</span> <span class="nx">Manager</span><span class="p">(</span><span class="k">new</span> <span class="nx">HandlerFactory</span><span class="p">,</span> <span class="k">new</span> <span class="nx">ResultFactory</span><span class="p">,</span> <span class="k">new</span> <span class="nx">ResultCollection</span><span class="p">)</span>
+</span><span class='line'><span class="p">);</span>
+</span><span class='line'><span class="nv">$resource</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Resource</span><span class="p">(</span>
+</span><span class='line'>    <span class="nv">$new</span> <span class="nx">Factory</span><span class="p">(</span><span class="nv">$scheme</span><span class="p">),</span>
+</span><span class='line'>    <span class="nv">$invoker</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Request</span><span class="p">(</span><span class="nv">$invoker</span><span class="p">)</span>
+</span><span class='line'><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>こんな複雑なオブジェクトの生成をコンストラクタで毎回記述するわけにもいきません。factoryを利用することになりますが、ではこれらの生成のうち一部だけを違うものに差し替えたりするのはどうしたらいいでしょうか？実際にBEAR.SundayではDevモードの時はInvokerはDevInvokerに変わっています。ContainerもPersistentContainerに変更したいと思っています。</p>
+
+<p>このインスタンスを都度生成するのではなくてシングルトンで供給したい時にはどうしたらいいでしょうか？あるいはこの生成にも依存が必要ならどうしたらいいでしょうか？その依存にもそのまた依存があるはずです。</p>
+
+<p>手動によるDIを実践あるいは深く考察することはDIの理解に有意義な事ですが、ある時点からその限界が見えて来る事に気付きます。テストコードやごく小規模の開発では問題にならないでしょう。しかしこういう手続きの記述で複雑なオブジェクトを構成するのは、柔軟性や結合度、DRY原則で問題が出て来ます。しかしそれは同時にDependency Injectorにどのような役割や機能が求められるかの考察にもなるでしょう。<br/>
+<strong><br/>
+オブジェクトの生成・構成を手続きの記述ではなくルールに基づいたロジックで行う</strong>ことでこれらの問題を解決します。次回Day 5はその考察を行います。</p>
+
+<ol class="footnotes">
+  <li id="footnote_0_1288" class="footnote">
+    factoryの方が良さそうですね&#8230; [<a href="#identifier_0_1288" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/adv1">Advent Day 1: Include</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-03T00:00:00+09:00" pubdate data-updated="true">Dec 3<span>rd</span>, 2012</time>
+        
+         | <a href="/adv1#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/adv1">Tweet</a>
+</div>
+
+
+<h2>include</h2>
+
+<blockquote><p><strong>include</strong></p>
+
+<p>(PHP 4, PHP 5)</p>
+
+<p>include 文は指定されたファイルを読み込み、評価します。</p></blockquote>
+
+<p><em>&#8220;値の返し方: include に失敗したときには FALSE を返し、警告を発生させます。 成功した場合の返り値は、インクルードしたファイル側で変更していない限りは 1 です。 インクルードしたファイルの中で return を実行すれば、 そのファイルの処理をそこで止めて呼び出し元に処理を戻せます。 &#8220;</em></p>
+
+<p>このようにinculude/requireはクラスや関数を定義するだけでなく、そのファイルの中で生成した変数を渡す事ができます。BEAR.Sundayではこの機能を使ってインスタンスの取得を行っています。</p>
+
+<h2>bootstrap時のインスタンス取得</h2>
+
+<p>インスタンスの取得には様々な方法があります。</p>
+
+<ul>
+<li>new演算子</li>
+<li>サービスクラスでインスタンス提供メソッド利用（getInstance() / factory()等）</li>
+<li>Factoryクラス利用</li>
+<li>オブジェクトコンテナからの取得 (SL)</li>
+<li>Dependency Injectorによる注入 (DI)</li>
+<li>上記includeを利用</li>
+</ul>
+
+
+<p>アプリケーションのbootstrapの時にはまだSLやDIの機能の準備はできていません。アプリケーションはbootしたばかりで関心の分離もこれからです。このような場合にincludeでのインスタンス取得が有効だと考えました。</p>
+
+<h2>SLやDIとの共通点</h2>
+
+<p>includeによるインスタンス取得は単純です。<a href="http://www.bear-project.net/blog/2012/05/dip%EF%BC%9Adependency-inversion-principle/">DIP原則</a>にも従いませんが<strong>「インスタンスの生成をクライアント、およびサービスクラスがが関与しない」</strong>というDIがもつ機能との共通点があります。</p>
+
+<p>そのインスタンスはsingletonなのかprototypeなのか、どのようなオブジェクトにより構成されてるのかといオブジェクトの構成知識はクライアントに必要ありません。インスタンス提供メソッドを用意する方法と違い構成が変わってもサービスクラスにも変更はありません。</p>
+
+<p>専用Factoryクラスを用意するとクライアント／サービスクラスに構成知識が不要という点は同じですが、より簡易な記述になり利用も簡単です。</p>
+
+<h2>Aura Framework</h2>
+
+<p><a href="http://auraphp.github.com/">Aura Framework</a>はそれぞれのライブラリのインスタンスはスクリプトで取得することができます。実用的であると同時にインスタンス生成方法の実例にもなっています。例<a href="https://github.com/auraphp/Aura.Signal/blob/develop/scripts/instance.php"> Aura.Signal</a>、<a href="https://github.com/auraphp/Aura.Filter/blob/develop/scripts/instance.php">Aura.Filter</a></p>
+
+<p>BEAR.Sundayでは開発当初から様々なフレームワークのbest practiceを取り込みたいと考えてますがinclude文によるインスタンスの取得、およびその位置の固定化(scripts/instance.php)もその一環です。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/adv3">Advent Day 3: Dependency Carrying</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-03T00:00:00+09:00" pubdate data-updated="true">Dec 3<span>rd</span>, 2012</time>
+        
+         | <a href="/adv3#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/adv3">Tweet</a>
+</div>
+
+
+<h2>Dependency Carrying</h2>
+
+<p>DI以前に不便や疑問を感じてたところで、DI以降すっきり解決できたものにタイトルの<strong>Dependency Carrying</strong>の問題があります。この<strong>Dependency Carrying</strong>に問題はコードを読みにくくしメンテナンス性も低下させテストも難しくする厄介な問題ですが、開発規模が大きくなってくるとこの問題が出やすい様です。</p>
+
+<p>では&#8221;Dependency Carrying&#8221;の問題とは何のことでしょうか？</p>
+
+<p><em>Aというメソッドが他のメソッド(B)を呼ぶ場合に、その呼ばれたメソッド(B)が必要の無いオブジェクト（α）を渡さなければならない場合があります。その呼ばれたメソッド(B)がメソッド&copy;を呼ぶのに必要だからです。つまりCはαに依存しています。メソッドBはαが必要にないのにも関わらず、オブジェクトをcarryするためだけに引数で受け取り、Cに渡します。</em></p>
+
+<h2>ソリューションとしてのDI</h2>
+
+<p>使用しないオブジェクトを&#8221;carry&#8221;するということは双方のメソッドシグネチャーに影響を及ぼします。変更箇所を増やし結合を強め、保守性を低下させます。Aで生まれたオブジェクトαをDが必要としてそのコールフローが<code>A-&gt;B-&gt;C-&gt;D</code>というときB,Cは自ら不要なオブジェクトをcarryします。そして改修によりDがそのオブジェクトを必要としなくなったら？無意味と分かりつつ互換性のためにB,Cのコードを改修する事は難しいでしょう。使われないαは意味も無くcarryされ続けるかもしれません。</p>
+
+<p>この問題の解決にしばしばstaticなシングルトンが使われてきました。しかしもちろん、staticなシングルトンはもちろんそれ自体が他の多くの問題を含みます。</p>
+
+<p>DIは多くの場合この問題を解決します。控えめに言っても大幅に低減します。単に解決するだけでなくもっと洗練された方法で必要なオブジェクトをデリバリーすることができます。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/adv2">Advent Day 2: DI for Readability</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-03T00:00:00+09:00" pubdate data-updated="true">Dec 3<span>rd</span>, 2012</time>
+        
+         | <a href="/adv2#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/adv2">Tweet</a>
+</div>
+
+
+<h2>Dependency Injection Benefits</h2>
+
+<p>Jakob Jenkovさんのブログ記事&#8221;<a href="http://tutorials.jenkov.com/dependency-injection/dependency-injection-benefits.html">Dependency Injection Benefits</a>&#8220;でDIのメリットを以下の様に述べてます。</p>
+
+<ul>
+<li>Reduced Dependencies</li>
+<li>Reduced Dependency Carrying</li>
+<li>More Reusable Code</li>
+<li>More Testable Code</li>
+<li>More Readable Code</li>
+</ul>
+
+
+<p>DIの技術的紹介記事は数多くありますが、このうち多くはテストの容易性やモジュラティーの向上による再利用性の高さをメリットとしてあげていますが、この記事ではDIの他のメリットとして可読性の向上を紹介します。</p>
+
+<p>BEAR.Sundayではインターフェイスを通してオブジェクトを受け取ります。インターフェイスとオブジェクトの生成の関係を知るインジェクターがbootstrap時に必要な依存を注入（外部から代入）します。コンストラクタで受け取るものとセッターメソッドによるインジェクションがあります。</p>
+
+<h3>コンストラクタインジェクション</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * Set resource</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @param ResourceInterface $resource</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @Inject</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">ResourceInterface</span> <span class="nv">$resource</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">resource</span> <span class="o">=</span> <span class="nv">$resource</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>セッターインジェクション</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * Set resource</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @param ResourceInterface $resource</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @Inject</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">setResource</span><span class="p">(</span><span class="nx">ResourceInterface</span> <span class="nv">$resource</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">resource</span> <span class="o">=</span> <span class="nv">$resource</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>メソッドには<strong>@Inject</strong>がアノテートされ、外部からの注入が行われる事を示しています。これはコードを読むプログラマにとっても、注入ポイントを知る必要があるインジェクターにとっても文字通りアノテーション（注記）となっています。</p>
+
+<p>外部のインスタンスを取得方法は前回記事のincludeと同じく最小化されています。取得方法のコーディングが必要ないということは、依存の取得が容易であると同時に依存提供の方法や依存内容も変更可能だということを意味します。インターフェイスを通じて受け取る方法は<strong>「詳細ではなく抽象に依存せよ」</strong>という<a href="http://www.bear-project.net/blog/2012/05/dip%EF%BC%9Adependency-inversion-principle/">DIP原則</a>にも従っています。</p>
+
+<p>また依存の利用個所はクラス前半に記述してあるコンストラクタとセッターメソッドに集約されていてそのクラスがどの依存を利用するかをすぐに知るのは容易です。依存を知るためにコードの全てを見る必要がありません。依存は外部から代入され、ランタイム（実行時のコード途中で）で&#8221;PULL&#8221;されないためです。<sup><a href="#footnote_0_1259" id="identifier_0_1259" class="footnote-link footnote-identifier-link" title="この点はSLより優れています">1</a></sup></p>
+
+<h2>トレイトによるセッターインジェクション</h2>
+
+<p>PHP5.4では横断的に利用するメソッドをtraitで集約できます。BEAR.SundayではこれをDIのボイラープレート削減のために使用することができます。これを利用したクラスはこのようになります。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">A</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">use</span> <span class="nx">ResourceInject</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">use</span> <span class="nx">LoggerInject</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">use</span> <span class="nx">WebContextInject</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>一つの依存が一行で表さ集約されました。コンパクトになりクラスの依存が簡潔に表現されています。</p>
+
+<p>一方、そのインターフェイスはtraitファイルを見なければならなくなりました。この点はSLと同じと割り切るか、出現頻度の高いオブジェクトに限るなどの工夫をするのが良いかも知れません。</p>
+
+<ol class="footnotes">
+  <li id="footnote_0_1259" class="footnote">
+    この点はSLより優れています [<a href="#identifier_0_1259" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/binding">早期束縛、遅延束縛</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-17T00:00:00+09:00" pubdate data-updated="true">Nov 17<span>th</span>, 2012</time>
+        
+         | <a href="/binding#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/binding">Tweet</a>
+</div>
+
+
+<h2>束縛（バインディング）</h2>
+
+<blockquote><p>束縛またはバインディング（英: Binding）は、情報工学において、より大きく複雑で頻繁に使われる何かへの単純な参照の生成を意味する。単純な参照を大きなものを反復する代わりに使うことができる。束縛とはそのような参照を指す。また、そこから転じて、何らかの「関連付け」を束縛またはバインディングと称する。 <em>&#8211;wikipedia <a href="http://ja.wikipedia.org/wiki/%E6%9D%9F%E7%B8%9B_(%E6%83%85%E5%A0%B1%E5%B7%A5%E5%AD%A6)">束縛 (情報工学)</a></em></p></blockquote>
+
+<p>BEAR.Sundayではコンパイルタイムとランタイムの明確な区別があります。ブートストラップで実行に必要なアプリケーションオブジェクトやページリソースオブジェクトを作るのがコンパイルです。</p>
+
+<p>オブジェクトの依存がDIで解決され、リクエスト毎に変わらないオブジェクトの結びつきはここで決定されます。ブートストラップ時に束縛するので<strong>早期束縛</strong>、あるいは束縛が固定されているので<strong>静的束縛</strong>と呼びます<sup><a href="#footnote_0_1192" id="identifier_0_1192" class="footnote-link footnote-identifier-link" title="BEAR.Sundayではこの束縛がリクエストを超えて再利用されます">1</a></sup> が同じものです。（英語ではそれぞれ<strong>Eager Binding</strong>, <strong>Static Bindining</strong>）</p>
+
+<p>ランタイムではコンパイルで作られたオブジェクトのリクエスト毎に変わる処理が実行されます。コンパイルで決定できない依存はここでAOPを使って解決されます。利用メソッドが呼ばれる直前のギリギリのタイミングで<strong>遅延束縛</strong>、あるいは<strong>動的束縛</strong>（英語ではそれぞれ<strong>Lazy Binding</strong>, <strong>Dynamic Binding</strong>）と呼びます。</p>
+
+<ol>
+<li>Dependency Injectorがインジェクト ＝早期束縛</li>
+<li>AOPのアスペクトがインジェクト =遅延束縛</li>
+</ol>
+
+
+<p>基本的に早期束縛を優先して、早期束縛できない時のみ遅延束縛を選ぶようにします。ブートストラップで依存を解決する早期束縛はオブジェクトとオブジェクトの結びつきを固定化させコード実行をより少なくします。速度もより高速です。</p>
+
+<h2>早期束縛(DI)できないサービスオブジェクト</h2>
+
+<p>以下のものはDIできません。AOPのアスペクトでインジェクトするか、またはプロバイダーというわれるマイクロファクトリーで都度生成します。</p>
+
+<ol>
+<li><strong>シリアライズできないもの</strong>(PDO、クロージャ、リフレクションなどの組み込みオブジェクト等）</li>
+<li>コンストラクタが<strong>毎リクエスト生成を前提</strong>としてるもの（現在時刻をコンストラクタでプロパティに代入してるmonolog等）</li>
+<li><strong>ランタイムでないと決定できない</strong>オブジェクト</li>
+</ol>
+
+
+<p>DBオブジェクトのインジェクトはこのうち１番目と３番目にあたります。PHPはリソース変数がシリアライズできません、それに複数のリクエストメソッドを１つのクラスで表すリソースオブジェクトは、実際にメソッドが呼ばれないとどのDBオブジェクトをインジェクトするか（マスター／スレーブ）が決定できません。DBオブジェクトはアスペクト（横断段的処理）としてメソッドに束縛されたインターセプターでインジェクトします。</p>
+
+<h2>DBインジェクター</h2>
+
+<p>以下はDBインジェクターのコードです。これはリクエストメソッドの直前にコールされるインターセプターです。<br/>
+AOPについての初歩的なことはマニュアルの<a href="http://code.google.com/p/bearsunday/wiki/my_first_aop">はじめてのアスペクト</a>をご覧下さい。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * This file is part of the BEAR.Sunday package</span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> * @license http://opensource.org/licenses/bsd-license.php BSD</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">namespace</span> <span class="nx">BEAR\Package\Interceptor</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Doctrine\DBAL\DriverManager</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Doctrine\DBAL\Logging\SQLLogger</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Ray\Aop\MethodInterceptor</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Ray\Aop\MethodInvocation</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Doctrine\Common\Annotations\AnnotationReader</span> <span class="k">as</span> <span class="nx">Reader</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Ray\Di\Di\Inject</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Ray\Di\Di\Named</span><span class="p">;</span>
+</span><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * Cache interceptor</span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> * @package    BEAR.Sunday</span>
+</span><span class='line'><span class="sd"> * @subpackage Intercetor</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">final</span> <span class="k">class</span> <span class="nc">DbInjector</span> <span class="k">implements</span> <span class="nx">MethodInterceptor</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * @var Reader</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">private</span> <span class="nv">$reader</span><span class="p">;</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * DSN for master</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @var array</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">private</span> <span class="nv">$masterDb</span><span class="p">;</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * DSN for slave</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @var array</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">private</span> <span class="nv">$slaveDb</span><span class="p">;</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * Set annotation reader</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @param Reader $reader</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @return void</span>
+</span><span class='line'><span class="sd">     * @Inject</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">setReader</span><span class="p">(</span><span class="nx">Reader</span> <span class="nv">$reader</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">reader</span> <span class="o">=</span> <span class="nv">$reader</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * Constructor</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @param  array $masterDb</span>
+</span><span class='line'><span class="sd">     * @@param array $slaveDb</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @Inject</span>
+</span><span class='line'><span class="sd">     * @Named(&quot;masterDb=master_db,slaveDb=slave_db&quot;)</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="k">array</span> <span class="nv">$masterDb</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$slaveDb</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">masterDb</span> <span class="o">=</span> <span class="nv">$masterDb</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">slaveDb</span> <span class="o">=</span> <span class="nv">$slaveDb</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * (non-PHPdoc)</span>
+</span><span class='line'><span class="sd">     * @see Ray\Aop.MethodInterceptor::invoke()</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">invoke</span><span class="p">(</span><span class="nx">MethodInvocation</span> <span class="nv">$invocation</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$object</span> <span class="o">=</span> <span class="nv">$invocation</span><span class="o">-&gt;</span><span class="na">getThis</span><span class="p">();</span>
+</span><span class='line'>        <span class="nv">$method</span> <span class="o">=</span> <span class="nv">$invocation</span><span class="o">-&gt;</span><span class="na">getMethod</span><span class="p">();</span>
+</span><span class='line'>        <span class="nv">$connectionParams</span> <span class="o">=</span> <span class="p">(</span><span class="nv">$method</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">!==</span> <span class="s1">&#39;onGet&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">slaveDb</span> <span class="o">:</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">masterDb</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$pagerAnnotation</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">reader</span><span class="o">-&gt;</span><span class="na">getMethodAnnotation</span><span class="p">(</span><span class="nv">$method</span><span class="p">,</span> <span class="s1">&#39;BEAR\Sunday\Annotation\DbPager&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nv">$pagerAnnotation</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$connectionParams</span><span class="p">[</span><span class="s1">&#39;wrapperClass&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;BEAR\Package\Module\Database\DoctrineDbalModule\Connection&#39;</span><span class="p">;</span>
+</span><span class='line'>            <span class="nv">$db</span> <span class="o">=</span> <span class="nx">DriverManager</span><span class="o">::</span><span class="na">getConnection</span><span class="p">(</span><span class="nv">$connectionParams</span><span class="p">);</span>
+</span><span class='line'>            <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">setMaxPerPage</span><span class="p">(</span><span class="nv">$pagerAnnotation</span><span class="o">-&gt;</span><span class="na">limit</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$db</span> <span class="o">=</span> <span class="nx">DriverManager</span><span class="o">::</span><span class="na">getConnection</span><span class="p">(</span><span class="nv">$connectionParams</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="cm">/* @var $db \BEAR\Package\Module\Database\DoctrineDbalModule\Connection */</span>
+</span><span class='line'>        <span class="nv">$object</span><span class="o">-&gt;</span><span class="na">setDb</span><span class="p">(</span><span class="nv">$db</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$invocation</span><span class="o">-&gt;</span><span class="na">proceed</span><span class="p">();</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nv">$pagerAnnotation</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$pagerData</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">getPager</span><span class="p">();</span>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="nv">$pagerData</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                <span class="nv">$object</span><span class="o">-&gt;</span><span class="na">headers</span><span class="p">[</span><span class="s1">&#39;pager&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$pagerData</span><span class="p">;</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$result</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>このDBインジェクターはメソッドに応じてMaster/Slave DBを選択しています。つまりDBオブジェクトを利用するにはクラスに@Dbとマークするだけで、メソッドがコールされた直前のタイミングでマスタースレーブが自動選択されDBオブジェクトがインジェクトされます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$connectionParams</span> <span class="o">=</span>
+</span><span class='line'> <span class="p">(</span><span class="nv">$method</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">!==</span> <span class="s1">&#39;onGet&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">slaveDb</span> <span class="o">:</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">masterDb</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>またもし`@DbPager`とメソッドがアノテートされてるとDBPager用のオブジェクトを作成しています。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nv">$pagerAnnotation</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$connectionParams</span><span class="p">[</span><span class="s1">&#39;wrapperClass&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;BEAR\Package\Module\Database\DoctrineDbalModule\Connection&#39;</span><span class="p">;</span>
+</span><span class='line'>            <span class="nv">$db</span> <span class="o">=</span> <span class="nx">DriverManager</span><span class="o">::</span><span class="na">getConnection</span><span class="p">(</span><span class="nv">$connectionParams</span><span class="p">);</span>
+</span><span class='line'>            <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">setMaxPerPage</span><span class="p">(</span><span class="nv">$pagerAnnotation</span><span class="o">-&gt;</span><span class="na">limit</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>DI/AOP開発プロセス</h2>
+
+<p>この記事ではこのDBインジェクターにロガーを追加します。既存のオブジェクトに機能を追加する時にどのようなプロセスが必要か明らかにします。</p>
+
+<h3>セッターメソッド</h3>
+
+<p>DBインジェクターインターセプターでアノテーションリーダーがインジェクトされているようにロガーを受け取るコードを記述します。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * Set SqlLogger</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @param \Doctrine\DBAL\Logging\SQLLogger $sqlLogger</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @Inject(optional = true)</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">setSqlLogger</span><span class="p">(</span><span class="nx">SQLLogger</span> <span class="nv">$sqlLogger</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">sqlLogger</span> <span class="o">=</span> <span class="nv">$sqlLogger</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>このインジェクトを必須にしないでオプションにするために<code>@Inject(optional = true)</code>としています。SQLLoggerインターフェイスへの束縛が行われていれば(DI設定がされていれば）インジェクトされるし、なければされません。ログの要不要に応じて、例えば開発かプロダクションでその束縛を変更することができます。</p>
+
+<h3>インターフェイスと実装をモジュールで束縛</h3>
+
+<p>ここで開発時のみにロガーを利用するこtにします。DevModuleにこの記述を加えます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bind</span><span class="p">(</span><span class="s1">&#39;Doctrine\DBAL\Logging\SQLLogger&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">to</span><span class="p">(</span><span class="s1">&#39;Doctrine\DBAL\Logging\EchoSQLLogger&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>これでDoctrine\DBAL\Logging\SQLLoggerインターフェイスのオブジェクトを受け取るセッターにDoctrine\DBAL\Logging\EchoSQLLoggerオブジェクトがインジェクトされます。</p>
+
+<h3>特定メソッドとインターセプターの束縛</h3>
+
+<p>DBインジェクターは以下のようなコードでクラスに@Dbとアノテートしていて&#8217;on&#8217;で始まる全てのメソッドに束縛されてます。（このコードはBEAR\Package\Module\Database\DoctrineDbalModuleで見つける事ができます）</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>    <span class="k">private</span> <span class="k">function</span> <span class="nf">installDbInjector</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$dbInjector</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">requestInjection</span><span class="p">(</span><span class="s1">&#39;\BEAR\Package\Interceptor\DbInjector&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bindInterceptor</span><span class="p">(</span>
+</span><span class='line'>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">matcher</span><span class="o">-&gt;</span><span class="na">annotatedWith</span><span class="p">(</span><span class="s1">&#39;BEAR\Sunday\Annotation\Db&#39;</span><span class="p">),</span>
+</span><span class='line'>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">matcher</span><span class="o">-&gt;</span><span class="na">startWith</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="p">),</span>
+</span><span class='line'>            <span class="p">[</span><span class="nv">$dbInjector</span><span class="p">]</span>
+</span><span class='line'>        <span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>アノテーション</h3>
+
+<p>アノテーションはDoctrine\Commonsのアノテーションライブラリを利用しています。<br/>
+@Dbアノテーションはこのようなクラスです。このアノテーションは@Target(&#8220;CLASS&#8221;)とアノテートされ、クラスのみアノテートすることができます。メソッドには記述できません。<sup><a href="#footnote_1_1192" id="identifier_1_1192" class="footnote-link footnote-identifier-link" title="これらの規則はDoctrineアノテーションによるものです">2</a></sup></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * This file is part of the BEAR.Sunday package</span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> * @package BEAR.Sunday</span>
+</span><span class='line'><span class="sd"> * @license http://opensource.org/licenses/bsd-license.php BSD</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">namespace</span> <span class="nx">BEAR\Sunday\Annotation</span><span class="p">;</span>
+</span><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * Db</span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> * @Annotation</span>
+</span><span class='line'><span class="sd"> * @Target(&quot;CLASS&quot;)</span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> * @package    BEAR.Sunday</span>
+</span><span class='line'><span class="sd"> * @subpackage Annotation</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">final</span> <span class="k">class</span> <span class="nc">Db</span> <span class="k">implements</span> <span class="nx">Annotation</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>インターセプターで利用</h3>
+
+<p>これでインターセプターのセッターメソッドはロガーを受け取りました。この依存を受け取る方法は<a href="http://www.bear-project.net/blog/2012/05/dip%EF%BC%9Adependency-inversion-principle/">依存逆転原則</a>に従ってインターフェイスに依存しています。モジュールでの束縛を変更しても利用オブジェクトには変更がありません。</p>
+
+<p>利用コードではもしロガーがあればセットするというコードを記述しました。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">sqlLogger</span> <span class="nx">instanceof</span> <span class="nx">SQLLogger</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">getConfiguration</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">setSQLLogger</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">sqlLogger</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>結論</h2>
+
+<p>これでDBオブジェクトにロガーがセットされて、SQLを実行するたびにSQLが表示されるようになりました。しかしEchoSQLLoggerはその名の通り、SQLを即時にechoするもので洗練されたログ機構とはとてもいえません。DebugStackというログをスタックとして記録するクラスを代わりに束縛し、ZF\Logや他のログライブラリがその情報を利用するようなコードが必要でしょう。</p>
+
+<p>この記事では２つの束縛の違いと横断的処理であるインターセプターも依存を受け取る事が出来る事、それをオプションにしたりモードに応じてインジェクト内容を変えれる事、インターセプターとメソッドの束縛、受け取った依存の利用という一連の流れを説明しました。</p>
+
+<p>依存逆転原則に従って抽象に依存したオブジェクトを静的にDIで繋げ、AOPで横断的処理の束縛を動的にできる例をみました。関心は分離されその結合は疎です。BEAR.Sundayのフレームワーク機能はほぼ全てこの原則と手順で構成され、BEAR.Sundayアプリケーションも同様です。</p>
+
+<p>共通基底クラスや共通規約、固定的なメソッドやプロパティを使う事なくオブジェクトの構成を同一原則で行っています。そのBEAR.Sundayのオブジェクトを構成する原則もBEAR.Sunday固有のものでなく、ソフトウエア技術として一般性を持ち支持を受けている原理・法則で構成されたものです。</p>
+
+<ol class="footnotes">
+  <li id="footnote_0_1192" class="footnote">
+    BEAR.Sundayではこの束縛がリクエストを超えて再利用されます [<a href="#identifier_0_1192" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_1_1192" class="footnote">
+    これらの規則はDoctrineアノテーションによるものです [<a href="#identifier_1_1192" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/phpmatsuri2012">PHP:Dis Is It(2012), BEAR.Sunday WS, and WOW !</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-10T00:00:00+09:00" pubdate data-updated="true">Nov 10<span>th</span>, 2012</time>
+        
+         | <a href="/phpmatsuri2012#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/phpmatsuri2012">Tweet</a>
+</div>
+
+
+<h1>PHP:Dis Is It(2012)</h1>
+
+<p><a href="http://www.phpmatsuri.net/2012/"> PHPMatsuri 2012</a>という国内最大のPHPハッカソンイベントで「PHP:Dis Is It(2012)」というタイトルで講演を行いました。</p>
+
+<p>これは丁度一年前にPHP Apocalypseというイベントで行った<a href="http://www.bear-project.net/blog/2011/12/php-dis-is-it/">PHP:Dis Is It</a>とほぼ同じものですが、言い足りなかった事を加えたり伝え方をより工夫したりしたものです。最初の講演でice breakerになればいいと思ってPVも加えました。</p>
+
+<p>一年前の資料を再度目を通しスピーチを練り直す作業は、去年の自分の考えが変化したりないかを問い直す事でもあります。PVでも紹介したように現在のPHPは変化の延長にあり、やはりこの視点でのPHP評価というものにはより確信が持てました。PVはその確信をうまく反映できて、なかなか楽しいものになったと思うのですがいかがだったでしょうか。</p>
+
+<p>※ これは&#8221;This is it&#8221;です！</p>
+
+<h2>質疑応答 ?</h2>
+
+<p>前回と違うのは講演後に質疑応答があった事です。この内容で質問！？って感じだったのですが、何故か次々に手が挙がりました（？）しかも質問は講演と直接関係ないことばかりで（！？）「自己紹介」にも質問がありました。（！？！？）</p>
+
+<p>「アセンブラ、Cと来て何故PHPか？」と聞かれ、「言語よりプロダクトや働き方・関わり方にフォーカスしてる」と答えましたが、後で良く考えてみたらもっと単純でその時々に自分が一番カッコイイと思ってるのをずっと追いかけてるだけだと思います。「ゲーム制作」って今でもかっこいいモノだと信じてますが、「90年代前半のファミコン＆ゲームボーイのコンシュマー黎明期、後半の2Dから3Dへのパラダイムチェンジの時期」は本当に特別な時期で全てが輝いていてカッコよかったです。<sup><a href="#footnote_0_1109" id="identifier_0_1109" class="footnote-link footnote-identifier-link" title="それとも自分が年齢を重ねたせいでしょうか">1</a></sup></p>
+
+<p>また自分が16か17の時に始めて知ったテッド・ネルソンのハイパーテキストの概念<sup><a href="#footnote_1_1109" id="identifier_1_1109" class="footnote-link footnote-identifier-link" title="当時さっぱり実装を想像できませんでした">2</a></sup> がWWWという実装になって世界を繋ぐのを20世紀後半にリアルタイムで見た時、やっぱりカッコイイと思いました。アラン・ケイのダイナブックのような夢が実現するとは思いませんでした。</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/phpmatsuri2012">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/10/codeasdocumentation/">CodeAsDocumentation</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-28T00:00:00+09:00" pubdate data-updated="true">Oct 28<span>th</span>, 2012</time>
+        
+         | <a href="/2012/10/codeasdocumentation/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2012/10/codeasdocumentation/">Tweet</a>
+</div>
+
+
+<h2>コードがドキュメントだ</h2>
+
+<blockquote><p>なぜコードが重要なドキュメントなのかというと、 詳細かつ正確なドキュメントはコードしかないからだ &#8212; Martin Fowler</p></blockquote>
+
+<h2>アプリケーションシーケンス</h2>
+
+<p>どのようなシーケンス<sup><a href="#footnote_0_1035" id="identifier_0_1035" class="footnote-link footnote-identifier-link" title="あらかじめ定められた順序または手続きに従って制御の各段階を逐次進めていく制御">1</a></sup><sup><a href="#footnote_1_1035" id="identifier_1_1035" class="footnote-link footnote-identifier-link" title="http://ja.wikipedia.org/wiki/%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E5%88%B6%E5%BE%A1">2</a></sup> によりフレームワーク／アプリケーションが実行されるかはフレームワークの設計思想を強く反映していて、柔軟度にも違いがあります。ほぼ固定的なものから、イベントシステムで柔軟性を持たせたもの、それらはアプリケーションテンプレートのようなWebフレームワークと、ライブラリ指向のフルスタックフレームワークで異なってきます。</p>
+
+<p>しかし、しばしばこのシーケンスは分かりにくいものです。</p>
+
+<p>BEAR.Sundayではこのシーケンスをアプリケーションの構成だと考え、完全にアプリケーションドメインのものにならないかと考えました。基本シークエンスをスクリプトにより簡潔に表現し可読性を高め、自由に編集できるようにします。特定の処理を追加したり、割込ませるためにはそのスクリプトを直接編集します。<sup><a href="#footnote_2_1035" id="identifier_2_1035" class="footnote-link footnote-identifier-link" title="CakePHP のシーケンス図を作ってみたという記事を読みました。CakePHP2のアプリケーション／フレームワークのシーケンスが分かるという記事なのですが、面白いと思ったと同時に現在のフレームワークのシーケンスの分かりにくさを表している事でもないかと考えました。
+">3</a></sup></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/** @global $mode application configuration mode */</span>
+</span><span class='line'><span class="c1">// Clear</span>
+</span><span class='line'><span class="k">require</span> <span class="nb">dirname</span><span class="p">(</span><span class="nx">__DIR__</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;/scripts/clear.php&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// Application instance with loader</span>
+</span><span class='line'><span class="nv">$mode</span> <span class="o">=</span> <span class="s1">&#39;Prod&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="nv">$app</span> <span class="o">=</span> <span class="k">require</span> <span class="nb">dirname</span><span class="p">(</span><span class="nx">__DIR__</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;/scripts/instance.php&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// Dispatch</span>
+</span><span class='line'><span class="k">list</span><span class="p">(</span><span class="nv">$method</span><span class="p">,</span> <span class="nv">$pagePath</span><span class="p">,</span> <span class="nv">$query</span><span class="p">)</span> <span class="o">=</span> <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">router</span><span class="o">-&gt;</span><span class="na">match</span><span class="p">(</span><span class="nv">$GLOBALS</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// Request</span>
+</span><span class='line'><span class="k">try</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$page</span> <span class="o">=</span> <span class="nv">$app</span>
+</span><span class='line'>    <span class="o">-&gt;</span><span class="na">resource</span>
+</span><span class='line'>    <span class="o">-&gt;</span><span class="nv">$method</span>
+</span><span class='line'>    <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;page://self/&#39;</span> <span class="o">.</span> <span class="nv">$pagePath</span><span class="p">)</span>
+</span><span class='line'>    <span class="o">-&gt;</span><span class="na">withQuery</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span>
+</span><span class='line'>    <span class="o">-&gt;</span><span class="na">eager</span>
+</span><span class='line'>    <span class="o">-&gt;</span><span class="na">request</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">NotFound</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$code</span> <span class="o">=</span> <span class="mi">404</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">goto</span> <span class="nx">ERROR</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">BadRequest</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$code</span> <span class="o">=</span> <span class="mi">400</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">goto</span> <span class="nx">ERROR</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$code</span> <span class="o">=</span> <span class="mi">503</span><span class="p">;</span>
+</span><span class='line'>    <span class="nb">error_log</span><span class="p">((</span><span class="nx">string</span><span class="p">)</span><span class="nv">$e</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">goto</span> <span class="nx">ERROR</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="c1">// Transfer</span>
+</span><span class='line'><span class="nx">OK</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">response</span><span class="o">-&gt;</span><span class="na">setResource</span><span class="p">(</span><span class="nv">$page</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">send</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nx">ERROR</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">http_response_code</span><span class="p">(</span><span class="nv">$code</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">require</span> <span class="nb">dirname</span><span class="p">(</span><span class="nx">__DIR__</span><span class="p">)</span> <span class="o">.</span> <span class="s2">&quot;/http/</span><span class="si">{</span><span class="nv">$code</span><span class="si">}</span><span class="s2">.php&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>これがアプリケーションスクリプトです。通常のOOPを使ったオブジェクトの世界ではなく、シェルスクリプトのように処理手順が記述してあるスクリプトの世界です。</p>
+
+<p>アプリケーションオブジェクトはアプリケーションスクリプトが使う全てのサービス（オブジェクト）を保持したオブジェクトです。スクリプトで取得して１つの$appという変数に代入しています。アプリケーションスクリプトでそのサービスを使って全体のフローを簡潔に構成します。</p>
+
+<h3>ページリソースで構成の意図を</h3>
+
+<p>アプリケーションスクリプトではページリソースのURIを組み立て、ページリソースリクエストを行いその結果を出力しています。</p>
+
+<p>ページリソースは自らをページとして構成するのが役割ですが、<strong>その構成意図はコードで表されます。</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Posts</span> <span class="k">extends</span> <span class="nx">Page</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">use</span> <span class="nx">ResourceInject</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nv">$body</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s1">&#39;posts&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span>
+</span><span class='line'>    <span class="p">];</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * @Cache</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="p">[</span><span class="s1">&#39;posts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">resource</span>
+</span><span class='line'>            <span class="o">-&gt;</span><span class="na">get</span>
+</span><span class='line'>            <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;app://self/blog/posts&#39;</span><span class="p">)</span>
+</span><span class='line'>            <span class="o">-&gt;</span><span class="na">withQuery</span><span class="p">([</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">])</span>
+</span><span class='line'>            <span class="o">-&gt;</span><span class="na">request</span><span class="p">();</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>セットすべきコンテンツ</h3>
+
+<p>$bodyプロパティはこのページでコンテンツ&#8217;posts&#8217;を用意する必要があるのを表しています。</p>
+
+<h3>指定可能なGETクエリー</h3>
+
+<p>GETリクエストにはidクエリーの指定が必須であることも表されています。</p>
+
+<h3>コンテンツとリソースをリンク</h3>
+
+<p>メソッド内では、コンテンツ<strong>posts</strong>を<strong>app://self/blog/posts?id=$id</strong>リソースにするという意図が示されてます。</p>
+
+<p>app://self/blog/postsが何を示すのかはこのコードには現れてないのに注意してください。これが特定のPHPクラスを指すのか、特定ファイルの内容なのか、あるいはリモートアクセスの結果なのか、ここでは指定されていません。<strong>app://self/blog/postsというURIで表されるリソースを自身のpostsコンテンツにするという意図</strong>が表されているだけです。<sup><a href="#footnote_3_1035" id="identifier_3_1035" class="footnote-link footnote-identifier-link" title="もしかしたらThriftで繋がれたC++モジュールが何かの実行を行ってくれるのかもしれません">4</a></sup></p>
+
+<p>このメソッドには@Cacheというアノテーションがありますが、<strong>キャッシュを行うという意図</strong>が表されてるだけです。実際にどのようなキャッシュアダプターがどのようにキャッシュを行うかはこのコードには現れません。</p>
+
+<p>これは単に設定ファイルをアノテーションにしただけではないのに注意してください。アプリケーションはbootstrap時にこの意図をみて、このメソッドとキャッシュの実装アスペクトを織り込みます。</p>
+
+<h3>フォームの仕様</h3>
+
+<p>以下はPOSTメソッドはフォームからPOSTサブミットのリクエストインターフェイスです。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onPost</span><span class="p">(</span>
+</span><span class='line'>        <span class="nv">$name</span><span class="p">,</span>
+</span><span class='line'>        <span class="nv">$gender</span><span class="p">,</span>
+</span><span class='line'>        <span class="nv">$age</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span>
+</span><span class='line'>        <span class="nv">$hobby</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span>
+</span><span class='line'>        <span class="nv">$lang</span> <span class="o">=</span> <span class="s1">&#39;PHP&#39;</span>
+</span><span class='line'>    <span class="p">)</span> <span class="p">{</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ここではPOSTメソッドでサブミットされるフォームに対してのリクエストインターフェイスがメソッドシグネチャーで表されています。$nameと$genderは入力必須、その他はオプションで$langを入力しなければ&#8221;PHP&#8221;になります。</p>
+
+<p>リクエストサービスオブジェクトから値を取り出す方法と比べて、PHPのメソッドとHTTPリクエストがシームレスに統合され、<strong>コードがPOSTフォームのドキュメンテーションになっています。</strong><sup><a href="#footnote_4_1035" id="identifier_4_1035" class="footnote-link footnote-identifier-link" title="webに&rdquo;型&rdquo;がないようにweb言語であるPHPにスカラータイプヒントがありません">5</a></sup></p>
+
+<h3>リソースのリンク</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>    <span class="k">public</span> <span class="nv">$links</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s1">&#39;payment&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span><span class='line'>            <span class="nx">Link</span><span class="o">::</span><span class="na">HREF</span> <span class="o">=&gt;</span> <span class="s1">&#39;app://self/restbucks/payment{?id}&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="nx">Link</span><span class="o">::</span><span class="na">TEMPLATED</span> <span class="o">=&gt;</span> <span class="k">true</span>
+</span><span class='line'>        <span class="p">],</span>
+</span><span class='line'>    <span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>リソースの関係はAPIドキュメント内だけにあるのではなく、コードにも存在しています。この例では注文IDと支払URIの関係がリンクで表されています。</p>
+
+<h3>アプリケーションリソース</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * @Time</span>
+</span><span class='line'><span class="sd">     * @Transactional</span>
+</span><span class='line'><span class="sd">     * @CacheUpdate</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onPost</span><span class="p">(</span><span class="nv">$title</span><span class="p">,</span> <span class="nv">$body</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$values</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>            <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$title</span><span class="p">,</span>
+</span><span class='line'>            <span class="s1">&#39;body&#39;</span> <span class="o">=&gt;</span> <span class="nv">$body</span><span class="p">,</span>
+</span><span class='line'>            <span class="s1">&#39;created&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">time</span>
+</span><span class='line'>        <span class="p">];</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">,</span> <span class="nv">$values</span><span class="p">);</span>
+</span><span class='line'>        <span class="c1">//</span>
+</span><span class='line'>        <span class="nv">$lastId</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">lastInsertId</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">code</span> <span class="o">=</span> <span class="nx">Code</span><span class="o">::</span><span class="na">CREATED</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">links</span><span class="p">[</span><span class="s1">&#39;new_post&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">Link</span><span class="o">::</span><span class="na">HREF</span> <span class="o">=&gt;</span> <span class="s2">&quot;app://self/posts/post?id=</span><span class="si">{</span><span class="nv">$lastId</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">];</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">links</span><span class="p">[</span><span class="s1">&#39;page_new_post&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">Link</span><span class="o">::</span><span class="na">HREF</span> <span class="o">=&gt;</span> <span class="s2">&quot;page://self/blog/posts/post?id=</span><span class="si">{</span><span class="nv">$lastId</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">];</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>このアプリケーションリソースメソッドではデータベースオブジェクトを利用してSQLを発行しますが、ここではアノテーションが実装意図を表すドキュメンテーションになっています。</p>
+
+<p>@Transactionalとアノテートするとこのメソッド内のクエリーはトランザクションとして扱われますが、@Cacheと同様、アノテーションそのものがトランザクションの機能をもっているわけではありません。@Transactionalというアノテート（注記）が（意図を表すドキュメンテーションとして扱われ）アプリケーションでトランザクションインターセプターと合成されています。</p>
+
+<h2>構造、意図、実装</h2>
+
+<p>アプリケーションの構造がアプリケーションスクリプトで表され、アプリケーションを構成するページリソースでは構成の意図が表されています。そのページリソースを構成するためのアプリケーションリソースでは、その構成のための実装が行われますが横断的実装はアスペクトで表され可能な限り下位のレイヤーで実装を行おうとします。</p>
+
+<p>上位のレイヤーでは構成意図を、下位のレイヤーでその実装を行うことでアプリケーションに解決空間の構成と実装のレイヤリングをフレームワークとして与えようとします。</p>
+
+<h3>アプリケーションオブジェクト</h3>
+
+<p>アプリケーションスクリプトからデーターベース操作を行う下位レイヤーまで、レイヤーを上から下に見て来ましたが、最期にそのトップのアプリケーションオブジェクトをみてみましょう。</p>
+
+<p>アプリケーションという<a href="http://en.wikipedia.org/wiki/Object_graph">オブジェクトグラフ</a>の頂点になるこのインスタンスはアプリケーションスクリプトが使う全てのサービス（オブジェクト）を保持するのがその最大責務です。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">final</span> <span class="k">class</span> <span class="nc">App</span> <span class="k">implements</span> <span class="nx">Context</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="sd">/** application dir path @var string */</span>
+</span><span class='line'>    <span class="k">const</span> <span class="no">DIR</span> <span class="o">=</span> <span class="nx">__DIR__</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nv">$injector</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nv">$resource</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nv">$logger</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nv">$response</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nv">$exceptionHandler</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nv">$router</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nv">$globals</span><span class="p">;</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * Constructor</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @param \Ray\Di\InjectorInterface                        $injector         Dependency Injector</span>
+</span><span class='line'><span class="sd">     * @param \BEAR\Resource\ResourceInterface                 $resource         Resource client</span>
+</span><span class='line'><span class="sd">     * @param \BEAR\Sunday\Exception\ExceptionHandlerInterface $exceptionHandler Exception handler</span>
+</span><span class='line'><span class="sd">     * @param \BEAR\Sunday\Application\Logger                  $logger           Application logger</span>
+</span><span class='line'><span class="sd">     * @param \BEAR\Sunday\Web\ResponseInterface               $response         Web / Console response</span>
+</span><span class='line'><span class="sd">     * @param \BEAR\Sunday\Web\RouterInterface                 $router           Resource cache adapter</span>
+</span><span class='line'><span class="sd">     * @param \BEAR\Sunday\Web\GlobalsInterface                $globals          GLOBALS value</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @Inject</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span>
+</span><span class='line'>        <span class="nx">InjectorInterface</span> <span class="nv">$injector</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">ResourceInterface</span> <span class="nv">$resource</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">ExceptionHandlerInterface</span> <span class="nv">$exceptionHandler</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">ApplicationLogger</span> <span class="nv">$logger</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">ResponseInterface</span> <span class="nv">$response</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">RouterInterface</span> <span class="nv">$router</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">GlobalsInterface</span> <span class="nv">$globals</span>
+</span><span class='line'>    <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">injector</span> <span class="o">=</span> <span class="nv">$injector</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">resource</span> <span class="o">=</span> <span class="nv">$resource</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span> <span class="o">=</span> <span class="nv">$response</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">exceptionHandler</span> <span class="o">=</span> <span class="nv">$exceptionHandler</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">logger</span> <span class="o">=</span> <span class="nv">$logger</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">router</span> <span class="o">=</span> <span class="nv">$router</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">globals</span> <span class="o">=</span> <span class="nv">$globals</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>オブジェクトの生成と実行が完全に分離されたDIシステムを持つBEAR.Sundayでは、アプリケーションスクリプトが利用するサービスの全ては、このアプリケーションのコードで表されます。</p>
+
+<p>アプリケーションの構成に必要な全てのサービスがここに記述されているはずで、要不要が生じればこのコードに反映されることになります。</p>
+
+<h2>Readability, Simplicity and Self-documenting</h2>
+
+<p><strong>簡潔で、可読性が高く、<a href="http://en.wikipedia.org/wiki/Self-documenting">自己記述的</a>であること</strong> &#8211; これはBEAR.Sundayが開発当初から一貫して指向してきたことです。</p>
+
+<p>これは単に表記の問題ではありません。解決しようとする問題の本質を明らかにして、本質的関心だけを浮かび上がる、そういう記述を指向しているということです。そのためにはスコープを適切に持ち、関心を分離し付随的な関心を削ぎ落とす事が必要でこれには多くの前提が必要です。</p>
+
+<p>生成と利用を完全に分離したDIや、横断的関心事を注記<sup><a href="#footnote_5_1035" id="identifier_5_1035" class="footnote-link footnote-identifier-link" title="アノテーション">6</a></sup>に応じて織り込むAOP、アプリケーションプロトコル/プラットフォームであるHTTPとフレームワークとの融合を即するRESTオブジェクト、これらのその前提です。これらDI/AOP/RESTを道具として指向するのではなく、簡潔で可読性が高く自己記述的なアプリケーションコーディングの前提、オブジェクトフレームワークとして機能させようとしています。</p>
+
+<p>これまでの開発で最も多くのスクラップ＆ビルドを繰り返しよりよい解を求めて試行錯誤を繰り返し注力したたのはフレームワークの機能ではなく、アプリケーション記述のあり方です。<sup><a href="#footnote_6_1035" id="identifier_6_1035" class="footnote-link footnote-identifier-link" title="これはアプリケーションドメインなのでアプリケーションアーキテクトが責任を持ちますが、そのスタンダードを示す事が大切だと考えより注力しました。">7</a></sup> 完成が近づくにつれ、その点の関して完成度が高まったと考え、マーティンファウラーの<a href="http://capsctrl.que.jp/kdmsnr/wiki/bliki/?CodeAsDocumentation">CodeAsDocumentation</a>というタイトルで記事にしました。</p>
+
+<p>次の11/03 22:00から<a href="http://www.phpmatsuri.net/2012/">PHP Matsuri2012</a>というイベントでBEAR.Sunday初のワークショップを行う事になりました。当日は簡単なリソース作成を通じて、今回の記事のようなことやDI/AOP、それにOOPや設計の話が出来ればと思ってます。よろしくお願いします。</p>
+
+<ol class="footnotes">
+  <li id="footnote_0_1035" class="footnote">
+    あらかじめ定められた順序または手続きに従って制御の各段階を逐次進めていく制御 [<a href="#identifier_0_1035" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_1_1035" class="footnote">
+    http://ja.wikipedia.org/wiki/%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E5%88%B6%E5%BE%A1 [<a href="#identifier_1_1035" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_2_1035" class="footnote">
+    <a href="http://blog.xao.jp/blog/cakephp/sequence-diagram-of-a-part-of-cakephp-for-my-studying/">CakePHP のシーケンス図を作ってみた</a>という記事を読みました。CakePHP2のアプリケーション／フレームワークのシーケンスが分かるという記事なのですが、面白いと思ったと同時に現在のフレームワークのシーケンスの分かりにくさを表している事でもないかと考えました。 [<a href="#identifier_2_1035" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_3_1035" class="footnote">
+    もしかしたらThriftで繋がれたC++モジュールが何かの実行を行ってくれるのかもしれません [<a href="#identifier_3_1035" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_4_1035" class="footnote">
+    webに&#8221;型&#8221;がないようにweb言語であるPHPにスカラータイプヒントがありません [<a href="#identifier_4_1035" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_5_1035" class="footnote">
+    アノテーション [<a href="#identifier_5_1035" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_6_1035" class="footnote">
+    これはアプリケーションドメインなのでアプリケーションアーキテクトが責任を持ちますが、そのスタンダードを示す事が大切だと考えより注力しました。 [<a href="#identifier_6_1035" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/05/dip-dependency-inversion-principle/">DIP Dependency Inversion Principle</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-17T00:00:00+09:00" pubdate data-updated="true">May 17<span>th</span>, 2012</time>
+        
+         | <a href="/2012/05/dip-dependency-inversion-principle/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2012/05/dip%EF%BC%9Adependency-inversion-principle/">Tweet</a>
+</div>
+
+
+<p>Robert C. Martin氏による有名なオブジェクト指向設計（OOD）の原則<strong>Principles of OOD</strong>があります。そのうちDIP:依存逆転原則はクラス同士の結合度をいかに減らすか、またはどちらに依存すべきかを判定する原則です。</p>
+
+<blockquote><ul>
+<li>上位モジュールは下位モジュールに依存してはならない。両者は抽象に依存すべきである。</li>
+<li>抽象は詳細（抽象の実装クラス）に依存してはならない。詳細は抽象に依存すべきである。</li>
+</ul>
+</blockquote>
+
+<ul>
+<li>オリジナル Robert C. Martin氏の<a href="http://www.objectmentor.com/resources/articles/dip.pdf">Dependency Inversion Principle (DIP) (PDF)</a></li>
+<li><a href="http://www2.ocn.ne.jp/~yamagu/">山口大輔</a>さんによる<a href="http://www2.ocn.ne.jp/~yamagu/object/DIP-J.pdf">和訳版(PDF)</a></li>
+<li><a href="http://d.hatena.ne.jp/asakichy/20090128/1233144989"> [オブジェクト指向設計原則]依存関係逆転の原則（DIP）: Strategic Choice: </a></li>
+<li><a href="http://www.syboos.jp/sysdesign/doc/20080609145612887.html">Dependency Inversion Principle (DIP) – OO設計のDIP依存逆転原則: オブジェクト指向設計</a></li>
+</ul>
+
+
+<p>以下はオリジナルの論文の結びの言葉です。</p>
+
+<blockquote><p>依存性逆転の原則は、<strong>オブジェクト指向技術で得られると言われる数多くの利益のうち、もっとも根幹にあたる部分に位置付けられます。</strong>この原則を適切に適用することは、再利 用可能なフレームワークを構築する上では不可欠なのです。また、変更に際して回復の早い(弾力的な)コードを書く上では決定的な重要性を持ちます。抽象とこまごまとしたものはそれぞれが分離さるので、コードはとてもメンテナンスしやすいものになります。</p></blockquote>
+
+<p>BEAR.SundayではこのDIPを最大限に重要と考え、コード全域に渡って適用しています。<sup><a href="#footnote_0_1528" id="identifier_0_1528" class="footnote-link footnote-identifier-link" title="実際にフレームワーク開発の前に着手したのがこの実現のためのDI systemのRay.Diです">1</a></sup></p>
+
+<h2>実装ではなく抽象に依存する</h2>
+
+<p>解説してる文章で最も短く簡潔なのが<a href="http://d.hatena.ne.jp/asakichy/20090128/1233144989">Strategic Choice</a>ブログの説明です。</p>
+
+<blockquote><p>DIPを一言で説明すると「抽象に依存せよ」という経験則。<br/>
+プログラムは具体的なクラスに依存してはいけない。<br/>
+プログラム内の関係はすべて、抽象クラスかインターフェースで終結すべきである</p></blockquote>
+
+<p>BEAR.Sundayのクラスでは、以下のように依存は原則全て注入してもらう事を期待します。</p>
+
+<div class="codecolorer-container php blackboard" style="overflow:auto;white-space:nowrap;width:100%;">
+  <div class="php codecolorer">
+    &nbsp; &nbsp; <span class="co4">/** &nbsp; &nbsp; &nbsp;* @Inject &nbsp; &nbsp; &nbsp;*/</span> &nbsp; &nbsp; <span class="kw2">public</span> <span class="kw2">function</span> setPrinter<span class="br0">(</span>OutputDevice <span class="re0">$printer</span><span class="br0">)</span> &nbsp; &nbsp; <span class="br0">{</span> &nbsp; &nbsp; &nbsp; &nbsp; <span class="re0">$this</span><span class="sy0">-></span><span class="me1">printer</span> <span class="sy0">=</span> <span class="re0">$printer</span><span class="sy0">;</span> &nbsp; &nbsp; <span class="br0">}</span>
+  </div>
+</div>
+
+
+<p>ここで大事なのはタイプヒンティング（この場合OutputDevice）を<strong>抽象</strong>、つまりインターフェイスかまたは抽象クラスにして具象クラスを<a href="http://php.net/manual/ja/language.oop5.typehinting.php">タイプヒント</a>にしないことです。タイプヒンティングを<strong>エラーチェックのためのアサーションとだけ捉えず、DIPに従った設計のための実装</strong>として考えます。</p>
+
+<ul>
+<li><a href="http://drupal.org/node/608152">Object-oriented code : Drupal</a></li>
+</ul>
+
+
+<h2>アンチパターン考察</h2>
+
+<h3>直接生成する</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$service</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyService</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>$serviceがMyServiceのインスタンスであると<a href="http://ja.wikipedia.org/wiki/%E6%9D%9F%E7%B8%9B_%28%E6%83%85%E5%A0%B1%E5%B7%A5%E5%AD%A6%29">静的束縛</a>されています。</p>
+
+<h3>スタティックコール</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nx">MyService</span><span class="o">::</span><span class="na">doSomething</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>これも実装に依存しています。</p>
+
+<h3>コンテナに依存する</h3>
+
+<div class="codecolorer-container php blackboard" style="overflow:auto;white-space:nowrap;width:100%;">
+  <div class="php codecolorer">
+    <span class="re0">$id</span> <span class="sy0">=</span> <span class="re0">$this</span><span class="sy0">-></span><span class="me1">container</span><span class="br0">(</span><span class="st_h">&#8216;serviceA&#8217;</span><span class="br0">)</span><span class="sy0">-></span><span class="me1">getB</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">-></span><span class="me1">getC</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">-></span><span class="me1">getId</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+  </div>
+</div>
+
+
+<ul>
+<li>このコードでは抽象への依存はなくコンテナに入った<strong>実装に依存</strong>しています(DIP違反）</li>
+<li>メソッドチェーンで繋がれた<strong>依存の依存が持っている知識を前提</strong>としていています(<a href="http://ja.wikipedia.org/wiki/%E3%83%87%E3%83%A1%E3%83%86%E3%83%AB%E3%81%AE%E6%B3%95%E5%89%87" title="LoD">デメテルの法則違反</a>）</li>
+<li>getterを使う事でidという<strong>オブジェクトの構成要素の暴露</strong>がされています。(<a href="http://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%97%E3%82%BB%E3%83%AB%E5%8C%96">カプセル化</a>)</li>
+</ul>
+
+
+<p>実装に依存してオブジェクトを探しまわるようなコードから、インターフェイスを通じて依存を受け取るコードに変更します。</p>
+
+<h2>Conclusion</h2>
+
+<p>Robert C. Martin氏が「オブジェクト指向技術で得られると言われる数多くの利益のうちもっとも根幹にあたる部分」というこのDIPですが、「抽象のタイプヒントを指定しましょう」というのはただの一例で、「抽象に依存せよ」というの適用範囲の大変広いソフトウエア品質に寄与する大原則だと思います。メソッドのアクセス権 (visibility) と同じく実装での機能というより<strong>設計指向の実装</strong>として、設計者をよりよい設計にガイドする制約だと考えます。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/04/object-framework-ray-aop/">Object Framework – Ray.Aop</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-27T00:00:00+09:00" pubdate data-updated="true">Apr 27<span>th</span>, 2012</time>
+        
+         | <a href="/2012/04/object-framework-ray-aop/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2012/04/object-framework-ray-aop/">Tweet</a>
+</div>
+
+
+<h1>Apect Oriented Design</h1>
+
+<h2>メソッド・インターセプター</h2>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2012/04/rayaop011.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2012/04/rayaop011.png" alt="" title="rayaop011" class="alignnone size-full wp-image-1410" /></a><br/>
+例えばテスト用途にどんな引き数が渡されても特定の同じ値を返さなければならないとします。あるいはアジリティを重視した開発で、メソッド内のコードや利用データベースが用意できていない段階でも適当に用意した値を返す必要があるとします。</p>
+
+<p>このような場合、通常はテスティングフレームワークを使いモックオブジェクトを生成して利用します。BEAR.SundayのRay.Diのモジュールでモックオブジェクトを用意して差し替える事もできます。しかしRay.Aopの提供するメソッドインターセプターを使えば更に簡単です。</p>
+
+<p>メソッドインターセプターはメソッドの実行を横取りして(interceptして）<strong>代理実行</strong>します。モックオブジェクトは対象オブジェクトを入れ替えますが、インターセプターは対象オブジェクトとそれを利用するコンシュマークラスの間に割り込み（インターセプト）します。</p>
+
+<p>まずは基本になるオリジナルのメソッド実行と同じ動作をするインタセプターのコードです。</p>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2012/04/rayaop.012.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2012/04/rayaop.012.png" alt="" title="rayaop.012" class="alignnone size-full wp-image-1412" /></a></p>
+
+<div class="codecolorer-container php blackboard" style="overflow:auto;white-space:nowrap;width:100%;">
+  <div class="php codecolorer">
+    <span class="kw2">class</span> GreetingInterceptor implements MethodInterceptor <span class="br0">{</span> &nbsp; &nbsp; <span class="co4">/** &nbsp; &nbsp; * (non-PHPdoc) &nbsp; &nbsp; * @see Ray\Aop.MethodInterceptor::invoke() &nbsp; &nbsp; */</span> &nbsp; &nbsp; <span class="kw2">public</span> <span class="kw2">function</span> invoke<span class="br0">(</span>MethodInvocation <span class="re0">$invocation</span><span class="br0">)</span> &nbsp; &nbsp; <span class="br0">{</span> &nbsp; &nbsp; &nbsp; &nbsp; <span class="re0">$result</span> <span class="sy0">=</span> <span class="re0">$invocation</span><span class="sy0">-></span><span class="me1">proceed</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> &nbsp;<span class="re0">$result</span><span class="sy0">;</span> &nbsp; &nbsp; <span class="br0">}</span> <span class="br0">}</span>
+  </div>
+</div>
+
+
+<p>MethodInterceptorインターフェイスのinvoke（実行）というメソッドにはMethodInvocation（メソッド実行）オブジェクト$invocationが渡されます。</p>
+
+<p>メソッド実行オブジェクトはメソッドの実行に必要な全ての知識（対象インスタンス、メソッド名、引き数等）を持っています。オリジナルのメソッドを実行するためには<em>$invocation->proceed();</em>を実行します。</p>
+
+<p>この実行の前後に処理を記述したりすることで元も処理をまたぐ事ができます。引き数を操作したり変更したりすることもできます。<sup><a href="#footnote_0_1373" id="identifier_0_1373" class="footnote-link footnote-identifier-link" title="BEAR.SaturdayではAroundアドバイスとして実装されていものと同様のものです。">1</a></sup>またインターセプターを同じメソッドに複数適用することもできます。</p>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02-1.015.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02-1.015.png" alt="" title="bear-sunday-tmp-111219033305-phpapp02-1.015" class="alignnone size-full wp-image-1418" /></a></p>
+
+<p>テスト用に常にここのメソッドが”HelloTest”を返す為には以下のように変更します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">GreetingInterceptor</span> <span class="k">implements</span> <span class="nx">MethodInterceptor</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">    * (non-PHPdoc)</span>
+</span><span class='line'><span class="sd">    * @see Ray\Aop.MethodInterceptor::invoke()</span>
+</span><span class='line'><span class="sd">    */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">invoke</span><span class="p">(</span><span class="nx">MethodInvocation</span> <span class="nv">$invocation</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$invocation</span><span class="o">-&gt;</span><span class="na">proceed</span><span class="p">();</span>
+</span><span class='line'>        <span class="k">return</span>  <span class="nv">$result</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>このGreetingリソースに限らず、何のリソースのメソッドが”HelloTest”を返す為すためには以下のように変更します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">GreetingInterceptor</span> <span class="k">implements</span> <span class="nx">MethodInterceptor</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">    * (non-PHPdoc)</span>
+</span><span class='line'><span class="sd">    * @see Ray\Aop.MethodInterceptor::invoke()</span>
+</span><span class='line'><span class="sd">    */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">invoke</span><span class="p">(</span><span class="nx">MethodInvocation</span> <span class="nv">$invocation</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// $result = $invocation-&gt;proceed();</span>
+</span><span class='line'>        <span class="k">return</span>  <span class="err">“</span><span class="nx">HelloTest</span><span class="err">”</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>このインターセプターを特定のクラス、特定のメソッドにバインドするのも「モジュール」で行います。このバインドはsandbox\Resource\App\Greetingクラス（およびその継承したクラス）のどのメソッドにもMockInterceptorインターセプターを適用します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">MockResourceInterceptor</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">private</span> <span class="nv">$mock</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nv">$mock</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mock</span> <span class="o">=</span> <span class="nv">$mock</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">invoke</span><span class="p">(</span><span class="nx">MethodInvocation</span> <span class="nv">$invocation</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mock</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span><span class="err">　</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>バインド対象を指定するためのマッチャーはアノテーションを指定したり、Callableオブジェクトを指定することもできます。</p>
+
+<h2>@Cacheアノテーション</h2>
+
+<p>BEAR.Sundayはいくつかのインターセプターを用意しています。その内、Cacheインターセプターは特に有用でしょう。このアノテーションはメソッド実行の結果を指定の秒数キャッシュします。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>  <span class="sd">/**</span>
+</span><span class='line'><span class="sd">   * @Cache(60)</span>
+</span><span class='line'><span class="sd">   */</span>
+</span><span class='line'>  <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$lang</span> <span class="o">=</span> <span class="err">‘</span><span class="nx">en</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="err">…</span>
+</span><span class='line'>  <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>このインターセプターのソースを見てましょう。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">Cache</span> <span class="nv">$cache</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cache</span> <span class="o">=</span> <span class="nv">$cache</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">invoke</span><span class="p">(</span><span class="nx">MethodInvocation</span> <span class="nv">$invocation</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$class</span> <span class="o">=</span> <span class="nb">get_class</span><span class="p">(</span><span class="nv">$invocation</span><span class="o">-&gt;</span><span class="na">getThis</span><span class="p">());</span>
+</span><span class='line'>    <span class="nv">$args</span> <span class="o">=</span> <span class="nv">$invocation</span><span class="o">-&gt;</span><span class="na">getArguments</span><span class="p">();</span>
+</span><span class='line'>    <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getId</span><span class="p">(</span><span class="nv">$class</span><span class="p">,</span> <span class="nv">$args</span><span class="p">);</span>
+</span><span class='line'>    <span class="nv">$saved</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cache</span><span class="o">-&gt;</span><span class="na">fetch</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nv">$saved</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nb">unserialize</span><span class="p">(</span><span class="nv">$saved</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="nv">$data</span> <span class="o">=</span> <span class="nv">$invocation</span><span class="o">-&gt;</span><span class="na">proceed</span><span class="p">();</span>
+</span><span class='line'>    <span class="nv">$annotation</span> <span class="o">=</span> <span class="nv">$invocation</span><span class="o">-&gt;</span><span class="na">getAnnotation</span><span class="p">();</span>
+</span><span class='line'>    <span class="nv">$time</span> <span class="o">=</span> <span class="nv">$annotation</span><span class="o">-&gt;</span><span class="na">time</span><span class="p">;</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cache</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">(</span><span class="nv">$id</span><span class="p">,</span> <span class="nb">serialize</span><span class="p">(</span><span class="nv">$data</span><span class="p">),</span> <span class="nv">$time</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nv">$data</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>インターセプターはというMethodInvocationインターフェイスを実装します。2 引き数や対象メソッドをキーにキャッシュにを生成していて@Cacheアノテーションで指定された括弧内の秒数だけキャッシュデータを再利用するようになっています。
+@Cacheアノテートされたされたリソースはアノテートがされただけでこれが実際にはどのインターセプターがバインドされるのかはこのクラスからは宣言していません。3 このアノテーションが実際にどのインターセプターが適用されるのか、あるいはそもそもインターセプターが適用されない（開発時など）といった構成知識に関わりがありません。Ray.Diの@Injectアノテーションと同じように構成は利用される側でなく利用する側が持ちます。</p>
+
+<h2>ランタイムインジェクター</h2>
+
+<p>BEAR.Sundayのオブジェクトの実行は最初の１リクエストでオブジェクトフラフのコンストラクションを完了する<strong>コンパイル</strong>と、以降の<strong>ランタイム</strong>に分けられます。
+コンパイルでリクエストをまたいで再利用可能なオブジェクトをつくるために、リクエスト毎にディペンデンシーを変えてインジェクトをしたりすることはできません。<sup><a href="#footnote_3_1373" id="identifier_3_1373" class="footnote-link footnote-identifier-link" title="またPDOなどのPHP標準組み込みオブジェクトもインジェクトできません。">4</a></sup>
+例えばDBオブジェクト<sup><a href="#footnote_4_1373" id="identifier_4_1373" class="footnote-link footnote-identifier-link" title="PDOと違って組み込みオブジェクトではないので@Injectでコンパイル時にインジェクトすることは可能です">5</a></sup> のmaster / slaveをメソッドに応じて自動で選択するために、GET（読み込み）かそれ以外のメソッドでインジェクトを変えるという事はRay.Diのインジェクターではできません。
+この場合インターセプターを使ってDBオブジェクトをメソッドにセットしてやることができます。
+インターセプターはメソッド実行の情報が渡されるので、実行メソッド名をみてmaster/slaveのDBを選択することができます。master/slaveに限らずユーザーIDに応じたDB選択や、DBに応じた初期化などもインターセプターで記述できます。リソースをリクエストするクライントもそれを受けるappリソースも本来の仕事、つまり本質的関心(core concern)にのみ専念し、DBオブジェクトの準備というリソースをまたいだ<a href="http://netail.net/aosdwiki/index.php?%B2%A3%C3%C7%C5%AA%B4%D8%BF%B4%BB%F6">横断的関心事</a>(cross cutting concern)から<a href="http://ja.wikipedia.org/wiki/%E9%96%A2%E5%BF%83%E3%81%AE%E5%88%86%E9%9B%A2">関心を分離</a>することができます。</p>
+
+<h3>Postsリソースクラス</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * Posts</span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> * @Db</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Posts</span> <span class="k">extends</span> <span class="nx">ResourceObject</span> <span class="k">implements</span> <span class="nx">DbSetter</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * Table</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @var string</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">private</span> <span class="nv">$table</span> <span class="o">=</span> <span class="err">‘</span><span class="nx">posts</span><span class="err">’</span><span class="p">;</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * DB</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @var Doctrine\DBAL\Connection</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">private</span> <span class="nv">$db</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * Set DB</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @param Connection $db</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @return void</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">setDb</span><span class="p">(</span><span class="nx">Connection</span> <span class="nv">$db</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span> <span class="o">=</span> <span class="nv">$db</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * Get</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @return array</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$sql</span> <span class="o">=</span> <span class="err">“</span><span class="nx">SELECT</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">title</span><span class="p">,</span> <span class="nx">body</span><span class="p">,</span> <span class="nx">created</span><span class="p">,</span> <span class="nx">modified</span> <span class="nx">FROM</span> <span class="p">{</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">}</span><span class="err">“</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="nv">$sql</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">body</span> <span class="o">=</span> <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">fetchAll</span><span class="p">(</span><span class="nx">PDO</span><span class="o">::</span><span class="na">FETCH_ASSOC</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * Post</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @param string   $title</span>
+</span><span class='line'><span class="sd">     * @param string   $body</span>
+</span><span class='line'><span class="sd">     * @param DateTime $created</span>
+</span><span class='line'><span class="sd">     * @param DateTime $modified</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @return \sandbox\Resource\App\Posts</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onPost</span><span class="p">(</span><span class="nv">$title</span><span class="p">,</span> <span class="nv">$body</span><span class="p">,</span> <span class="nv">$created</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span> <span class="nv">$modified</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$title</span><span class="p">,</span> <span class="s1">&#39;body&#39;</span> <span class="o">=&gt;</span> <span class="nv">$body</span><span class="p">]);</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">code</span> <span class="o">=</span> <span class="mi">204</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>@Dbアノテーションクラス</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * Db</span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> * @Annotation</span>
+</span><span class='line'><span class="sd"> * @Target(“CLASS”)</span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> * @package    BEAR.Framework</span>
+</span><span class='line'><span class="sd"> * @subpackage Annotation</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">final</span> <span class="k">class</span> <span class="nc">Db</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>モジュール内でDbインジェクターをバインド</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bindInterceptor</span><span class="p">(</span>
+</span><span class='line'>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">matcher</span><span class="o">-&gt;</span><span class="na">annotatedWith</span><span class="p">(</span><span class="err">‘</span><span class="nx">BEAR\Framework\Annotation\Db</span><span class="err">’</span><span class="p">),</span> <span class="c1">// クラスに@Dbとアノテートされた全てのクラス</span>
+</span><span class='line'>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">matcher</span><span class="o">-&gt;</span><span class="na">any</span><span class="p">(),</span> <span class="c1">// 全てのメソッド</span>
+</span><span class='line'>            <span class="p">[</span><span class="nv">$dbInjector</span><span class="p">]</span> <span class="c1">// 複数バインドできます</span>
+</span><span class='line'>        <span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Conclusion</h2>
+
+<p><strong>Ray.Di</strong>のインジェクションシステムはコンシュマーとディペンデンシーの関係を疎にしアプリケーション構成を柔軟にしますがコンパイルされた関係性は再利用されオブジェクトとオブジェクトの結びつき（オブジェクトグラフ）はリクエストをまたいでも変わりません。つまりRay.Diでは早期束縛の依存ののみを扱います。
+対してRay.Aopのメソッドインターセプターはコンシュマーとメソッドを動的に束縛します。<strong>横断的関心事</strong>メソッドをコールしてもそれが実際にオリジナルなメソッドをコールしたかにコンシュマーは関心を払いません。メソッド内ではDBデータを読み込んでるのに、バインドされたインターセプターはmemcacheからデータを読みその値を返し、オリジナルのメソッドはデータ更新の際の最初の１度しか呼ばれないかもしれません。関係性は外部で構成され、その束縛はリクエストの実行時に決定されます。つまり遅延束縛です。
+このようにRay.AopのインセプターはAOPとしてメソッドの振る舞いを返るだけでなく、ランタイムでの依存解決にも使われます。例えばDBオブジェクトは実際のメソッドリクエストがあるまで、master/slave/partioningどのDB接続をするべきかは決定することができません。インターセプターとして束縛された<strong>DBインジェクター</strong>が依存を動的に注入します。
+現代的なPHPフレームワークの多くは、アプリケーションコントローラーの役割を様々な関心をアスペクトととらえそれぞれの実装がなされています。例えばフィルターチェーンであったり、シグナルスロット、イベンドディスパッチャー、イベントサブスクライバー実装パターンや呼び方が違っても問題をアスペクトとしてそれぞれの解決をしようとしているのは同じように思えます。
+Ray.AopでのAOPはコンシュマーにもサービスにもAOPフレームワークの依存がなく利用するためのサービスクラスには、イベント通知などイベントハンドリングのための仕事をする必要はありません。Ray.Diで生成されるアスペクトが織り込まれるサービスクラスは、イベントハンドリングをするサービスに含まれた状態で渡されます。該当メソッドの適用インターセプター知識をそれぞれが保持していて、イベントハンドリングがそれぞれのサービス<sup><a href="#footnote_5_1373" id="identifier_5_1373" class="footnote-link footnote-identifier-link" title="詳しくはサービスを含んだプロキシー">6</a></sup>内で行われます。<sup><a href="#footnote_6_1373" id="identifier_6_1373" class="footnote-link footnote-identifier-link" title=" この仕組みはBEAR.Resourceでリソースそれぞれがレンダラーを持っているのと似ています。サービス（レンダラー、イベントハンドラー）にデータ（テンプレート、イベントシグナル）を渡すのではなく、オブジェクトがサービスを内包しているのです。 ">7</a></sup>
+Ray.Aopを使ったアプリケーションコントローラー<sup><a href="#footnote_7_1373" id="identifier_7_1373" class="footnote-link footnote-identifier-link" title="フォームや認証、セキュリティ、ログ">8</a></sup>
+フレームワークやアプリケーションがコンシュマーとサービスの利用の関係をダイナミックにします。これを完全に外側から構成できる拡張性、関心の分離の促進によるソフトウエア品質の向上には期待をしています。<sup><a href="#footnote_8_1373" id="identifier_8_1373" class="footnote-link footnote-identifier-link" title="一方このパターンを採用する事で発生するデメリットにも注意深く対処していかなければなりません。">9</a></sup>
+v0.1.0alphaリリースを機に<a href="http://www.bear-project.net/blog/2012/04/bear-resource/">BEAR.Resource</a>、<a href="http://www.bear-project.net/blog/2012/04/di/">Ray.Di</a>、Ray.AopとBEAR.Sundayのオブジェクトフレームワークというべきものについて記事を一つ一つかいてきました。Ray.Diはオブジェクトの生成を、Ray.Aopはそのオブジェクトのメソッドの利用にこれまでにない拡張性と機能性を与えます。そうやってできたオブジェクトにRESTという制約を被せ、オブジェクトの関係を（データではなく）DSLによって記述される関係性で結合しようとするのがBEAR.Resourceです。Ray.Diはオブジェクトグラフを、BEAR.Resourceはリソースグラフを構成しようとし、それぞれのリソースクラスは自らを構成しようとします。</p>
+
+<div class="wp_social_bookmarking_light">
+<div>
+</div>
+
+<div>
+</div>
+
+<div>
+<a href="http://b.hatena.ne.jp/entry/http://www.bear-project.net/blog/2012/04/object-framework-ray-aop/" title="はてなブックマーク - Object Framework – Ray.Aop" rel="nofollow" class="wp_social_bookmarking_light_a" target="_blank"><img src="http://b.hatena.ne.jp/entry/image/http://www.bear-project.net/blog/2012/04/object-framework-ray-aop/" alt="はてなブックマーク - Object Framework – Ray.Aop" title="はてなブックマーク - Object Framework – Ray.Aop" class="wp_social_bookmarking_light_img" /></a>
+</div>
+
+<div>
+<div id="___plusone_0" style="height: 20px; width: 90px; display: inline-block; text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline;">
+</div>
+</div>
+
+<div>
+<a href="http://www.tumblr.com/share?v=3&u=http%3A%2F%2Fwww.bear-project.net%2Fblog%2F2012%2F04%2Fobject-framework-ray-aop%2F&t=Object%20Framework%20%26%238211%3B%20Ray.Aop" title="" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:61px; height:20px; background:url('http://platform.tumblr.com/v1/share_2.png') top left no-repeat transparent;"></a>
+</div>
+</div>
+
+
+
+
+<br class="wp_social_bookmarking_light_clear" /> <ol class="footnotes">
+
+
+<p><li id="footnote_0_1373" class="footnote">
+BEAR.SaturdayではAroundアドバイスとして実装されていものと同様のものです。 [<a href="#identifier_0_1373" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_1_1373" class="footnote">
+これはJavaの<a href="http://aopalliance.sourceforge.net/">AOPアライアンス</a>の<a href="http://aopalliance.sourceforge.net/doc/org/aopalliance/intercept/MethodInterceptor.html">MethodInterceptor</a>を元にしたもので、Google Guice, Spring, SeasorのAOPもこのAOPアラインアンスのインターフェイス群を実装しています。 [<a href="#identifier_1_1373" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_2_1373" class="footnote">
+前バージョンのBEAR.Saturdayでは実クラスを指定していて、アスペクトという関心の分離と適用はできたのですがそれが固定化されていました。 [<a href="#identifier_2_1373" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_3_1373" class="footnote">
+またPDOなどのPHP標準組み込みオブジェクトもインジェクトできません。 [<a href="#identifier_3_1373" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_4_1373" class="footnote">
+PDOと違って組み込みオブジェクトではないので@Injectでコンパイル時にインジェクトすることは可能です [<a href="#identifier_4_1373" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_5_1373" class="footnote">
+詳しくはサービスを含んだプロキシー [<a href="#identifier_5_1373" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_6_1373" class="footnote">
+この仕組みはBEAR.Resourceでリソースそれぞれがレンダラーを持っているのと似ています。サービス（レンダラー、イベントハンドラー）にデータ（テンプレート、イベントシグナル）を渡すのではなく、オブジェクトがサービスを内包しているのです。 [<a href="#identifier_6_1373" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_7_1373" class="footnote">
+フォームや認証、セキュリティ、ログ [<a href="#identifier_7_1373" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_8_1373" class="footnote">
+一方このパターンを採用する事で発生するデメリットにも注意深く対処していかなければなりません。 [<a href="#identifier_8_1373" class="footnote-link footnote-back-link">↩</a>]
+</li>
+</ol></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/5/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/3/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/12/04/php7-dot-0-0/">PHP7.0.0</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/08/haphpy-birthday/">HaPHPy Birthday PHP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/31/first-bear-sunday-stable-release/">First BEAR.Sunday Stable Release !</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/29/phpkansai2014/">基調講演「全てを結ぶ力」</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/koriym">@koriym</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'koriym',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+<section class="googleplus googleplus-hidden">
+  <h1>
+    <a href="https://plus.google.com/102811656239290261200?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Akihito Koriyama -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.</span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'koriym';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/ja_JP/all.js#appId=516362398477090&xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+<script>
+    (function(w,d){
+        var c,e=d.createDocumentFragment(),f=d.getElementsByTagName("script")[0],
+                a=function(a,b){if(!d.getElementById(b)){c=d.createElement("script");
+                    c.src=a;c.id=b||null;c.async=true;e.appendChild(c);}};
+                a("//b.st-hatena.com/js/bookmark_button_wo_al.js");
+                f.parentNode.insertBefore(e,f);
+            })(this,document);
+</script>
+
+
+</body>
+</html>

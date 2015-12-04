@@ -1,0 +1,663 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Ray.Tutorial &#8211; introduction « BEAR Blog</title>
+  <meta name="author" content="Akihito Koriyama">
+
+  
+  <meta name="description" content="Tweet Introduction BEAR.SundayのDIとAOP(Ray.Di)を理解するためのチュートリアルです。 最初に題材としてTodoクラスを作りました。$todo文字列を受け取ってデータベースに格納するだけのクラスです。 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://koriym.github.io/ray-tutorial-introduction">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="BEAR Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  <meta property="og:title" content="Ray.Tutorial &#8211; introduction - BEAR Blog" />
+<meta property="og:description" content="Tweet Introduction BEAR.SundayのDIとAOP(Ray.Di)を理解するためのチュートリアルです。 最初に題材としてTodoクラスを作りました。$todo文字列を受け取ってデータベースに格納するだけのクラスです。 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12 &hellip;" />
+<meta property="og:url" content="http://koriym.github.io/ray-tutorial-introduction" />
+<meta property="og:image" content="http://bearsunday.github.io/images/icon/favicon-144.png" />
+<meta property="og:author" content="Akihito Koriyama" />
+<meta property="og:site_name" content="BEAR Blog" />
+<meta property="og:locale" content="ja_JP" />
+<meta property="og:type" content="article" />
+<meta property="fb:app_id" content="516362398477090" />
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-6074569-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEAR Blog</a></h1>
+  
+    <h2>Because everything is a resource.</h2>
+  
+</hgroup>
+
+<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:koriym.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Ray.Tutorial &#8211; Introduction</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-16T00:00:00+09:00" pubdate data-updated="true">Aug 16<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/ray-tutorial-introduction">Tweet</a>
+</div>
+
+
+<h1>Introduction</h1>
+
+<p>BEAR.SundayのDIとAOP(Ray.Di)を理解するためのチュートリアルです。</p>
+
+<p>最初に題材としてTodoクラスを作りました。$todo文字列を受け取ってデータベースに格納するだけのクラスです。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Todo</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * @param $todo</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">add</span><span class="p">(</span><span class="nv">$todo</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$pdo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PDO</span><span class="p">(</span><span class="s1">&#39;mysql:dbname=test;host=localhost&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$pdo</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s1">&#39;INSERT INTO TODO (todo) VALUES (:todo)&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">&#39;:todo&#39;</span><span class="p">,</span> <span class="nv">$todo</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nv">$todo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Todo</span><span class="p">;</span>
+</span><span class='line'><span class="nv">$todo</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;Pay bills&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>システムの可変点</h2>
+
+<p>このプログラムはちゃんと動きますが、再利用性はどうでしょうか？<br/>
+データベースの接続情報がプログラムに直接記述、<strong>ハードコーディング</strong>されてあるのは問題です。</p>
+
+<p>他の部分は運用環境に変更があっても変わりませんが、DBの接続情報は変わります。<br/>
+このようにプログラムには変更の可能性が高い場所とそうでも無い場所があります。</p>
+
+<h3>定数を使う</h3>
+
+<p>初期のシステムではこのようなシステムで変更部分のある情報を定数を使う事で解決していました。プログラムの初期化(bootstrap)ではdefineが並んだファイルを読み込みます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nb">define</span><span class="p">(</span><span class="s1">&#39;PDO_DSN&#39;</span><span class="p">,</span> <span class="s1">&#39;mysql:dbname=test;host=localhost&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>利用部分ではその情報を使います。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$pdo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PDO</span><span class="p">(</span><span class="nx">PDO_DSN</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ハードコーディングされていた箇所は取り除かれ、コードはよりクリーンになりました！</p>
+
+<p>定数ファイルをみると、そのシステムでの変更部分が集約されていて変更可能な箇所を一覧することもできます。可変点は集約され、DBの接続情報に変更があっても利用コード全体を調べる必要がなくなりました。</p>
+
+<p>しかしdefineはスカラー値（float、string、boolean）しか定義できません。また <strong>グローバル</strong>定数なのでシステムのどの部分からもアクセスができます。</p>
+
+<h3>Configureクラスを使う</h3>
+
+<p>設定値をより柔軟に取り扱うためにConfigureクラスの導入を考えてみます。</p>
+
+<p>Configureクラスは設定値の入れ物（コンテナ）を用意します。bootstrapでプログラムに必要な設定情報を設定ファイル(ini/yaml/php配列)を読み込んだりコードで直接代入したりして準備しておきます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$connection</span> <span class="o">=</span> <span class="nx">Configure</span><span class="o">::</span><span class="na">read</span><span class="p">(</span><span class="s1">&#39;pdo&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$pdo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PDO</span><span class="p">(</span><span class="nv">$connection</span><span class="p">[</span><span class="s1">&#39;dsn&#39;</span><span class="p">],</span> <span class="nv">$connection</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">],</span> <span class="nv">$connection</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>利用するときにはそのConfigureクラスとセットに使ったキーを使ってその値を取り出します。これで設定に配列も扱えるようになりました。設定の代入も多様な方法で行えます。</p>
+
+<p>しかし一方で、このアプリケーションは依然として<strong>コード中のどこからでも同一の値にアクセスできるグローバルスコープの設定値</strong>を持っています。&#8221;コントローラだろうがモデルだろうがビューだろうがアプリケーション内のおおよそ全ての場所&#8221;から利用可能です。</p>
+
+<h3>グローバル変数$_GLOBALSを使う</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$connection</span> <span class="o">=</span> <span class="nv">$_GLOBAL</span><span class="p">[</span><span class="s1">&#39;MYAPP&#39;</span><span class="p">][</span><span class="s1">&#39;pdo&#39;</span><span class="p">];</span>
+</span><span class='line'><span class="nv">$pdo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PDO</span><span class="p">(</span><span class="nv">$connection</span><span class="p">[</span><span class="s1">&#39;dsn&#39;</span><span class="p">],</span> <span class="nv">$connection</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">],</span> <span class="nv">$connection</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>グローバル変数に抵抗がありますか？ グローバルスコープでどこからも参照できる変数という意味では、グローバル変数もConfigureクラスもあまり変わりません。実際CakePHPではこのような注意書きがあります。</p>
+
+<blockquote><p>何でも保存でき、コード内のあらゆる場所で使用できるので、CakePHPのMVCパターンを崩してしまう誘惑には注意しましょう。</p></blockquote>
+
+<p>グローバルスコープの変数、特にごく単純なものなら$_GLOBALSを使うのは自然です。ただ競合しないようにpresudo-namespace（prefixを使ったなんちゃって名前空間）を使うのがいいと思います。PEARでも使用例がいくつもあります。</p>
+
+<p>しかし、defineもグローバル変数もConfigure専用クラスもグローバルスコープでどこでも参照できる点には代わりがありません。</p>
+
+<h3>BEARでは</h3>
+
+<p>前のバージョンのBEAR.Satudayではグローバルdefineが２つ（時間とアプリケーションパス）ありましたがBEAR.Sundayではありません。またConfigureクラスのようなどのクラスからも参照できるグローバルスコープの設定値専用の変数コンテナはありません。</p>
+
+<h2>インスタンスの管理を考える</h2>
+
+<p>次にインスタンスの管理を考えてみます。本来PDOオブジェクトはメソッド内で毎回newして新しいインスタンスを作る必要はありません。一度生成すればそのオブジェクトを再利用したいところです。</p>
+
+<p>そこで、メソッドの生成・管理をメソッドに任せる事にします。「シングルトン」です。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>    <span class="k">private</span> <span class="nv">$instance</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">getInstance</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nb">is_null</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="nv">$instance</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">self</span><span class="o">::</span><span class="nv">$instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">self</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nx">self</span><span class="o">::</span><span class="nv">$instance</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>このようメソッドを各クラスに持って以下のように取得します。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$pdo</span> <span class="o">=</span> <span class="nx">Db</span><span class="o">::</span><span class="na">getInstance</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>newでインスタンス生成が行われるのは一度だけで、次回以降は生成済みのインスタンスが渡されるだけです。</p>
+
+<p>しかし、このようなシングルトンのコードはテストに向かない保守性の低いコードになってしまいます。<strong>コード中のどこからでも同一のインスタンスにアクセスするグローバルスコープのオブジェクト</strong>になっているからです。</p>
+
+<p>オブジェクトの生成・管理がまとまった仕事であるなら、専用のクラスを持つのは自然な話です。<sup><a href="#footnote_0_2022" id="identifier_0_2022" class="footnote-link footnote-identifier-link" title="BEAR.Saturdayでは BEAR::Dependency">1</a></sup><br/>
+例えばその専用クラスは以下のように使われます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="c1">// Global registry</span>
+</span><span class='line'><span class="nv">$pdo</span> <span class="o">=</span> <span class="nx">ServiceContainer</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;pdo&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="o">...</span>
+</span><span class='line'><span class="c1">// Contextual dependency lookup (CDL)</span>
+</span><span class='line'><span class="nv">$pdo</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">app</span><span class="p">[</span><span class="s1">&#39;pdo&#39;</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>bootstrapでは何らかの方法でオブジェクトの生成の準備を完了させておき、取り出し&#8217;キー&#8217;と共にオブジェクトが取り出せる準備をしておきます。</p>
+
+<p>利用する方は、これがシングルトンで渡されるかどうかを指定しません。またコンストラクタに初期値も渡しません。利用側ではオブジェクトをどう生成するかに関心を持たずに単に取り出し用のキー名指定するだけで利用できます。</p>
+
+<h4>pros</h4>
+
+<p>ここでは利用だけに注目しましょう。オブジェクトの生成方法ががどんなに複雑になっても、インスタンスの管理方法が変わっても、取得の方法に変化がありません。これを利用するクラスは保守性の高いコードになりやすいでしょう。</p>
+
+<h4>cons</h4>
+
+<p>一方、このコードだけを見ても$pdo変数は何のオブジェクトで何ができるのが分かりません。ServiceContainer::getのphpdocの@returnを見ても分かりません。ServiceContainerクラスの働きを理解して、何がどう&#8217;pdo&#8217;にセットされているか、コードかドキュメントから知る必要があります。Todoクラスの実行にはServiceContainerクラスが必要になりました。ユニットテストの時もServiceContainerクラスが必要です。クラス間の依存を減らす為に一つ依存が増えました。</p>
+
+<h2>依存性の注入</h2>
+
+<p>これまで、オブジェクトをどうやって作り、どうやって管理するか、というオブジェクトの生成と管理の視点でコードを見て来ました。様々なやり方を検討してきましが、いずれの方法も <strong>オブジェクトを生成するか、または他のクラスを使って取得</strong>していました。(Dependency Lookup) これから見るのは依存性の注入と呼ばれるパターンで、依存オブジェクトの取得は完全に受け身になります。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Todo</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * @var PDO</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">private</span> <span class="nv">$pdo</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * @param PDO $pdo</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">PDO</span> <span class="nv">$pdo</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">pdo</span> <span class="o">=</span> <span class="nv">$pdo</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * @param string $todo things to do</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">add</span><span class="p">(</span><span class="nv">$todo</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">pdo</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s1">&#39;INSERT INTO TODO (todo) VALUES (:todo)&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">&#39;:todo&#39;</span><span class="p">,</span> <span class="nv">$todo</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nv">$pdo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PDO</span><span class="p">(</span><span class="s1">&#39;mysql:dbname=test;host=localhost&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$todo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Todo</span><span class="p">(</span><span class="nv">$pdo</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$todo</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;Get laundry&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>内部で必要なオブジェクトを<strong>ハードコード</strong>して生成/取得するのではなくて、クラスの外から依存が代入されています。<strong>DBオブジェクトがDBの接続情報文字列を可変点と考えたように、DBオブジェクト利用クラスにとってDBオブジェクトが可変点</strong>と考えます。</p>
+
+<p>これが依存性の注入(dependency injection=DI)です。</p>
+
+<p>「利用するインスタンスを外部から渡す」- DIの本質的なところはこれだけです！</p>
+
+<p>ファウラーの「<a href="http://kakutani.com/trans/fowler/injection.html">Inversion of Control コンテナと Dependency Injection パターン</a>」を読んだ人はえ？っと思うのではないでしょうか。<sup><a href="#footnote_1_2022" id="identifier_1_2022" class="footnote-link footnote-identifier-link" title="かつての自分です">2</a></sup></p>
+
+<p>それを揶揄した記事もあります。</p>
+
+<blockquote><p><a href="http://www.jamesshore.com/Blog/Dependency-Injection-Demystified.html">&#8220;Dependency Injection&#8221; is a 25-dollar term for a 5-cent concept.</a><br/>
+Dependency injection means giving an object its instance variables. Really. That&#8217;s it.</p></blockquote>
+
+<p>依存性の注入はwikiではこのように説明されています。</p>
+
+<blockquote><p>依存性の注入（いぞんせいのちゅうにゅう、英: dependency injection）とは、コンポーネント間の依存関係をプログラムのソースコードから排除し、外部の設定ファイルなどで注入できるようにするソフトウェアパターンである。</p>
+
+<p>依存性の注入を利用したプログラムを作成する場合、コンポーネント間の関係はインターフェースを用いて記述し、具体的なコンポーネントを指定しない。具体的にどのコンポーネントを利用するかは別のコンポーネントや外部ファイル等を利用することで、コンポーネント間の依存関係を薄くすることができる。</p></blockquote>
+
+<p>このwikiの説明はパターンの説明というよりもその実際の説明により過ぎてるように思います。英語版はもっと明快です。</p>
+
+<blockquote><p>Dependency injection is a software design pattern that allows the removal of hard-coded dependencies and makes it possible to change them, whether at run-time or compile-time.<a href="http://kakutani.com/trans/fowler/injection.html">1</a></p>
+
+<p>依存性の注入とはランタイムやコンパイルタイムでハードコードされた依存を取り除き変更可能にするためのソフトウエアデザインパターンの一つ</p></blockquote>
+
+<p>上記のサンプルは設定ファイルもインターフェイスも出て来ませんが、DIを適用したコードです。英語版wikiの説明のよう<strong>ハードコードされた依存は取り除かれ、変更可能</strong>になっています。</p>
+
+<h3>再びシングルトン</h3>
+
+<p>同じオブジェクトを再利用するシングルトンもやってみましょう。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$pdo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PDO</span><span class="p">(</span><span class="s1">&#39;mysql:dbname=test;host=localhost&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$todo1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Todo</span><span class="p">(</span><span class="nv">$pdo</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$todo2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Todo</span><span class="p">(</span><span class="nv">$pdo</span><span class="p">);</span>
+</span><span class='line'><span class="o">...</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>同じオブジェクトを渡す事で、それぞれ別の利用クラスが同じ依存インスタンス($pdo)を使っています。依存クラスは利用クラスの外側で集中して管理されていて、PDOインスタンスの生成は一度だけです！</p>
+
+<h2>問題を違う場所に移しただけ？</h2>
+
+<p>&#8230;と、ここまで見て、確かにTodoクラスから依存が取り除かれコードはすっきりしました。テストもより簡単になったでしょう。</p>
+
+<p>その代わり依存のややここしいところはオブジェクトの生成部分に依然あるし、設定値もハードコーディングされています。オブジェクトの利用から問題を取り除いた代わりに、オブジェクトの生成の部分が問題になったように見えないでしょうか。つまり依存の問題を解決したというより問題をある場所から違う場所に移しただけのように見えないでしょうか。</p>
+
+<p>これらをRay.Di DI frameworkではどういう風に解決してるか、次回から見て行きます。</p>
+
+<p>&#8230;続く</p>
+
+<ol class="footnotes">
+  <li id="footnote_0_2022" class="footnote">
+    BEAR.Saturdayでは BEAR::Dependency [<a href="#identifier_0_2022" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_1_2022" class="footnote">
+    かつての自分です [<a href="#identifier_1_2022" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-16T00:00:00+09:00" pubdate data-updated="true">Aug 16<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/bear/'>BEAR</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://koriym.github.io/ray-tutorial-introduction" data-via="koriym" data-counturl="http://koriym.github.io/ray-tutorial-introduction" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+    <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button"
+       data-hatena-bookmark-layout="standard"
+       data-hatena-bookmark-url="http://koriym.github.io/ray-tutorial-introduction">
+        <img src="http://b.st-hatena.com/images/entry-button/button-only.gif"
+             alt="このエントリーをはてなブックマークに追加" width="20" height="20"
+             style="border: none">
+    </a>
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/bearsunday_meetup2" title="Previous Post: BEAR.Sunday meetup #2">&laquo; BEAR.Sunday meetup #2</a>
+      
+      
+        <a class="basic-alignment right" href="/first-di-framework" title="Next Post: Ray.Tutorial &#8211; First DI framework">Ray.Tutorial &#8211; First DI framework &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/12/04/php7-dot-0-0/">PHP7.0.0</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/08/haphpy-birthday/">HaPHPy Birthday PHP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/31/first-bear-sunday-stable-release/">First BEAR.Sunday Stable Release !</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/29/phpkansai2014/">基調講演「全てを結ぶ力」</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/koriym">@koriym</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'koriym',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+<section class="googleplus googleplus-hidden">
+  <h1>
+    <a href="https://plus.google.com/102811656239290261200?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Akihito Koriyama -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.</span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'koriym';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/ja_JP/all.js#appId=516362398477090&xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+<script>
+    (function(w,d){
+        var c,e=d.createDocumentFragment(),f=d.getElementsByTagName("script")[0],
+                a=function(a,b){if(!d.getElementById(b)){c=d.createElement("script");
+                    c.src=a;c.id=b||null;c.async=true;e.appendChild(c);}};
+                a("//b.st-hatena.com/js/bookmark_button_wo_al.js");
+                f.parentNode.insertBefore(e,f);
+            })(this,document);
+</script>
+
+
+</body>
+</html>

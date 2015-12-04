@@ -1,0 +1,513 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Advent Day 8: Packagist « BEAR Blog</title>
+  <meta name="author" content="Akihito Koriyama">
+
+  
+  <meta name="description" content="Tweet Packagist登録 BEAR.PackageをPackagistに登録しました。
+composerのcreate-projectでインストールできるようになりました。 composerインストール 1
+$ wget http://getcomposer.org/composer. &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://koriym.github.io/adv8">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="BEAR Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  <meta property="og:title" content="Advent Day 8: Packagist - BEAR Blog" />
+<meta property="og:description" content="Tweet Packagist登録 BEAR.PackageをPackagistに登録しました。
+composerのcreate-projectでインストールできるようになりました。 composerインストール 1
+$ wget http://getcomposer.org/composer. &hellip;" />
+<meta property="og:url" content="http://koriym.github.io/adv8" />
+<meta property="og:image" content="http://bearsunday.github.io/images/icon/favicon-144.png" />
+<meta property="og:author" content="Akihito Koriyama" />
+<meta property="og:site_name" content="BEAR Blog" />
+<meta property="og:locale" content="ja_JP" />
+<meta property="og:type" content="article" />
+<meta property="fb:app_id" content="516362398477090" />
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-6074569-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEAR Blog</a></h1>
+  
+    <h2>Because everything is a resource.</h2>
+  
+</hgroup>
+
+<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:koriym.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Advent Day 8: Packagist</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-12T00:00:00+09:00" pubdate data-updated="true">Dec 12<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/adv8">Tweet</a>
+</div>
+
+
+<h2>Packagist登録</h2>
+
+<p>BEAR.PackageをPackagistに登録しました。<br/>
+composerのcreate-projectでインストールできるようになりました。</p>
+
+<p>composerインストール</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>wget http://getcomposer.org/composer.phar
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>または</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -s https://getcomposer.org/installer | php
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>composerでBEAR.Sunday sandboxアプリケーションインストールします。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>php composer.phar create-project -s dev bear/package /tmp/mysunday
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>BEAR.Packageとその依存のBEAR.Sundayが指定したバージョンでインストールされます。<sup><a href="#footnote_0_1385" id="identifier_0_1385" class="footnote-link footnote-identifier-link" title=" インストールスクリプトはまだ用意できていないのでパーミッションの設定が現在必要です">1</a></sup> その後PHP5.4のbuilt-in web serverを立ち上げます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>composer.phar create-project -s dev bear/package /tmp/mysunday
+</span><span class='line'>Installing bear/package <span class="o">(</span>dev-master bbc42caf8ed71e56c4f72f7270db012dc4b40d39<span class="o">)</span>
+</span><span class='line'>  - Installing bear/package <span class="o">(</span>dev-master master<span class="o">)</span>
+</span><span class='line'>    Cloning master
+</span><span class='line'>Created project in /tmp/mysunday
+</span><span class='line'>Loading composer repositories with package information
+</span><span class='line'>Installing dependencies from lock file
+</span><span class='line'>  - Installing aura/installer-default <span class="o">(</span>1.0.0<span class="o">)</span>
+</span><span class='line'>  - Installing aura/web <span class="o">(</span>1.0.0<span class="o">)</span>
+</span><span class='line'>  - Installing aura/signal <span class="o">(</span>1.0.0<span class="o">)</span>
+</span><span class='line'>  - Installing aura/router <span class="o">(</span>1.0.0<span class="o">)</span>
+</span><span class='line'>  - Installing aura/di <span class="o">(</span>1.0.1<span class="o">)</span>
+</span><span class='line'>  - Installing doctrine/common <span class="o">(</span>2.3.x-dev bb0aebb<span class="o">)</span>
+</span><span class='line'>    Cloning bb0aebbf234db52df476a2b473d434745b34221c
+</span><span class='line'>  - Installing ray/aop <span class="o">(</span>dev-master 3edfe6b<span class="o">)</span>
+</span><span class='line'>    Cloning 3edfe6ba6b52e8d3190da62c14479ff7cce2377f
+</span><span class='line'>  - Installing ray/di <span class="o">(</span>dev-master 1.0.0-beta3<span class="o">)</span>
+</span><span class='line'>    Cloning 1.0.0-beta3
+</span><span class='line'>  - Installing zendframework/zend-stdlib <span class="o">(</span>2.0.5<span class="o">)</span>
+</span><span class='line'>  - Installing zendframework/zend-log <span class="o">(</span>2.0.5<span class="o">)</span>
+</span><span class='line'>  - Installing nocarrier/hal <span class="o">(</span>dev-master cc46654<span class="o">)</span>
+</span><span class='line'>    Cloning cc466546c6ca5df3e806cd91258cdf194518a12f
+</span><span class='line'>  - Installing twitter/bootstrap <span class="o">(</span>master master<span class="o">)</span>
+</span><span class='line'>    Cloning master
+</span><span class='line'>  - Installing firephp/firephp-core <span class="o">(</span>dev-master c26d972<span class="o">)</span>
+</span><span class='line'>    Cloning c26d972dcb28fd483fa193512091df7b3c85e450
+</span><span class='line'>  - Installing symfony/http-foundation <span class="o">(</span>2.0.x-dev 4de1a1f<span class="o">)</span>
+</span><span class='line'>    Cloning 4de1a1f9a81a58bd6f24607894f76fd7017d45e7
+</span><span class='line'>  - Installing symfony/console <span class="o">(</span>2.0.x-dev v2.0.19<span class="o">)</span>
+</span><span class='line'>    Cloning v2.0.19
+</span><span class='line'>  - Installing smarty/smarty <span class="o">(</span>v3.1.12<span class="o">)</span>
+</span><span class='line'>    Checking out /tags/v3.1.12/@4664
+</span><span class='line'>  - Installing pagerfanta/pagerfanta <span class="o">(</span>dev-master 12f71d9<span class="o">)</span>
+</span><span class='line'>    Cloning 12f71d99457b018fb80746f84514dd5b495c5789
+</span><span class='line'>  - Installing symfony/event-dispatcher <span class="o">(</span>dev-master eb290a4<span class="o">)</span>
+</span><span class='line'>    Cloning eb290a447c0af5bea0d3de5d95d498afd8c82f89
+</span><span class='line'>  - Installing guzzle/guzzle <span class="o">(</span>v2.7.2<span class="o">)</span>
+</span><span class='line'>  - Installing facebook/xhprof <span class="o">(</span>0.9.2<span class="o">)</span>
+</span><span class='line'>  - Installing doctrine/dbal <span class="o">(</span>2.3.x-dev f63af19<span class="o">)</span>
+</span><span class='line'>    Cloning f63af1948a609a96b8ea1c1302c7cdf2f9f51468
+</span><span class='line'>  - Installing printo/printo <span class="o">(</span>dev-master abd0d6b<span class="o">)</span>
+</span><span class='line'>    Cloning abd0d6b68d00dc98a71124215780b57ec3ede268
+</span><span class='line'>  - Installing vdump/vdump <span class="o">(</span>0.1.0<span class="o">)</span>
+</span><span class='line'>  - Installing bear/resource <span class="o">(</span>dev-master 3ca644b<span class="o">)</span>
+</span><span class='line'>    Cloning 3ca644bc29de4257ec9165ce1c9745150dc231dd
+</span><span class='line'>  - Installing bear/sunday <span class="o">(</span>dev-master a9b6fdd<span class="o">)</span>
+</span><span class='line'>    Cloning a9b6fdd7cd34b9e7d2075a7c95e066547bcf59ac
+</span><span class='line'>zendframework/zend-stdlib suggests installing pecl-weakref <span class="o">(</span>Implementation of weak references <span class="k">for </span>Stdlib<span class="se">\C</span>allbackHandler<span class="o">)</span>
+</span><span class='line'>zendframework/zend-log suggests installing zendframework/zend-db <span class="o">(</span>Zend<span class="se">\D</span>b component<span class="o">)</span>
+</span><span class='line'>zendframework/zend-log suggests installing zendframework/zend-escaper <span class="o">(</span>Zend<span class="se">\E</span>scaper component, <span class="k">for </span>use in the XML formatter<span class="o">)</span>
+</span><span class='line'>zendframework/zend-log suggests installing zendframework/zend-mail <span class="o">(</span>Zend<span class="se">\M</span>ail component<span class="o">)</span>
+</span><span class='line'>zendframework/zend-log suggests installing zendframework/zend-validator <span class="o">(</span>Zend<span class="se">\V</span>alidator component<span class="o">)</span>
+</span><span class='line'>pagerfanta/pagerfanta suggests installing doctrine/orm <span class="o">(</span>2.*<span class="o">)</span>
+</span><span class='line'>pagerfanta/pagerfanta suggests installing doctrine/mongodb-odm <span class="o">(</span>2.*<span class="o">)</span>
+</span><span class='line'>pagerfanta/pagerfanta suggests installing solarium/solarium <span class="o">(</span>2.*<span class="o">)</span>
+</span><span class='line'>symfony/event-dispatcher suggests installing symfony/dependency-injection <span class="o">(</span>2.2.*<span class="o">)</span>
+</span><span class='line'>symfony/event-dispatcher suggests installing symfony/http-kernel <span class="o">(</span>2.2.*<span class="o">)</span>
+</span><span class='line'>Generating autoload files
+</span><span class='line'>Do you want to remove the existing VCS <span class="o">(</span>.git, .svn..<span class="o">)</span> <span class="nb">history</span>? <span class="o">[</span>Y,n<span class="o">]</span>? Y
+</span><span class='line'><span class="nv">$ </span>chmod -R 777 /tmp/mysunday/apps/Sandbox/data/
+</span><span class='line'><span class="nv">$ </span>chmod -R 777 /tmp/mysunday/apps/Helloworld/data/
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd</span> /tmp/mysunday/apps/Sandbox/public/
+</span><span class='line'><span class="nv">$ </span>php -S localhost:8088 web.php
+</span><span class='line'>PHP 5.4.9 Development Server started at Wed Dec 12 13:11:37 2012
+</span><span class='line'>Listening on http://localhost:8088
+</span><span class='line'>Document root is /private/tmp/mysunday/apps/Sandbox/public
+</span><span class='line'>Press Ctrl-C to quit.
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<ol class="footnotes">
+  <li id="footnote_0_1385" class="footnote">
+    インストールスクリプトはまだ用意できていないのでパーミッションの設定が現在必要です [<a href="#identifier_0_1385" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-12T00:00:00+09:00" pubdate data-updated="true">Dec 12<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/advent2012/'>Advent2012</a>, <a class='category' href='/blog/categories/bear/'>BEAR</a>, <a class='category' href='/blog/categories/php/'>PHP</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://koriym.github.io/adv8" data-via="koriym" data-counturl="http://koriym.github.io/adv8" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+    <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button"
+       data-hatena-bookmark-layout="standard"
+       data-hatena-bookmark-url="http://koriym.github.io/adv8">
+        <img src="http://b.st-hatena.com/images/entry-button/button-only.gif"
+             alt="このエントリーをはてなブックマークに追加" width="20" height="20"
+             style="border: none">
+    </a>
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/adv7" title="Previous Post: Advent Day 7: ver. 0.Go.Go">&laquo; Advent Day 7: ver. 0.Go.Go</a>
+      
+      
+        <a class="basic-alignment right" href="/adv9" title="Next Post: Advent Day 9: Compile and Runtime">Advent Day 9: Compile and Runtime &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/12/04/php7-dot-0-0/">PHP7.0.0</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/08/haphpy-birthday/">HaPHPy Birthday PHP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/31/first-bear-sunday-stable-release/">First BEAR.Sunday Stable Release !</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/29/phpkansai2014/">基調講演「全てを結ぶ力」</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/koriym">@koriym</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'koriym',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+<section class="googleplus googleplus-hidden">
+  <h1>
+    <a href="https://plus.google.com/102811656239290261200?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Akihito Koriyama -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.</span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'koriym';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/ja_JP/all.js#appId=516362398477090&xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+<script>
+    (function(w,d){
+        var c,e=d.createDocumentFragment(),f=d.getElementsByTagName("script")[0],
+                a=function(a,b){if(!d.getElementById(b)){c=d.createElement("script");
+                    c.src=a;c.id=b||null;c.async=true;e.appendChild(c);}};
+                a("//b.st-hatena.com/js/bookmark_button_wo_al.js");
+                f.parentNode.insertBefore(e,f);
+            })(this,document);
+</script>
+
+
+</body>
+</html>

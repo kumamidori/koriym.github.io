@@ -1,0 +1,615 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>PHPでアノテーション « BEAR Blog</title>
+  <meta name="author" content="Akihito Koriyama">
+
+  
+  <meta name="description" content="Tweet アノテーションとは プログラミングでは、コード中に登場する要素(クラス、メソッドなど)に対して、それ自体に関する情報(メタデータ)を注記できる仕組みのことをアノテーションという。「このメソッドはテスト用である」「ここでコンパイラは警告を出してはならない」「 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://koriym.github.io/2012/02/php-annotation/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="BEAR Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  <meta property="og:title" content="PHPでアノテーション - BEAR Blog" />
+<meta property="og:description" content="Tweet アノテーションとは プログラミングでは、コード中に登場する要素(クラス、メソッドなど)に対して、それ自体に関する情報(メタデータ)を注記できる仕組みのことをアノテーションという。「このメソッドはテスト用である」「ここでコンパイラは警告を出してはならない」「 &hellip;" />
+<meta property="og:url" content="http://koriym.github.io/2012/02/php-annotation/" />
+<meta property="og:image" content="http://bearsunday.github.io/images/icon/favicon-144.png" />
+<meta property="og:author" content="Akihito Koriyama" />
+<meta property="og:site_name" content="BEAR Blog" />
+<meta property="og:locale" content="ja_JP" />
+<meta property="og:type" content="article" />
+<meta property="fb:app_id" content="516362398477090" />
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-6074569-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEAR Blog</a></h1>
+  
+    <h2>Because everything is a resource.</h2>
+  
+</hgroup>
+
+<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:koriym.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">PHPでアノテーション</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-18T00:00:00+09:00" pubdate data-updated="true">Feb 18<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2012/02/php%E3%81%A7%E3%82%A2%E3%83%8E%E3%83%86%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3/">Tweet</a>
+</div>
+
+
+<h2>アノテーションとは</h2>
+
+<blockquote><p>プログラミングでは、コード中に登場する要素(クラス、メソッドなど)に対して、それ自体に関する情報(メタデータ)を注記できる仕組みのことをアノテーションという。「このメソッドはテスト用である」「ここでコンパイラは警告を出してはならない」「このメソッドはオーバーライドである」などの情報を付記し、コンパイル時や実行時に参照させることができる。</p></blockquote>
+
+<p><p style="text-align: right;">
+  <a href="http://e-words.jp/w/E382A2E3838EE38386E383BCE382B7E383A7E383B3.html">IT用語辞典</a></p>
+
+<p>このように説明されるアノテーションですが、その源流を調べてると次の文章に出会いました。</p>
+
+<blockquote><p>アノテーションとは、JDK 1.5で新たに追加される言語仕様であり、Javaコード上でメタデータ（コードそのものではなくコードに関する付加情報）を記述可能にする。これは、マイクロソフトC#における属性（attribute）に相当するシンタックスで、アノテーションはそれを後追いした仕様といえる。</p></blockquote>
+
+<p>[2004年の@ITnoの記事][1]です。</p>
+
+<p>つまりJavaのアノテーションはC#のアトリビュートに強く影響を受けたものみたいです。<br/>
+そのことについてC#の作者、[アンダース・ヘルスバーグ][2]氏のインタビューが@ITの[C#への期待。アンダースからの返答][3]という記事の中で見つかりました。</p>
+
+<blockquote><p>■Java言語の進化（例：Annotationなど）についてどのように考えているか？</p>
+
+<p>アノテーション（Annotation）に関しては、.NETの属性（Attribute）のJavaバージョンといえると思うが、このように.NETで実装してきていることを、やはりJavaでも行ってきているという印象だ。実際にJavaの最新バージョン5.0に搭載された新機能の中で、（先ほどのアノテーションも含めて）.NETに触発されて導入されたと思われるものがいくつもある。</p></blockquote>
+
+<p>その.Netの[属性ページ][4]ではこのように説明されています。</p>
+
+<blockquote><p>属性は、プログラムにメタデータを追加します。 メタデータは、プログラム内で定義されている型に関する情報です。 すべての .NET アセンブリに、指定した一連のメタデータが含まれ、そこにはそのアセンブリ内で定義されている型および型のメンバーが記述されています。 カスタム属性を追加すると、必要な任意の追加情報を指定できます。</p>
+
+<p>アセンブリ全体、モジュール全体、クラスやプロパティなどの小さいプログラム要素に、1 つ以上の属性を適用できます。</p>
+
+<p>属性は、メソッドやプロパティの場合と同じ方法で引数を受け取ることができます。</p>
+
+<p>プログラムは、リフレクションを使用することにより、そのプログラム専用のメタデータや他のプログラム内のメタデータを調べることができます。</p></blockquote>
+
+<p>Javaの[注釈][5]ではこのように説明されています。</p>
+
+<blockquote><p>注釈はプログラムのセマンティクスに直接影響しませんが、ツールやライブラリがプログラムを扱う方法に影響します。そのため、実行中のプログラムのセマンティクスに影響する場合があります。注釈はソースファイル、クラスファイル、または実行時にリフレクションとして読み取ることができます。</p></blockquote>
+
+<h2>PHPでのアノテーション</h2>
+
+<p>PHPはアノテーションはネイティブサポートさていませんが、&#8221;Status: Under Discussion”のアノテーション提案があります。</p>
+
+<ul>
+<li>[Annotations in DocBlock][6]</li>
+</ul>
+
+
+<p>※[Class Metadata][7]という前の提案は否決されたようです</p>
+
+<p>アノテーションの定義</p>
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">ReflectionAnnotation</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">private</span> <span class="nv">$value</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">\stdClass</span> <span class="nv">$value</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">&ndash;&gt;</span><span class="na">value</span> <span class="o">=</span> <span class="nv">$value</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">getValue</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="o">&ndash;&gt;</span><span class="na">value</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>アノテーションの表記</p>
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/<em><em></span>
+</span><span class='line'><span class="sd"> * Foo class.</span>
+</span><span class='line'><span class="sd"> </em></span>
+</span><span class='line'><span class="sd"> * @Entity {&quot;repositoryClass&quot;: &quot;FooRepository&quot;}</span>
+</span><span class='line'><span class="sd"> * @Table  {&quot;name&quot;: &quot;foos&quot;}</span>
+</span><span class='line'><span class="sd"> </em></span>
+</span><span class='line'><span class="sd"> * @author &quot;Guilherme Blanco&quot;</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Foo</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="c1">// …</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>アノテーションの利用</p>
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$reflClass</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\ReflectionClass</span><span class="p">(</span><span class="err">‘</span><span class="nx">Foo</span><span class="err">’</span><span class="p">);</span>
+</span><span class='line'><span class="nb">var_dump</span><span class="p">(</span><span class="nv">$reflClass</span><span class="o">&ndash;&gt;</span><span class="na">getAnnotations</span><span class="p">());</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>PHPの言語としてのサポートにが無いのにも関わらず、現在多くのライブラリ・フレームワークでアノテーションがサポートされています。なぜアノテーションを必要と考えるのでしょうか？提案者はこのように説明しています。</p>
+
+<blockquote><h3><a id="why_do_we_need_class_metadata" name="why_do_we_need_class_metadata">Why do we need Class Metadata?</a></h3></blockquote>
+
+<p><quote></p>
+
+<pre><code>Frameworks in general rely on metadata information in order to correctly work. They can use it for many purposes:
+
+    phpUnit Providing meta functionality for test cases, examples: @dataProvider for test data iteration, @expectedException for catching exceptions, etc.
+    Doctrine For Object-Relational mapping, examples: @Entity, @OneToOne, @Id, etc.
+    Zend Framework Server classes Used to automate mappings for XML-RPC, SOAP, etc.
+    FLOW3 for dependency injection and validation
+    Symfony2 for routing rules
+    Others One clear thing that comes to my mind is Validation, Functional Behavior injection (which could take advantage of Traits), etc. Also, any Framework could take advantage of it somehow.
+
+So, any meta mapping injection could be easily achieved via the implementation of a centralized Annotations support.
+
+The .NET framework uses Data Annotation: http://www.asp.net/mvc/tutorials/validation-with-the-data-annotation-validators-cs
+
+An advantage here is the .net framework will process some annotations and inject behavior into the compiled source code.
+
+It's important to note that annotations exist in java and .net but many strong use cases exist in these languages to provide hints to the compiler (@NotNull).
+
+These types of use cases (hints to the Zend lexer/parser or other PHP implementations) are not presented in this RFC.
+</code></pre>
+
+<p></quote></p>
+
+<p>他に自分が知ってる範囲では、Java Beanの影響を強く受けた[DIng][8]やRESTful PHP frameworkの[Recess][9] や[Zend Framwork2のDi][10]でもアノテーションが使われています。</p>
+
+<p>ネイティブサポートがないという事はPHPでDocCommentの部分<sup><a href="#footnote_0_1148" id="identifier_0_1148" class="footnote-link footnote-identifier-link" title="リフレクションで取得できます">1</a></sup> をPHPでパースしなくてはならなく、速度的にも不利なところがあるのですが、このようにPHPでもフレームワーク・ライブラリを中心に使われるようになってきているようです。デ・ファクトと言えるようなライブラリがないのか、各ライブラリが独自でパースしてるものが多く、GuiceクローンのアノテーションベースのDIコンテナ [Ray.Di][11] を実装したときも最初はそうしていました。</p>
+
+<h2>Doctrine\Commons\Annotations</h2>
+
+<p>ORMで有名なDoctrineですが、ORMの他にもプロジェクトがいくつか登録されていてライブラリとしてdoctrine ORM使用しているものを単体使用できるようになっています。<sup><a href="#footnote_1_1148" id="identifier_1_1148" class="footnote-link footnote-identifier-link" title=" (Zend Frameworkのように）このようにライブラリ・ファーストとして部分をライブラリとして単体使用できるのが、最新フレームワークの特徴だと思います">2</a></sup></p>
+
+<p>[Docotrine Commons][12]というライブラリがあります。</p>
+
+<blockquote><p>Common</p>
+
+<p>The Doctrine Common project is a library that provides extensions to core PHP functionality.</p></blockquote>
+
+<p>&#8220;PHPの機能を拡張するライブラリです&#8221;という説明で、Doctrineが使っているAutoloaderやCacheもあるのですが、注目は[Doctrine Annotations][13]<sup><a href="#footnote_2_1148" id="identifier_2_1148" class="footnote-link footnote-identifier-link" title=" このドキュメントは2.1のものです ">3</a></sup> です。</p>
+
+<p>RFC提案されてるようにアノテーションを扱います。</p>
+
+<p>アノテーションの定義</p>
+
+<p>@Annotation、@Targetは Doctrineが使用するアノテーションのアノテーションです。<br/>
+このアノテーションはクラスとメソッドにアノテートすることができます。</p>
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/<em><em></span>
+</span><span class='line'><span class="sd"> * Inject</span>
+</span><span class='line'><span class="sd"> </em></span>
+</span><span class='line'><span class="sd"> * @Annotation</span>
+</span><span class='line'><span class="sd"> * @Target(&quot;CLASS&quot;)</span>
+</span><span class='line'><span class="sd"> * @Target(&quot;METHOD&quot;)</span>
+</span><span class='line'><span class="sd"> </em></span>
+</span><span class='line'><span class="sd"> * @package    Ray.Di</span>
+</span><span class='line'><span class="sd"> * @subpackage Annotation</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">final</span> <span class="k">class</span> <span class="nc">Inject</span> <span class="k">implements</span> <span class="nx">Annotation</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>setDbメソッドを@Injectとアノテートしました。</p>
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/<em><em></span>
+</span><span class='line'><span class="sd"> * @Inject</span>
+</span><span class='line'><span class="sd"> </em></span>
+</span><span class='line'><span class="sd"> * @param DbInterface $db</span>
+</span><span class='line'><span class="sd"> </em>/</span>
+</span><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">setDb</span><span class="p">(</span><span class="nx">DbInterface</span> <span class="nv">$db</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">&ndash;&gt;</span><span class="na">db</span> <span class="o">=</span> <span class="nv">$db</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>アノテーションの利用</p>
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$reflMethod</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ReflectionMethod</span><span class="p">(</span><span class="err">‘</span><span class="nx">MyCompany\Entity\User</span><span class="err">’</span><span class="p">,</span> <span class="err">‘</span><span class="nx">setDb</span><span class="err">’</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$methodAnnotations</span> <span class="o">=</span> <span class="nv">$reader</span><span class="o">&ndash;&gt;</span><span class="na">getMethodAnnotations</span><span class="p">(</span><span class="nv">$reflMethod</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>これで全てのアノテーションが取得できます。<br/>
+あるいは以下のようにして特定アノテーションの値が取得できます。</p>
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$methodAnnotation</span> <span class="o">=</span> <span class="nv">$reader</span><span class="o">&ndash;&gt;</span><span class="na">getMethodAnnotation</span><span class="p">(</span><span class="nv">$reflMethod</span><span class="p">,</span> <span class="nv">$annotation</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Doctrine\Common\Annotations\AnnotationReader が標準的なアノテーションリーダーです。 (Symfony2では標準でサービスコンテナに登録されてるようです)。
+他にはそのAnnotationReaderを利用するCachedReader、use文による名前解決を行わない、より簡素な SimpleAnnotationReaderがあります。</p>
+
+<p>またReaderを使わずパースライブラリとして使いたいなら、doc内のアノテーションを行うDoctrine\Common\Annotations\DocParser や PHPスクリプトを解析してのuse文の名前解決を行う Doctrine\Common\Annotations\PhpParser も有用だと思います。use文の名前解決については Symfony2のブログ [Symfony2: アノテーションが改善されました][14]も参考になると思います。<sup><a href="#footnote_3_1148" id="identifier_3_1148" class="footnote-link footnote-identifier-link" title=" Fabienさんの記事で、@masakielasticさん翻訳の記事です ">4</a></sup></p>
+
+<p>※他には[addendum][15] , [php-annotations][16]というライブラリもあります。</p>
+
+<h2>Conclusion</h2>
+
+<p>PHPではアノテーションのネイティブサポートはなく、以前は使用はあまり一般的ではありませんでした。しかしPHPUnitでもすっかりおなじみのようにメタプログラミングを実現するためのツールとしてPHP界でも認知されつつあります。自作のライブラリやアプリケーションでも Doctrine Annoattion を用いれば利用の敷居は下がります。速度的な懸念も CachedReaderを使用したり、Configrationに用いたりすることで問題にならない場合も多いでしょう。</p>
+
+<p>ではどのように使うのが良いのでしょうか？広く使われてる割にはなかなかベストプラクティス系の記事が見つかりませんが、１つ見つけました。興味ある方は一読すれば参考になると思います。</p>
+
+<p>[Annotations Gotchas and Best Practices<br/>
+][17]</p>
+
+<p>Ray.DiでもこのDoctrine Annotationを採用しリファクタリングを行いました。</p>
+
+<p><ol class="footnotes">
+<li id="footnote_0_1148" class="footnote">
+リフレクションで取得できます [<a href="#identifier_0_1148" class="footnote-link footnote-back-link">&#8617;</a>]
+</li>
+<li id="footnote_1_1148" class="footnote">
+(Zend Frameworkのように）このようにライブラリ・ファーストとして部分をライブラリとして単体使用できるのが、最新フレームワークの特徴だと思います [<a href="#identifier_1_1148" class="footnote-link footnote-back-link">&#8617;</a>]
+</li>
+<li id="footnote_2_1148" class="footnote">
+このドキュメントは2.1のものです [<a href="#identifier_2_1148" class="footnote-link footnote-back-link">&#8617;</a>]
+</li>
+<li id="footnote_3_1148" class="footnote">
+Fabienさんの記事で、@masakielasticさん翻訳の記事です [<a href="#identifier_3_1148" class="footnote-link footnote-back-link">&#8617;</a>]
+</li>
+</ol></p>
+
+<p> [1]: <a href="http://www.atmarkit.co.jp/fjava/kaisetsu/j2eewatch02/j2eewatch02.html">http://www.atmarkit.co.jp/fjava/kaisetsu/j2eewatch02/j2eewatch02.html</a>
+ [2]: <a href="http://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%B3%E3%83%80%E3%83%BC%E3%82%B9%E3%83%BB%E3%83%98%E3%83%AB%E3%82%B9%E3%83%90%E3%83%BC%E3%82%B0">http://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%B3%E3%83%80%E3%83%BC%E3%82%B9%E3%83%BB%E3%83%98%E3%83%AB%E3%82%B9%E3%83%90%E3%83%BC%E3%82%B0</a>
+ [3]: <a href="http://www.atmarkit.co.jp/fdotnet/insiderseye/20060215cscommunity/cscommunity_01.html">http://www.atmarkit.co.jp/fdotnet/insiderseye/20060215cscommunity/cscommunity_01.html</a>
+ [4]: <a href="http://msdn.microsoft.com/ja-jp/library/z0w1kczw.aspx">http://msdn.microsoft.com/ja-jp/library/z0w1kczw.aspx</a>
+ [5]: <a href="http://java.sun.com/j2se/1.5.0/ja/docs/ja/guide/language/annotations.html">http://java.sun.com/j2se/1.5.0/ja/docs/ja/guide/language/annotations.html</a>
+ [6]: <a href="https://wiki.php.net/rfc/annotations-in-docblock">https://wiki.php.net/rfc/annotations-in-docblock</a>
+ [7]: <a href="https://wiki.php.net/rfc/annotations">https://wiki.php.net/rfc/annotations</a>
+ [8]: <a href="http://marcelog.github.com/Ding/">http://marcelog.github.com/Ding/</a>
+ [9]: <a href="http://www.recessframework.org/">http://www.recessframework.org/</a>
+ [10]: <a href="https://github.com/ralphschindler/zf2-di-use-cases/blob/master/09-runtime-setter-injection-with-annotation.php">https://github.com/ralphschindler/zf2-di-use-cases/blob/master/09-runtime-setter-injection-with-annotation.php</a>
+ [11]: <a href="https://github.com/koriym/Ray.Di">https://github.com/koriym/Ray.Di</a>
+ [12]: <a href="http://www.doctrine-project.org/projects/common">http://www.doctrine-project.org/projects/common</a>
+ [13]: <a href="http://docs.doctrine-project.org/projects/doctrine-common/en/latest/reference/annotations.html">http://docs.doctrine-project.org/projects/doctrine-common/en/latest/reference/annotations.html</a>
+ [14]: <a href="http://www.symfony.gr.jp/blog/20110523-symfony2-annotations-gets-better">http://www.symfony.gr.jp/blog/20110523-symfony2-annotations-gets-better</a>
+ [15]: <a href="http://code.google.com/p/addendum/">http://code.google.com/p/addendum/</a>
+ [16]: <a href="http://code.google.com/p/php-annotations/">http://code.google.com/p/php-annotations/</a>
+ [17]: <a href="http://willcode4beer.com/design.jsp?set=annotations_gotchas_best_practices">http://willcode4beer.com/design.jsp?set=annotations_gotchas_best_practices</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-18T00:00:00+09:00" pubdate data-updated="true">Feb 18<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/wei-fen-lei/'>未分類</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://koriym.github.io/2012/02/php-annotation/" data-via="koriym" data-counturl="http://koriym.github.io/2012/02/php-annotation/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+    <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button"
+       data-hatena-bookmark-layout="standard"
+       data-hatena-bookmark-url="http://koriym.github.io/2012/02/php-annotation/">
+        <img src="http://b.st-hatena.com/images/entry-button/button-only.gif"
+             alt="このエントリーをはてなブックマークに追加" width="20" height="20"
+             style="border: none">
+    </a>
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2011/12/php-dis-is-it/" title="Previous Post: PHP: Dis Is It.">&laquo; PHP: Dis Is It.</a>
+      
+      
+        <a class="basic-alignment right" href="/2012/04/bear-resource/" title="Next Post: BEAR.Resource">BEAR.Resource &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/12/04/php7-dot-0-0/">PHP7.0.0</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/08/haphpy-birthday/">HaPHPy Birthday PHP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/31/first-bear-sunday-stable-release/">First BEAR.Sunday Stable Release !</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/29/phpkansai2014/">基調講演「全てを結ぶ力」</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/koriym">@koriym</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'koriym',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+<section class="googleplus googleplus-hidden">
+  <h1>
+    <a href="https://plus.google.com/102811656239290261200?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Akihito Koriyama -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.</span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'koriym';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/ja_JP/all.js#appId=516362398477090&xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+<script>
+    (function(w,d){
+        var c,e=d.createDocumentFragment(),f=d.getElementsByTagName("script")[0],
+                a=function(a,b){if(!d.getElementById(b)){c=d.createElement("script");
+                    c.src=a;c.id=b||null;c.async=true;e.appendChild(c);}};
+                a("//b.st-hatena.com/js/bookmark_button_wo_al.js");
+                f.parentNode.insertBefore(e,f);
+            })(this,document);
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,660 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>BEAR.Resource « BEAR Blog</title>
+  <meta name="author" content="Akihito Koriyama">
+
+  
+  <meta name="description" content="Tweet BEAR.SundayはDI、AOP、REST、この３つの技術をコアにしたオブジェクトフレームワークをベースにしています。 このオブジェクトフレームワークがある程度完成したのを機に、今回v0.1.0alphaとして一旦まとめました。1 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://koriym.github.io/2012/04/bear-resource/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="BEAR Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  <meta property="og:title" content="BEAR.Resource - BEAR Blog" />
+<meta property="og:description" content="Tweet BEAR.SundayはDI、AOP、REST、この３つの技術をコアにしたオブジェクトフレームワークをベースにしています。 このオブジェクトフレームワークがある程度完成したのを機に、今回v0.1.0alphaとして一旦まとめました。1 &hellip;" />
+<meta property="og:url" content="http://koriym.github.io/2012/04/bear-resource/" />
+<meta property="og:image" content="http://bearsunday.github.io/images/icon/favicon-144.png" />
+<meta property="og:author" content="Akihito Koriyama" />
+<meta property="og:site_name" content="BEAR Blog" />
+<meta property="og:locale" content="ja_JP" />
+<meta property="og:type" content="article" />
+<meta property="fb:app_id" content="516362398477090" />
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-6074569-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEAR Blog</a></h1>
+  
+    <h2>Because everything is a resource.</h2>
+  
+</hgroup>
+
+<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:koriym.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">BEAR.Resource</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-25T00:00:00+09:00" pubdate data-updated="true">Apr 25<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2012/04/bear-resource/">Tweet</a>
+</div>
+
+
+<p>BEAR.Sundayは<strong>DI</strong>、<strong>AOP</strong>、<strong>REST</strong>、この３つの技術をコアにしたオブジェクトフレームワークをベースにしています。<br/>
+<a href="http://www.bear-project.net/blog/wp-content/uploads/2012/04/2bear-sunday-tmp-111219033305-phpapp02.002-001.png"><img class="alignnone size-full wp-image-1257" title="2bear-sunday-tmp-111219033305-phpapp02.002-001" src="http://www.bear-project.net/blog/wp-content/uploads/2012/04/2bear-sunday-tmp-111219033305-phpapp02.002-001.png" alt="" /></a><br/>
+このオブジェクトフレームワークがある程度完成したのを機に、今回v0.1.0alphaとして一旦まとめました。<sup><a href="#footnote_0_1178" id="identifier_0_1178" class="footnote-link footnote-identifier-link" title="HelloWorldしか出ない状態が長く続いたのにも関わらずソースをみたり関心を持ってもらった方がおられました。ありがとうございます">1</a></sup> まだ実用レベルではなくこれからこのオブジェクトフレームワークの上に、APIフレームワーク、webアプリケーションフレームワークと、フレームワークのレイヤーを重ねていく予定です。</p>
+
+<p>この記事では現在のv0.1.0alpha実装からBEAR.Sundayの特徴を紹介します。</p>
+
+<h2>リソースオブジェクト</h2>
+
+<p>BEAR.Sudayで中心になるのがリソースオブジェクトです。MVCで言うとモデルに近いものですがwebからアクセスされる最初のリソースレイヤーの<strong>pageリソース</strong>はコントローラーのように振る舞います。</p>
+
+<p>それぞれのリソースはURIで表すことができ、スキーマに応じて処理の仕組みが変わります。最も標準的なものはリソースURIとPHPクラスがマップされるリソースオブジェクトです。HTTPのリクエストメソッドに準じたインターフェイスメソッドを持ち、リクエスト処理を記述します。役割に応じてpageリソースやappリソースとスキーマや呼び方は代わりますが基本的な仕組みは同じです。</p>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02.005-001.png"><img class="alignnone size-full wp-image-1263" title="page resource" src="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02.005-001.png" alt="" /></a></p>
+
+<p>ウエブページのようなオブジェクトと思ってみてください。</p>
+
+<p>例えばGETリクエストすればリクエスト用のメソッドがコールされ、結果でもあるリソースオブジェクト自身が帰ってきます。</p>
+
+<p>まずはHello Worldページです。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Hello</span> <span class="k">extends</span> <span class="nx">Page</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">body</span> <span class="o">=</span> <span class="err">‘</span><span class="nx">Hello</span> <span class="err">‘</span> <span class="o">.</span> <span class="nv">$name</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>$nameを受け取り連結して返すだけのページです。bodyプロパティに代入して自身を返してる事に注目してください。</p>
+
+<p>このページクラスは以下のように表記しても同じです。<sup><a href="#footnote_1_1178" id="identifier_1_1178" class="footnote-link footnote-identifier-link" title="シンタックスシュガー ">2</a></sup>文字列を返しても、クライアントにはbodyプロパティがセットされたオブジェクトが返ります。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Hello</span> <span class="k">extends</span> <span class="nx">Page</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="err">‘</span><span class="nx">Hello</span> <span class="err">‘</span> <span class="o">.</span> <span class="nv">$name</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>４つの公開されたプロパティ</h2>
+
+<p>リソースクラスは以下の４つのpublicプロパティを持ちます。</p>
+
+<ul>
+<li>リソースコード</li>
+<li>リソースメタ情報（ヘッダー）</li>
+<li>リソースコンテンツ（リソース状態）</li>
+<li>リソース表現
+コードはHTTPステータスコードに準じたリソースの状態がはいっています。リソースの本質的な値はリソースコンテンツに入っていますが、クライアントが利用するリソース表現は別のプロパティが用意されています。</li>
+</ul>
+
+
+<p>このHelloページリソースではリソーススコンテンツ$bodyプロパティをセットしてクライアントに返しています。</p>
+
+<h2>レイヤード・リソース</h2>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02.005.jpg"><img src="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02.005.jpg" alt="" title="Layerd Resource" class="alignnone size-full wp-image-1301" /></a><br/>
+pageリソースはwebクライアウントから最初にコールされるリソースレイヤーです。多くの場合、（更に関心を細分化した）appリソースをページからリクエストします。コントローラーがモデルをリクエストするようなもので、pageリソースは<strong>pageコントローラー</strong>、appリソースは<strong>内部APIとして振る舞うモデル</strong>として機能します。</p>
+
+<p>最初の例の単純な例のpageリソースはコントローラーとして機能するよりも、リソースコンテンツを変更することで自身を構成しています。自身がレスポンスオブジェクトのようですがこれは不作法なことではありません。リソースは関心に応じてレイヤリングしますが、単純なHelloページではそのページだけで完結する場合もあるでしょう。一方、appリソースでも必要があれば関心にレイヤリングを適用して、適切なネストのレイヤーを持つのが良いでしょう。</p>
+
+<p>最初にwebブラウザのリクエストURIに応じてルートされたpageリソースがリクエストされます。pageリソースはappリソースやその他のリソースをリクエストしますが、他のpageリソースもリクエストすることができます。階層構造MVCのように振る舞います。</p>
+
+<h2>アプリケーション(app)リソース</h2>
+
+<p>アプリケーションリソースはいわば内部APIです。MVCでの主役がMであるように、BEAR.Sundayでもアプリケーション価値の多くはこのappリソースにあります。<sup><a href="#footnote_2_1178" id="identifier_2_1178" class="footnote-link footnote-identifier-link" title="一方、pageリソースの役割はリクエストURIに応じて複数のappリソースをアクセスする事がほとんどです。">3</a></sup></p>
+
+<p>appリソースの簡単な例をコードで紹介します。$lang(言語)を引数で渡すと挨拶文字列を返す 「挨拶リソース」です。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Greetings</span> <span class="k">extends</span> <span class="nx">AbstractObject</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">private</span> <span class="nv">$message</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s1">&#39;en&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hello World&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s1">&#39;ja&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Konichiwa Sekai&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s1">&#39;es&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hola Mundo&#39;</span>
+</span><span class='line'>    <span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$lang</span> <span class="o">=</span> <span class="err">‘</span><span class="nx">en</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$greeting</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">message</span><span class="p">[</span><span class="nv">$lang</span><span class="p">];</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$greeting</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>これはpageリソースで説明したように、以下のコードと同じものです。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$lang</span> <span class="o">=</span> <span class="err">‘</span><span class="nx">en</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">body</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">message</span><span class="p">[</span><span class="nv">$lang</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>挨拶のデータは$messageプロパティに格納されていて、引数$lang（言語）によって指定されたメッセージを返します。このリソースクラスはonGetメソッドがあり、GETリクエストだけを行う事ができます。</p>
+
+<p>リソースクライアントからはのリクエストはこのようにして作る事ができます。withQuery()メソッドで与えてるのは順番による引数ではなくて、変数名を指定した名前付き引数（named parameter)であることに注意してください。引数の順番は関係ありません。</p>
+
+<h2>リソースリクエスト</h2>
+
+<p>リソースリクエストは以下のように記述します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$request</span> <span class="o">=</span> <span class="nv">$resource</span>
+</span><span class='line'>           <span class="o">-&gt;</span><span class="na">get</span>
+</span><span class='line'>           <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="err">‘</span><span class="nx">app</span><span class="o">://</span><span class="nx">self</span><span class="o">/</span><span class="nx">greeting</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'>           <span class="o">-&gt;</span><span class="na">withQuery</span><span class="p">([</span><span class="s1">&#39;lang&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="err">‘</span><span class="nx">ja</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'>           <span class="o">-&gt;</span><span class="na">request</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>この文で作られたのは<strong>リクエスト</strong>です。このリクエストを実際に行うにはこのリクエストオブジェクトをクロージャのように扱います。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$result</span> <span class="o">=</span> <span class="nv">$request</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>リクエストは再利用することができます。引数を指定して指定した名前付き引数に追加、上書きすることができます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$result</span> <span class="o">=</span> <span class="nv">$request</span><span class="p">([</span><span class="s1">&#39;lang&#39;</span> <span class="o">=&gt;</span> <span class="err">&#39;</span><span class="nx">en</span><span class="p">]);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>イーガーリクエスト</h3>
+
+<p>リクエストの結果をすぐに求めるにはリクエストに eagerをつけます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$result</span> <span class="o">=</span> <span class="nv">$resource</span>
+</span><span class='line'>          <span class="o">-&gt;</span><span class="na">get</span>
+</span><span class='line'>          <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="err">‘</span><span class="nx">app</span><span class="o">://</span><span class="nx">self</span><span class="o">/</span><span class="nx">greeting</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'>          <span class="o">-&gt;</span><span class="na">withQuery</span><span class="p">([</span><span class="s1">&#39;lang&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="err">‘</span><span class="nx">ja</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'>          <span class="o">-&gt;</span><span class="na">eager</span>
+</span><span class='line'>          <span class="o">-&gt;</span><span class="na">request</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>この文ではすぐにリクエストが行われます。</p>
+
+<h2>リソースのレンダリング</h2>
+
+<p>リクエストにより求められたリソースオブジェクトはプロパティにリソースの状態を持っています。プロパティを直接使う事もできますが、それよりオブジェクトとして利用するのがスマートです。オブジェクトはコンテキストに応じて評価されます。</p>
+
+<p>連想配列として扱うとリソースコンテンツのエレメントが取り出せます。例えばユーザーリソースのID等です。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">echo</span> <span class="nv">$result</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span> <span class="c1">// $result-&gt;body[&#39;id&#39;] と同じ</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>オブジェクトなのでメソッドを利用することはもちろんできます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">echo</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="na">log</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>文字列として扱うと、そのリソースはコンテンツを表現に変えようとします。</p>
+
+<p>BEAR.Sundayではリソースからデータを受け取ってテンプレートエンジンに渡すのではなく、<strong>リソースがテンプレートエンジンを保持</strong>し（データを外部に公開することなく）<strong>自身がレンダリング</strong>を行います。</p>
+
+<p>図をご覧下さい。</p>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02.008.jpg"><img src="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02.008.jpg" alt="" title="Web MVC" class="alignnone size-full wp-image-1303" /></a><br/>
+<a href="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02.009.jpg"><img src="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02.009.jpg" alt="" title="BEAR.Resource" class="alignnone size-full wp-image-1304" /></a></p>
+
+<p>存在するリソースの１つ１つのオブジェクトがレンダラー（Viewオブジェクト）を保持します。<sup><a href="#footnote_3_1178" id="identifier_3_1178" class="footnote-link footnote-identifier-link" title="アプリケーションスコープでシングルトン">4</a></sup>　</p>
+
+<p>例えばユーザーリソースのコンテンツは以下のようなものだとします。</p>
+
+<pre>$user->body = ['name' => 'koriym', 'gender' => 'male']</pre>
+
+
+<p>このJSON表現はこうなります。</p>
+
+<pre>{"name":"koriym","gender":"male"}</pre>
+
+
+<p>このレンダリングはjson_encode()関数を使うだけの単純なものでしょう。</p>
+
+<p>また、HTML表現は例えば以下のようなものになります。リソース専用のテンプレートを用意してレンダリングしています。</p>
+
+<pre><span id="user">ユーザー名:koriym 性別:male </span></pre>
+
+
+<p>リソースは自身の構成やコンテンツに関して関心を持ちますが、表現には直接関心をもたず、セットされたリソースレンダラーに自身（$this)を渡してレンダリングを命じます。</p>
+
+<p>レンダリングはリソースオブジェクトが文字列として評価されたときに行われます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">echo</span> <span class="nv">$user</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// または</span>
+</span><span class='line'><span class="nv">$userHtml</span> <span class="o">=</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span><span class="nv">$user</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>レンダラーの保持はオプションです。もしリソースがレンダラーを持たなくても、コンテンツが文字列として評価可能ならコンテンツを表現にします。リソースコンテンツが文字列表現ができないフォーマット（例えばarray型）で、レンダラーも持たないときに文字列として評価されれば文字列”を返します。</p>
+
+<h2>リソースリクエストのレンダ    リング</h2>
+
+<p>リソースリクエストが文字列として扱われたときには、リクエストを行い、その結果をレンダリングした結果の文字列が得られます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">echo</span> <span class="nv">$request</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// または</span>
+</span><span class='line'><span class="nv">$userHtml</span> <span class="o">=</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span><span class="nv">$request</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>レイジーリクエストとレイジーレンダリング</h2>
+
+<p>リソースクライアントが生成したリクエストオブジェクトは文字列として評価されるときに初めてリクエストを行います。</p>
+
+<p>v0.1.0alphaでインストールされるindexデモ画面。これにapp://self/performanceというフレームワーク実行パフォーマンスを測定するappリソースがありindexページではpageのGETリクエストに応じてセットしています。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$this</span><span class="p">[</span><span class="s1">&#39;performance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$this</span>
+</span><span class='line'>                       <span class="o">-&gt;</span><span class="na">resource</span>
+</span><span class='line'>                       <span class="o">-&gt;</span><span class="na">get</span>
+</span><span class='line'>                       <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="err">‘</span><span class="nx">app</span><span class="o">://</span><span class="nx">self</span><span class="o">/</span><span class="nx">performance</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'>                       <span class="o">-&gt;</span><span class="na">request</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>page / secで表示されている値がそうです。<br/>
+<a href="http://www.bear-project.net/blog/wp-content/uploads/2012/04/9bed6295cf4f6d5746d67365cba086de.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2012/04/9bed6295cf4f6d5746d67365cba086de.png" alt="" title="スクリーンショット 2012-04-25 4.15.17" class="alignnone size-full wp-image-1358" /></a></p>
+
+<p>これはeagerが使われていないので、bodyのperformanceにapp://self/performanceへのGETリクエストがセットされたことになります。このリソースが実際に行われるのはコンパイル済みのテンプレートでこのリソースが出現するタイミングです。</p>
+
+<p>smartyのコンパイル済みテンプレートではこの部分です。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;&amp;</span><span class="nb">copy</span><span class="p">;</span> <span class="mi">2012</span> <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="err">”</span><span class="nx">https</span><span class="o">://</span><span class="nx">twitter</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="c1">#!/bearsunday”&gt;@BEARSunday&lt;/a&gt; (&lt;?php echo $_smarty_tpl-&gt;tpl_vars[&#39;performance&#39;]-&gt;value;?&gt;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ここで初めてリクエストが行われます。パフォーマンスを測定するという目的からすればよページクラスのメソッドで計測するより、テンプレートで表示される直前に計測される値の方がより正確でしょう。またこのパフォーマンスリソースはテンプレートで出現しなければ計測されることもありません。実際に利用されるかされないかを気にしないでページはテンプレートにリクエストをセットすることができます。</p>
+
+<h2>リソースキャッシュ</h2>
+
+<p>パフォーマンスappリソースを使ったページリソースをキャッシュしても、パフォーマンスリソースの値は正しく反映されることに注目してみてください。これはページが保持してるのはリソースリクエストの結果ではなく、リソースリクエストの方法だからです。リクエスト方法はキャッシュされ再利用されても、その値は毎回変わります。</p>
+
+<h2>リソースまとめ</h2>
+
+<ul>
+<li>リソースリクエストはリクエストの生成と実行というライフスタイルを持ちます。</li>
+<li>リソースはURIから生成され、リソースリクエストを実行するアダプターはURIのスキーマで決まります。</li>
+<li>リソースリクエストはURI文字列で表現されます。</li>
+<li>リソースリクエストの引き数はネームドパラメーターで渡されます</li>
+<li>作成されたリソースリクエストはクロージャのように扱えます</li>
+<li>リソースはレンダラーを個別に保持し自身をリソース状態からリソース表現にレンダリングすることができます。</li>
+<li>リソース表現は文字列評価することで得られます。</li>
+<li>レンダラーの使用はオプションです。なければコンテンツが表現にならないか検討します。</li>
+<li>レンダラーはユーザーが記述することができます。</li>
+<li>レンダラーはテンプレートエンジンを持ちます。設計上固定化されたものはありませんが、現在のデモではSmarty3が使われています。</li>
+</ul>
+
+
+<p>他にもサービスを通じて一度しか行われないオブジェクトコンストラクション、不足している引き数を補充するパラメータープロバイダー、スキーマアダプターを構成するDSL、リソースの関係性を内部で持つリソースリンク、webブラウザでタブを開くようにリンク先を加えていくnewリンク、リソースリンクをクローリングしてリソースのリンク構造を構成するクローラーリンク、リソースリンクを露出することなくアプリケーション状態を変更するHATEOUS（Hypermedia as the Engine of Application State）等様々な機能がありますがまた別の機会に紹介したいと思います。<sup><a href="#footnote_4_1178" id="identifier_4_1178" class="footnote-link footnote-identifier-link" title="きっともうお腹一杯でしょう！">5</a></sup></p>
+
+<h2>次回はRay.Di</h2>
+
+<p>次回の記事はDIです。BEAR.SundayはRay.Diというディペンデンシーインジェクターを用いてオブジェクトのコンストラションおよびインジェクションを行います。Ray.DiはBEAR.Sundayのために開発したGoogle GuiceクローンのDIフレームワークです。アノテーションを用いつつサービスコンテナにも依存しないよりクリーンなDIが可能です。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-25T00:00:00+09:00" pubdate data-updated="true">Apr 25<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/bear/'>BEAR</a>, <a class='category' href='/blog/categories/php/'>PHP</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://koriym.github.io/2012/04/bear-resource/" data-via="koriym" data-counturl="http://koriym.github.io/2012/04/bear-resource/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+    <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button"
+       data-hatena-bookmark-layout="standard"
+       data-hatena-bookmark-url="http://koriym.github.io/2012/04/bear-resource/">
+        <img src="http://b.st-hatena.com/images/entry-button/button-only.gif"
+             alt="このエントリーをはてなブックマークに追加" width="20" height="20"
+             style="border: none">
+    </a>
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2012/02/php-annotation/" title="Previous Post: PHPでアノテーション">&laquo; PHPでアノテーション</a>
+      
+      
+        <a class="basic-alignment right" href="/2012/04/di/" title="Next Post: Object Framework &#8211; Ray.Di">Object Framework &#8211; Ray.Di &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/12/04/php7-dot-0-0/">PHP7.0.0</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/08/haphpy-birthday/">HaPHPy Birthday PHP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/31/first-bear-sunday-stable-release/">First BEAR.Sunday Stable Release !</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/29/phpkansai2014/">基調講演「全てを結ぶ力」</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/koriym">@koriym</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'koriym',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+<section class="googleplus googleplus-hidden">
+  <h1>
+    <a href="https://plus.google.com/102811656239290261200?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Akihito Koriyama -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.</span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'koriym';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/ja_JP/all.js#appId=516362398477090&xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+<script>
+    (function(w,d){
+        var c,e=d.createDocumentFragment(),f=d.getElementsByTagName("script")[0],
+                a=function(a,b){if(!d.getElementById(b)){c=d.createElement("script");
+                    c.src=a;c.id=b||null;c.async=true;e.appendChild(c);}};
+                a("//b.st-hatena.com/js/bookmark_button_wo_al.js");
+                f.parentNode.insertBefore(e,f);
+            })(this,document);
+</script>
+
+
+</body>
+</html>

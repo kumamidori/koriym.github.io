@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Advent2012 | BEAR Blog]]></title>
+  <link href="http://koriym.github.io/blog/categories/advent2012/atom.xml" rel="self"/>
+  <link href="http://koriym.github.io/"/>
+  <updated>2015-12-04T11:25:59+09:00</updated>
+  <id>http://koriym.github.io/</id>
+  <author>
+    <name><![CDATA[Akihito Koriyama]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Advent Day 12: debug print]]></title>
+    <link href="http://koriym.github.io/adv12"/>
+    <updated>2012-12-18T00:00:00+09:00</updated>
+    <id>http://koriym.github.io/advent-day-12-debug-print</id>
+    <content type="html"><![CDATA[<div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/adv12">Tweet</a>
+</div>
+
+
+<h2>デバック表示 p($var);</h2>
+
+<p>BEAR.Sundayは前バージョンからの伝統(?)のデバック出力<strong>p();</strong>があります。<br/>
+表示はxdebugのvar_dump()と同じですが加えて、変数名とp()した場所が表示されます。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nx">p</span><span class="p">(</span><span class="nv">$a</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><strong>webでp()すると</strong><br/>
+<a href="http://www.bear-project.net/blog/adv12/%e3%82%b9%e3%82%af%e3%83%aa%e3%83%bc%e3%83%b3%e3%82%b7%e3%83%a7%e3%83%83%e3%83%88-2012-12-17-23-31-50/" rel="attachment wp-att-1505"><img src="http://www.bear-project.net/blog/wp-content/uploads/2012/12/a0f4eafe84c70f36f0bb364cfbac6e9f.png" alt="スクリーンショット 2012-12-17 23.31.50" class="aligncenter size-full wp-image-1505" /></a></p>
+
+<p><strong>コンソールでp()すると</strong></p>
+
+<div>
+</div>
+
+
+<p><a href="http://www.bear-project.net/blog/adv12/%e3%82%b9%e3%82%af%e3%83%aa%e3%83%bc%e3%83%b3%e3%82%b7%e3%83%a7%e3%83%83%e3%83%88-2012-12-17-23-34-23/" rel="attachment wp-att-1507"><img src="http://www.bear-project.net/blog/wp-content/uploads/2012/12/35ee0b02f38504093b38b4eea755e8f3.png" alt="スクリーンショット 2012-12-17 23.34.23" class="aligncenter size-full wp-image-1507" /></a> <div>
+</div></p>
+
+<p>引き数なしでp()すると(void)と表示されます。</p>
+
+<p><a href="http://www.bear-project.net/blog/adv12/%e3%82%b9%e3%82%af%e3%83%aa%e3%83%bc%e3%83%b3%e3%82%b7%e3%83%a7%e3%83%83%e3%83%88-2012-12-18-0-26-19/" rel="attachment wp-att-1510"><img src="http://www.bear-project.net/blog/wp-content/uploads/2012/12/a6c3d84bee8a4d686cbadd8e643d9f43.png" alt="スクリーンショット 2012-12-18 0.26.19" class="aligncenter size-full wp-image-1510" /></a><br/>
+その場所を通ったかどうかの確認になります。</p>
+
+<p>表示されたファイル名はクリックしてweb上で編集できデバック表示したp()を消したり表示内容を変更したりできます。<br/>
+<a href="http://www.bear-project.net/blog/adv12/%e3%82%b9%e3%82%af%e3%83%aa%e3%83%bc%e3%83%b3%e3%82%b7%e3%83%a7%e3%83%83%e3%83%88-2012-12-18-0-35-26/" rel="attachment wp-att-1522">
+  </a><a href="http://www.bear-project.net/blog/wp-content/uploads/2012/12/6cc52f92b203a81ef57231115a153620.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2012/12/6cc52f92b203a81ef57231115a153620.png" alt="スクリーンショット 2012-12-18 0.37.16" class="aligncenter size-full wp-image-1533" /></a></p>
+
+<h2>
+  デバック表示
+</h2>
+
+
+<p>  「変数内容を画面上で確認」IDE+Debuggerでもっと洗練された内容確認の仕方やTDDを実践したあとでも、この原始的なやり方を手放す事ができません。</p>
+
+<p>  一方、デバック情報を画面に表示するときの問題「どれがどの表示を表してるのか分からなくなった」「どこでかいたのか分からない」「エディタに戻ってまた消すのが面倒」&#8230;それらの解決とコーディング作業の中断を0.1秒単位で削りたいという考えからこのp()を作りました。</p>
+
+<p>  前回バージョンのSaturdayで好まれた機能です。Sundayでは表示変更とコンソール表示のサポートを追加しました。その他は以前のものと編集できたところも含めて同じです。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Advent Day 11: DI: Why not ?]]></title>
+    <link href="http://koriym.github.io/adv11"/>
+    <updated>2012-12-13T00:00:00+09:00</updated>
+    <id>http://koriym.github.io/advent-day-11-diwhy-not</id>
+    <content type="html"><![CDATA[<div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/adv11">Tweet</a>
+</div>
+
+
+<h2>ミッション</h2>
+
+<p>BEAR.Sundayは非常に現実的なミッションがあって、スキルが多様なチームで最大限のパフォーマンス（制作、運用）を出す事が求められます。難しい要求なのですが、これはゴールであって前提でもあります。</p>
+
+<p>もっと平たく言うと、スキルの高い人だけが使える”難しい”ものにできません。<br/>
+またどんな奇麗な設計でも実運用でパフォーマンスが出ないと導入できません。</p>
+
+<p>このミッションとDIがどのように関係してるのかを考察します。</p>
+
+<h2>何故DIを使わないか？</h2>
+
+<p>DIの利点や理解を促進する記事は多いですが、ここではまず何故DIを使わないかを考察してみます。その理由を解決すれば良いと単純に考えてみます。</p>
+
+<h2>問題：面倒、難しい</h2>
+
+<p>「面倒」と「難しい」は全く違う問題なのですが、これを一緒に解決します。つまり前回までの記事で「生成」と「利用」に分離されたDIのパターンでは面倒＆難しいという問題はほぼ全て「生成」、つまりコンパイルに集中しています。コードや実行時間だけでなく、まず作成者を区別することを考えてみます。</p>
+
+<h3>アプリケーション・アーキテクト</h3>
+
+<p>ライブラリを選択し、抽象と束縛し、必要なアダプターを記述します。これらはよりスキルのいる仕事でもありますがより再利用性の高い仕事でもあります。ここをアプリケーションアーキテクトが担当します。あるいはアプリケーションを横断するパッケージ、そのまたさらにBEAR.Sundayフレームワーク開発者<sup><a href="#footnote_0_1465" id="identifier_0_1465" class="footnote-link footnote-identifier-link" title="つまり自分なのですが">1</a></sup>が担当します。アプリケーションを記述するアプリケーションエンジニアは基本は用意されたパッケージを利用する事に集中し、コンパイルタイムで行われる仕事は原則しません。</p>
+
+<p>つまり現在のBEAR.PackageであればSQLを記述し、テンプレートを用意し、用意されたサービスオブジェクトとアノテーションに束縛された@Cacheアドバイスなどを利用しアプリケーションを記述します。特定ドメインにフォーカスしてビジネスロジックとその表現に関わることにコーディングを集中させます。</p>
+
+<h3>易しい依存の利用</h3>
+
+<p>一旦アプリケーション・アーキテクトがまとめ上げた制約は再利用が可能です。BEAR.SundayのDIはオブジェクトを利用するのに最低限の記述しか必要としません。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="c1">// トレイトで</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">LogInject</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">TmpDirInject</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// メソッドで</span>
+</span><span class='line'><span class="o">/&lt;</span><span class="nx">em</span><span class="o">&gt;*</span>
+</span><span class='line'> <span class="o">*</span> <span class="o">@</span><span class="nx">Inject</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nx">em</span><span class="o">&gt;/</span>
+</span><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">setLog</span><span class="p">(</span><span class="nx">LogInterface</span> <span class="nv">$log</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nv">$this</span><span class="o">-&amp;</span><span class="nx">gt</span><span class="p">;</span><span class="nx">log</span> <span class="o">=</span> <span class="nv">$log</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>特定の抽象に束縛済みの依存があるなら再利用可能です。同じ依存がある新しいクラスを書くときにコンパイルに関わる記述の必要はありません。use文か、インターフェイスに@Injectアノテーションを打つと依存を受け取ることができます。</p>
+
+<p>依存を利用するだけなら、特定のDependency Injector機構やその設定ファイルのフォーマットを理解する必要はありません。利用コードだけで依存を受け取れます。</p>
+
+<h3>仕事の80%はメンテナンス</h3>
+
+<p>三ヶ月で開発されたサービスが数年単位でメンテナンスされます。担当は代わり、プログラマーは内部外部問わず交代します。そしてメンテナンスの仕事の多くは生成ではなく、利用コードの変更です。</p>
+
+<p>全ての仕事を一人で担当する場合でも、再利用性の高いコンパイルに関連するコードと利用コードが分かれている事はメリットになります。ずっと手を入れてない（忘れてる）コードを触る時でもまずは利用コードの理解だけに集中できます。</p>
+
+<h2>問題：パフォーマンス</h2>
+
+<p>オブジェクトグラフの再利用する設計でパフォーマンス上の問題はあまりありません。逆により高いパフォーマンスが望める場合が多いと思います。</p>
+
+<h2>どうでしょうか？</h2>
+
+<p>話をフェアにするためにBEAR.SundayのDIがうまく解決できない問題も述べます。アノテーションベースのDIシステムに共通の問題なのですが、「<a href="http://code.google.com/p/google-guice/wiki/FrequentlyAskedQuestions">ロボットの足問題</a>」と呼ばれる問題があります。これは同じような依存の少しだけ違う依存をどうやって束縛するかという問題で解決できるのはできるのですが、記述は冗長です。もっとうまい解決があるべきだと考えます。<sup><a href="#footnote_1_1465" id="identifier_1_1465" class="footnote-link footnote-identifier-link" title="問題は表面化してません。">2</a></sup></p>
+
+<p>「難しい、面倒、遅い」これらのそれなりの解答になってるでしょうか。また他にどういう問題があるでしょうか？あれば解決法を考えましょう。dependentがクリーンなDIは、インジェクトの仕組みをより良いものに丸ごとアップデートできる可能性があります。</p>
+
+<p>アノテーションベースのRay.Diの現在のBEAR.Sundayクラスも設定ファイルベースのAura.Diに変更することは原理的に可能です。depedentに注入機構の依存がないためです。</p>
+
+<ol class="footnotes">
+  <li id="footnote_0_1465" class="footnote">
+    つまり自分なのですが [<a href="#identifier_0_1465" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_1_1465" class="footnote">
+    問題は表面化してません。 [<a href="#identifier_1_1465" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Advent Day 10: DI > SL ?]]></title>
+    <link href="http://koriym.github.io/adv10"/>
+    <updated>2012-12-13T00:00:00+09:00</updated>
+    <id>http://koriym.github.io/advent-day-10-di-sl</id>
+    <content type="html"><![CDATA[<div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/adv10">Tweet</a>
+</div>
+
+
+<h2>依存するから？</h2>
+
+<p>また違った面からDIを考察してみます。SLとの比較です。<br/>
+SLをアンチパターンとするときに良く言われるのが、「コンテナに依存するから」と説明されますがこれを考えてみます。</p>
+
+<p>依存した事自体が問題なのでしょうか？（0 dependencyでなくなった)<br/>
+それとも依存しているコンテナの性質に依存している問題なのでしょうか？</p>
+
+<h2>new, SL and DI</h2>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Conventional</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&amp;</span><span class="nx">gt</span><span class="p">;</span><span class="nx">foo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Foo</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Di</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">FooInterfeace</span> <span class="nv">$foo</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&amp;</span><span class="nx">gt</span><span class="p">;</span><span class="nx">foo</span> <span class="o">=</span> <span class="nv">$foo</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Sl</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">Container</span> <span class="nv">$container</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&amp;</span><span class="nx">gt</span><span class="p">;</span><span class="nx">foo</span> <span class="o">=</span> <span class="nv">$container</span><span class="o">-&amp;</span><span class="nx">gt</span><span class="p">;</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>オブジェクトを取得する３つのコードです。</p>
+
+<p>Conventionalクラスではnewで生成して取得しています。依存はハードコードされていて$fooはFooのインスタンスです。</p>
+
+<p>Diではインターフェイスを通じて依存を受け取っています。DIP原則に従って抽象に依存しています。$fooはFooInterfaceを実装した何かのクラスです。</p>
+
+<p>Slでは&#8221;foo&#8221;というサービスオブジェクトを取得しています。ロケーターはこのクラスに記述してあった依存を隠してしまいました。このfooサービスはどういうもので何でしょうか？どうすれば分かるでしょうか？これを知るAPIはありません。コンテナ機構を理解して、コンテナにセットしているコードを見て、あるいは設定ファイルから？ドキュメントから？</p>
+
+<p>これをうまく説明するには前の２つの方法に比べて、何かの規約や機構が必要です。人が容易に理解できるようになってもコードはこれを検出しません。IDE等でコード補完を受けるためには注釈が必要でしょう。</p>
+
+<p>またこのクラスはコンテナに依存するようになったことで、独立したパッケージとしてリリースするには何らかの依存解決ツール(composer)を前提にする必要があります。</p>
+
+<h2>more info</h2>
+
+<p>このエントリーはこのビデオを参考に起こしています。</p>
+
+<p><a href="http://youtu.be/KHKC470Gkic?t=11m22s">Decoupled Library Packages for PHP 5.4 &#8211; Paul Jones</a></p>
+
+<p>また大抵のデザインパターン・パラダイムは、XX is evil, XX is anti paternで検索すると色々でてきます<sup><a href="#footnote_0_1446" id="identifier_0_1446" class="footnote-link footnote-identifier-link" title="^^;">1</a></sup></p>
+
+<p><a href="http://blog.ploeh.dk/2010/02/03/ServiceLocatorIsAnAntiPattern.aspx">Service Locator is an Anti-Pattern</a></p>
+
+<h2>CodeAsDocumentation</h2>
+
+<p>この記事はSLが駄目という記事ではなくて、SLは「コンテナに依存するから駄目なのだ」という意見のどの部分が駄目なのかを考察することで、依存性を自己記述的な<a href="http://www.bear-project.net/blog/2012/10/codeasdocumentation/">CodeAsDocumentation</a>として表すDIの性質を明らかにしようとしました。</p>
+
+<ol class="footnotes">
+  <li id="footnote_0_1446" class="footnote">
+    ^^; [<a href="#identifier_0_1446" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Advent Day 9: Compile and Runtime]]></title>
+    <link href="http://koriym.github.io/adv9"/>
+    <updated>2012-12-12T00:00:00+09:00</updated>
+    <id>http://koriym.github.io/advent-day-9-compile-and-runtime</id>
+    <content type="html"><![CDATA[<div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/adv9">Tweet</a>
+</div>
+
+
+<h2>決定論</h2>
+
+<blockquote><p>もしもある瞬間における全ての物質の力学的状態と力を知ることができ、かつもしもそれらのデータを解析できるだけの能力の知性が存在するとすれば、この知性にとっては、不確実なことは何もなくなり、その目には未来も（過去同様に）全て見えているであろう。</p>
+
+<p>— 『確率の解析的理論』1812年</p></blockquote>
+
+<p><a href="http://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%97%E3%83%A9%E3%82%B9%E3%81%AE%E6%82%AA%E9%AD%94">「ラプラスの悪魔」</a>です。</p>
+
+<p>ラプラスの悪魔のような、こんなデバックツールできないでしょうか？</p>
+
+<blockquote><p><em>もしもある瞬間における全てのオブジェクトの状態と機能を知ることができ、かつもしもそれらのデータを解析できるだけの優れたアナライザーがあるとすれば、このアナライザーにとっては、不確実なことは何もなくなり、その目には全ての潜在的なバグが全て見えるであろう。</em></p></blockquote>
+
+<p>&#8230;夢でしょうか^^;　しかしデバックに苦しむのは「状態の不確実性」からという事は多くないでしょうか？例外でいえばLogicExceptionの原因追及は、RunteimExceptionの例外の原因追及よりずっと簡単です。オブジェクトが&#8221;モード”やHTTPが状態（セッション）をもつと問題解決はずっと複雑になります。状態=不確実性=evil !</p>
+
+<p>この記事ではオブジェクトの不確実性を低減する技術としてのDIを見て見ます。</p>
+
+<h2>再び生成と利用分離原則</h2>
+
+<p>DIでは生成と利用を分離しますが、分離するのはコードだけではありません。その時間（タイミング）も分離されます。「生成」が終わってから「利用」になるためです。BEAR.Sundayではオブジェクトの生成時に依存の注入だけでなく、アスペクトの織り込みも行われます。これがオブジェクトをつくるコンパイル。その時間がコンパイルタイムです。</p>
+
+<p><a href="http://www.bear-project.net/blog/2012/12/advent-day-6-di-soc/">生成・使用分離の原則　DI 関心の分離</a>で[具象コード]と[抽象コード]の分離を示したようにするとこういう風になります。</p>
+
+<p>生成と使用のタイミングが分離されていないパターン</p>
+
+<p>&lt; -&mdash; boot終了 -&mdash;><br/>
+&lt; -&mdash; runtime開始 -&mdash;><br/>
+[生成]<br/>
+[使用]<br/>
+[生成]<br/>
+[使用]<br/>
+[使用]<br/>
+[生成]<br/>
+[使用]</p>
+
+<p>生成と使用のタイミングが分離されているパターン(DI)<br/>
+[生成]<br/>
+[生成]<br/>
+[生成]<br/>
+&lt; -&mdash; boot終了 -&mdash;><br/>
+&lt; -&mdash; runtime開始 -&mdash;><br/>
+[使用]<br/>
+[使用]<br/>
+[使用]<br/>
+[使用]</p>
+
+<h2>オブジェクトグラフの決定</h2>
+
+<p>DI以外のパターン、例えばfactory()メソッドとの比較は分かりやすいでしょう。コードの途中で現れたnew演算子やfactory()メソッドは<strong>&#8220;on demand&#8221;</strong>でオブジェクトの取得を行います。</p>
+
+<p>対してService Locaterを使ったパターンではどうでしょうか。オブジェクトやあるいはオブジェクトの生成方法はboot時に各コンテナに格納されるので<strong>生成と使用のタイミングの分離はDIと同じ</strong>です。</p>
+
+<p>しかしオブジェクト間の関係性=<strong>オブジェクトグラフの決定のタイミングが違います</strong>。SLではオブジェクトをコンテナから取り出しプロパティに格納あるいは直接利用します。その時点でdependentとdependencyの関係性が決定されます。つまり<strong>メソッド内の実装でその関係性が決定されます</strong>。</p>
+
+<p>対してDIではメソッドシグネチャーとその束縛の集合がオブジェクトグラフを決定します。リクエストを受けたboot時にどのオブジェクトグラフが生成されるかが最大限、決定されています。</p>
+
+<h2>その応用</h2>
+
+<p>BEAR.Sundayではその特性を利用してオブジェクト生成の再利用を行っています。莫大なオブジェクトグラフコンストラクションコストは再利用され運用ではほぼ０になります。10万を超えるファンクションコールは1/100の1000程度になります。これは抽象化レイヤーが最少のFWとほぼ同等です。</p>
+
+<p>この設計パターンはパフォーマンスの寄与と、より少ないコード実行を可能にしています。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Advent Day 8: Packagist]]></title>
+    <link href="http://koriym.github.io/adv8"/>
+    <updated>2012-12-12T00:00:00+09:00</updated>
+    <id>http://koriym.github.io/advent-day-8-packagist</id>
+    <content type="html"><![CDATA[<div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/adv8">Tweet</a>
+</div>
+
+
+<h2>Packagist登録</h2>
+
+<p>BEAR.PackageをPackagistに登録しました。<br/>
+composerのcreate-projectでインストールできるようになりました。</p>
+
+<p>composerインストール<br/>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>wget &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;http://getcomposer.org/composer.phar&quot;</span>&gt;http://getcomposer.org/composer.phar&lt;/a&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+または<br/>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -s &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;https://getcomposer.org/installer&quot;</span>&gt;https://getcomposer.org/installer&lt;/a&gt; | php
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>composerでBEAR.Sunday sandboxアプリケーションインストールします。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>php composer.phar create-project -s dev bear/package /tmp/mysunday
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>BEAR.Packageとその依存のBEAR.Sundayが指定したバージョンでインストールされます。<sup><a href="#footnote_0_1385" id="identifier_0_1385" class="footnote-link footnote-identifier-link" title=" インストールスクリプトはまだ用意できていないのでパーミッションの設定が現在必要です">1</a></sup> その後PHP5.4のbuilt-in web serverを立ち上げます。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>composer.phar create-project -s dev bear/package /tmp/mysunday
+</span><span class='line'>Installing bear/package <span class="o">(</span>dev-master bbc42caf8ed71e56c4f72f7270db012dc4b40d39<span class="o">)</span>
+</span><span class='line'>  &amp;ndash; Installing bear/package <span class="o">(</span>dev-master master<span class="o">)</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;Cloning master
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Created project in /tmp/mysunday
+</span><span class='line'>Loading composer repositories with package information
+</span><span class='line'>Installing dependencies from lock file
+</span><span class='line'>  &amp;ndash; Installing aura/installer-default <span class="o">(</span>1.0.0<span class="o">)</span>
+</span><span class='line'>  &amp;ndash; Installing aura/web <span class="o">(</span>1.0.0<span class="o">)</span>
+</span><span class='line'>  &amp;ndash; Installing aura/signal <span class="o">(</span>1.0.0<span class="o">)</span>
+</span><span class='line'>  &amp;ndash; Installing aura/router <span class="o">(</span>1.0.0<span class="o">)</span>
+</span><span class='line'>  &amp;ndash; Installing aura/di <span class="o">(</span>1.0.1<span class="o">)</span>
+</span><span class='line'>  &amp;ndash; Installing doctrine/common <span class="o">(</span>2.3.x-dev bb0aebb<span class="o">)</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;Cloning bb0aebbf234db52df476a2b473d434745b34221c
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;ul&gt;
+</span><span class='line'>&lt;li&gt;Installing ray/aop <span class="o">(</span>dev-master 3edfe6b<span class="o">)</span>
+</span><span class='line'>Cloning 3edfe6ba6b52e8d3190da62c14479ff7cce2377f&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;Installing ray/di <span class="o">(</span>dev-master 1.0.0-beta3<span class="o">)</span>
+</span><span class='line'>Cloning 1.0.0-beta3&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;Installing zendframework/zend-stdlib <span class="o">(</span>2.0.5<span class="o">)</span>&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;Installing zendframework/zend-log <span class="o">(</span>2.0.5<span class="o">)</span>&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;Installing nocarrier/hal <span class="o">(</span>dev-master cc46654<span class="o">)</span>
+</span><span class='line'>Cloning cc466546c6ca5df3e806cd91258cdf194518a12f&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;Installing twitter/bootstrap <span class="o">(</span>master master<span class="o">)</span>
+</span><span class='line'>Cloning master&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;Installing firephp/firephp-core <span class="o">(</span>dev-master c26d972<span class="o">)</span>
+</span><span class='line'>Cloning c26d972dcb28fd483fa193512091df7b3c85e450&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;Installing symfony/http-foundation <span class="o">(</span>2.0.x-dev 4de1a1f<span class="o">)</span>
+</span><span class='line'>Cloning 4de1a1f9a81a58bd6f24607894f76fd7017d45e7&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;Installing symfony/console <span class="o">(</span>2.0.x-dev v2.0.19<span class="o">)</span>
+</span><span class='line'>Cloning v2.0.19&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;Installing smarty/smarty <span class="o">(</span>v3.1.12<span class="o">)</span>
+</span><span class='line'>Checking out /tags/v3.1.12/@4664&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;Installing pagerfanta/pagerfanta <span class="o">(</span>dev-master 12f71d9<span class="o">)</span>
+</span><span class='line'>Cloning 12f71d99457b018fb80746f84514dd5b495c5789&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;Installing symfony/event-dispatcher <span class="o">(</span>dev-master eb290a4<span class="o">)</span>
+</span><span class='line'>Cloning eb290a447c0af5bea0d3de5d95d498afd8c82f89&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;Installing guzzle/guzzle <span class="o">(</span>v2.7.2<span class="o">)</span>&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;Installing facebook/xhprof <span class="o">(</span>0.9.2<span class="o">)</span>&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;Installing doctrine/dbal <span class="o">(</span>2.3.x-dev f63af19<span class="o">)</span>
+</span><span class='line'>Cloning f63af1948a609a96b8ea1c1302c7cdf2f9f51468&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;Installing printo/printo <span class="o">(</span>dev-master abd0d6b<span class="o">)</span>
+</span><span class='line'>Cloning abd0d6b68d00dc98a71124215780b57ec3ede268&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;Installing vdump/vdump <span class="o">(</span>0.1.0<span class="o">)</span>&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;Installing bear/resource <span class="o">(</span>dev-master 3ca644b<span class="o">)</span>
+</span><span class='line'>Cloning 3ca644bc29de4257ec9165ce1c9745150dc231dd&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;Installing bear/sunday <span class="o">(</span>dev-master a9b6fdd<span class="o">)</span>
+</span><span class='line'>Cloning a9b6fdd7cd34b9e7d2075a7c95e066547bcf59ac
+</span><span class='line'>zendframework/zend-stdlib suggests installing pecl-weakref <span class="o">(</span>Implementation of weak references <span class="k">for </span>Stdlib<span class="se">\C</span>allbackHandler<span class="o">)</span>
+</span><span class='line'>zendframework/zend-log suggests installing zendframework/zend-db <span class="o">(</span>Zend<span class="se">\D</span>b component<span class="o">)</span>
+</span><span class='line'>zendframework/zend-log suggests installing zendframework/zend-escaper <span class="o">(</span>Zend<span class="se">\E</span>scaper component, <span class="k">for </span>use in the XML formatter<span class="o">)</span>
+</span><span class='line'>zendframework/zend-log suggests installing zendframework/zend-mail <span class="o">(</span>Zend<span class="se">\M</span>ail component<span class="o">)</span>
+</span><span class='line'>zendframework/zend-log suggests installing zendframework/zend-validator <span class="o">(</span>Zend<span class="se">\V</span>alidator component<span class="o">)</span>
+</span><span class='line'>pagerfanta/pagerfanta suggests installing doctrine/orm <span class="o">(</span>2.&lt;em&gt;<span class="o">)</span>
+</span><span class='line'>pagerfanta/pagerfanta suggests installing doctrine/mongodb-odm <span class="o">(</span>2.&lt;/em&gt;<span class="o">)</span>
+</span><span class='line'>pagerfanta/pagerfanta suggests installing solarium/solarium <span class="o">(</span>2.&lt;em&gt;<span class="o">)</span>
+</span><span class='line'>symfony/event-dispatcher suggests installing symfony/dependency-injection <span class="o">(</span>2.2.&lt;/em&gt;<span class="o">)</span>
+</span><span class='line'>symfony/event-dispatcher suggests installing symfony/http-kernel <span class="o">(</span>2.2.*<span class="o">)</span>
+</span><span class='line'>Generating autoload files
+</span><span class='line'>Do you want to remove the existing VCS <span class="o">(</span>.git, .svn..<span class="o">)</span> <span class="nb">history</span>? <span class="o">[</span>Y,n<span class="o">]</span>? Y
+</span><span class='line'><span class="nv">$ </span>chmod -R 777 /tmp/mysunday/apps/Sandbox/data/
+</span><span class='line'><span class="nv">$ </span>chmod -R 777 /tmp/mysunday/apps/Helloworld/data/
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd</span> /tmp/mysunday/apps/Sandbox/public/
+</span><span class='line'><span class="nv">$ </span>php -S localhost:8088 web.php
+</span><span class='line'>PHP 5.4.9 Development Server started at Wed Dec 12 13:11:37 2012
+</span><span class='line'>Listening on &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;http://localhost:8088&quot;</span>&gt;http://localhost:8088&lt;/a&gt;
+</span><span class='line'>Document root is /private/tmp/mysunday/apps/Sandbox/public
+</span><span class='line'>Press Ctrl-C to quit.
+</span></code></pre></td></tr></table></div></figure></notextile></div></li>
+</ul>
+
+
+<ol class="footnotes">
+  <li id="footnote_0_1385" class="footnote">
+    インストールスクリプトはまだ用意できていないのでパーミッションの設定が現在必要です [<a href="#identifier_0_1385" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+]]></content>
+  </entry>
+  
+</feed>

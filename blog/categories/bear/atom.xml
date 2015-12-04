@@ -1,0 +1,1510 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: BEAR | BEAR Blog]]></title>
+  <link href="http://koriym.github.io/blog/categories/bear/atom.xml" rel="self"/>
+  <link href="http://koriym.github.io/"/>
+  <updated>2015-12-04T11:25:59+09:00</updated>
+  <id>http://koriym.github.io/</id>
+  <author>
+    <name><![CDATA[Akihito Koriyama]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[PHPNW 2013(2) - Presentation]]></title>
+    <link href="http://koriym.github.io/blog/2014/01/10/phpnw2013-part2/"/>
+    <updated>2014-01-10T19:53:00+09:00</updated>
+    <id>http://koriym.github.io/blog/2014/01/10/phpnw2013-part2</id>
+    <content type="html"><![CDATA[<p><em>※ <a href="/blog/2014/01/04/phpnw2013/">PHPNW 2013(1)</a> からの続きです</em></p>
+
+<p>&ldquo;何のためにイギリスまで行って話をするのか&rdquo;-この問いに対して高い目標を持っていました。</p>
+
+<p>「世界レベルのプロのエンジニア/アーキテクトの人達をインスパイアさせたい」</p>
+
+<p>単に自分のソフトウェアの紹介や、便利な使い方を紹介するだけで終わるつもりはありませんでした。
+持ち時間は50分。終わりにQ&amp;Aを考えると40分前後が実質のプレゼンテーションの時間です。自己紹介、DIは自分で、AOPをリチャードさん、そしてRESTを通訳、最後にまとめを自分がするというハイブリッドなプレゼンテーションにしました。</p>
+
+<p>無名のフレームワークの話をどれだけの人が聞きに来るか、想像も付きませんでしたが立ち見は出ないまでもほぼ満席です。知った顔も見えます。（leedsphpでのセッションの人達がまた聞きに来てくれてました。）
+多くのボランティアスタッフがphpnwカンファレンスの運営を支えてますが、撮影スタッフはプロです。会場の一番奥にいる2人組の撮影クルーのとなりの壁掛けデジタル時計が15:00:00を指したらプレゼンテーションスタートです。</p>
+
+<p>撮影されたビデオはいまだに公開されていないので、発表ノートと共に全てのスライド77枚を紹介します。</p>
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.002.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<h2>Introduction</h2>
+
+<p>(after self introduction)</p>
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.005.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>I was really surprised when BEAR.Sunday was chosen for this great conference session.</p>
+
+<p>I am very happy be here as a speaker.</p>
+
+<p>But, some of you guys may wonder (or may have doubts) about an unknown person talking about an unknown framework.
+ But I’m not here to teach you how to use my framework. No.
+ I’m here to share a new way of thinking, a new way of solving web problems.</p>
+
+<p>How do we look at these problems. Yes, It’s about outlook.</p>
+
+<p>Ok let’s start.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.006.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>BEAR.Sunday offers no libraries of its own.</p>
+
+<p>PHP namespaces, PSR, a new coding github culture, unit testing, a new trend of library oriented frameworks&hellip; these have all happened recently and push us to a more library oriented way of thinking.</p>
+
+<p>So BEAR.Sunday chooses not to have it’s own components, It uses others from aura, symfony and zend etc.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.007.jpg" title="BEAR.Sunday@PHPNW13" >
+No libraries, instead, BEAR.Sunday offers three object frameworks.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.008.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>What is the framework, by the way ?</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.009.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>My friend told me like that.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.013.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>Dependency Injection framework,
+Aspect Oriented Framework,
+and Hypermedia framework for object as a service.
+&hellip; these technology are centered but also widely used in BEAR.Sunday framework.</p>
+
+<p>Let’s take a look one by one.  So which one attracts you ?
+let’s start DI.</p>
+
+<h1>DI Framework</h1>
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.014.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>DI &hellip; in many case, People said DI is good tool for testing.
+Well, it is true&hellip;but  Is it really core value for DI pattern ? 
+We will see some another benefit, mainly these two. </p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.015.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>DIP, Dependency Inversion Principle.</p>
+
+<p>&ldquo;How many of you know this principle ?&rdquo;</p>
+
+<p>(around 70%)</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.016.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>Robert C. Martin says the following.</p>
+
+<p>So I decided that we should take this seriously.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.017.jpg" title="BEAR.Sunday@PHPNW13" >
+Let’s take look at the code.</p>
+
+<p>BEAR.Sunday uses Ray.Di which is a subset of Google Guice for PHP.</p>
+
+<p>It uses a binding DSL in PHP.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.018.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>This class needs renderer as a dependency,
+We annotate it with an injection point. 
+You can also annotate setter methods with @Inject.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.019.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>You then bind the interface to an instance provider.
+Concrete class, factory or an instance.</p>
+
+<p>This is binding an abstraction to a concretion.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.020.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>Now the module knows about all of the bindings.</p>
+
+<p>With this module, You can create an injector.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.021.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>Then, We can pull an instance with bound dependencies using an interface.<em>
+We do this with the injector that knows all bindings in the application.</em></p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.022.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>You can change an object graph depending on context.</p>
+
+<p>Its not uncommon to see the code like the above.
+The state is passed in the application logic.
+ Then the behavior of the application is changed by the state.
+Even though we use objects, this is more like procedural programing.</p>
+
+<p>Also concrete class names have been used. to have instantiate objects that are needed.  For better flexibility and simplicity. The code can be changed like below. This code does not need to changed even if we use another renderer.</p>
+
+<p>We should code a structure, not as a procedure.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.023.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>In BEAR.Sunday there is a clear distinction between compilation and runtime.</p>
+
+<p>Concrete class names should only appear at compile time.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.024.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>Then at runtime it looks like this.</p>
+
+<p>Never use concrete class names.
+Instead use an “Abstraction” or “Plug Consent” that I mentioned earlier.
+Which is an interface or an abstract class.</p>
+
+<p>When type hinting a concrete class name should never be used.</p>
+
+<p>This is <em>not</em> just for the sake of assertion or error checking,
+it is here to describe the <strong>applications design</strong>.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.025.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>Best practice says you should have only one root object in your bootstrap.</p>
+
+<p>This seems very different what we see in other PHP DI containers ?</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.026.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>It might sound crazy,
+but we follow this practice.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.027.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>The role of application object in BEAR.Sunday is very simple.
+It holds the services that we use in the application script. That’s all.</p>
+
+<p>This application class has no functionality or behavior.
+Also you will notice that the application holds no mode or any context.
+There is no global state like for example a globally defined DEBUG or ENVIRONMENT constant.</p>
+
+<p>The context is used how to bind dependencies, not a how to behave in runtime as we saw.
+That kind of state information has permanently disappeared after injection. We don’t need it.</p>
+
+<p>The dependencies have already been injected.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.028.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>Let’s take a look at a BEAR.Sunday application object graph.</p>
+
+<p>You can access it via the development tools.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.029.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>The AppModule knows all of bindings and their abstractions.
+The injection is then made to get the root object using these binding rules.
+The injector now can grab the application object.</p>
+
+<p>Lets see how dependencies are resolved.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.030.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>A Router, web response, resource client and dependency injector.</p>
+
+<p>These are all the dependencies that are needed by the application object.</p>
+
+<p>In the application script, we can configure the application with these services.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.031.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>The Application script is a simple script which shows its own structure.</p>
+
+<p>Don’t be surprised for goto statement or global variable.
+This is pre-”separation of concerns”
+ It is a meeting point between the http web world and with PHP object oriented world.  This script tells whole top level application sequence</p>
+
+<p>Feel free to edit it as you like.   Ok let’s get back to application graph building&hellip; </p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.032.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>The services in the application script may also need dependencies recursively. </p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.033.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>Finally we can get one single object graph. Which is huge. Even my 27 monitor can’t show all the objects at once.</p>
+
+<p>That is why I made this graph visualizer. </p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.034.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>This also another principle of BEAR.Sunday.</p>
+
+<p>It has a unique Runtime DRY*. Don’t repeat the same procedure again and again.</p>
+
+<p>the whole application object graph can be serialized and stored in memory. It is not recreated on each request. All dependency are injected and initialized. *  Super fast.</p>
+
+<p>By this I mean that the whole application object graph can be serialized and stored in memory. It is not recreated on each request.</p>
+
+<p>We can serialize whole application which all dependency are injected and initialized.  This means a huge boost in performance.
+Super fast.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.035.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>Have you got it ?  BEAR.Sunday’s application object is build in the correct way, with DI best practices and performance.
+ DI is not only a convenient tool for testability*. That is just one part of the power of DI.  By following DIP completely it can lead us to proper application architecture.
+ DI is not a magic wand which automatically upgrades our code.</p>
+
+<p>But if you want to follow OOP principles and write clean code with ease, Its definitely worth it.</p>
+
+<p>Runtime code can be simpler, faster, more flexibility and easy to read.  That is the 1st framework. let’s go to the 2nd !</p>
+
+<h1>AOP Framework</h1>
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.036.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.037.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>Who of you know about AOP?</p>
+
+<p>Have used it?</p>
+
+<p>This is a definition&hellip;.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.038.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<ul>
+<li><p>Have you seen code like in RED? Mixture of business &amp; app logic?</p></li>
+<li><p>It runs fine but&hellip;.</p></li>
+<li><p>Not good separation of concerns</p></li>
+<li><p>Problems with testing, readability and refactoring.</p></li>
+<li><p>Notice how clean this could be in green&hellip;</p></li>
+</ul>
+
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.039.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>The Aspect Orientated Framework that BEAR.Sunday uses,
+implements AOP using what is called method interception.</p>
+
+<p>Let’s look at a simple example.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.040.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<ul>
+<li><p>Consumer and method stay exactly the same</p></li>
+<li><p>We don’t need to change them</p></li>
+<li><p>There is no base class</p></li>
+<li><p>There is no special way of writing these classes or calling them</p></li>
+</ul>
+
+
+<p>The magic I will show you later.</p>
+
+<p>Upon execution the interceptor does not need to be registered.
+The interception is registered upon binding.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.041.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<ul>
+<li><p>Lets Break up the concerns</p></li>
+<li><p>Pull out the logging etc &ndash; this is not business logic, they are app logic</p></li>
+</ul>
+
+
+<p>An aspect</p>
+
+<ul>
+<li>cross-cuts a method</li>
+<li>is readable</li>
+<li>testable</li>
+<li>completely re-usable and can be re-applied.</li>
+</ul>
+
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.042.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>Imagine a Rock Concert</p>
+
+<ul>
+<li>Band &ndash; single concern &ndash; business logic</li>
+<li>Security barrier and guards are an aspect</li>
+</ul>
+
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.043.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>This is how we use the interceptor in BEAR.Sunday. The interceptor is simple.</p>
+
+<ul>
+<li>We invoke the source method as defined</li>
+<li>Then we retrieve the source object</li>
+<li>And arguments as needed.</li>
+</ul>
+
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.044.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>Here is an example of how to use a transaction in AOP.</p>
+
+<p>As you can see the invocation object has been injected using DI.</p>
+
+<p>We can then act upon that wrapping it in a transaction, which rolls back when needed.</p>
+
+<p>Note the $invocation->proceed() method.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.045.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>A Simple cache interceptor.</p>
+
+<ul>
+<li>You can add fancy rules too &ndash; this is simple</li>
+<li>Is the cache there &ndash; yes? Just return it, no? Use invocation->proceed</li>
+</ul>
+
+
+<p>Get the result and warm cache</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.046.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>Create bindings with annotations</p>
+
+<ul>
+<li>This shows @db annotation binding</li>
+<li>@api  annotation &ndash; JSON would be this implementation.</li>
+</ul>
+
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.047.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<ul>
+<li>Is MVC enough?</li>
+<li>Sometimes stuck where to put things?</li>
+</ul>
+
+
+<p>Much WEB FRAMEWORK functionality is CROSS CUTTING concerns.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.048.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>An API will often need to change its processing order.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.049.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>For example:</p>
+
+<ul>
+<li>Need AUTHENTICATION when being accessed REMOTELY</li>
+<li><p>NOT through the LOCAL app.</p></li>
+<li><p>Some API’s might need Validation or LOGGING.</p></li>
+<li><p>IMAGINE boss asks you to log each DELETE? EASY?</p></li>
+</ul>
+
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.050.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>In BEAR these cross-cutting concerns can be registered using</p>
+
+<p>ANNOTATIONS,
+URI
+method names.</p>
+
+<p>CROSS-CUTTING CONCERNS
+attached + detached DEPENDING on context.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.051.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<ul>
+<li><p>Model interacted with differently depending on CONTEXT</p></li>
+<li><p>Example FORMS</p></li>
+<li><p>BEAR Sunday Forms are an ASPECTS</p></li>
+<li><p>Can decouple validation</p></li>
+</ul>
+
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.052.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>This is the magic</p>
+
+<ul>
+<li>It is ugly</li>
+<li>It is created for you</li>
+<li>NOT weaver model, AOP Compiler model</li>
+<li>For Type Safety &ndash; For Dependency Injection &ndash; Super fast!</li>
+</ul>
+
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.053.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>INJECTION BY ASPECT</p>
+
+<ul>
+<li>MASTER/SLAVE DB</li>
+<li>master on WRITE</li>
+<li>slave on READ</li>
+</ul>
+
+
+<p>The CORE CONCERN is it uses a DB.</p>
+
+<p>The CROSS CUTTING concern is the LOGIC that decides what  DB.</p>
+
+<ul>
+<li>Extremely testable.</li>
+<li>Because CORE CONCERN LOGIC does not change.</li>
+</ul>
+
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.054.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>To wrap UP</p>
+
+<p>The AOP spec in BEAR.Sunday follows the AOP ALLIANCE standard which is common in the JAVA world.</p>
+
+<p>LAYERING of aspects can be freely adjusted DEPENDING on the CONTEXT and environment.</p>
+
+<p>It is TYPE SAFE meaning full dependency injection and seem-less integration with the BEAR compiling step. This is by no means slow!</p>
+
+<p>At runtime necessary components can injected based on look up methods and arguments.</p>
+
+<h1>Hypermedia Framework</h1>
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.055.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.056.jpg" title="BEAR.Sunday@PHPNW13" >
+HyperMedia Framework 、それはオブジェクトをWebサービスのように扱うという試みです。</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.057.jpg" title="BEAR.Sunday@PHPNW13" >
+これがリソースオブジェクトです。URIがクラスにマップされます。</p>
+
+<p>publicプロパティとリクエストインターフェイスがあり、リクエストはステートレスに行われます</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.058.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>リクエストには専用のクライアントが必要です。リクエストを受け取ったリソースは自分の値を決定します。</p>
+
+<p>リソースはまた、他のリソースを必要とするかもしれません。</p>
+
+<p>値がビューコンポーネントに渡され、レンダリングが行われるのではなく</p>
+
+<p>ビューはそれぞれのリソースにインジェクトされ、__toStringメソッドとコンテキストによって出力されます。</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.059.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>HATEOASという言葉を聞いた事あるでしょうか。</p>
+
+<p>アプリケーションのステートをハイパーメディアでドライブします。</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.060.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>@LinkアノテーションとURIテンプレートを使って、リソースをリンクします。</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.061.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>ハイパーメディアAPIはAPIとAPIを繋げ、本当の意味のRESTにします。</p>
+
+<p>Webのように、リソース間の関係をクライアントではなくサービスが持つのです。</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.062.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>world wide webが成功した理由。</p>
+
+<p>それをアプリケーションアーキテクチャの中心にします。</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.063.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>REST、つまりAPI開発を開発の中心にしているです。</p>
+
+<p>かつてはDBはエンタープライズのコアバリューでした。FWや言語が変わってもDBがあれば良かったのです。</p>
+
+<p>今APIがコアバリューです。</p>
+
+<p>APIはハブです。複数のクライアントとストレージ、あるいは他のサービスと接続します。</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.064.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>アンクルBobのClean Architecture、この図を見た事あるでしょう。</p>
+
+<p>(around 50%)</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.065.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>BEAR.Sundayのリソースは同じようにレイヤリングされています。RESTのネイチャーです。</p>
+
+<p>アプリケーションスクリプトがページリソースにリクエストし、ページリソースはアプリケーションリソースをリクエストします。</p>
+
+<p>webページの後ろに何が有るのが露出(expose)していないように、背後のリソースが隠れるのです。</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.066.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>実際のリソースをみてみましょう。</p>
+
+<p>緑のラインがページリソース、それは赤いラインのアプリケーションリソースで構成されています。</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.067.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>開発画面ではURIとそのバウンダリー、そして開発ツールが表示されています。</p>
+
+<p>リソースのロジックとビューはオンラインで編集可能です。</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.068.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>ページリソースはwebページの役割をし、HTTPのメソッドに対応したリクエストメソッドを持ちます。</p>
+
+<p>パラメーターを見て下さい。フォームとPHPのメソッドは統合され同じパラメーターをもっています。   手続きではなくて契約を表しているのです。</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.069.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>リソース中心、のBEAR.Sundayではこのような一覧表示は自然なことです。 
+メソッドをクリックしたらフォームが表示されそれぞれのテストができるようになる&hellip;のは少しお待ちください。</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.070.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>アノテーションやDI、これらの言葉はパフォーマンスLoverにとって悪夢に聞こえないでしょうか？</p>
+
+<p>実際は構成済み(configured by context)のオブジェクトが再利用されるので、これらのコストは０になるのです。</p>
+
+<p>フレームワークとしての最大限の柔軟性を持ちながら、パフォーマンスは非常に良好です。</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.071.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>リソースの指定にはクラス名ではなくてURIを使います。</p>
+
+<p>Facebookが開発したThriftを使えば、高速なJavaプログラムを同じURIでコールする事ができます。</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.072.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>プログラムは変わりやすいところと変わりにくいところがあります。
+我々はそれぞれハードスポット、ソフトスポットと呼んでいます。</p>
+
+<p>システム毎に決まる変更点はハードスポット、一旦構成されればリクエストの度には変わりません。 例えばDBのIDや利用するテンプレートエンジンの種類です。</p>
+
+<p>アスペクトはソフトスポットを取り扱います。例えばメソッドによって接続DBを変えます。</p>
+
+<h1>What is BEAR.Sunday ?</h1>
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.073.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>BEAR.Sundayは接続フレームワークです。
+ DIはオブジェクトとオブジェクトを依存性によって接続します。アプリケーションはオブジェクトグラフとして表されます。</p>
+
+<p>同じインターフェイスしかし違う実装でオブジェクトを繋ぐ事で、HTML表現の普通のアプリなのか、それともモバイルアプリケーションのためのAPIアプリケーションなのかを決定するのです。</p>
+
+<p>AOPはドメインロジックとアプリケーションロジックをつなぎます。メソッドインターセプションは驚くべき簡単な仕組みで、本質的関心と横断的関心を繋ぎます。</p>
+
+<p>AOPプログラミングに行ったん慣れてしまうと、一体以前はどこにログやトランザクション、認証やバリデーションを置く事ができたのか不思議に思うでしょう。</p>
+
+<p>REST &ndash; Hypermediaは情報と情報、リソースとリソースを接続します。リソースは意味によって繋がれ、そのリンクはサービスサイドで変更可能です。</p>
+
+<p>情報に真の意味での価値を与えるのはその繋がりです。APIをハブに、RESTを中心にしたロングタームのアーキテクチャをするのです。</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.074.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>BEAR.SUndayはアブストラクションフレームワークです。</p>
+
+<p>抽象化のためのテクノロジーを最大限使用しています。</p>
+
+<p>実装を直接表すのではなく、抽象化された意図(intention)を表します。</p>
+
+<p>アノテーションでアプリケーションロジックを、ハイパーリンクでリソースとリソースの関係を表すのです。手続きではなく、関係性を記述するのです。</p>
+
+<p>コンテキストと束縛によって、その意図に実装(implementation)が与えられます。</p>
+
+<p>@Transactionalとアノテートしたメソッドにはトランザクションコードがラップされ、URIには全く別の言語の別のメソッドをマップする事が原理的に可能なのです。</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.075.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>We had a lot of technical talks.</p>
+
+<p>3 frameworks in one session ?  You must be tired.</p>
+
+<p>Lets take a break with this beautiful English garden.</p>
+
+<p>It is full of flowers, trees, fountains. It seems to offer everything.
+ Each garden has its own style but fundamentally has a similar design.</p>
+
+<p>They certainly seem joyful and certainly contain many great features and are welcoming.</p>
+
+<p>Visitors can enjoy the garden as the gardener intended them to. </p>
+
+<p>For me, many frameworks look like this English garden.</p>
+
+<h2> </h2>
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.076.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>Now, Look at a Zen garden.</p>
+
+<p>No water, No trees or flowers.</p>
+
+<p>There is nothing here that&rsquo;s common in western gardens.</p>
+
+<p>But you will notice after some time,
+it offers nothing but <strong>perfect harmony</strong>.</p>
+
+<p>This garden has only abstraction. Your imagination and your mind can reflect on this garden (when it&rsquo;s ready.)</p>
+
+<p>Minimalism. Look at this garden, what can I remove? Nothing, it&rsquo;s impossible! 
+The opposite way of thinking is more common.
+You add more elements and functions until you can’t add anymore, then you will think. “oh now it is complete.”
+ When I built this framework, I thought:
+ ‘How can I reduce the rules or code base? without loosing any functionality by design’</p>
+
+<p>To provide the best tools, I decided not to try and develop them myself. It&rsquo;s impossible. A lot smarter people can make better tools.</p>
+
+<p>Instead, I decided to provide the maximum freedom you can then choose the best tools with proper constraints.</p>
+
+<p>Freedom doesn’t meant,  You can chose anything for any part. You can’t wear jeans under a kimono. </p>
+
+<p>You need harmony, you need good constraints.</p>
+
+<p>BEAR.Sunday wants to be your zen garden, zen framework.</p>
+
+<p>I hope your imagination, your creativity can be maximized through this connecting framework, a harmony framework.</p>
+
+<p>Lastly, don’t put &rsquo;d' after &lsquo;n&rsquo;, That’s another framework. Thank you very much.</p>
+
+<hr />
+
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.077.jpg" title="BEAR.Sunday@PHPNW13" ></p>
+
+<p>Do-mo, Arigato.</p>
+
+<p>力を尽くし臨んだプレゼンテーションは、次の人が「ちょっとやりにくい」と言ってくれたぐらい大きな拍手で終了しました。</p>
+
+<p>（続く）</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[PHPNW 2013 (1)]]></title>
+    <link href="http://koriym.github.io/blog/2014/01/04/phpnw2013/"/>
+    <updated>2014-01-04T22:30:00+09:00</updated>
+    <id>http://koriym.github.io/blog/2014/01/04/phpnw2013</id>
+    <content type="html"><![CDATA[<p>2014年、あけましておめでとうございます。
+年が変わってしまいましたが、2013年のBEAR.Sundayにとって最大のイベントphpnw13に参加した事を記事にします。</p>
+
+<h2>20 June; CFP (Call for Paper)</h2>
+
+<p><img src="/images/blog/phpnw13.30.jpg" width="800" title="PHPNW13" ></p>
+
+<p>phpnw(PHP North West)カンファレンスはイギリスのマンチェスターで2008年から毎年開催されている欧州でも有数の規模のPHPカンファレンスです。
+スピーカーとして参加する為には<a href="http://conference.phpnw.org.uk/phpnw13/call-papers/">CFP</a>が必要で、単に「自分の興味ある技術的な話をします」ではなく“why we should accept your talk” （なぜ主催者達が自分の応募を採用するのか）という事を伝えなければなりません。
+以下のようにタイトルを３つ考えました。</p>
+
+<ul>
+<li>API driven development for API driven World</li>
+<li>Think differently, REST centric approach solve REST problem effectively.</li>
+<li>A resource orientated framework using the DI /AOP/REST Triangle</li>
+</ul>
+
+
+<p>採用されたのは３つ目です。そのタイトルに沿った詳細な紹介文を通訳兼共同発表者のリチャード（<a href="https://twitter.com/mackstar">@mackstar</a>）さんに用意してもらって応募しました。</p>
+
+<blockquote><p>Many web developers have a REST or API part of their app when offering it as a service. In this session I will show you how in making REST a central part of your design you can have a huge amount of consistency at the core of how you code. REST gives us much of the power we need in development and is not just for API&rsquo;s. This session will completely change the way you think about REST.
+BEAR.Sunday is a REST-centric framework that makes you think totally different about how to go about architecting web-apps and platforms to the maximum potential with elegance.</p></blockquote>
+
+<h2>03 July; 採用</h2>
+
+<p>採用の返事が来たのは7月4日。夏期休暇でスイスを友人とレンタカーでドライブをしてた時に連絡がありました。</p>
+
+<blockquote><p>We were delighted to hear from you and we would love to extend an invitation for you to give your talk &ldquo;A resource orientated framework using the DI /AOP/REST Triangle&rdquo; at our conference.</p></blockquote>
+
+<p>採用された事に驚きました。そして今スイスにいるのにまた三ヶ月後にイギリスに返るのかとも思いましたが、友人は「行くしか無い、他の選択肢はない」とはっきり言い切ります。
+英語のプレゼンも、舞台の大きさも、完全に自分のキャパシティを超えてましたが腹を決め渡英するとの連絡をしました。</p>
+
+<p>採用のプロセスは厳しくキュレーターが４人全ての人の採点が10点中の9か10が必要です。200以上の応募があり採用率は15%以下。
+技術レベルは三段階の最上位での応募でした。「基本的にみんなフレームワーク選択の話にあまり興味はない」との事で応募はかなり無謀だったのですが、一緒に発表をするリチャードさんのクレジットもあり採用されました。
+３つのトラックが同時進行して、ホールは大中小の大きさがあります。選ばれたのは定員100人程度の真ん中の大きさのホールでした。</p>
+
+<h2>28 Sep; @leedsphp ユーザーグループとBBC</h2>
+
+<p>どうせ渡英して話すならと地元の<a href="http://leedsphp.org/">leedsphpユーザーグループ</a>のmeetupとリチャードさんが働くBBCでもセッションを持つ事になりました。いわば大舞台のphpnwのカンファレンスの練習です。
+日本の勉強会のようなものですが、流石イギリスというか、雰囲気のある場所です。</p>
+
+<p><img src="/images/blog/phpnw13.11.jpg" width="800" title="leedsphp" >
+<img src="/images/blog/phpnw13.10.jpg" width="800" title="leedsphp" ></p>
+
+<p>手元の書類が見えにくいぐらい照明を落としたところで最初のスピーチをしました。
+機材トラブルもあり、スピーチそのものできはあまり良くなかったのですがかなりの熱を持って聞いてもらう事ができました。</p>
+
+<p><img src="/images/blog/phpnw13.08.jpg" width="800" title="leedsphp" ></p>
+
+<p>通常は（日本と違って）トークが終わると基本すぐに解散らしいのですが、終わった後もみなさんといつまでも色々な事を話ました。「こういう反応は今まで見た事がない」反応だったそうです。
+興味を持って質問を積極的にしてくれた方はSymfonyを使っている人が多くSensio Labsの方もいました。元々Symfonyユーザーは多いのでしょうが、日本のSymfonyユーザー会の人達の縁ある事もありなにか不思議な感じです。</p>
+
+<p>次はBBCです。ここでのセッションが一番緊張しました。</p>
+
+<p><img src="/images/blog/phpnw13.15.jpg" width="800" title="BBC" >
+<img src="/images/blog/phpnw13.07.jpg" width="800" title="BBC" >
+<img src="/images/blog/phpnw13.06.jpg" width="800" title="BBC" ></p>
+
+<p>BBCでの経験は驚きの連続です。世界最高のメディア企業でのWebプロダクト制作、その現場です。
+とにかくかっこよくて、詳しい事が書けないのは残念です。一日始業から終わりまでインターンのように過ごす機会にも恵まれその現場の空気やワークフローの実際に立ち会う事ができました。
+シニアアーキテクトのマシューさんとのランチの機会も頂きました。「軽いおしゃべり」という予定だったのですが、ほとんどの時間はBEAR.Sundayについての質問とその答えというやり取りになりました。
+質問が非常にシャープで的確です。「そのアーキテクチャのポイントを、ノンテクニカルな人に3分で伝えるとしたらどう話す？」等、こちらが試されるような質問の連続です。
+真剣な質問に真剣に答えます。手応えのあるやりとりは満足のできるものでした。</p>
+
+<p><img src="/images/blog/phpnw13.002.jpg" width="800" title="BBC" >
+<img src="/images/blog/phpnw13.16.jpg" width="800" title="BBC" >
+<img src="/images/blog/phpnw13.17.jpg" width="800" title="BBC" ></p>
+
+<p>とても緊張してプレゼンテーションを行いました。イギリスのバーの二階でやったleedsphpユーザーグループの時と違って、就業中に時間をさいて集まってくれたBBCのWebエンジニアの方々はとても真剣です。
+しかし内容を高く評価してもらいphpnwでの発表が少し安心できるものになりました。またアーキテクチャにとても関心が高い事の確信も得られました。
+<img src="/images/blog/phpnw13.001.jpg" width="800" title="BBC" >
+（BBC Future Media SportsのSenior Technical Architectの<a href="http://www.bbc.co.uk/blogs/internet/authors/Matthew_Clark">マシュー・クラーク</a>さんとリチャードさんの三人とBCの食堂でランチ。)</p>
+
+<h2>phpnw13</h2>
+
+<h3>02 Oct; Hackason</h3>
+
+<p><img src="/images/blog/phpnw13.19.jpg" width="800" title="phpnw13 hackason" ></p>
+
+<p>カンファレンスの前日金曜は昼間はチュートリアル、夜はハッカソンがあります。ハッカソンと言っても日本のものと違って何かを個人で制作して発表するとかではありません。
+例えば「PHP-Excel」とか並んでいるテーブルにプレートがあるので、自分の協力したいオープンソースのテーブルに加わりコーディングしたりおしゃべりをしたりするのです。終わる時に特に発表もありません。
+カンファレンスの前日のソーシャルな時間とも思えました。<a href="http://leedsphp.org/">@leedsphp</a>で知り合った人達にも会え、色々話す事ができました。</p>
+
+<h3>05 Oct; 発表の日</h3>
+
+<p><img src="/images/blog/phpnw13.31.jpg" width="800" title="phpnw13" ></p>
+
+<p>セッションは土曜日から始まります。オープニングキーノートはLorna MitchellさんとIvo Janschさんの <strong><a href="http://conference.phpnw.org.uk/phpnw13/schedule/lorna-mitchell-ivo-jansch/">0x0F Ways to be a Better Developer</a></strong>
+（より良いディベロッパーになる0x0Fの方法）。</p>
+
+<script async class="speakerdeck-embed" data-id="2a6e79d01160013121333e135808c36d" data-ratio="1.33333333333333" src="http://koriym.github.io//speakerdeck.com/assets/embed.js"></script>
+
+
+<p>会場は２つに別れていて、二人のスピーカーを映像で繋げそれぞれ交互に変わりながらプレゼンテーションを行うといった凝った仕掛けです。キーノートのテーマがPHPの進化や特定技術ではなくて「より良い開発者になる」というのは印象的でした。
+例えば<em>&ldquo;Get Out of Your Comfort Zone&rdquo;</em> 「普段の安全で良く知った自分のフィールドから飛び出し、リスクをとって"Enjoy the unknown"しましょう」という事ですが、
+「今回マンチェスターで自作のフレームワークのプレゼンテーションを行うのは充分<code>Get Out</code>してますしてます。<code>the unknown</code>を楽しんでます！」と頷きながら聞いてました。</p>
+
+<p>自分達の発表の練習や最後の準備もしなければなりませんが、聞きたいセッションも沢山あります。プレンゼンテーションの内容は非常に充実していて、スピーカーも普段もネットで目にするような有名な人ばかりです。</p>
+
+<p>phpnw13  Schedule
+<a href="http://conference.phpnw.org.uk/phpnw13/schedule/">http://conference.phpnw.org.uk/phpnw13/schedule/</a></p>
+
+<p>「speaker shadowです」１人のスタッフが現れました。どうもスピーカーの世話をする人の事をspeaker shadowというようです。かっこいい言い方するんだなあとか思いながら、装備するワイヤレスマイクや接続するMacの手順などの打ち合わせをします。</p>
+
+<p>スピーカーに対するケアがとても手厚いのです。phpnwは有料カンファレンスで、チケットは£135.00（現在12/31のレートで23,430円）します。
+スピーカーに報酬はありませんが、滞在中の食事や宿泊費は全て賄われます。ホテルの部屋にはエッセンシャルキットと言って、ミネラルウォーターや洗面道具のキットのwelcomeセットのようなものが部屋に用意されています。
+スピーカーだけにトレーナーやギフトもありました。食事は例えば、スピーカーディナーはコース料理なのですがそのメニューは事前にwebで注文しておく事ができ、例えばベジタリアンの人などへの配慮もあります。
+スピーカー同士の交流が図られるという事が大事です。食事の度に顔を合わせて一緒に話したりするので自然と交流が持て色々な話が聞けます。</p>
+
+<p>いよいよ、時間が近づいてきました。
+前のセッションはDrupal。世界のPHP開発者の誰もが知るプロダクトでスピーカーはその開発者、立ち見がでるくらい満員です。</p>
+
+<p>その次が自分達の番、誰も知らないフレームワークの発表です。</p>
+
+<p>（続く）</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[BEAR.Sunday England Tour 2013]]></title>
+    <link href="http://koriym.github.io/2013/09/bear-sunday-england-tour-2013/"/>
+    <updated>2013-09-26T00:00:00+09:00</updated>
+    <id>http://koriym.github.io/2013/09/bear-sunday-english-tour-2013</id>
+    <content type="html"><![CDATA[<p><div id='fb-root'></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = '//connect.facebook.net/en_US/all.js#xfbml=1';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class='fb-post' data-href='<a href="https://www.facebook.com/permalink.php?id=110116939178462&amp;story_fbid=168349486688540">https://www.facebook.com/permalink.php?id=110116939178462&amp;story_fbid=168349486688540</a> '></div>
+</p>
+
+<br clear="all" />  
+
+
+<p>無名の個人が作った無名のフレームワークをこれだけの規模のカンファレンスで発表するというのを聞いた事がありません。そもそも「誰も新しいフレームワークに興味が無い」というこで、新しいどころか世界の誰もが知っているフレームワークが200を超えるCfPの中で落選してる事も知りました。</p>
+
+<p>そこでこういう言葉でセッションを始めることにしました。紹介します。</p>
+
+<blockquote><p>It’s an honor to be here as a speaker.<br/>
+But, some of you guys may wonder (or may have doubts) about an unknown person talking about an unknown framework.<br/>
+ But I’m not here to teach you how to use my framework. No .<br/>
+ <br/>
+I’m here to share this new way of thinking, a new way of solving the web problem.<br/>
+How do we look at the problem.</p>
+
+<p>Yes, It’s about outlook.</p>
+
+<p>Ok let’s start.</p></blockquote>
+
+<p>こういう機会を得られたのはリチャードさんという素晴らしい開発者のこれまでのコミュニティに対するコントリビュートがあり、彼のアクションに周りの信認があるからだと思ってます。そのリチャードさんにphpmatsuriというイベントで出会う事ができ交流を持てた事も縁です。</p>
+
+<p>機会や縁に感謝しつつ、挑戦の旅に出かけます。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[PEAR]]></title>
+    <link href="http://koriym.github.io/pear"/>
+    <updated>2013-08-25T00:00:00+09:00</updated>
+    <id>http://koriym.github.io/pear</id>
+    <content type="html"><![CDATA[<div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/pear">Tweet</a>
+</div>
+
+
+<h2>What is PEAR ?</h2>
+
+<p>公式サイトのトップページに、PEARとはなにかがこのように説明されています。</p>
+
+<blockquote><p><strong>What is PEAR ?</strong></p>
+
+<p>PEAR is a framework and distribution system for reusable PHP components.</p>
+
+<p>PEARはフレームワークであり、再利用可能なPHPコンポーネントのディストリビューションシステムです。</p></blockquote>
+
+<p>PEARの持つ２つの側面。<strong>フレームワーク</strong>、<strong>ディストリビューションシステム</strong>と簡潔に説明されています。</p>
+
+<h2>PEARの誤解</h2>
+
+<p>PEARは一般にいくつか誤解されてるようです。</p>
+
+<h3>グローバル</h3>
+
+<p>PEARはグローバル専用でなく、「ひとつのプロジェクトにおける依存関係を管理」に利用することは可能です。特殊なHackなどではなく、<a href="http://pear.php.net/manual/ja/installation.shared.php">標準で用意された方法</a>です。</p>
+
+<p>.pearrcをconfig-createで作って、オプションで指定するだけです。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>pear config-create /path/to/pear .pearrc
+</span><span class='line'><span class="nv">$ </span>pear -c /path/to/pear/.pearrc install PEAR
+</span><span class='line'><span class="nv">$ </span>pear -c /path/to/pear/.pearrc install PEAR Cache_Lite
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>BEAR.Saturdayでも<a href="http://code.google.com/p/bear-project/wiki/Install">ユーザー環境へのインストール</a>を紹介していて、実際多くのプロジェクトがプロジェクト単位で構築されて駆動しています。</p>
+
+<h3>チャンネル</h3>
+
+<p>作成したパッケージをwebでサービスするために、<strong>パッケージ登録のための投票</strong>を受ける必要はありません。それは公式のチャネル pear.php.netでの話です。公式に載せていない、独自のチェンネルでサービスをしているパッケージも沢山あります。BEAR.Satuday <a href="http://pear.bear-project.net/">http://pear.bear-project.net/</a> もその一つです。</p>
+
+<p>どちらも改善の余地はあるものだったのでしょうが、機能的には可能でした。またPEARの大きな特徴として<strong>後方互換性の完全な維持</strong>がありました。</p>
+
+<h3>BCブレイク</h3>
+
+<p>PEARは後方互換性を破らないという厳しいルールがありました。BEAR.Saturdayは沢山の依存PEARパッケージがあり、数えきれないほどPEAR upgradeしましたが問題が出た記憶がほとんどありません。 バージョンが.1あがったら互換性でエラーだらけになるような事は決してありませんでした。</p>
+
+<p>依存管理で正確なバージョンを特定しなくても、最新バージョンを入れれば機能しました。しかしこれは、そこまで厳格でないパッケージの依存を扱う時に困った事になります。composer.lockのような機構はありませんでした。PEARのような高い品質を持ったライブラリ同士でなければ問題になってしまいます。</p>
+
+<h2>PEARはフレームワーク</h2>
+
+<p>PEARはコード作成に関する標準スタイルや共通のエラーメカニズム、バージョニング、ディストリビューションをも含んだ包括的なフレームワークです。Internet ArchiveによるとPEARに初出は2001年です。こんなに速い時期からこんなフレームワークが提供できたのはPHPコミュニティの誇れる歴史です。</p>
+
+<p>後に続く非PEARのアプリケーションフレームワークやライブラリは、この偉大な先輩にリスペクトを持ったものと、全く持たないものがありました。コーディング規約やフォルダ構造を見れば分かります。<sup><a href="#footnote_0_2204" id="identifier_0_2204" class="footnote-link footnote-identifier-link" title="BEARは前者です">1</a></sup> 例えばPEARのフォルダ構造はPseudo-namespace(PHP5.3以前のなんちゃって名前空間）に従ったもので一貫性がありauto loaderが簡単に実装できましたが、独自のフォルダ構造をもちクラスファイルの読み込みに大変なコストがかかるものもありました。<sup><a href="#footnote_1_2204" id="identifier_1_2204" class="footnote-link footnote-identifier-link" title="何のための逸脱なのか分かりません">2</a></sup></p>
+
+<p>ただ、その高すぎる理想と、GitHubを中心とした新しいコーディング文化、PHP5.3以降のライブラリ群の依存要求、Pyrus移行の失敗、など様々な要因によってPHPの依存管理の主役の座をComposerに明け渡す事になります。</p>
+
+<p>しかしPEARは当時の<strong>PHPの最良</strong>を提供しようとした、意欲的で完成度の高い包括的なエコシステムです。今のPSRやコーディングにも多くの影響を与えています。単に古く間違ったプラクティスとして忘れてしまおうという考えには賛同できません。主役の座は受け渡しましたが、今でもいくつものライブラリは有用だしディストリビューションシステムとしても健全で機能します。公式サイトでホストされてるライブラリは複数のレビュアーが承認した質の高いコードで、コードリーディングのテキストとしても有用です。</p>
+
+<p>PEARはPHPコミュニティの誇れるべき財産だと考えます。</p>
+
+<ol class="footnotes">
+  <li id="footnote_0_2204" class="footnote">
+    BEARは前者です [<a href="#identifier_0_2204" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_1_2204" class="footnote">
+    何のための逸脱なのか分かりません [<a href="#identifier_1_2204" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ray.Tutorial &#8211; First DI framework]]></title>
+    <link href="http://koriym.github.io/first-di-framework"/>
+    <updated>2013-08-17T00:00:00+09:00</updated>
+    <id>http://koriym.github.io/ray-tutorial-first-di-framework</id>
+    <content type="html"><![CDATA[<div style="float: right; margin-left: 10px;"><a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/first-di-framework">Tweet</a></div>
+
+
+<h1>初めてのDIフレームワーク</h1>
+
+
+<h2>準備</h2>
+
+
+<ol>
+<li>PHP5.4+で動作します。mysqlで予め<a href="https://github.com/koriym/Ray.Tutorial/blob/master/doc/todo.sql">テーブルを作成</a>しておきます。
+2 フォルダをつくります。
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>mkdir ray.tutorial
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>ray.tutorial
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+まずは手動でインジェクションするコード<a href="https://github.com/koriym/Ray.Tutorial/blob/develop/src/todo2-manual-injection.php">ソース</a>を入力して実行します。
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span><span class="nx">php</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Todo</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="sd">/**</span>
+</span><span class='line'>
+</span><span class='line'><span class="sd">&lt;ul&gt;</span>
+</span><span class='line'><span class="sd">&lt;li&gt;@var PDO</span>
+</span><span class='line'><span class="sd">*/</span>
+</span><span class='line'><span class="k">private</span> <span class="nv">$pdo</span><span class="p">;</span><span class="o">&lt;/</span><span class="nx">li</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">ul</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;/**&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;@</span><span class="nx">param</span> <span class="nx">PDO</span> <span class="nv">$pdo</span>
+</span><span class='line'><span class="o">*/</span>
+</span><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">PDO</span> <span class="nv">$pdo</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">pdo</span> <span class="o">=</span> <span class="nv">$pdo</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span><span class="o">&lt;/</span><span class="nx">li</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">ul</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;/**&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;@</span><span class="nx">param</span> <span class="nx">string</span> <span class="nv">$todo</span> <span class="nx">things</span> <span class="nx">to</span> <span class="k">do</span>
+</span><span class='line'><span class="o">*/</span>
+</span><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">add</span><span class="p">(</span><span class="nv">$todo</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'> <span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">pdo</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">INSERT</span> <span class="nx">INTO</span> <span class="nx">TODO</span> <span class="p">(</span><span class="nx">todo</span><span class="p">)</span> <span class="nx">VALUES</span> <span class="p">(</span><span class="o">:</span><span class="nx">todo</span><span class="p">)</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;);</span>
+</span><span class='line'> <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="o">:</span><span class="nx">todo</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span> <span class="nv">$todo</span><span class="p">);</span>
+</span><span class='line'> <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nv">$pdo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PDO</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">mysql</span><span class="o">:</span><span class="nx">dbname</span><span class="o">=</span><span class="nx">test</span><span class="p">;</span><span class="nx">host</span><span class="o">=</span><span class="nx">localhost</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;);</span>
+</span><span class='line'><span class="nv">$todo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Todo</span><span class="p">(</span><span class="nv">$pdo</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$todo</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">Get</span> <span class="nx">laundry</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+実行してみます。
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="err">$</span> <span class="nx">php</span> <span class="nx">manual</span><span class="o">-</span><span class="nx">di</span><span class="o">.</span><span class="nx">php</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+データベースにtodoが入力されたか、コンソールかツール等で確認します。<sup><a href="#footnote_0_2143" id="identifier_0_2143" class="footnote-link footnote-identifier-link" title="あるいはSELECTをするメソッドを追加してください！">1</a></sup>
+確認できましたか？OK?
+では、次にcomposerのプロジェクトを作ってこのクラスをDI化してみましょう。</li>
+</ul>
+</li>
+</ol>
+
+
+<h2>composerでRay.Di依存の空プロジェクトを作る</h2>
+
+
+<p>まずはcomposerをダウンロードします。
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -sS &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;https://getcomposer.org/installer&quot;</span>&gt;https://getcomposer.org/installer&lt;/a&gt; | php
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+composerを使ってRay.Diを使うプロジェクトを作ります。
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>php composer.phar init
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+すると色々質問されるので、ray/diのバージョン* (最新の安定板)をインストールするように答えます。
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>  <span class="nx">Welcome</span> <span class="nx">to</span> <span class="nx">the</span> <span class="nx">Composer</span> <span class="nx">config</span> <span class="nx">generator</span>
+</span><span class='line'><span class="k">This</span> <span class="nx">command</span> <span class="nx">will</span> <span class="nx">guide</span> <span class="nx">you</span> <span class="nx">through</span> <span class="nx">creating</span> <span class="nx">your</span> <span class="nx">composer</span><span class="o">.</span><span class="nx">json</span> <span class="nx">config</span><span class="o">.</span>
+</span><span class='line'><span class="nx">Package</span> <span class="nx">name</span> <span class="p">(</span><span class="o">&lt;</span><span class="nx">vendor</span><span class="o">&gt;/&lt;</span><span class="nx">name</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">[</span><span class="nx">akihito</span><span class="o">/</span><span class="nx">ray</span><span class="o">.</span><span class="nx">tutorial</span><span class="p">]</span><span class="o">:</span>
+</span><span class='line'><span class="nx">Description</span> <span class="p">[]</span><span class="o">:</span>
+</span><span class='line'><span class="nx">Author</span> <span class="p">[</span><span class="nx">Akihito</span> <span class="nx">Koriyama</span> <span class="o">&lt;</span><span class="nx">akihito</span> <span class="o">.</span><span class="nx">koriyama</span><span class="o">@</span><span class="nx">gmail</span><span class="o">.</span><span class="nx">com</span><span class="o">&gt;</span><span class="p">]</span><span class="o">:</span>
+</span><span class='line'><span class="nx">Minimum</span> <span class="nx">Stability</span> <span class="p">[]</span><span class="o">:</span>
+</span><span class='line'><span class="nx">License</span> <span class="p">[]</span><span class="o">:</span>
+</span><span class='line'><span class="nx">Define</span> <span class="nx">your</span> <span class="nx">dependencies</span><span class="o">.</span>
+</span><span class='line'><span class="nx">Would</span> <span class="nx">you</span> <span class="nx">like</span> <span class="nx">to</span> <span class="nb">define</span> <span class="nx">your</span> <span class="nx">dependencies</span> <span class="p">(</span><span class="k">require</span><span class="p">)</span> <span class="nx">interactively</span> <span class="p">[</span><span class="nx">yes</span><span class="p">]</span><span class="o">?</span>
+</span><span class='line'><span class="nx">Search</span> <span class="k">for</span> <span class="nx">a</span> <span class="nx">package</span> <span class="p">[]</span><span class="o">:</span> <span class="nx">ray</span><span class="o">/</span><span class="nx">di</span>
+</span><span class='line'><span class="nx">Found</span> <span class="mi">15</span> <span class="nx">packages</span> <span class="nx">matching</span> <span class="nx">ray</span><span class="o">/</span><span class="nx">di</span>
+</span><span class='line'>   <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="nx">ray</span><span class="o">/</span><span class="nx">di</span>
+</span><span class='line'>   <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="nx">ray</span><span class="o">/</span><span class="nx">aop</span>
+</span><span class='line'>   <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="nx">jms</span><span class="o">/</span><span class="nx">di</span><span class="o">-</span><span class="nx">extra</span><span class="o">-</span><span class="nx">bundle</span>
+</span><span class='line'>   <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="nx">aura</span><span class="o">/</span><span class="nx">di</span>
+</span><span class='line'>   <span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="nx">orno</span><span class="o">/</span><span class="nx">di</span>
+</span><span class='line'>   <span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="nx">league</span><span class="o">/</span><span class="nx">di</span>
+</span><span class='line'>   <span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="nx">mnapoli</span><span class="o">/</span><span class="nx">php</span><span class="o">-</span><span class="nx">di</span>
+</span><span class='line'>   <span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="nx">zendframework</span><span class="o">/</span><span class="nx">zend</span><span class="o">-</span><span class="nx">di</span>
+</span><span class='line'>   <span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="nx">mnapoli</span><span class="o">/</span><span class="nx">php</span><span class="o">-</span><span class="nx">di</span><span class="o">-</span><span class="nx">zf1</span>
+</span><span class='line'>   <span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="nx">ocramius</span><span class="o">/</span><span class="nx">ocra</span><span class="o">-</span><span class="nx">di</span><span class="o">-</span><span class="nx">compiler</span>
+</span><span class='line'>  <span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="nx">lcobucci</span><span class="o">/</span><span class="nx">di</span><span class="o">-</span><span class="nx">builder</span>
+</span><span class='line'>  <span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="nx">aimfeld</span><span class="o">/</span><span class="nx">di</span><span class="o">-</span><span class="nx">wrapper</span>
+</span><span class='line'>  <span class="p">[</span><span class="mi">12</span><span class="p">]</span> <span class="nx">kdyby</span><span class="o">/</span><span class="nx">autowired</span>
+</span><span class='line'>  <span class="p">[</span><span class="mi">13</span><span class="p">]</span> <span class="nx">seiffert</span><span class="o">/</span><span class="nx">console</span><span class="o">-</span><span class="nx">extra</span><span class="o">-</span><span class="nx">bundle</span>
+</span><span class='line'>  <span class="p">[</span><span class="mi">14</span><span class="p">]</span> <span class="nx">vojtech</span><span class="o">-</span><span class="nx">dobes</span><span class="o">/</span><span class="nx">extensions</span><span class="o">-</span><span class="k">list</span>
+</span><span class='line'><span class="nx">Enter</span> <span class="nx">package</span> <span class="c1"># to add, or the complete package name if it is not listed []: 0</span>
+</span><span class='line'><span class="nx">Enter</span> <span class="nx">the</span> <span class="nx">version</span> <span class="nx">constraint</span> <span class="nx">to</span> <span class="k">require</span> <span class="p">[]</span><span class="o">:</span> <span class="o">*</span>
+</span><span class='line'><span class="nx">Search</span> <span class="k">for</span> <span class="nx">a</span> <span class="nx">package</span> <span class="p">[]</span><span class="o">:</span>
+</span><span class='line'><span class="nx">Would</span> <span class="nx">you</span> <span class="nx">like</span> <span class="nx">to</span> <span class="nb">define</span> <span class="nx">your</span> <span class="nx">dev</span> <span class="nx">dependencies</span> <span class="p">(</span><span class="k">require</span><span class="o">-</span><span class="nx">dev</span><span class="p">)</span> <span class="nx">interactively</span> <span class="p">[</span><span class="nx">yes</span><span class="p">]</span><span class="o">?</span>
+</span><span class='line'><span class="nx">Search</span> <span class="k">for</span> <span class="nx">a</span> <span class="nx">package</span> <span class="p">[]</span><span class="o">:</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;akihito/ray.tutorial&quot;</span><span class="p">,</span>
+</span><span class='line'><span class="s2">&quot;require&quot;</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="s2">&quot;ray/di&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span>
+</span><span class='line'><span class="p">},</span>
+</span><span class='line'><span class="s2">&quot;authors&quot;</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;Akihito Koriyama&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="s2">&quot;email&quot;</span><span class="o">:</span> <span class="s2">&quot;akihito.koriyama@gmail.com&quot;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">]</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="k">Do</span> <span class="nx">you</span> <span class="nx">confirm</span> <span class="nx">generation</span> <span class="p">[</span><span class="nx">yes</span><span class="p">]</span><span class="o">?</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">akihito</span><span class="o">&gt;&lt;/</span><span class="nx">name</span><span class="o">&gt;&lt;/</span><span class="nx">vendor</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+入力の必要な質問はこれだけでした。
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nx">Search</span> <span class="k">for</span> <span class="nx">a</span> <span class="nx">package</span> <span class="p">[]</span><span class="o">:</span> <span class="nx">ray</span><span class="o">/</span><span class="nx">di</span>
+</span><span class='line'><span class="nx">Enter</span> <span class="nx">package</span> <span class="c1"># to add, or the complete package name if it is not listed []: 0</span>
+</span><span class='line'><span class="nx">Enter</span> <span class="nx">the</span> <span class="nx">version</span> <span class="nx">constraint</span> <span class="nx">to</span> <span class="k">require</span> <span class="p">[]</span><span class="o">:</span> <span class="o">*</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+すると最後に表示されたcomposer.jsonが出来上がりますが、まだray/diはインストールされていません。installコマンドでインストールします。
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="err">$</span> <span class="nx">php</span> <span class="nx">composer</span><span class="o">.</span><span class="nx">phar</span> <span class="nx">install</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+initコマンドで作成したcomposer.jsonに従ってRay.Diとその依存ファイルとダウンロードされ、現在の依存の状態が記録されたcomposer.lockファイル、それにautoloaderを含むcomposerのファイル群もインストールされました。
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="err">$</span> <span class="nx">tree</span> <span class="o">-</span><span class="nx">L</span> <span class="mi">2</span>
+</span><span class='line'><span class="err">├──</span> <span class="nx">composer</span><span class="o">.</span><span class="nx">json</span>
+</span><span class='line'><span class="err">├──</span> <span class="nx">composer</span><span class="o">.</span><span class="nx">lock</span>
+</span><span class='line'><span class="err">├──</span> <span class="nx">composer</span><span class="o">.</span><span class="nx">phar</span>
+</span><span class='line'><span class="err">└──</span> <span class="nx">vendor</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="err">├──</span> <span class="nx">aura</span>
+</span><span class='line'><span class="err">├──</span> <span class="nx">autoload</span><span class="o">.</span><span class="nx">php</span>
+</span><span class='line'><span class="err">├──</span> <span class="nx">composer</span>
+</span><span class='line'><span class="err">├──</span> <span class="nx">doctrine</span>
+</span><span class='line'><span class="err">└──</span> <span class="nx">ray</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<a href="https://github.com/koriym/Ray.Tutorial/blob/develop/src/todo3-ray-di.php">Ray.Diを使ったコード</a>を入力してsrc/フォルダを作ってその下に配置します。
+src/todo3-ray-di.php
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span><span class="nx">php</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Doctrine\Common\Annotations\AnnotationRegistry</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Ray\Di\AbstractModule</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Ray\Di\Injector</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Ray\Di\Di\Inject</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Ray\Di\Di\Named</span><span class="p">;</span>
+</span><span class='line'><span class="nv">$loader</span> <span class="o">=</span> <span class="k">require</span> <span class="nb">dirname</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">strong</span><span class="o">&gt;</span><span class="nx">DIR</span><span class="o">&lt;/</span><span class="nx">strong</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">.</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="o">/</span><span class="nx">vendor</span><span class="o">/</span><span class="nx">autoload</span><span class="o">.</span><span class="nx">php</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;;</span>
+</span><span class='line'><span class="nx">AnnotationRegistry</span><span class="o">::</span><span class="na">registerLoader</span><span class="p">([</span><span class="nv">$loader</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">loadClass</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;]);</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Todo</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">private</span> <span class="nv">$pdo</span><span class="p">;</span>
+</span><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * @Inject</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">PDO</span> <span class="nv">$pdo</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&amp;</span><span class="nx">gt</span><span class="p">;</span><span class="nx">pdo</span> <span class="o">=</span> <span class="nv">$pdo</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * @param $todo</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">add</span><span class="p">(</span><span class="nv">$todo</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&amp;</span><span class="nx">gt</span><span class="p">;</span><span class="nx">pdo</span><span class="o">-&amp;</span><span class="nx">gt</span><span class="p">;</span><span class="nx">prepare</span><span class="p">(</span><span class="s1">&#39;INSERT INTO TODO (todo) VALUES (:todo)&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nv">$stmt</span><span class="o">-&amp;</span><span class="nx">gt</span><span class="p">;</span><span class="nx">bindParam</span><span class="p">(</span><span class="s1">&#39;:todo&#39;</span><span class="p">,</span> <span class="nv">$todo</span><span class="p">);</span>
+</span><span class='line'>    <span class="nv">$stmt</span><span class="o">-&amp;</span><span class="nx">gt</span><span class="p">;</span><span class="nx">execute</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Module</span> <span class="k">extends</span> <span class="nx">AbstractModule</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">public</span> <span class="k">function</span> <span class="nf">configure</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$pdo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PDO</span><span class="p">(</span><span class="s1">&#39;mysql:dbname=test;host=localhost&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&amp;</span><span class="nx">gt</span><span class="p">;</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;PDO&#39;</span><span class="p">)</span><span class="o">-&amp;</span><span class="nx">gt</span><span class="p">;</span><span class="nx">toInstance</span><span class="p">(</span><span class="nv">$pdo</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="nv">$injector</span> <span class="o">=</span> <span class="nx">Injector</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="k">new</span> <span class="nx">Module</span><span class="p">]);</span>
+</span><span class='line'><span class="nv">$todo</span> <span class="o">=</span> <span class="nv">$injector</span><span class="o">-&gt;</span><span class="na">getInstance</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">Todo</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;);</span>
+</span><span class='line'><span class="o">/&lt;</span><span class="nx">em</span><span class="o">&gt;*</span> <span class="o">@</span><span class="k">var</span> <span class="nv">$todo</span> <span class="nx">Todo</span> <span class="o">&lt;/</span><span class="nx">em</span><span class="o">&gt;/</span>
+</span><span class='line'><span class="nv">$todo</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">Walking</span> <span class="nx">in</span> <span class="nx">Ray</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+これがRay.Diを使ってDIを行っているコードです。変わった部分をそれぞれ見て行きます。</p>
+
+<h3>オートローダー</h3>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$loader</span> <span class="o">=</span> <span class="k">require</span> <span class="nb">dirname</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">strong</span><span class="o">&gt;</span><span class="nx">DIR</span><span class="o">&lt;/</span><span class="nx">strong</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">.</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="o">/</span><span class="nx">vendor</span><span class="o">/</span><span class="nx">autoload</span><span class="o">.</span><span class="nx">php</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;;</span>
+</span><span class='line'><span class="nx">AnnotationRegistry</span><span class="o">::</span><span class="na">registerLoader</span><span class="p">([</span><span class="nv">$loader</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">loadClass</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;]);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+composerを使うと依存ファイルのオートローディングの設定が含まれた、vendor/autoload.phpというオートローダーのファイルが自動で生成されます。
+Ray.Diのアノテーションは<a href="http://docs.doctrine-project.org/projects/doctrine-common/en/latest/reference/annotations.html">Doctrineのアノテーション</a>を使っています。アノテーションの読み込みにはオートローダーの登録が必要で、いくつかの方法がありますがここではcomposerのオートローダーをそのまま使っています。</p>
+
+<h3>アノテーション</h3>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;/**</span>
+</span><span class='line'> <span class="o">*</span> <span class="o">@</span><span class="nx">Inject</span>
+</span><span class='line'> <span class="o">*/</span>
+</span><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">PDO</span> <span class="nv">$pdo</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+依存を受け取るメソッドには<strong>@Inject</strong>とアノテート（注釈）されています。Ray.Diはこのアノテーションを目印にして依存が必要なメソッドを割り出します。<sup><a href="#footnote_1_2143" id="identifier_1_2143" class="footnote-link footnote-identifier-link" title="コンストラクタ以外でも依存を受け取る事ができます。@Injectとアノテートしてメソッド名は何でもかまいません">2</a></sup>
+アノテーションはクラスで、名前解決のためuse文が必要です。<sup><a href="#footnote_2_2143" id="identifier_2_2143" class="footnote-link footnote-identifier-link" title="Doctrineアノテーションの仕様です">3</a></sup>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">use</span> <span class="nx">Ray\Di\Di\Inject</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>モジュール</h3>
+
+
+<p>モジュールでは依存を必要とする場所に依存をどう渡すかを記述します。
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Module</span> <span class="k">extends</span> <span class="nx">AbstractModule</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">public</span> <span class="k">function</span> <span class="nf">configure</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$pdo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PDO</span><span class="p">(</span><span class="s1">&#39;mysql:dbname=test;host=localhost&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&amp;</span><span class="nx">gt</span><span class="p">;</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;PDO&#39;</span><span class="p">)</span><span class="o">-&amp;</span><span class="nx">gt</span><span class="p">;</span><span class="nx">toInstance</span><span class="p">(</span><span class="nv">$pdo</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+AbstractModuleを継承したクラスのconfigure()というメソッド内で、bind()メソッドを使って依存を束縛（バインド＝結びつけます）します。ここではPDOクラスを必要とするインジェクションポイントに作成した$pdoインスタンスを束縛しています。
+これによって<strong>アノテーション</strong>の節で説明したように@injectとアノテートされPDOクラスのタイプヒントを持つ引き数には$pdoインスタンスが渡されるようになります。</p>
+
+<h3>インジェクター</h3>
+
+
+<p>モジュールを使って作成した<strong>インジェクターは、どの依存が求められれば何を渡せばいいかを知っています</strong>。そのインジェクターを使って&#8217;Todo&#8217;クラスを取得するとインジェクターは必要とされる依存をモジュールで決めたルールで渡し、<strong>依存解決</strong>(dependency resolution)が行われます。
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$injector</span> <span class="o">=</span> <span class="nx">Injector</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="k">new</span> <span class="nx">Module</span><span class="p">]);</span>
+</span><span class='line'><span class="nv">$todo</span> <span class="o">=</span> <span class="nv">$injector</span><span class="o">-&gt;</span><span class="na">getInstance</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">Todo</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+ついに出来ました！！！！
+$todoオブジェクト！！！
+依存の問題を解決（外部の変数を外側から渡す）を自動化するために、様々な事が必要になりました。
+依存が必要な箇所にアノテーションが必要です。そのアノテーションクラスのオートローディング登録も必要で、モジュールでも依存の束縛の記述、束縛を使ったインジェクターの作成をしてようやく依存解決をするインジェクターが作成されました。
+１つの問題を解決するためにこれだけの事をしたのです。<sup><a href="#footnote_3_2143" id="identifier_3_2143" class="footnote-link footnote-identifier-link" title="NateさんのLithiumのスライド A Framework for People who Hate Frameworks &ndash; Lithium もご覧下さい">4</a></sup>DIフレームワークはRayだけではありません。他のDIフレームワークも同じような、あるいはこれ以上の準備の手順の複雑さを持っています。</p>
+
+<h3>オーバーエンジニアリング?</h3>
+
+
+<p>オーバーエンジニアリング（作り込みのし過ぎ、過剰技術）でしょうか？
+まず、他の技術同様に、<strong>説明のための単純な例で実利を感じる事は往々にして難しい</strong>事は頭に入れておく必要があります。例えば、HelloWorldのサンプルでフレームワークのメリットを実感する事はなかなか難しいでしょう。
+DIフレームワークの使用がオーバーエンジアリングか、クラス名のハードコーディングがアンダーエンジニアリングなのか、その辺りの判断を直感で出すのはひとまず置いといて、Ray DIフレームワークの使い方の実例をもう少し見て行きましょう。
+&#8230;続く</p>
+
+<ol class="footnotes"><li id="footnote_0_2143" class="footnote">あるいはSELECTをするメソッドを追加してください！ [<a href="#identifier_0_2143" class="footnote-link footnote-back-link">&#8617;</a>]</li><li id="footnote_1_2143" class="footnote">コンストラクタ以外でも依存を受け取る事ができます。@Injectとアノテートしてメソッド名は何でもかまいません [<a href="#identifier_1_2143" class="footnote-link footnote-back-link">&#8617;</a>]</li><li id="footnote_2_2143" class="footnote">Doctrineアノテーションの仕様です [<a href="#identifier_2_2143" class="footnote-link footnote-back-link">&#8617;</a>]</li><li id="footnote_3_2143" class="footnote">NateさんのLithiumのスライド <a href="http://www.slideshare.net/jperras/tekx-a-framework-for-people-who-hate-frameworks-lithium">A Framework for People who Hate Frameworks &#8211; Lithium</a> もご覧下さい [<a href="#identifier_3_2143" class="footnote-link footnote-back-link">&#8617;</a>]</li></ol>
+
+]]></content>
+  </entry>
+  
+</feed>

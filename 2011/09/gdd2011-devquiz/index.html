@@ -1,0 +1,613 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>GDD2011 DevQuiz « BEAR Blog</title>
+  <meta name="author" content="Akihito Koriyama">
+
+  
+  <meta name="description" content="Tweet 今年もGoogle Developers Days 2011のDevQuizに挑戦しました。
+以下、その記録です。 Web Game Chromeのエクステンションを作成。サンプルに少し追加して全てのカードをクリックするようにして解答しました。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://koriym.github.io/2011/09/gdd2011-devquiz/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="BEAR Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  <meta property="og:title" content="GDD2011 DevQuiz - BEAR Blog" />
+<meta property="og:description" content="Tweet 今年もGoogle Developers Days 2011のDevQuizに挑戦しました。
+以下、その記録です。 Web Game Chromeのエクステンションを作成。サンプルに少し追加して全てのカードをクリックするようにして解答しました。 &hellip;" />
+<meta property="og:url" content="http://koriym.github.io/2011/09/gdd2011-devquiz/" />
+<meta property="og:image" content="http://bearsunday.github.io/images/icon/favicon-144.png" />
+<meta property="og:author" content="Akihito Koriyama" />
+<meta property="og:site_name" content="BEAR Blog" />
+<meta property="og:locale" content="ja_JP" />
+<meta property="og:type" content="article" />
+<meta property="fb:app_id" content="516362398477090" />
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-6074569-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEAR Blog</a></h1>
+  
+    <h2>Because everything is a resource.</h2>
+  
+</hgroup>
+
+<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:koriym.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">GDD2011 DevQuiz</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-09-13T00:00:00+09:00" pubdate data-updated="true">Sep 13<span>th</span>, 2011</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2011/09/gdd2011-devquiz/">Tweet</a>
+</div>
+
+
+<p>今年もGoogle Developers Days 2011のDevQuizに挑戦しました。<br/>
+以下、その記録です。</p>
+
+<h3>Web Game</h3>
+
+<p>Chromeのエクステンションを作成。サンプルに少し追加して全てのカードをクリックするようにして解答しました。</p>
+
+<p>多くの人が思ったようにChromeのエクステンションは簡単にできるのよく分かりました。solver.jsとmanifest.jsonの２つのファイルを作成するだけです。</p>
+
+<p>このエクステンションは<a href="http://gdd-2011-quiz-japan.appspot.com/webgame/problem%E3%81%AE%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AB%E5%87%BA%E7%8F%BE%E3%81%99%E3%82%8B%E5%85%A8%E3%81%A6%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%89%E3%82%92%E3%82%AF%E3%83%AA%E3%83%83%E3%82%AF%E3%81%97%E3%81%BE%E3%81%99%E3%80%82">http://gdd-2011-quiz-japan.appspot.com/webgame/problem%E3%81%AE%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AB%E5%87%BA%E7%8F%BE%E3%81%99%E3%82%8B%E5%85%A8%E3%81%A6%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%89%E3%82%92%E3%82%AF%E3%83%AA%E3%83%83%E3%82%AF%E3%81%97%E3%81%BE%E3%81%99%E3%80%82</a></p>
+
+<p>solver.js</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="nx">cont</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span><span class='line'><span class="k">while</span> <span class="p">(</span><span class="nx">cont</span> <span class="o">==</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">element0</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;card&#39;</span> <span class="o">+</span> <span class="nx">i</span><span class="p">);</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">element1</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;card&#39;</span> <span class="o">+</span> <span class="nx">j</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">j</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nx">element0</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">cont</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nx">element1</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Card element is not found. Check element id.&#39;</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">i</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'>      <span class="nx">j</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">myevent</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createEvent</span><span class="p">(</span><span class="s1">&#39;MouseEvents&#39;</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">myevent</span><span class="p">.</span><span class="nx">initEvent</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">element0</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="nx">myevent</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">element1</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="nx">myevent</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Card color is &quot;&#39;</span> <span class="o">+</span> <span class="nx">element1</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">backgroundColor</span> <span class="o">+</span> <span class="s1">&#39;&quot;.&#39;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="nx">j</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>manifest.json<br/>
+`
+{
+  &ldquo;name&rdquo;: &ldquo;ChromeExtensionSolverHint&rdquo;,
+  &ldquo;version&rdquo;: &ldquo;1.0&rdquo;,
+  &ldquo;description&rdquo;: &ldquo;Open the first card and show background color of the card.&rdquo;,
+  &ldquo;content_scripts&rdquo;: [</p>
+
+<pre><code>{
+  "matches": [
+    "http://gdd-2011-quiz-japan.appspot.com/webgame/problem*"
+  ],
+  "js": [
+    "solver.js"
+  ]
+}
+</code></pre>
+
+<p>  ],
+  &ldquo;permissions&rdquo;: [
+  ]
+}
+`</p>
+
+<h3>Go</h3>
+
+<p>Go言語で与えられた画像ファイルの使用色数を答える関数を作成するという問題です。</p>
+
+<p>まずはOSX/LionにGoをインストールです。このサイトを参考にしました。<sup><a href="#footnote_0_763" id="identifier_0_763" class="footnote-link footnote-identifier-link" title="コンパイルとリンクを行うスクリプトもあって便利です。">1</a></sup><br/>
+<a href="http://jeremyhubert.com/articles/installing-google-go-on-osx-snow-leopard.html">http://jeremyhubert.com/articles/installing-google-go-on-osx-snow-leopard.html</a></p>
+
+<p>Go言語は初めてだったのですが触ってすぐに色々な興味深い特徴に気がつきます。<sup><a href="#footnote_1_763" id="identifier_1_763" class="footnote-link footnote-identifier-link" title="例えば、変数名の後に型が続く事や、大文字始まりならpublic宣言など。また未使用変数があればコンパイルにすら通りません。">2</a></sup><br/>
+静的型付けのコンパイラ言語なのですが、丁寧に削られた簡素な記述のおかげかスクリプト言語のような柔軟でソフトな印象を感じました。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>package main
+</span><span class='line'>import (
+</span><span class='line'>    "fmt"
+</span><span class='line'>    "io"
+</span><span class='line'>    "strings"
+</span><span class='line'>  imagep "image/png"
+</span><span class='line'>    /* add more */
+</span><span class='line'>)
+</span><span class='line'>func CountColor(png io.Reader) int {
+</span><span class='line'>  image, err := imagep.Decode(png)
+</span><span class='line'>  if err != nil {
+</span><span class='line'>      fmt.Printf("Error from png.Decode: %s\n", err)
+</span><span class='line'>  }
+</span><span class='line'>  width := image.Bounds().Size().X
+</span><span class='line'>  height := image.Bounds().Size().Y
+</span><span class='line'>    //fmt.Printf("width: %d, %d\n", width, height)
+</span><span class='line'>  result := map[uint32]bool{}
+</span><span class='line'>  var idx uint32
+</span><span class='line'>  for y:=0 ; y &lt; height ; y++{
+</span><span class='line'>      for x:= 0 ; x &lt; width ; x++ {
+</span><span class='line'>          color := image.At(x, y)
+</span><span class='line'>          //fmt.Printf("x, y, color: %d %d %x\n", x, y, color)
+</span><span class='line'>          r, g, b, _ := color.RGBA();
+</span><span class='line'>          idx = r*0x100*0x100 + g*0x100 + b
+</span><span class='line'>          result[idx] = true
+</span><span class='line'>      }
+</span><span class='line'>  }
+</span><span class='line'>  cnt := len(result)
+</span><span class='line'>    return cnt
+</span><span class='line'>}
+</span><span class='line'>/* これらの関数は提出時に自動挿入されます。 */
+</span><span class='line'>func main() {
+</span><span class='line'>    png := GetPngBinary()
+</span><span class='line'>    cnt := CountColor(png)
+</span><span class='line'>    fmt.Println(cnt)
+</span><span class='line'>}
+</span><span class='line'>func GetPngBinary() io.Reader {
+</span><span class='line'>    // img_strの中身は提出するたびに変化します。
+</span><span class='line'>    img_str := "\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x18\x00\x00\x00\x08\x08\x06\x00\x00\x00\xe3\xa1?c\x00\x00\x02\xeeiCCPICC Profile\x00\x00x\x01\x85T\xcfk\x13A\x14\xfe6n\xa9\xd0\"\x08Zk\x0e\xb2x\x90\"IY\xabhE\xd46\xfd\x11bk\x0c\xdb\x1f\xb6E\x90d3I\xd6n6\xeb\xee&#038;\xb5\xa5\x88\xe4\xe2\xd1*\xdeE\xed\xa1\x07\xff\x80\x1ez\xf0d/J\x85ZE(\xde\xab(b\xa1\x17-\xf1\xcdnL\xb6\xa5\xea\xc0\xce~\xf3\xde7\xef}ov\xdf\x00\rr\xd24\xf5\x80\x04\xe4\r\xc7R\xa2\x11il|Bj\xfc\x88\x00\x8e\xa2\tA4%U\xdb\xecN$\x06A\x83s\xf9{\xe7\xd8z\x0f\x81[V\xc3{\xfbw\xb2w\xad\x9a\xd2\xb6\x9a\x07\x84\xfd@\xe0G\x9a\xd9*\xb0\xef\x17q\nY\x12\x02\x88&lt;\xdf\xa1)\xc7t\x08\xdf\xe3\xd8\xf2\xec\x8f9Nyx\xc1\xb5\x0f+=\xc4Y\"|@5-\xce\x7fM\xb8S\xcd%\xd3@\x83H8\x94\xf5qR&gt;\x9c\xd7\x8b\x94\xd7\x1d\x07inf\xc6\xc8\x10\xbdO\x90\xa6\xbb\xcc\xee\xabb\xa1\x9cN\xf6\x0e\x90\xbd\x9d\xf4~N\xb3\xde&gt;\xc2!\xc2\x0b\x19\xad?F\xb8\x8d\x9e\xf5\x8c\xd5?\xe2a\xe1\xa4\xe6\xc4\x86=\x1c\x185\xf4\xf8`\x15\xb7\x1a\xa9\xf85\xc2\x14_\x10M'\xa2Tq\xd9.\r\xf1\x98\xae\xfdV\xf2J\x82p\x908\xcada\x80sZHO\xd7Ln\xf8\xba\x87\x05}&#038;\xd7\x13\xaf\xe2wVQ\xe1y\x8f\x13g\xde\xd4\xdd\xefE\xda\x02\xaf0\x0e\x1d\x0c\x1a\x0c\x9a\rHP\x10E\x04a\x98\xb0P@\x86&lt; \x1a14\xb2r?#\xab\x06\x1b\x93{2u$j\xbbtbD\xb1A{6\xdc=\xb7Q\xa4\xdd&lt;\xfe(\"q\x94C\xb5\x08\x92\xfcA\xfe*\xaf\xc9O\xe5y\xf9\xcb\\\xb0\xd8V\xf7\x94\xad\x9b\x9a\xba\xf2\xe0;\xc5\xe5\x99\xb9\x1a\x1e\xd7\xd3\xc8\xe3sM^|\x95\xd4v\x93WG\x96\xacyz\xbc\x9a\xec\x1a?\xecW\x971\xe6\x825\x8f\xc4s\xb0\xfb\xf1-_\x95\xcc\x97)\x8c\x14\xc5\xe3U\xf3\xeaK\x84uZ17\xdf\x9fl\x7f;=\xe2.\xcf.\xb5\xd6s\xad\x89\x8b7V\x9b\x97g\xfdjH\xfb\xee\xaa\xbc\x93\xe6U\xf9O^\xf5\xf1\xfcg\xcd\xc4c\xe2)1&#038;v\x8a\xe7!\x89\x97\xc5.\xf1\x92\xd8K\xab\x0b\xe2`m\xc7\x08\x9d\x95\x86)\xd2m\x91\xfa$\xd5``\x9a\xbc\xf5/]?[x\xbdF\x7f\x0c\xf5Q\x94\x19\xcc\xd2T\x89\xf7\x7f\xc2*d4\x9d\xb9\x0eo\xfa\x8f\xdb\xc7\xfc\x17\xe4\xf7\x8a\xe7\x9f(\x02/l\xe0\xc8\x99\xbamSq\xef\x10\xa1e\xa5ns\xae\x02\x17\xbf\xd1}\xf0\xb6nk\xa3~8\xfc\x04X&lt;\xab\x16\xadR5\x9f \xbc\x01\x1cv\x87z\x1e\xe8)\x98\xd3\x96\x96\xcd9R\x87,\x9f\x93\xba\xe9\xcabR\xccP\xdbCRR\xd7%\xd7eK\x16\xb3\x99Ub\xe9v\xd8\x99\xd3\x1dn\x1c\xa19B\xf7\xc4\xa7Je\x93\xfa\xaf\xf1\x11\xb0\xfd\xb0R\xf9\xf9\xacR\xd9~N\x1a\xd6\x81\x97\xfao\xc0\xbc\xfdE\xc0x\x8b\x89\x00\x00\x00\x97IDAT(\x15\x9d\x92\x81\x0e\x80 \x08D\xa5\xf9m\xf5Y\xad\xcf\xaa\x9f#nz$\xba\xb9\xca\xad\x85\xc1\xbd\x03S\xd4\x96H\xf2\xa5\xea\xe1\xeb@\x8e\x02\xd0}\x14/\x80\x03\xca\xa75{\xeb0\x80\x01\xa9\xa0\xdcC|\x02:\xf1\xc3U\xc7\\K\x97}\xda9HPcq0pQ\x8aE\xe94y\x05'3\x92M[\x86\xc7\xc1\xa4n\x82\x01\x8ci\xe2\xc5\x7f\x02N`\xda\xdcCK\xaeqbqsD\xbd\x86=\xe0g\xdb\x9dy\xba\xb4Xp\x8bX\xf0\xe7\x8d\x89g\x84pD_\x0cx\x9438x7\xa4yC\r7\x04z\xae\x00\x00\x00\x00IEND\xaeB`\x82"
+</span><span class='line'>    return strings.NewReader(img_str)
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+ポイントというほどの所もないですが、色を数えるのに各色8bitなので16進数3桁の数字にしてキーにしその数を数えました。</p>
+
+<h3>スライドパズル</h3>
+
+<p>大きさが色々あり、盤面の中にも壁がある<a href="http://ja.wikipedia.org/wiki/15%E3%83%91%E3%82%BA%E3%83%AB">15パズル</a>の変形版のようなパズルを5000問解くという問題です。一問0.1点。これまでの３つのクイズの合計100点あったのですが、101点になるために今までの100点獲得の労力を軽く超えるような難易度でした。難しかったです。</p>
+
+<p>CPU100%でファンを全開で一晩中計算し続けさせるようなパズルの解法のプログラムは、ms単位で処理の終わる普段のwebプログラムと全く違う世界です。AIプログラミングの基礎的な事から分かってなかったのでその学習から始めました。前回のGDD Pacman問題の反省です。<sup><a href="#footnote_2_763" id="identifier_2_763" class="footnote-link footnote-identifier-link" title="自分で適当に考え実装し後からああ自分の実装はBFSというやつだったのか..などとならないように！">3</a></sup>　</p>
+
+<p>まず大事なのは問題をツリー構造にモデル化することです。問題プロセスの状態を節点（node）、その状態遷移を枝（branch)で表します。一番初めの節点を根（root）、一番末端を葉とした状の不可逆のツリー構造をモデルとし、そのルートからゴールまでの状態遷移に様々な探索方法をあてはめ解法を求めます。</p>
+
+<p>競技用プログラムやAIプログラムに慣れてる方ならこの辺りの話は基礎の基礎なのだと思いますが、自分は一つ一つをあーなるほどと理解するところから始めました。</p>
+
+<ul>
+<li><a href="http://goo.gl/t8lz0">幅優先探索 BFS Breadth first search,</a></li>
+<li><a href="http://goo.gl/YKjur">反復深化深さ優先探索 IDDFS diterative deepening depth-first search</a></li>
+<li><a href="http://goo.gl/xXEAd">最良優先探索 Best-first search A*</a></li>
+</ul>
+
+
+<p>最良優先探索はいくつもあるのですが、向いてそうなのは A*、評価関数はオーソドックスな<a href="http://ja.wikipedia.org/wiki/%E3%83%9E%E3%83%B3%E3%83%8F%E3%83%83%E3%82%BF%E3%83%B3%E8%B7%9D%E9%9B%A2">マンハッタン距離</a>に少しオリジナルな関数を加えたらと考えました。</p>
+
+<h4>言語の選択</h4>
+
+<p>最初は普通に考えて速度の速いコンパイル言語をと、ちょっと学習してみたGoか普段使わないC/C++/Javaに挑戦するかとか考えました。<sup><a href="#footnote_3_763" id="identifier_3_763" class="footnote-link footnote-identifier-link" title=" Cはその昔SonyのPlayStation用ゲーム制作の一部を手伝った事があるくらいでポリゴンで3Dの関節プログラムとか、アセンブラのゲームの移植とか、すっかり忘れてるのですが再挑戦も面白いと思いました">4</a></sup> しかし#gdd11jpでPythonで高得点を取ってる方がいたのを見たのと <sup><a href="#footnote_4_763" id="identifier_4_763" class="footnote-link footnote-identifier-link" title="Cythonというコンパイラがあって超高速で実行できるのは後で知りました＾＾； ">5</a></sup>　使った事のないPHP5.3の機能ややってみたい実装があったのでPHPにしました。<sup><a href="#footnote_5_763" id="identifier_5_763" class="footnote-link footnote-identifier-link" title="どうせならPHP5.4でやれば良かったですね">6</a></sup>。目標として（使い切りだし時間も限られてますが）丁寧なOOPでマンハッタン距離+αのヒューストリックのA*で実装というのを立てます。</p>
+
+<h4>実装</h4>
+
+<p><a href="https://github.com/koriym/gdd11jp">https://github.com/koriym/gdd11jp</a></p>
+
+<p>以下、READMEからです。</p>
+
+<blockquote><p>■slide.php<br/>
+本体。answer.txtがあれば解答済みファイルとしてスキップに利用、答えはoutput.txtで出力。<br/>
+どのパズルをスキップするか、およびパズルに応じたタスク管理を選択するロジックをクロージャで渡して演算を開始。</p>
+
+<p>幅優先探索は、反復深化深さ優先探索ははどちらもブラインドサーチで3x3と3x4,4/3のみに対応。それ以上は=(壁)検知付きマンハッタン距離、正位置にあるピースに重みづけ、それに手数削減のための過去の移動距離をそれぞれコストとして合計したものを関数としてヒューリスティック探索。繰り返し検知、逆探索検索付き。消費メモリ、消費時間に応じて無回答。制限時間になってもヒューリスティック関数の値が上昇し続けてたら時間制限を延長する”もう少しかも、頑張れ&#8221;機能。&#8221;下端を除くゲーム盤面の端で1つ足りないだけの状態にペナルティの効果&#8221;は今ひとつ。</p>
+
+<p>演算コスト削減は、マンハッタン距離コストマップ、移動可否マップの事前演算。メモリ省力化として配列のSplFixedArray使用等。基本的な探索実装で目標スコア3000後半程度。肝心のソルバーは強くないが想定の範囲は大体実装。</p>
+
+<p>クラス</p>
+
+<p><strong>PuzzuleRepository</strong><br/>
+ファイルからパズルオブジェクトを取り出せるリポジトリクラス。<br/>
+<strong>Puzzle</strong><br/>
+パズルの基本データ。プロパティの公開されているデータ構造クラス。<br/>
+<strong>Game</strong><br/>
+ゲーム状態を保持しパズルの基本操作ができるオブジェクト。方向と合わせてタスクとして登録される。<br/>
+<strong>Play</strong><br/>
+ルールを知りプレイを行うクラス。ゲーム完了するまでループ実行。<br/>
+<strong>Task</strong><br/>
+BFS, IDDFS, A*探索を行うためのタスクマネージメントクラス。<br/>
+それぞれPHPのSplQueue、SplStack、SplPriorityQueueクラスを利用。</p></blockquote>
+
+<p>PHPには A*にそのまま適用できる<a href="http://jp.php.net/manual/ja/class.splpriorityqueue.php">SplPriorityQueue</a> クラス、幅優先探索に<a href="http://jp.php.net/manual/ja/class.splqueue.php">SplQueue</a>クラス、深さ優先探索 に<a href="http://jp.php.net/manual/ja/class.splstack.php">SplStack </a>クラスという標準的なデータ構造用のクラスが5.3から用意されていてこれを利用しました。<br/>
+肝心のソルバーはマンハッタン距離（途中の壁検知付の）と移動ヒストリーの長さを合算してコストにするものと、その逆探索の基本的なものですが、パズルを二次元配列にしないで高速化と処理の簡素化のために一次元にしたのと、移動処理の時のif R, if L &hellip;と4つ続ける冗長さを排除したのが小さなこだわりです。双方向探索の実装をしてれば大きくスコアを伸ばせたのではないかと思います。高速な言語に移植する方法もありましたがPHPと基本的なアルゴリズムでどれくらいのスコアが取れるのだろうという興味もありました。少しの改善で4000ありえるかなあというところでタイムアップでした。3750/5000です。高得点とは言えませんが、幅優先実装してたった0.57点でPHPじゃやっぱり&hellip;と途方にくれた時から考えると大きな前進でした。</p>
+
+<h4>Clean Code</h4>
+
+<p>限られた時間である程度の結果を出しながら多くのOOP原則に従ったClean Codeで記述というのも今回の目標の一つでした<sup><a href="#footnote_6_763" id="identifier_6_763" class="footnote-link footnote-identifier-link" title="点にはなりませんが">7</a></sup><br/>
+単一責任原則（SRP:the Single Responsibility Principle） 、デメテルの法則（Law of Demetre (LoD)）、おまえが呼ぶな、俺が呼ぶの「ハリウッドの原則」、オープン・クローズドの原則（OCP）、gettr/setterの排除、等々意識したのですが不十分な所も多々あり反省の残るところです。それでも&#8221;次&#8221;にはかなり再利用できそうです。また、PHPのコーディングでprivate/protectedのprefixに_（アンダースコア）を使わないスタイルがいいのでは？にというトレンドが一部であるようで今回はそれに従ってみました。その他は現在のPHPのごく標準的なコード規約に従ってると思います。</p>
+
+<h4>実行方法</h4>
+
+<pre>$ git clone git@github.com:koriym/gdd11jp.git
+$ cd gdd11jp/puzzle
+$ php slide.php
+</pre>
+
+
+<h4>まとめ</h4>
+
+<p>コンテストと違ったイベント感、使用言語を超え同じ取り組みをする事で生まれる共有感、高得点の人もそうでない人も、DevQuizはプログラミングが本来持つコーディングの楽しみが実感できる素晴らしい機会だと思います。<sup><a href="#footnote_7_763" id="identifier_7_763" class="footnote-link footnote-identifier-link" title="中学生の時にはじめてプログラミングしたワクワク感が少し甦りました。">8</a></sup> 機会を与えてくれた主催者の方々と<a href="http://twitter.com/search/%23gdd11jp">#gdd11jp</a>で楽しい時間を共有してくれた皆様には感謝を申し上げます。ありがとうございました。GDD11でお会いしましょう！</p>
+
+<ol class="footnotes">
+  <li id="footnote_0_763" class="footnote">
+    コンパイルとリンクを行うスクリプトもあって便利です。 [<a href="#identifier_0_763" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_1_763" class="footnote">
+    例えば、変数名の後に型が続く事や、大文字始まりならpublic宣言など。また未使用変数があればコンパイルにすら通りません。 [<a href="#identifier_1_763" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_2_763" class="footnote">
+    自分で適当に考え実装し後からああ自分の実装はBFSというやつだったのか..などとならないように！ [<a href="#identifier_2_763" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_3_763" class="footnote">
+    Cはその昔SonyのPlayStation用ゲーム制作の一部を手伝った事があるくらいでポリゴンで3Dの関節プログラムとか、アセンブラのゲームの移植とか、すっかり忘れてるのですが再挑戦も面白いと思いました [<a href="#identifier_3_763" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_4_763" class="footnote">
+    Cythonというコンパイラがあって超高速で実行できるのは後で知りました＾＾； [<a href="#identifier_4_763" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_5_763" class="footnote">
+    どうせならPHP5.4でやれば良かったですね [<a href="#identifier_5_763" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_6_763" class="footnote">
+    点にはなりませんが [<a href="#identifier_6_763" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_7_763" class="footnote">
+    中学生の時にはじめてプログラミングしたワクワク感が少し甦りました。 [<a href="#identifier_7_763" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-09-13T00:00:00+09:00" pubdate data-updated="true">Sep 13<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://koriym.github.io/2011/09/gdd2011-devquiz/" data-via="koriym" data-counturl="http://koriym.github.io/2011/09/gdd2011-devquiz/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+    <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button"
+       data-hatena-bookmark-layout="standard"
+       data-hatena-bookmark-url="http://koriym.github.io/2011/09/gdd2011-devquiz/">
+        <img src="http://b.st-hatena.com/images/entry-button/button-only.gif"
+             alt="このエントリーをはてなブックマークに追加" width="20" height="20"
+             style="border: none">
+    </a>
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2011/08/php-hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%952011/" title="Previous Post: PHP Hello Worldコールグラフ(2011)">&laquo; PHP Hello Worldコールグラフ(2011)</a>
+      
+      
+        <a class="basic-alignment right" href="/2011/09/php5-4%e3%83%90%e3%82%a4%e3%83%8a%e3%83%aa%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab/" title="Next Post: OSX PHP 5.4バイナリインストール">OSX PHP 5.4バイナリインストール &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/12/04/php7-dot-0-0/">PHP7.0.0</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/08/haphpy-birthday/">HaPHPy Birthday PHP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/31/first-bear-sunday-stable-release/">First BEAR.Sunday Stable Release !</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/29/phpkansai2014/">基調講演「全てを結ぶ力」</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/koriym">@koriym</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'koriym',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+<section class="googleplus googleplus-hidden">
+  <h1>
+    <a href="https://plus.google.com/102811656239290261200?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Akihito Koriyama -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.</span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'koriym';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/ja_JP/all.js#appId=516362398477090&xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+<script>
+    (function(w,d){
+        var c,e=d.createDocumentFragment(),f=d.getElementsByTagName("script")[0],
+                a=function(a,b){if(!d.getElementById(b)){c=d.createElement("script");
+                    c.src=a;c.id=b||null;c.async=true;e.appendChild(c);}};
+                a("//b.st-hatena.com/js/bookmark_button_wo_al.js");
+                f.parentNode.insertBefore(e,f);
+            })(this,document);
+</script>
+
+
+</body>
+</html>

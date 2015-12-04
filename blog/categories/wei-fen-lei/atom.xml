@@ -1,0 +1,797 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 未分類 | BEAR Blog]]></title>
+  <link href="http://koriym.github.io/blog/categories/wei-fen-lei/atom.xml" rel="self"/>
+  <link href="http://koriym.github.io/"/>
+  <updated>2015-12-04T11:25:59+09:00</updated>
+  <id>http://koriym.github.io/</id>
+  <author>
+    <name><![CDATA[Akihito Koriyama]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Object Framework &#8211; Ray.Di]]></title>
+    <link href="http://koriym.github.io/2012/04/di/"/>
+    <updated>2012-04-25T00:00:00+09:00</updated>
+    <id>http://koriym.github.io/2012/04/object-framework-ray-di</id>
+    <content type="html"><![CDATA[<div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2012/04/di/">Tweet</a>
+</div>
+
+
+<h2>Dependency Injection</h2>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02-1.0102.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02-1.0102.png" alt="" title="bear-sunday-tmp-111219033305-phpapp02-1.010" class="alignnone size-full wp-image-1368" /></a><br/>
+BEAR.Sundayではオブジェクトが必要とするインスタンスを、自ら取得しないでインジェクターに代入してもらうことを期待します。</p>
+
+<p>コンストラクタやセッターメソッド経由で外部から代入されることをインジェクション（注入）、必要とするものをディペンデンシー（依存）と呼びます。ディペンデンシーを利用するクラスはコンシュマーと呼びます。</p>
+
+<p>特に特定タスクを担当しオブジェクトがツールとして使うオブジェクトをサービスオブジェクトと呼びますが、依存はサービスオブジェクトに限りません。DB接続オブジェクトや、配列やスカラー値などの値も含みます。</p>
+
+<p>前回記事の挨拶リソースに戻りましょう。このリソースはメッセージを返す為に、$messageデータを必要としています。<sup><a href="#footnote_0_1296" id="identifier_0_1296" class="footnote-link footnote-identifier-link" title="つまりこのリソースは$messageデータに依存しています">1</a></sup></p>
+
+<p>```php
+class Greetings extends AbstractObject
+{</p>
+
+<pre><code>$message = [
+    'en' =&gt; 'Hello World',
+    'ja' =&gt; 'Konichiwa Sekai',
+    'es' =&gt; 'Hola Mundo'
+];
+
+public function onGet($lang = ‘en’)
+{
+    $greeting = $this-&gt;message[$lang];
+    return $greeting;
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>$messageデータをクラスに固定で持たないで、外部から代入するように変更してみましょう。<br/>
+このようなセッターメソッドが必要です。</p>
+
+<p>```php
+/<em>*
+ * @Inject
+ * @Name(“greeting_message”)
+ </em>/
+public function setMessage(array $message)
+{</p>
+
+<pre><code>$this-&gt;message = $message;
+</code></pre>
+
+<p>}
+```</p>
+
+<p>固定されていたデータが外部から代入できるようになりました。</p>
+
+<p>ディペンデンシーをセッターメソッド経由でインジェクションしてるので、これをセッターインジェクションと呼びます。 またコンストラクターにインジェクトするのをコンストラクターインジェクションと呼びます。BEAR.SundayはRai.DiというDIフレームワークを使っていますが、サポートするインジェクションはこの２つのみです。<sup><a href="#footnote_1_1296" id="identifier_1_1296" class="footnote-link footnote-identifier-link" title="プロパティにインジェクトするプロパティインジェクションはサポートされません。">2</a></sup></p>
+
+<p>このインジェクションを行うのがディペンデンシーインジェクターです。インジェクターは決められたルールでオブジェクトのコンストラクションを行います。クラスをインスタンス化しディペンデンシーをインジェクトします。コンストラクション後に行われる初期化メソッドの呼び出しや、オブジェクト破棄の直前に呼ばれるメソッドの呼び出し予約など「オブジェクトライフサイクル」に関する設定も行います。BEAR.Sundayでは原則的に全てのオブジェクトの生成はこのディペンデンシー・インジェクターが行い、オブジェクトの中からディペンデンシーを取得することは推奨されません。</p>
+
+<h2>インジェクションポイントと@Inject</h2>
+
+<p>ユーザーがセッターメソッドに@Injectと注記（アノテート）することでRay.Diは『ここに依存の注入が必要だ』ということが分かります。この「外部からの代入を期待する部分」を<strong>インジェクションポイント</strong>と呼びます。</p>
+
+<p>※注）アノテーションはDoctrine.CommonsのAnnotationを使用していて、このアノテーションを使うためのuse文が必要です。</p>
+
+<p><code>php
+use Ray\Di\Di\Inject;
+use Ray\Di\Di\Named;
+</code></p>
+
+<p>インジェクションポイントに実際に何をセットするかは<strong>モジュール</strong>で設定します。モジュールではインジェクションポイントとインスタンスをバインドします。バインドの方法はいくつかありますがここでは特定の名前をつけてインジェクションポイントを指定する方法を使用していています。</p>
+
+<p>実際のモジュールのコードはこのようになります。</p>
+
+<p>```php
+class AppModule extends AbstractModule
+{</p>
+
+<pre><code>protected function configure()
+{
+    $message = [
+        'en' =&gt; 'Hello World',
+        'ja' =&gt; 'Konichiwa Sekai',
+        'es' =&gt; 'Hola Mundo'
+    ];
+    $this-&gt;bind()-&gt;named(‘greeting_message’)-&gt;toInsntance($message);
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<h2>インジェクターの生成とオブジェクトグラフ生成</h2>
+
+<p>インジェクターを使ってこのクラスにディペンデンシーをインジェクトしてインスタンスを取得します。</p>
+
+<p><code>php
+$injector = Injector::create([new AppModule]);
+$injector-&gt;getInstance(‘name\space\Greeting’);
+</code></p>
+
+<p>モジュールにはインジェクションポイントに対してどのインスタンスを提供するかという、いわばアプリケーションの構成知識が凝縮されています。その構成知識を使ってインジェクターはオブジェクトのコンストラクション（生成、インジェクト、ライフサイクルのセット）を行いインスタンスを返します。</p>
+
+<h2>インジェクションの連鎖とオブジェクトグラフ</h2>
+
+<p>ディペンデンシーインジェクションは専用のライブラリを使わなくても、手動でも行う事ができます。</p>
+
+<p>たとえばUserクラスはDbクラスのインスタンスが必要でDbクラスはDB接続情報の文字列が必要だとします。これを手動のインジェクトするためには例えばこのようなコードが必要でしょう。</p>
+
+<p><code>php
+$dsn = $_ENV['master_db'];
+$db = new Db($dsn);
+$user = new User($db);
+</code></p>
+
+<p>一行だとこうです</p>
+
+<p><code>php
+$user = new User(new Db($_ENV['master_db']));
+</code></p>
+
+<p>このコードで明らかなのは、依存に依存があればその「依存の依存」から先に用意して順番に次の依存に渡さなければならないことです。Userクラスを生成する前に、DBオブジェクトの生成が完了してる必要があります。DBオブジェクトを生成するにはDB接続情報を取得しておく必要があります。これは通常のプログラムではごく当たり前のことです。</p>
+
+<p>ところがRay.DIはUserクラスを作る前にDbオブジェクトを予め作っておく必要はありません。オブジェクトの構成知識を知っているインジェクターは必要な依存を遡って生成、インジェクトしてオブジェクトグラフをコンストラクションします。</p>
+
+<p>例をあげます。</p>
+
+<p>Userクラスを生成するときにRay.DiはそのクラスをつくるためにはDbオブジェクトが必要だと言う事を検知します。Dbオブジェクトを生成しようとしますが、ところがその生成にはDB接続情報が必要とも検知します。インジェクターがもつ構成知識でDB接続情報は得られます。得られた情報を使ってDBオブジェクトを生成します。そうやって依存の依存を順番に辿り依存性の解決（Dependency Resolution)を行い元のインスタンスを生成します。依存がツリー構造になっているこのオブジェクトをオブジェクトグラフと呼びます。</p>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02-1.035.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2012/04/bear-sunday-tmp-111219033305-phpapp02-1.035.png" alt="" title="Object Graph" class="alignnone size-full wp-image-1370" /></a></p>
+
+<h2>コンストラクションの再利用</h2>
+
+<p>BEAR.Sundayではプログラムの中でいつでもインジェクターを使い必要なインスタンスをオンデマンドで生成できますが、実際にはほとんどその出番はありません。boot時のルートオブジェクトグラフ（ページリソースやリソースクライアント）が生成される時に必要なオブジェクト、またはファクトリーの生成が全て完了するからです。<sup><a href="#footnote_2_1296" id="identifier_2_1296" class="footnote-link footnote-identifier-link" title="現在のBEAR.Sundayで登場する独立したオブジェクトはアプリケーションはappリソースを除くと基本的には３つしかありません。アプリケーションとリソースクライアントとページリソースです。その他のオブジェクトをそれらの「ルートオブジェクト」を構成するプロパティでしかない場合がほとんどです。
+">3</a></sup></p>
+
+<p>前バージョンBEAR.Saturday (2008年）ではアプリケーションスクリプトからnew演算子を取り除くことが一つの目標でしたが、BEAR.Sundayではフレームワークサイドでもnewの利用はほとんどありあません。オブジェクトはコンストラクションされるとAPCのストレージに格納され、リクエストをまたいで再利用されます。</p>
+
+<p>つまり現在のBEAR.Sundayではリクエスト毎に異なった処理をコンストラクタで記述することはできません。この制約はメリットとデメリットがあります。オブジェクトシリアライズ前提のためシリアライズできないクロージャや組み込みオブジェクトをコンストラクション時にプロパティにセットできません。一方、固定化されたオブジェクトグラフとより安定したフロー、強力で容易なキャッシュ機構、アノテーションやDI、AOP等を採用しながらも維持している強力なパフォーマンス等は大きなメリットです。</p>
+
+<p>再利用はオブジェクトグラフの膨大な取得コスト<sup><a href="#footnote_3_1296" id="identifier_3_1296" class="footnote-link footnote-identifier-link" title="アノテーションが必要とするコメント文のパースだけでなくアノテーションの名前解決のためのPHPスクリプトのパースも行われてます">4</a></sup> を最小限にします。30,000を超えるindexページのファンクションコールは500以下になり、実行速度は数十倍になっています。</p>
+
+<p>オブジェクトのコンストラクタは基本的にサービス開始の最初の１リクエストしか通りません。その特徴をv0.1.0alphaインストールの時に用意されるindexページでみてます。</p>
+
+<h5>indexページ画面</h5>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2012/04/77289491623cb7d47294d7b9e69ed064.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2012/04/77289491623cb7d47294d7b9e69ed064.png" alt="" title="Indexページ" class="alignnone size-full wp-image-1371" /></a></p>
+
+<h5>indexページリソーススクリプト</h5>
+
+<p>```php
+class Index extends Page
+{</p>
+
+<pre><code>use ResourceInject;
+public function __construct()
+{
+    $this['greeting'] =‘Hello, BEAR.Sunday.’;
+    $this['version'] = [
+        'php'  =&gt; phpversion(),
+        'BEAR' =&gt; Framework::VERSION
+    ];
+    $this['extentions'] = [
+        'apc'  =&gt; extension_loaded('apc') ? phpversion('apc') : 'n/a',
+        'memcache'  =&gt; extension_loaded('memcache') ? phpversion('memcache') : 'n/a',
+        'mysqlnd'  =&gt; extension_loaded('mysqlnd') ? phpversion('mysqlnd') : 'n/a',
+        'pdo_sqlite'  =&gt; extension_loaded('pdo_sqlite') ? phpversion('pdo_sqlite') : 'n/a',
+        'Xdebug'  =&gt; extension_loaded('Xdebug') ? phpversion('Xdebug') : 'n/a',
+        'xhprof' =&gt; extension_loaded('xhprof') ? phpversion('xhprof') : 'n/a'
+    ];
+}
+/**
+ * Get
+ */
+public function onGet()
+{
+    $cache = apc_cache_info(‘user’);
+    $this['apc'] = [
+       'total' =&gt; $cache['num_entries'],
+       ‘size’ =&gt; $cache['mem_size']
+    ];
+    // page / sec
+    $this['performance'] = $this-&gt;resource-&gt;get-&gt;uri(‘app://self/performance’)-&gt;request();
+    return $this;
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<h2>トレイトを使ったセッターインジェクション</h2>
+
+<p>違うクラスでも求める依存が同じなら、同じセッターが利用できます。セッターメソッドはクラスをまたいで横断的に再利用できます。モジュールに新たな設定はありません。 メソッドの横断的利用、PHP5.4の新機能のtraitにすると便利で表記も簡潔になります。</p>
+
+<p>```php
+use Ray\Di\Di\Inject;
+use Ray\Di\Di\Named;
+trait MessageInject
+{
+  private $message;
+  /<em>*
+   * @Inject
+   * @Name(“greeting_message”)
+   </em>/
+  public function setMessage(array $message)
+  {</p>
+
+<pre><code>  $this-&gt;message = $message;
+</code></pre>
+
+<p>  }
+}
+```
+アノテーションのuse文も入っているので、利用クラスでは簡単にインジェクションが表記できます。まとめるとこうなります。</p>
+
+<p>```php
+class Greetings extends AbstractObject
+{</p>
+
+<pre><code>use MessageInject;
+
+public function onGet($lang = ‘en’)
+{
+    $greeting = $this-&gt;message[$lang];
+    return $greeting;
+}
+</code></pre>
+
+<p>}
+```
+ボイラープレートになりがちなセッターインジェクションコードがスッキリ一行になり、依存関係を記すセルフドキュメントのようになってるのではないでしょうか。</p>
+
+<h2>プロバイダー<sup><a href="#footnote_5_1296" id="identifier_5_1296" class="footnote-link footnote-identifier-link" title="このセクションはstackoverflowの記事を元にしています。http://stackoverflow.com/questions/2504798/dependency-injection-in-constructors ">6</a></sup></h2>
+
+<p>Day.DiによるDIは次の２つのパートで成り立っています。</p>
+
+<ul>
+<li>モジュールでのオブジェクトコンストラクション（<strong>Construction</strong>）</li>
+<li>コンシュマーでの利用（<strong>Execution</strong>）</li>
+</ul>
+
+
+<p>コンストラクションはモジュールで完了させ、コンシュマーでは利用だけを行います。
+<strong>肝心なのはコンストラクションとエクスキューションを完全に分離して混ぜないことです。</strong>コンシュマーにディペンシーインジェクターやサービスコンテナを渡したりする事は推奨されません。<sup><a href="#footnote_6_1296" id="identifier_6_1296" class="footnote-link footnote-identifier-link" title="コンシュマーがインジェクターを使ってサービスを取得することは、デメテルの法則（最小知識の法則）に違反します。">7</a></sup><sup><a href="#footnote_7_1296" id="identifier_7_1296" class="footnote-link footnote-identifier-link" title="例外はそのコンシュマーがファクトリークラスの場合です。BEAR.Sundayで唯一インジェクターを依存として受け取りオブジェクトコンストラクションをしてるのはリソースのnewInstance()メソッドです。">8</a></sup>
+ンシュマー内で新しいインスタンスが都度欲しい時は<strong>プロバイダー</strong>を使います。プロバイダーは最小のファクトリーで、引き数なしのget()というメソッドだけを持ちます。たとえばテンポラリーファイルのハンドルが都度、複数欲しいなら(Provider)$tmpFilePorviderをインジェクトしてもらって、このように使います。</p>
+
+<p><code>php
+$tmpFile1 = $this-&gt;tmpFileProvider-&gt;get();
+$tmpFile2 = $this-&gt;tmpFileProvider-&gt;get();
+</code></p>
+
+<p>プロバイダーはどのようにインスタンスを作るかという知識を全て持っています。引き数は渡す事ができず、最小化されたこのファクトリーに伝える事ができるのは生成のタイミングだけです。
+なお、newは絶対に使っていけないというわけではありません。ごく小さなオブジェクトやPHPの組み込みオブジェクトなどは問題ないでしょう。</p>
+
+<h2>コンテナ?</h2>
+
+<p>Ray.Diでは内部でライフサイクル（シングルトンなど）の管理にオブジェクトコンテナを使いますが、依存性の解決には使いません。ユーザーがコンテナを触る必要も出番もほとんどありません。依存性は原則インターフェイスによって解決されます。SOLIDのD、 依存関係逆転の原則（DIP：Dependency Inversion Principle)です。</p>
+
+<h2>bootstrapのみで出現</h2>
+
+<p>このディペンデンシーインジェクターは通常、bootstrapスクリプト時にルートとなるアプリケーションオブジェクトを取得するのみです。ランタイムではオブジェクトの生成は原則行いません。<code>provider</code>や<code>PHPのclone</code>で複製をつくります。</p>
+
+<h2>Conclusion</h2>
+
+<p>この記事では、BEAR.Sundayアプリケーションの役割と働きをみてきました。Ray.Diは<a href="http://code.google.com/p/google-guice/">Google Guice</a>のクローンです。<sup><a href="#footnote_8_1296" id="identifier_8_1296" class="footnote-link footnote-identifier-link" title="Guiceが使われているGoogleの代表的なプロダクトにAdSenseがあります">9</a></sup> 全ての機能が移植されてるわけではありませんが、ここで紹介した機能以外にも沢山の機能があります。<a href="http://docs.doctrine-project.org/projects/doctrine-common/en/latest/reference/annotations.html">Doctrine.Commons.Annotation</a>ライブラリを使い、AuraというPHP5.4フレームワークの<a href="https://github.com/auraphp/Aura.Di">Aura.Di</a>ライブラリを拡張して作成しています。またRay.Diインジェクター自身の依存も手動でインジェクトされ拡張可能です。</p>
+
+<p><a href="http://code.google.com/p/rayphp/">Ray.Di – Guice style annotation-driven dependency injection framework for PHP</a></p>
+
+<p>インジェクションポイントとディペンデンシーのバイディングはモジュールで設定し、インジェクターはどのオプジェクとが求められればどのインスタンスを渡すかという知識を持っています。モジュールはクラスをどのようにコンストラクトするかではなく<strong>求められた依存に対してどのインスタンスを渡すか</strong>という設定が行われています。そのため同じ依存を要求する違うクラスに新たな設定は必要なく、セッターメソッドのtraitを使ってより簡素な記述でディペンデンシーが取得できます。</p>
+
+<p>Ray.Diの特徴はオブジェクトの生成と利用が完全に分離されていること<sup><a href="#footnote_9_1296" id="identifier_9_1296" class="footnote-link footnote-identifier-link" title="利用クラスでサービスコンテナへの依存がない">10</a></sup>、モジュールでのDSLによるバインディング、APCを使ったオブジェクトグラフコンストラクションの再利用等です。<sup><a href="#footnote_10_1296" id="identifier_10_1296" class="footnote-link footnote-identifier-link" title="コンストラクションは常にキャッシュされ、再利用されることを考慮したコーディングが必要です。">11</a></sup></p>
+
+<p>Ray.Diは<strong>可変点の明確化と最小化</strong>というBEAR.Sundayのアーキテクチャ全体を通しての原則を支持します。</p>
+
+<p>またRay.Diはモジュールで特定メソッドの実行にインターセプターをバインドすることが可能で、アスペクト指向プログラミングが利用できます。BEAR.Sundayではフレームワークやアプリケーションの動作や役割を様々なアスペクトの集合だと考えています。次回の記事ではAOPをサポートすRay.AopのBEAR.Sundayでの役割、アスペクト指向デザイン(AOD)により実装されたアプリケーション機能を紹介します。</p>
+
+<div class="wp_social_bookmarking_light">
+<div>
+</div>
+
+<div>
+</div>
+
+<div>
+<a href="http://b.hatena.ne.jp/entry/http://www.bear-project.net/blog/2012/04/di/" title="はてなブックマーク - Object Framework – Ray.Di" rel="nofollow" class="wp_social_bookmarking_light_a" target="_blank"><img src="http://b.hatena.ne.jp/entry/image/http://www.bear-project.net/blog/2012/04/di/" alt="はてなブックマーク - Object Framework – Ray.Di" title="はてなブックマーク - Object Framework – Ray.Di" class="wp_social_bookmarking_light_img" /></a>
+</div>
+
+<div>
+<div id="___plusone_0" style="height: 20px; width: 90px; display: inline-block; text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline;">
+</div>
+</div>
+
+<div>
+<a href="http://www.tumblr.com/share?v=3&u=http%3A%2F%2Fwww.bear-project.net%2Fblog%2F2012%2F04%2Fdi%2F&t=Object%20Framework%20%26%238211%3B%20Ray.Di" title="" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:61px; height:20px; background:url('http://platform.tumblr.com/v1/share_2.png') top left no-repeat transparent;"></a>
+</div>
+</div>
+
+
+
+
+<br class="wp_social_bookmarking_light_clear" /> <ol class="footnotes">
+
+
+<p><li id="footnote_0_1296" class="footnote">
+  つまりこのリソースは$messageデータに依存しています [<a href="#identifier_0_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_1_1296" class="footnote">
+  プロパティにインジェクトするプロパティインジェクションはサポートされません。 [<a href="#identifier_1_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_2_1296" class="footnote">
+  現在のBEAR.Sundayで登場する独立したオブジェクトはアプリケーションはappリソースを除くと基本的には３つしかありません。アプリケーションとリソースクライアントとページリソースです。その他のオブジェクトをそれらの「ルートオブジェクト」を構成するプロパティでしかない場合がほとんどです。 [<a href="#identifier_2_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_3_1296" class="footnote">
+  アノテーションが必要とするコメント文のパースだけでなくアノテーションの名前解決のためのPHPスクリプトのパースも行われてます [<a href="#identifier_3_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_4_1296" class="footnote">
+  例えばYAMLファイルのCSVファイルのパースなどをコンストラクタで行いコンテンツとしてセットすると再利用されるので個別にキャッシュしたりする必要がありません。 [<a href="#identifier_4_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_5_1296" class="footnote">
+  このセクションはstackoverflowの記事を元にしています。<a href="http://stackoverflow.com/questions/2504798/dependency-injection-in-constructors">http://stackoverflow.com/questions/2504798/dependency-injection-in-constructors</a> [<a href="#identifier_5_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_6_1296" class="footnote">
+  コンシュマーがインジェクターを使ってサービスを取得することは、<a href="http://ja.wikipedia.org/wiki/%E3%83%87%E3%83%A1%E3%83%86%E3%83%AB%E3%81%AE%E6%B3%95%E5%89%87">デメテルの法則（最小知識の法則）</a>に違反します。 [<a href="#identifier_6_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_7_1296" class="footnote">
+  例外はそのコンシュマーがファクトリークラスの場合です。BEAR.Sundayで唯一インジェクターを依存として受け取りオブジェクトコンストラクションをしてるのはリソースのnewInstance()メソッドです。 [<a href="#identifier_7_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_8_1296" class="footnote">
+  Guiceが使われているGoogleの代表的なプロダクトにAdSenseがあります [<a href="#identifier_8_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_9_1296" class="footnote">
+  利用クラスでサービスコンテナへの依存がない [<a href="#identifier_9_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+<li id="footnote_10_1296" class="footnote">
+  コンストラクションは常にキャッシュされ、再利用されることを考慮したコーディングが必要です。 [<a href="#identifier_10_1296" class="footnote-link footnote-back-link">↩</a>]
+</li>
+</ol></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[PHPでアノテーション]]></title>
+    <link href="http://koriym.github.io/2012/02/php-annotation/"/>
+    <updated>2012-02-18T00:00:00+09:00</updated>
+    <id>http://koriym.github.io/2012/02/php-annotation</id>
+    <content type="html"><![CDATA[<div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2012/02/php%E3%81%A7%E3%82%A2%E3%83%8E%E3%83%86%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3/">Tweet</a>
+</div>
+
+
+<h2>アノテーションとは</h2>
+
+<blockquote><p>プログラミングでは、コード中に登場する要素(クラス、メソッドなど)に対して、それ自体に関する情報(メタデータ)を注記できる仕組みのことをアノテーションという。「このメソッドはテスト用である」「ここでコンパイラは警告を出してはならない」「このメソッドはオーバーライドである」などの情報を付記し、コンパイル時や実行時に参照させることができる。</p></blockquote>
+
+<p><p style="text-align: right;">
+  <a href="http://e-words.jp/w/E382A2E3838EE38386E383BCE382B7E383A7E383B3.html">IT用語辞典</a></p>
+
+<p>このように説明されるアノテーションですが、その源流を調べてると次の文章に出会いました。</p>
+
+<blockquote><p>アノテーションとは、JDK 1.5で新たに追加される言語仕様であり、Javaコード上でメタデータ（コードそのものではなくコードに関する付加情報）を記述可能にする。これは、マイクロソフトC#における属性（attribute）に相当するシンタックスで、アノテーションはそれを後追いした仕様といえる。</p></blockquote>
+
+<p>[2004年の@ITnoの記事][1]です。</p>
+
+<p>つまりJavaのアノテーションはC#のアトリビュートに強く影響を受けたものみたいです。<br/>
+そのことについてC#の作者、[アンダース・ヘルスバーグ][2]氏のインタビューが@ITの[C#への期待。アンダースからの返答][3]という記事の中で見つかりました。</p>
+
+<blockquote><p>■Java言語の進化（例：Annotationなど）についてどのように考えているか？</p>
+
+<p>アノテーション（Annotation）に関しては、.NETの属性（Attribute）のJavaバージョンといえると思うが、このように.NETで実装してきていることを、やはりJavaでも行ってきているという印象だ。実際にJavaの最新バージョン5.0に搭載された新機能の中で、（先ほどのアノテーションも含めて）.NETに触発されて導入されたと思われるものがいくつもある。</p></blockquote>
+
+<p>その.Netの[属性ページ][4]ではこのように説明されています。</p>
+
+<blockquote><p>属性は、プログラムにメタデータを追加します。 メタデータは、プログラム内で定義されている型に関する情報です。 すべての .NET アセンブリに、指定した一連のメタデータが含まれ、そこにはそのアセンブリ内で定義されている型および型のメンバーが記述されています。 カスタム属性を追加すると、必要な任意の追加情報を指定できます。</p>
+
+<p>アセンブリ全体、モジュール全体、クラスやプロパティなどの小さいプログラム要素に、1 つ以上の属性を適用できます。</p>
+
+<p>属性は、メソッドやプロパティの場合と同じ方法で引数を受け取ることができます。</p>
+
+<p>プログラムは、リフレクションを使用することにより、そのプログラム専用のメタデータや他のプログラム内のメタデータを調べることができます。</p></blockquote>
+
+<p>Javaの[注釈][5]ではこのように説明されています。</p>
+
+<blockquote><p>注釈はプログラムのセマンティクスに直接影響しませんが、ツールやライブラリがプログラムを扱う方法に影響します。そのため、実行中のプログラムのセマンティクスに影響する場合があります。注釈はソースファイル、クラスファイル、または実行時にリフレクションとして読み取ることができます。</p></blockquote>
+
+<h2>PHPでのアノテーション</h2>
+
+<p>PHPはアノテーションはネイティブサポートさていませんが、&#8221;Status: Under Discussion”のアノテーション提案があります。</p>
+
+<ul>
+<li>[Annotations in DocBlock][6]</li>
+</ul>
+
+
+<p>※[Class Metadata][7]という前の提案は否決されたようです</p>
+
+<p>アノテーションの定義</p>
+
+<p>```php
+class ReflectionAnnotation
+{</p>
+
+<pre><code>private $value;
+
+public function __construct(\stdClass $value)
+{
+    $this-&gt;value = $value;
+}
+
+public function getValue()
+{
+    return $this-&gt;value;
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>アノテーションの表記</p>
+
+<p><code>php
+/**
+ * Foo class.
+ *
+ * @Entity {"repositoryClass": "FooRepository"}
+ * @Table  {"name": "foos"}
+ *
+ * @author "Guilherme Blanco"
+ */
+class Foo
+{
+  // …
+}
+</code></p>
+
+<p>アノテーションの利用</p>
+
+<p><code>php
+$reflClass = new \ReflectionClass(‘Foo’);
+var_dump($reflClass-&gt;getAnnotations());
+</code></p>
+
+<p>PHPの言語としてのサポートにが無いのにも関わらず、現在多くのライブラリ・フレームワークでアノテーションがサポートされています。なぜアノテーションを必要と考えるのでしょうか？提案者はこのように説明しています。</p>
+
+<blockquote><h3><a id="why_do_we_need_class_metadata" name="why_do_we_need_class_metadata">Why do we need Class Metadata?</a></h3></blockquote>
+
+<p><quote></p>
+
+<pre><code>Frameworks in general rely on metadata information in order to correctly work. They can use it for many purposes:
+
+    phpUnit Providing meta functionality for test cases, examples: @dataProvider for test data iteration, @expectedException for catching exceptions, etc.
+    Doctrine For Object-Relational mapping, examples: @Entity, @OneToOne, @Id, etc.
+    Zend Framework Server classes Used to automate mappings for XML-RPC, SOAP, etc.
+    FLOW3 for dependency injection and validation
+    Symfony2 for routing rules
+    Others One clear thing that comes to my mind is Validation, Functional Behavior injection (which could take advantage of Traits), etc. Also, any Framework could take advantage of it somehow.
+
+So, any meta mapping injection could be easily achieved via the implementation of a centralized Annotations support.
+
+The .NET framework uses Data Annotation: http://www.asp.net/mvc/tutorials/validation-with-the-data-annotation-validators-cs
+
+An advantage here is the .net framework will process some annotations and inject behavior into the compiled source code.
+
+It's important to note that annotations exist in java and .net but many strong use cases exist in these languages to provide hints to the compiler (@NotNull).
+
+These types of use cases (hints to the Zend lexer/parser or other PHP implementations) are not presented in this RFC.
+</code></pre>
+
+<p></quote></p>
+
+<p>他に自分が知ってる範囲では、Java Beanの影響を強く受けた[DIng][8]やRESTful PHP frameworkの[Recess][9] や[Zend Framwork2のDi][10]でもアノテーションが使われています。</p>
+
+<p>ネイティブサポートがないという事はPHPでDocCommentの部分<sup><a href="#footnote_0_1148" id="identifier_0_1148" class="footnote-link footnote-identifier-link" title="リフレクションで取得できます">1</a></sup> をPHPでパースしなくてはならなく、速度的にも不利なところがあるのですが、このようにPHPでもフレームワーク・ライブラリを中心に使われるようになってきているようです。デ・ファクトと言えるようなライブラリがないのか、各ライブラリが独自でパースしてるものが多く、GuiceクローンのアノテーションベースのDIコンテナ [Ray.Di][11] を実装したときも最初はそうしていました。</p>
+
+<h2>Doctrine\Commons\Annotations</h2>
+
+<p>ORMで有名なDoctrineですが、ORMの他にもプロジェクトがいくつか登録されていてライブラリとしてdoctrine ORM使用しているものを単体使用できるようになっています。<sup><a href="#footnote_1_1148" id="identifier_1_1148" class="footnote-link footnote-identifier-link" title=" (Zend Frameworkのように）このようにライブラリ・ファーストとして部分をライブラリとして単体使用できるのが、最新フレームワークの特徴だと思います">2</a></sup></p>
+
+<p>[Docotrine Commons][12]というライブラリがあります。</p>
+
+<blockquote><p>Common</p>
+
+<p>The Doctrine Common project is a library that provides extensions to core PHP functionality.</p></blockquote>
+
+<p>&#8220;PHPの機能を拡張するライブラリです&#8221;という説明で、Doctrineが使っているAutoloaderやCacheもあるのですが、注目は[Doctrine Annotations][13]<sup><a href="#footnote_2_1148" id="identifier_2_1148" class="footnote-link footnote-identifier-link" title=" このドキュメントは2.1のものです ">3</a></sup> です。</p>
+
+<p>RFC提案されてるようにアノテーションを扱います。</p>
+
+<p>アノテーションの定義</p>
+
+<p>@Annotation、@Targetは Doctrineが使用するアノテーションのアノテーションです。<br/>
+このアノテーションはクラスとメソッドにアノテートすることができます。</p>
+
+<p><code>php
+/**
+ * Inject
+ *
+ * @Annotation
+ * @Target("CLASS")
+ * @Target("METHOD")
+ *
+ * @package    Ray.Di
+ * @subpackage Annotation
+ */
+final class Inject implements Annotation
+{
+}
+</code></p>
+
+<p>setDbメソッドを@Injectとアノテートしました。</p>
+
+<p>```php</p>
+
+<pre><code>/**
+ * @Inject
+ *
+ * @param DbInterface $db
+ */
+public function setDb(DbInterface $db)
+{
+    $this-&gt;db = $db;
+}
+</code></pre>
+
+<p>```</p>
+
+<p>アノテーションの利用</p>
+
+<p><code>php
+$reflMethod = new ReflectionMethod(‘MyCompany\Entity\User’, ‘setDb’);
+$methodAnnotations = $reader-&gt;getMethodAnnotations($reflMethod);
+</code></p>
+
+<p>これで全てのアノテーションが取得できます。<br/>
+あるいは以下のようにして特定アノテーションの値が取得できます。</p>
+
+<p><code>php
+$methodAnnotation = $reader-&gt;getMethodAnnotation($reflMethod, $annotation);
+</code></p>
+
+<p>Doctrine\Common\Annotations\AnnotationReader が標準的なアノテーションリーダーです。 (Symfony2では標準でサービスコンテナに登録されてるようです)。
+他にはそのAnnotationReaderを利用するCachedReader、use文による名前解決を行わない、より簡素な SimpleAnnotationReaderがあります。</p>
+
+<p>またReaderを使わずパースライブラリとして使いたいなら、doc内のアノテーションを行うDoctrine\Common\Annotations\DocParser や PHPスクリプトを解析してのuse文の名前解決を行う Doctrine\Common\Annotations\PhpParser も有用だと思います。use文の名前解決については Symfony2のブログ [Symfony2: アノテーションが改善されました][14]も参考になると思います。<sup><a href="#footnote_3_1148" id="identifier_3_1148" class="footnote-link footnote-identifier-link" title=" Fabienさんの記事で、@masakielasticさん翻訳の記事です ">4</a></sup></p>
+
+<p>※他には[addendum][15] , [php-annotations][16]というライブラリもあります。</p>
+
+<h2>Conclusion</h2>
+
+<p>PHPではアノテーションのネイティブサポートはなく、以前は使用はあまり一般的ではありませんでした。しかしPHPUnitでもすっかりおなじみのようにメタプログラミングを実現するためのツールとしてPHP界でも認知されつつあります。自作のライブラリやアプリケーションでも Doctrine Annoattion を用いれば利用の敷居は下がります。速度的な懸念も CachedReaderを使用したり、Configrationに用いたりすることで問題にならない場合も多いでしょう。</p>
+
+<p>ではどのように使うのが良いのでしょうか？広く使われてる割にはなかなかベストプラクティス系の記事が見つかりませんが、１つ見つけました。興味ある方は一読すれば参考になると思います。</p>
+
+<p>[Annotations Gotchas and Best Practices<br/>
+][17]</p>
+
+<p>Ray.DiでもこのDoctrine Annotationを採用しリファクタリングを行いました。</p>
+
+<p><ol class="footnotes">
+<li id="footnote_0_1148" class="footnote">
+リフレクションで取得できます [<a href="#identifier_0_1148" class="footnote-link footnote-back-link">&#8617;</a>]
+</li>
+<li id="footnote_1_1148" class="footnote">
+(Zend Frameworkのように）このようにライブラリ・ファーストとして部分をライブラリとして単体使用できるのが、最新フレームワークの特徴だと思います [<a href="#identifier_1_1148" class="footnote-link footnote-back-link">&#8617;</a>]
+</li>
+<li id="footnote_2_1148" class="footnote">
+このドキュメントは2.1のものです [<a href="#identifier_2_1148" class="footnote-link footnote-back-link">&#8617;</a>]
+</li>
+<li id="footnote_3_1148" class="footnote">
+Fabienさんの記事で、@masakielasticさん翻訳の記事です [<a href="#identifier_3_1148" class="footnote-link footnote-back-link">&#8617;</a>]
+</li>
+</ol></p>
+
+<p> [1]: <a href="http://www.atmarkit.co.jp/fjava/kaisetsu/j2eewatch02/j2eewatch02.html">http://www.atmarkit.co.jp/fjava/kaisetsu/j2eewatch02/j2eewatch02.html</a>
+ [2]: <a href="http://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%B3%E3%83%80%E3%83%BC%E3%82%B9%E3%83%BB%E3%83%98%E3%83%AB%E3%82%B9%E3%83%90%E3%83%BC%E3%82%B0">http://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%B3%E3%83%80%E3%83%BC%E3%82%B9%E3%83%BB%E3%83%98%E3%83%AB%E3%82%B9%E3%83%90%E3%83%BC%E3%82%B0</a>
+ [3]: <a href="http://www.atmarkit.co.jp/fdotnet/insiderseye/20060215cscommunity/cscommunity_01.html">http://www.atmarkit.co.jp/fdotnet/insiderseye/20060215cscommunity/cscommunity_01.html</a>
+ [4]: <a href="http://msdn.microsoft.com/ja-jp/library/z0w1kczw.aspx">http://msdn.microsoft.com/ja-jp/library/z0w1kczw.aspx</a>
+ [5]: <a href="http://java.sun.com/j2se/1.5.0/ja/docs/ja/guide/language/annotations.html">http://java.sun.com/j2se/1.5.0/ja/docs/ja/guide/language/annotations.html</a>
+ [6]: <a href="https://wiki.php.net/rfc/annotations-in-docblock">https://wiki.php.net/rfc/annotations-in-docblock</a>
+ [7]: <a href="https://wiki.php.net/rfc/annotations">https://wiki.php.net/rfc/annotations</a>
+ [8]: <a href="http://marcelog.github.com/Ding/">http://marcelog.github.com/Ding/</a>
+ [9]: <a href="http://www.recessframework.org/">http://www.recessframework.org/</a>
+ [10]: <a href="https://github.com/ralphschindler/zf2-di-use-cases/blob/master/09-runtime-setter-injection-with-annotation.php">https://github.com/ralphschindler/zf2-di-use-cases/blob/master/09-runtime-setter-injection-with-annotation.php</a>
+ [11]: <a href="https://github.com/koriym/Ray.Di">https://github.com/koriym/Ray.Di</a>
+ [12]: <a href="http://www.doctrine-project.org/projects/common">http://www.doctrine-project.org/projects/common</a>
+ [13]: <a href="http://docs.doctrine-project.org/projects/doctrine-common/en/latest/reference/annotations.html">http://docs.doctrine-project.org/projects/doctrine-common/en/latest/reference/annotations.html</a>
+ [14]: <a href="http://www.symfony.gr.jp/blog/20110523-symfony2-annotations-gets-better">http://www.symfony.gr.jp/blog/20110523-symfony2-annotations-gets-better</a>
+ [15]: <a href="http://code.google.com/p/addendum/">http://code.google.com/p/addendum/</a>
+ [16]: <a href="http://code.google.com/p/php-annotations/">http://code.google.com/p/php-annotations/</a>
+ [17]: <a href="http://willcode4beer.com/design.jsp?set=annotations_gotchas_best_practices">http://willcode4beer.com/design.jsp?set=annotations_gotchas_best_practices</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[読了 ネットバカ]]></title>
+    <link href="http://koriym.github.io/2011/07/net-baka/"/>
+    <updated>2011-07-24T00:00:00+09:00</updated>
+    <id>http://koriym.github.io/2011/07/%e8%aa%ad%e4%ba%86%ef%bc%9a%e3%83%8d%e3%83%83%e3%83%88%e3%83%90%e3%82%ab</id>
+    <content type="html"><![CDATA[<div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2011/07/%e8%aa%ad%e4%ba%86%ef%bc%9a%e3%83%8d%e3%83%83%e3%83%88%e3%83%90%e3%82%ab/">Tweet</a>
+</div>
+
+
+<p>この本は自分の長年の問いに、それが自分だけが感じてた疑問ではなく、多く語られ議論されてきたものだと知らせてくれ、その疑問にははっきりと用語が与えられそれぞれ深い洞察があるのだと知らせてくれた良書。本書の主題とは外れるところはあっても気になった引用等を記してみたい。</p>
+
+<h3>メッセージであるというメッセージ</h3>
+
+<blockquote><p>「メディアはメッセージである」<br/>
+&ndash; マーシャル・マクルーハン　1964年「メディア論」</p></blockquote>
+
+<p>本書で最初に引用されるのがマクルーハンのこの有名な一文。自分が初めて聞いたのは確か高校生の時だったと思う。それからあらゆるメディアの登場の度に引用され、語られて来たのを見ている。<sup><a href="#footnote_0_439" id="identifier_0_439" class="footnote-link footnote-identifier-link" title="いつか読もうと思ってるが僕はこのメディア論を読んだ事はない。しかし絶頂期でさえ読まれる事より引用される事の方が多かったそうだ。">1</a></sup><sup><a href="#footnote_1_439" id="identifier_1_439" class="footnote-link footnote-identifier-link" title="http://ja.wikipedia.org/wiki/%E3%83%9E%E3%83%BC%E3%82%B7%E3%83%A3%E3%83%AB%E3%83%BB%E3%83%9E%E3%82%AF%E3%83%AB%E3%83%BC%E3%83%8F%E3%83%B3">2</a></sup></p>
+
+<blockquote><p>新しいコミニケーションテクノロジーが持つ変容のパワーをマクルーハンはただ認め、祝福してただけではないということだ。彼はこの脅威について警告もしていたー<strong>そしてその脅威について無知であることの危険性についても</strong></p></blockquote>
+
+<p>メディアはメッセージである &#8211; 高校生の僕にはマクルーハンのこの謎めいたメッセージの真の意味を理解する事はできなかった。しかし強烈な印象を持っていてずっと離れない言葉だったのは確か。その意味に迫るんだろうと予感させる本書のプロローグに期待をした。</p>
+
+<h3>プラスティックな脳</h3>
+
+<p>plastic（形容詞） &#8211; 自由な形にできる, 塑造できる, 可塑性の；</p>
+
+<p>1968年 &#8211; 「2001年宇宙の旅」が封切られた僕の生まれた年 &#8211; に26才のマイケルマーゼニックという博士号を取得したばかりの若者がサルの頭蓋骨に穴をあけ、神経可塑性の研究をし、驚くべき発見をする。</p>
+
+<blockquote><p>成人の脳は可塑的<sup><a href="#footnote_2_439" id="identifier_2_439" class="footnote-link footnote-identifier-link" title="外から成形されやすい">3</a></sup>で（後の研究者によれば「非常に可塑的」あるいは「とてつもなく可塑的」）で全ての神経回路 &#8211; 感情、視覚、聴覚、運動、思考、学習、認識、記憶、神経回路のすべてが変化しうる。しかし、「多忙者生存」といわれ与え続けた刺激にしたがってのみ変化する特質は、人の生存や活動に適したように成形されるわけではない。プラスティック（可塑的）ではあるがエラスティック（弾性がある）わけではない。</p></blockquote>
+
+<p>これはそれまで信じられて来た機械的な脳 &#8211; 成人になれば変わらぬ構造をする &#8211; を大きく覆すものだった。最初は四肢の喪失など神経の構造な大規模な構造変化のときに「アップデート」されると信じられた脳の変化も、どうもそうではなく健全で機能してる神経回路に対しても常時アップデートされてる事がわかる。<sup><a href="#footnote_3_439" id="identifier_3_439" class="footnote-link footnote-identifier-link" title="つまり「ゲーム脳」とか言ってる人や記事を色眼鏡で見てた僕の認識にも&rdquo;アップデート&rdquo;が必要">4</a></sup></p>
+
+<p>脳は外界からの刺激によって、変化する。massiveに、物理的に。<br/>
+本書の主題だ。</p>
+
+<p>OECD高所得国の平均修学年数は10年を超える。<br/>
+こんな事勉強して何になるんだろう？そう思った事の学生の時の自分に伝えたい。<br/>
+脳に新しいスキーマを構築し、知性を深めるプロセスを繰り返す刺激を脳に与え続ける事が大事と。</p>
+
+<h3>インストゥメンタリスト</h3>
+
+<p>パーソナルコンピュータ、携帯電話、常時接続のような携帯電話のEメール、FB, Twitter、色々なテクノロジーやメディアが登場しマスコミで面白く便利なものとして、あるいは時には脅威を持って紹介され、その後こう締めくくられる「（技術は技術、それ以上であってそれ以下でもなく）結局はそれを使う私たち自身の問題なのかもしれません。」</p>
+
+<p>僕は直感的に「これは間違ってる」と思ってた。支配権、決定権は使用者にあると心地よく聞こえるけど、その捉え方はちょっとイノセントすぎるというか違和感があった。強力なメディアやテクノロジーは、単に新しいオプションというだけではないんじゃないだろうか。 <sup><a href="#footnote_4_439" id="identifier_4_439" class="footnote-link footnote-identifier-link" title="こっちをもっと巻き込むような&hellip;そもそも自分達使用者は本当に選んでいるんだろうかという疑問もあった。">5</a></sup></p>
+
+<blockquote><p>道具主義者（インストゥメンタリスト） &#8211; 道具は中立的人口物であり、ユーザーの意識的欲望に完全に従属するものだと考える人々である</p>
+
+<p>どの道具を使うかについて個人や社会が様々な決定を行ってるとしても、テクノロジーと進歩の方向性とペースを我々が充分にコントロールしてきた事にならない。地図や時計を使う事を我々が「選んで」きてのだと主張するのは無理な話だ。（あたかもそうしないことができたのようでないか）また、そうしたテクノロジーの副作用を我々が「選んだ」と考えるのもなおさら無理なことである。そうした副作用の多くはそのテクノロジーが使用され始めた時にはまったく予想されてなかったのだから。政治学者ラングドン・ウィナーは次のように言う、。「近代社会の経験が我々に何かを教えてくれるとしたら、それはテクノロジーが人間の活動に対する補助でなく、その活動、およびその意味を再形成する、強力な力でもあるということだ」</p></blockquote>
+
+<p>その自分のもやもやした「結局は私たち自身の問題なのかも知れません」という「新たなテクノロジーは新しい選択肢にすぎない」という見方に対する自分の疑問にはっきり答える章がでてくる。</p>
+
+<h3>そしてそののちに、道具が我々を</h3>
+
+<blockquote><p>われわれが道具とのあいだに結ぶ強い絆は、二つの方向に働く。テクノロジーがわれわれの延長になるにつれ、われわれもテクノロジーの延長になる。ハンマーを手にした大工は、自分の手を、ハンマーを使うようにしか使うことができない。その手は、釘を打ったり抜いたりするための道具になるのだ。双眼鏡を顔の前に持ってきた兵士は、そのレンズが見せてくれるものしか見ることができない。遠くは見えるようになるが、近くのものは見えなくなるのだ。</p>
+
+<p>「我々は道具を作る。そしてそののちに、道具が我々を作る。」 &#8211; 1967  ジョン・カルキン　（イエズス会神父、メディア学者）</p>
+
+<p>「物は鞍にまたがり/人類を乗りこなす」 <a href="http://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%AB%E3%83%95%E3%83%BB%E3%83%AF%E3%83%AB%E3%83%89%E3%83%BB%E3%82%A8%E3%83%9E%E3%83%BC%E3%82%BD%E3%83%B3">ラルフ･ウォルドー・エマソン</a></p></blockquote>
+
+<p>テクノロジーは我々を拡張し、再定義する。<br/>
+技術は我々の延長にあるが、その我々も技術の延長にあるようになる。</p>
+
+<p>映画や小説、ジャーナリズムはテクノロジーのこの側面を暗くとらえ警鐘する。しかし過去に置いても人とはずっとそういうものだった。映画「2001年宇宙の旅」で人類の祖先が骨をハンマーとして振り上げ（つまり初めて道具を使う生物が誕生して）その骨が宇宙船になり100万年をスキップするシーンがある。人と道具が不可分であった事を示す映画史上に残る名シーンだと思う。再理解した。</p>
+
+<p>自分の疑問に確信が得られた。</p>
+
+<p>新しいテクノロジーは決して単なるオプション、新しいー選択肢などでは無い。使用する者を拡張し、再定義する、未来の自分自身の一部だ。</p>
+
+<h3>テクノロジーの鈍感化効果</h3>
+
+<p>拡張には代償がある。</p>
+
+<blockquote><p>力織機が発明されたとき、織工たちは手で織ってたときよりもはるかに多くの布を一日で製造できるようになったが、手の器用さをいくらか犠牲にしてしまった。</p></blockquote>
+
+<p>これを経験してない現代人はいない。</p>
+
+<p>増幅の代償として鈍感がもたらされる。ワープロソフトと車載ナビゲーションが何を増幅して何を鈍感にしただろう。先人達が一ヶ月かかって耕せなかった土地を一日で耕す、巨大トラクターの空調の聞いたケージはどんな鈍感をもたらすんだろうか。</p>
+
+<blockquote><p>テクノロジーの鈍感化効果を考察したのは自身も認めてるようにマクルーハンではない。これをもっとも雄弁かつ不吉な形で表現したのは、おそらく旧約聖書の詩編作者だ。</p>
+
+<p>彼らの偶像は金銀の、<br/>
+人の手になる者たちである。<br/>
+口はあるが、語らない。<br/>
+耳はあるが、聞こえない。<br/>
+鼻はあるが、匂わない。<br/>
+手はあるが、取らない。<br/>
+足はあるが、歩かない。<br/>
+のどから声を出すこともない。<br/>
+それらを作った者たちは、それらに似ている。<br/>
+それらを信じるものたちもみなそうである。</p></blockquote>
+
+<p>あらゆる場面で鈍感を強要する現代の都市生活。<br/>
+鈍感は力なんだという事を言い始める人まででてきた。</p>
+
+<h3>記憶のトランスファー</h3>
+
+<p><a href="http://ja.wikipedia.org/wiki/%E3%83%AF%E3%83%BC%E3%82%AD%E3%83%B3%E3%82%B0%E3%83%A1%E3%83%A2%E3%83%AA">作動記憶、ワーキングメモリ</a>と呼ばれ”る情報を一時的に保持し操作するためのシステム”は脳科学者達の初期の研究(1956)によると７つ±２の情報の断片しか処理できない。<sup><a href="#footnote_5_439" id="identifier_5_439" class="footnote-link footnote-identifier-link" title="Miller （1956年）による「マジカルナンバー7&plusmn;2」">6</a></sup> 後にそれは2から4に訂正され、後に恐らく低い方の数字と見積もられる。人が同時に持てる記憶のエレメントは非常に限られている。<sup><a href="#footnote_6_439" id="identifier_6_439" class="footnote-link footnote-identifier-link" title="短期記憶には感覚入力そのものの500msからせいぜい５秒程度の持続時間しか持たない非意識的な感覚記憶から、選択的注意を伴い意識化することで短期記憶貯蔵庫に15秒から30秒間保持されるものまで記憶保持時間に幅があります http://www.blog.crn.or.jp/report/04/52.html">7</a></sup></p>
+
+<p>コンピュータのプログラムを良く知る人は、一体人の脳というのはコンピュータプログラムとどのような点で似ていて、どのような点で似ていないかとか一度は考えた事があると思う。知性の正体とはどういうものであろうか。あるいはコンピュータの記憶と人の記憶は何が似ていて何が違ってるだろうか。</p>
+
+<p>作動記憶と長期記憶は例えば、RAMとHDDのようなものなのだろうか。その例えはRAMの方はいいかもしれない。しかし長期記憶は全く違う。</p>
+
+<p>コンピュータの世界では長期記憶と作動記憶は、保存方法に違いはあれど基本的にはビット単位で同じだ。予め容量には上限がある点も同じ。ところが脳は違う、全然違う。</p>
+
+<h3>知性の正体</h3>
+
+<blockquote><p>長期記憶は、事実、印象、出来事を保管する巨大な倉庫のような役割だけを果たしていて、「思考や問題解決といった複雑な認知プロセスでは、ほとんど何の役割も果たしていない」とかつては考えられていた。だが、長期記憶がじつは理解を行う場でもあると、脳科学者達は気がついた。長期記憶はは事実だけでなく、複雑な概念、すわなちスキーマ（体系的図式）をも保管しているのだ。バラバラの断片をパターン化された知識へと組織する事によって、スキーマは我々の思考を豊かなものにする。「われわれの知的能力の大部分は、長きにわたって獲得したスキーマに由来している。専門的な概念を理解できるのは、それらの概念に関連するスキーマを持ってるからである」</p>
+
+<p>作動記憶から長期記憶へと情報を差し替え、概念スキーマとして組み上げる能力によって、知性の深さは決定される</p></blockquote>
+
+<p>僕は知識を「知恵」に変換するプロセスが大切だと考えてた。（知恵とは、より抽象度、応用度が高い動的知識みたいなものと理解していた。）　つまり本書で言う概念スキーマに近い。しかし本書ではその漠然とした考えに、実際には睡眠で見る夢やタンパク質、脳神経の物理現象など色々な要素が関わって物理的につくられていくという事が説明してあって大変興味深かった。知性や知恵とは概念というだけなくて、現象でもあった。</p>
+
+<h3>ソクラテスとプラトン、音声文化から文字文化へ</h3>
+
+<blockquote><p>「王様、この文字というものを学べば、エジプト人たちの知恵はたかまり、もの覚えはよくなるでしょう。私の発見したものは、記憶と知恵の秘訣なのですから。」──しかし、タモスは答えて言った。</p>
+
+<p>「たぐいなき技術の神テウトよ、技術上の事柄を生み出す力をもった人と、生み出された技術がそれを使う人々にどのような害をあたえ、どのような益をもたらすかを判別する力をもった人とは、別の者なのだ。いまもあなたは。文字の生みの親として、愛情にほだされ、文字が実際にもっている効能と正反対のことを言われた。なぜなら、人々がこの文字というものを学ぶと、記憶力の訓練がなおざりにされるため、その人達の魂の中には、忘れっぽい性質が植え付けられることだろうから。それはほかでもない、彼らは書いたものを信頼して、ものを思い出すのに、自分以外のものに彫りつけられたしるしによって外から思い出すようになり、自分で自分の力によって内から思い出すことをしないようになるからである。じじつ、あなたが発明したのは、記憶の秘訣ではなくて、想起の秘訣なのだ。また他方、あなたがこれを学ぶ人たちに与える知恵というのは、知恵の外見であって、真実の知恵ではない。すなわち、彼らはあなたのおかげで、親しく教えをうけなくてももの知りになるため、多くの場合ほんとうは何も知らないでいながら、見かけだけはひじょうな博識家であると思われるようになるだろうし、また知者となる代りに知者であるといううぬぼれだけが発達するため、つき合いにくい人間となるだろう。」<br/>
+（プラトン『パイドロス』藤沢令夫訳　岩波文庫　１３４、１３５頁）</p></blockquote>
+
+<p>((新興メディア叩き in 古代ギリシア <a href="http://trushnote.exblog.jp/14087619/">http://trushnote.exblog.jp/14087619/</a>)) <sup><a href="#footnote_7_439" id="identifier_7_439" class="footnote-link footnote-identifier-link" title="パイドロス http://ja.wikipedia.org/wiki/%E3%83%91%E3%82%A4%E3%83%89%E3%83%AD%E3%82%B9">8</a></sup></p>
+
+<p>紀元前3500年、シュメール人が楔形文字を発明し、知が話し言葉の「音声文化」から文字が思考表現の主要媒体となる「文字文化」へ移行するという人類史上最大のメディアシフトが起こる。<sup><a href="#footnote_8_439" id="identifier_8_439" class="footnote-link footnote-identifier-link" title="僕はイランイラク国境に近いジグラットでこの楔型文字を見た事がある。その時の感動がこの対話を知った事で深まった。">9</a></sup></p>
+
+<p>「文字を学ぶ物達にあなたが与えるのは真の知恵ではなく知恵のようにみえるものでしかない。多くの事を知ってるようにみえるがたいていの場合何も知らない人になる。」 と「文字は記憶と知恵の秘訣を授けるものであるから、エジプトの民を賢くし記憶力を高めるであろう」と文字の有効性を説く技術の神テウトにエジプトの王は否定的な見方をする。「文字は人々の魂に忘れっぽさを植え付けるだろう。みずからのなかから思い出すのではなく、外に記されたものから呼び起こそうとするようになるだろう」</p>
+
+<h3>技術の神テウトはGoogleになった</h3>
+
+<p>5500年の時を経て技術の神テウトはインターネットに、Googleになった。</p>
+
+<p>最初のマクルーハンの警鐘が思い起こされる。「脅威について無知であることの危険性」を語る人も出てきた。<sup><a href="#footnote_9_439" id="identifier_9_439" class="footnote-link footnote-identifier-link" title="Googleで人の記憶は変質する――米心理学者が発表 http://www.itmedia.co.jp/enterprise/articles/1107/15/news062.html">10</a></sup></p>
+
+<p>警告を受け入れ、脳や自分たちの変質を拒否するために検索エンジンの過度な使用をやめるべきか？そんな事はできない。<br/>
+「技術は我々の延長にあるが、その我々も技術の延長」にもうなっている。携帯電話と同じ。それらは単なる選択可能な１オプションではない、使い手を変容させるメッセージだ。しかし脅威について無知である必要はない。ではどうすれば。</p>
+
+<p>僕が面白いと思うのはこのソクラテスの話を書き記したのがプラトンという事だ。ソクラテスは弁論家 <sup><a href="#footnote_10_439" id="identifier_10_439" class="footnote-link footnote-identifier-link" title="生涯に渡って著作がない">11</a></sup>でプラトンは書き手だ。</p>
+
+<p>「うちなる考えを外なる記号に置き換える事によって、より浅い思考をするものにわれわれを変える恐れがある」というソクラテスの考えを共有しつつもプラトンは書き言葉の新しい可能性を認識していた。新しいメディアの脅威について警告を理解しつつ祝福もしていた。著作を残さなかったこのソクラテスの話を現代の我々が知る事ができるのは、そのテクノロジーをつかって文字として残したプラトンのおかげだ。</p>
+
+<p>テウト神を警戒するエジプトの王の思慮深さは素晴らしいが、同時にプラトンのようでありたいと思った。崇拝でも否定でもなく、思慮深さを持ちつつ新しい可能性を見いだすところに本当の進歩があると思う。</p>
+
+<p>タイトルの軽さから気楽に読み始めた本書は、脳科学という乗り物で人類と技術を旅する壮大な旅になった。ネット以前、ネット以後を経験した人類唯一の我々の世代全ての人にお勧めする。1964年のマクルーハンの警鐘に耳を傾けよう。</p>
+
+<ol class="footnotes">
+  <li id="footnote_0_439" class="footnote">
+    いつか読もうと思ってるが僕はこのメディア論を読んだ事はない。しかし絶頂期でさえ読まれる事より引用される事の方が多かったそうだ。 [<a href="#identifier_0_439" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_1_439" class="footnote">
+    http://ja.wikipedia.org/wiki/%E3%83%9E%E3%83%BC%E3%82%B7%E3%83%A3%E3%83%AB%E3%83%BB%E3%83%9E%E3%82%AF%E3%83%AB%E3%83%BC%E3%83%8F%E3%83%B3 [<a href="#identifier_1_439" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_2_439" class="footnote">
+    外から成形されやすい [<a href="#identifier_2_439" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_3_439" class="footnote">
+    つまり「ゲーム脳」とか言ってる人や記事を色眼鏡で見てた僕の認識にも&#8221;アップデート&#8221;が必要 [<a href="#identifier_3_439" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_4_439" class="footnote">
+    こっちをもっと巻き込むような&#8230;そもそも自分達使用者は本当に選んでいるんだろうかという疑問もあった。 [<a href="#identifier_4_439" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_5_439" class="footnote">
+    Miller （1956年）による「マジカルナンバー7±2」 [<a href="#identifier_5_439" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_6_439" class="footnote">
+    短期記憶には感覚入力そのものの500msからせいぜい５秒程度の持続時間しか持たない非意識的な感覚記憶から、選択的注意を伴い意識化することで短期記憶貯蔵庫に15秒から30秒間保持されるものまで記憶保持時間に幅があります http://www.blog.crn.or.jp/report/04/52.html [<a href="#identifier_6_439" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_7_439" class="footnote">
+    パイドロス http://ja.wikipedia.org/wiki/%E3%83%91%E3%82%A4%E3%83%89%E3%83%AD%E3%82%B9 [<a href="#identifier_7_439" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_8_439" class="footnote">
+    僕はイランイラク国境に近いジグラットでこの楔型文字を見た事がある。その時の感動がこの対話を知った事で深まった。 [<a href="#identifier_8_439" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_9_439" class="footnote">
+    Googleで人の記憶は変質する――米心理学者が発表 http://www.itmedia.co.jp/enterprise/articles/1107/15/news062.html [<a href="#identifier_9_439" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_10_439" class="footnote">
+    生涯に渡って著作がない [<a href="#identifier_10_439" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+
+
+]]></content>
+  </entry>
+  
+</feed>

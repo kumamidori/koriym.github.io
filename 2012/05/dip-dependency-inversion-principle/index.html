@@ -1,0 +1,423 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>DIP Dependency Inversion Principle « BEAR Blog</title>
+  <meta name="author" content="Akihito Koriyama">
+
+  
+  <meta name="description" content="Tweet Robert C. Martin氏による有名なオブジェクト指向設計（OOD）の原則Principles of OODがあります。そのうちDIP:依存逆転原則はクラス同士の結合度をいかに減らすか、またはどちらに依存すべきかを判定する原則です。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://koriym.github.io/2012/05/dip-dependency-inversion-principle/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="BEAR Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  <meta property="og:title" content="DIP Dependency Inversion Principle - BEAR Blog" />
+<meta property="og:description" content="Tweet Robert C. Martin氏による有名なオブジェクト指向設計（OOD）の原則Principles of OODがあります。そのうちDIP:依存逆転原則はクラス同士の結合度をいかに減らすか、またはどちらに依存すべきかを判定する原則です。 &hellip;" />
+<meta property="og:url" content="http://koriym.github.io/2012/05/dip-dependency-inversion-principle/" />
+<meta property="og:image" content="http://bearsunday.github.io/images/icon/favicon-144.png" />
+<meta property="og:author" content="Akihito Koriyama" />
+<meta property="og:site_name" content="BEAR Blog" />
+<meta property="og:locale" content="ja_JP" />
+<meta property="og:type" content="article" />
+<meta property="fb:app_id" content="516362398477090" />
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-6074569-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEAR Blog</a></h1>
+  
+    <h2>Because everything is a resource.</h2>
+  
+</hgroup>
+
+<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:koriym.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">DIP Dependency Inversion Principle</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-17T00:00:00+09:00" pubdate data-updated="true">May 17<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2012/05/dip%EF%BC%9Adependency-inversion-principle/">Tweet</a>
+</div>
+
+
+<p>Robert C. Martin氏による有名なオブジェクト指向設計（OOD）の原則<strong>Principles of OOD</strong>があります。そのうちDIP:依存逆転原則はクラス同士の結合度をいかに減らすか、またはどちらに依存すべきかを判定する原則です。</p>
+
+<blockquote><ul>
+<li>上位モジュールは下位モジュールに依存してはならない。両者は抽象に依存すべきである。</li>
+<li>抽象は詳細（抽象の実装クラス）に依存してはならない。詳細は抽象に依存すべきである。</li>
+</ul>
+</blockquote>
+
+<ul>
+<li>オリジナル Robert C. Martin氏の<a href="http://www.objectmentor.com/resources/articles/dip.pdf">Dependency Inversion Principle (DIP) (PDF)</a></li>
+<li><a href="http://www2.ocn.ne.jp/~yamagu/">山口大輔</a>さんによる<a href="http://www2.ocn.ne.jp/~yamagu/object/DIP-J.pdf">和訳版(PDF)</a></li>
+<li><a href="http://d.hatena.ne.jp/asakichy/20090128/1233144989"> [オブジェクト指向設計原則]依存関係逆転の原則（DIP）: Strategic Choice: </a></li>
+<li><a href="http://www.syboos.jp/sysdesign/doc/20080609145612887.html">Dependency Inversion Principle (DIP) – OO設計のDIP依存逆転原則: オブジェクト指向設計</a></li>
+</ul>
+
+
+<p>以下はオリジナルの論文の結びの言葉です。</p>
+
+<blockquote><p>依存性逆転の原則は、<strong>オブジェクト指向技術で得られると言われる数多くの利益のうち、もっとも根幹にあたる部分に位置付けられます。</strong>この原則を適切に適用することは、再利 用可能なフレームワークを構築する上では不可欠なのです。また、変更に際して回復の早い(弾力的な)コードを書く上では決定的な重要性を持ちます。抽象とこまごまとしたものはそれぞれが分離さるので、コードはとてもメンテナンスしやすいものになります。</p></blockquote>
+
+<p>BEAR.SundayではこのDIPを最大限に重要と考え、コード全域に渡って適用しています。<sup><a href="#footnote_0_1528" id="identifier_0_1528" class="footnote-link footnote-identifier-link" title="実際にフレームワーク開発の前に着手したのがこの実現のためのDI systemのRay.Diです">1</a></sup></p>
+
+<h2>実装ではなく抽象に依存する</h2>
+
+<p>解説してる文章で最も短く簡潔なのが<a href="http://d.hatena.ne.jp/asakichy/20090128/1233144989">Strategic Choice</a>ブログの説明です。</p>
+
+<blockquote><p>DIPを一言で説明すると「抽象に依存せよ」という経験則。<br/>
+プログラムは具体的なクラスに依存してはいけない。<br/>
+プログラム内の関係はすべて、抽象クラスかインターフェースで終結すべきである</p></blockquote>
+
+<p>BEAR.Sundayのクラスでは、以下のように依存は原則全て注入してもらう事を期待します。</p>
+
+<div class="codecolorer-container php blackboard" style="overflow:auto;white-space:nowrap;width:100%;">
+  <div class="php codecolorer">
+    &nbsp; &nbsp; <span class="co4">/** &nbsp; &nbsp; &nbsp;* @Inject &nbsp; &nbsp; &nbsp;*/</span> &nbsp; &nbsp; <span class="kw2">public</span> <span class="kw2">function</span> setPrinter<span class="br0">(</span>OutputDevice <span class="re0">$printer</span><span class="br0">)</span> &nbsp; &nbsp; <span class="br0">{</span> &nbsp; &nbsp; &nbsp; &nbsp; <span class="re0">$this</span><span class="sy0">-></span><span class="me1">printer</span> <span class="sy0">=</span> <span class="re0">$printer</span><span class="sy0">;</span> &nbsp; &nbsp; <span class="br0">}</span>
+  </div>
+</div>
+
+
+<p>ここで大事なのはタイプヒンティング（この場合OutputDevice）を<strong>抽象</strong>、つまりインターフェイスかまたは抽象クラスにして具象クラスを<a href="http://php.net/manual/ja/language.oop5.typehinting.php">タイプヒント</a>にしないことです。タイプヒンティングを<strong>エラーチェックのためのアサーションとだけ捉えず、DIPに従った設計のための実装</strong>として考えます。</p>
+
+<ul>
+<li><a href="http://drupal.org/node/608152">Object-oriented code : Drupal</a></li>
+</ul>
+
+
+<h2>アンチパターン考察</h2>
+
+<h3>直接生成する</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$service</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyService</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>$serviceがMyServiceのインスタンスであると<a href="http://ja.wikipedia.org/wiki/%E6%9D%9F%E7%B8%9B_%28%E6%83%85%E5%A0%B1%E5%B7%A5%E5%AD%A6%29">静的束縛</a>されています。</p>
+
+<h3>スタティックコール</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nx">MyService</span><span class="o">::</span><span class="na">doSomething</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>これも実装に依存しています。</p>
+
+<h3>コンテナに依存する</h3>
+
+<div class="codecolorer-container php blackboard" style="overflow:auto;white-space:nowrap;width:100%;">
+  <div class="php codecolorer">
+    <span class="re0">$id</span> <span class="sy0">=</span> <span class="re0">$this</span><span class="sy0">-></span><span class="me1">container</span><span class="br0">(</span><span class="st_h">&#8216;serviceA&#8217;</span><span class="br0">)</span><span class="sy0">-></span><span class="me1">getB</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">-></span><span class="me1">getC</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">-></span><span class="me1">getId</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+  </div>
+</div>
+
+
+<ul>
+<li>このコードでは抽象への依存はなくコンテナに入った<strong>実装に依存</strong>しています(DIP違反）</li>
+<li>メソッドチェーンで繋がれた<strong>依存の依存が持っている知識を前提</strong>としていています(<a href="http://ja.wikipedia.org/wiki/%E3%83%87%E3%83%A1%E3%83%86%E3%83%AB%E3%81%AE%E6%B3%95%E5%89%87" title="LoD">デメテルの法則違反</a>）</li>
+<li>getterを使う事でidという<strong>オブジェクトの構成要素の暴露</strong>がされています。(<a href="http://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%97%E3%82%BB%E3%83%AB%E5%8C%96">カプセル化</a>)</li>
+</ul>
+
+
+<p>実装に依存してオブジェクトを探しまわるようなコードから、インターフェイスを通じて依存を受け取るコードに変更します。</p>
+
+<h2>Conclusion</h2>
+
+<p>Robert C. Martin氏が「オブジェクト指向技術で得られると言われる数多くの利益のうちもっとも根幹にあたる部分」というこのDIPですが、「抽象のタイプヒントを指定しましょう」というのはただの一例で、「抽象に依存せよ」というの適用範囲の大変広いソフトウエア品質に寄与する大原則だと思います。メソッドのアクセス権 (visibility) と同じく実装での機能というより<strong>設計指向の実装</strong>として、設計者をよりよい設計にガイドする制約だと考えます。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-17T00:00:00+09:00" pubdate data-updated="true">May 17<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/bear/'>BEAR</a>, <a class='category' href='/blog/categories/php/'>PHP</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://koriym.github.io/2012/05/dip-dependency-inversion-principle/" data-via="koriym" data-counturl="http://koriym.github.io/2012/05/dip-dependency-inversion-principle/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+    <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button"
+       data-hatena-bookmark-layout="standard"
+       data-hatena-bookmark-url="http://koriym.github.io/2012/05/dip-dependency-inversion-principle/">
+        <img src="http://b.st-hatena.com/images/entry-button/button-only.gif"
+             alt="このエントリーをはてなブックマークに追加" width="20" height="20"
+             style="border: none">
+    </a>
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2012/04/object-framework-ray-aop/" title="Previous Post: Object Framework – Ray.Aop">&laquo; Object Framework – Ray.Aop</a>
+      
+      
+        <a class="basic-alignment right" href="/2012/10/codeasdocumentation/" title="Next Post: CodeAsDocumentation">CodeAsDocumentation &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/12/04/php7-dot-0-0/">PHP7.0.0</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/08/haphpy-birthday/">HaPHPy Birthday PHP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/31/first-bear-sunday-stable-release/">First BEAR.Sunday Stable Release !</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/29/phpkansai2014/">基調講演「全てを結ぶ力」</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/koriym">@koriym</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'koriym',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+<section class="googleplus googleplus-hidden">
+  <h1>
+    <a href="https://plus.google.com/102811656239290261200?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Akihito Koriyama -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.</span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'koriym';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/ja_JP/all.js#appId=516362398477090&xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+<script>
+    (function(w,d){
+        var c,e=d.createDocumentFragment(),f=d.getElementsByTagName("script")[0],
+                a=function(a,b){if(!d.getElementById(b)){c=d.createElement("script");
+                    c.src=a;c.id=b||null;c.async=true;e.appendChild(c);}};
+                a("//b.st-hatena.com/js/bookmark_button_wo_al.js");
+                f.parentNode.insertBefore(e,f);
+            })(this,document);
+</script>
+
+
+</body>
+</html>

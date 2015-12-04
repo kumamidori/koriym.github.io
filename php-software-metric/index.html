@@ -1,0 +1,536 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>PHP ソフトウェアメトリック « BEAR Blog</title>
+  <meta name="author" content="Akihito Koriyama">
+
+  
+  <meta name="description" content="Tweet ソフトウェアメトリック ソフトウェア測定法（ソフトウェアそくていほう）またはソフトウェアメトリック（英: Software metric ）とは、ソフトウェアやその仕様の属性の尺度である。
+定量的手法の威力は他の分野で証明されていたことから、 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://koriym.github.io/php-software-metric">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="BEAR Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  <meta property="og:title" content="PHP ソフトウェアメトリック - BEAR Blog" />
+<meta property="og:description" content="Tweet ソフトウェアメトリック ソフトウェア測定法（ソフトウェアそくていほう）またはソフトウェアメトリック（英: Software metric ）とは、ソフトウェアやその仕様の属性の尺度である。
+定量的手法の威力は他の分野で証明されていたことから、 &hellip;" />
+<meta property="og:url" content="http://koriym.github.io/php-software-metric" />
+<meta property="og:image" content="http://bearsunday.github.io/images/icon/favicon-144.png" />
+<meta property="og:author" content="Akihito Koriyama" />
+<meta property="og:site_name" content="BEAR Blog" />
+<meta property="og:locale" content="ja_JP" />
+<meta property="og:type" content="article" />
+<meta property="fb:app_id" content="516362398477090" />
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-6074569-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEAR Blog</a></h1>
+  
+    <h2>Because everything is a resource.</h2>
+  
+</hgroup>
+
+<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:koriym.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">PHP ソフトウェアメトリック</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-06T00:00:00+09:00" pubdate data-updated="true">Feb 6<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/php-software-metric">Tweet</a>
+</div>
+
+
+<h2>ソフトウェアメトリック</h2>
+
+<blockquote><p>ソフトウェア測定法（ソフトウェアそくていほう）またはソフトウェアメトリック（英: Software metric ）とは、ソフトウェアやその仕様の属性の尺度である。<br/>
+定量的手法の威力は他の分野で証明されていたことから、計算機科学の分野でも同様の手法をソフトウェア開発に持ち込もうとする努力が続けられてきた。Tom DeMarco は「測定できないものは制御できない」と記している。</p>
+
+<p>&#8212; <a href="http://ja.wikipedia.org/wiki/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E6%B8%AC%E5%AE%9A%E6%B3%95">Wikipedia ソフトウエア測定法</a></p></blockquote>
+
+<p>ソフトウェア工学の祖の一人であるトム・デマルコは名著『品質と生産性を重視したソフトウェア開発プロジェクト技法』をこの有名な一文「<strong>測定できないものは制御できない</strong>」で始めました。1987年のことです。</p>
+
+<h2>phpdepend</h2>
+
+<p>ソフトウエア品質を客観的・機械的に計ろうとするPHPのメトリクスツールにphpdependがあります。<br/>
+<a href="http://pdepend.org/">http://pdepend.org/</a></p>
+
+<p>本体の紹介の中でこのように述べてます。</p>
+
+<blockquote><p>PHP_Depend can be used in an automated build environment and the generated reports are always objective, it just measures the quality facts of a given source base.</p>
+
+<p>PHP_Depend scales with growing source bases, where human code reviews will fail at some day.</p>
+
+<p>PHP_Depend allows you to indentify suspect parts in a software system that should be part of a code review, without looking into the source.</p>
+
+<p>PHP_Depend also supports some fancy metrics that will become very useful, when you have reached certain level of metrics knowledge.</p></blockquote>
+
+<p>このツールを使いソースコードを解析すると２つの画像(svg)ファイルが得られます<strong>。Abstraction Instability Chart</strong>と<strong>Overview Pyramid</strong>の２つです。</p>
+
+<h2>Abstraction Instability Chart</h2>
+
+<p><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/02/report-a-i-chart.png" alt="report-a-i-chart" class="aligncenter size-full wp-image-1607" />
+Abstraction Instability Chartは横軸にA &#8211; abstraction（抽象化）、縦軸に I &#8211; Instabilityのグラフです。このAを理解するためにまず二つの数字を理解する必要があります。CaとCeです。</p>
+
+<p><strong>Ca &#8211; Afferent Couplings:</strong><br/>
+このパッケージに依存した他のパッケージがいくつあるかという数字です。高い数値は仕様変更が他に影響を与えるパッケージが多いということを表します。</p>
+
+<p><strong>Ce &#8211; Efferent Couplings:</strong><br/>
+このパッケージが依存するパッケージはいくつあるかという数字です。高い数値は他のパッケージの影響を受けやすいということを表します。</p>
+
+<p><img style="display:block;" src="http://www.bear-project.net/blog/wp-content/uploads/2013/02/CaCeIllustration.jpg" alt="CaCeIllustration" class="aligncenter size-full wp-image-1595" />
+この２つの数字を使って次のIが求められます。</p>
+
+<p><strong>I -Instability </strong> &#8211; パッケージの不安定性を表します。Iは0～1をとり値が大きいほど不安定なパッケージとされ、この数値は(Ce / (Ce + Ca)) として求められます。</p>
+
+<p>横軸のAは抽象度を表します。</p>
+
+<p><strong>A &#8211; Abstractness</strong> = 抽象象クラス数(AC) / 具象クラス(CC) + 抽象クラス数(AC)</p>
+
+<h3>Main Sequence</h3>
+
+<p>グラフに(0,1)と(1,0)を結ぶ直線をひきます。これがMain Sequenceと言われるラインでAとIのバランスの理想的な関係を表します。この線からの距離が大きいと「抽象度が高いがあまり利用されていない」「抽象度が低いが他からの依存が強い」など「抽象度と依存度の関係」が不適切という事を表します。</p>
+
+<p>そのパッケージのサイズが丸の大きさで表されるので、重要なパッケージに注目することができます。</p>
+
+<h2>各フレームワークのA/Iチャート</h2>
+
+<p>実際に取ってみました。ソースは<a href="https://github.com/koriym/php-framework-metric">https://github.com/koriym/php-framework-metric</a>です。※画像はSVGファイルなので単独で表示させ拡大するとパッケージ名の文字も読めます。</p>
+
+<h3>symfony</h3>
+
+<p><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/02/symfony-jdepend.svg" alt="symfony-jdepend" class="aligncenter size-full wp-image-1633" /></p>
+
+<h3>zf2</h3>
+
+<p><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/02/zf2-jdepend.svg" alt="zf2-jdepend" class="aligncenter size-full wp-image-1637" /></p>
+
+<h3>cakephp</h3>
+
+<p><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/02/cakephp-jdepend.svg" alt="cakephp-jdepend" class="aligncenter size-full" /></p>
+
+<h3>CodeIgniter</h3>
+
+<p><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/02/CodeIgniter-jdepend.svg" alt="CodeIgniter-jdepend" class="aligncenter size-full wp-image-1625" /></p>
+
+<h3>fuel</h3>
+
+<p><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/02/fuel-jdepend.svg" alt="fuel-jdepend" class="aligncenter size-full wp-image-1627" /></p>
+
+<h3>laravel</h3>
+
+<p><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/02/laravel-jdepend.svg" alt="laravel-jdepend" class="aligncenter size-full wp-image-1629" /></p>
+
+<h3>Slim</h3>
+
+<p><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/02/Slim-jdepend.svg" alt="Slim-jdepend" class="aligncenter size-full wp-image-1631" /></p>
+
+<h3>yii</h3>
+
+<p><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/02/yii-jdepend.svg" alt="yii-jdepend" class="aligncenter size-full wp-image-1635" /></p>
+
+<h3>Silex</h3>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2013/02/Silex-jdepend.svg"><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/02/Silex-jdepend.svg" alt="Silex-jdepend" class="aligncenter size-full wp-image-1644" /></a></p>
+
+<h3>BEAR.Sunday</h3>
+
+<p><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/02/bear-jdepend.svg" alt="bear-jdepend" class="aligncenter size-full wp-image-1621" /></p>
+
+<h2>Overview Pyramid</h2>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2013/02/bear-pyramid1.svg"><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/02/bear-pyramid1.svg" alt="bear-pyramid" class="aligncenter size-full wp-image-1622" /></a><br/>
+この&#8221;ピラミッッド図&#8221;の見方ですが、まず３つの部分に分かれてる事を理解します。</p>
+
+<p><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/02/logger.overview-pyramid-0.serendipityThumb.png" alt="logger.overview-pyramid-0.serendipityThumb" class="aligncenter size-full wp-image-1610" />
+次にNOPやCALLなどまるでアセンブラのニーモニックのような謎の略語を理解します。</p>
+
+<p>Size and Complexity（サイズと複雑度）</p>
+
+<p><strong>NOP</strong> パッケージの数<br/>
+<strong>NOC</strong> クラスの数<br/>
+<strong>NOM</strong> メソッドの数<br/>
+<strong>LOC</strong> コードの行数</p>
+
+<p>Coupling（結合度）</p>
+
+<p><strong>CYCLO</strong> <a href="http://ja.wikipedia.org/wiki/%E5%BE%AA%E7%92%B0%E7%9A%84%E8%A4%87%E9%9B%91%E5%BA%A6">循環的複雑度</a><br/>
+<strong>CALL</strong> メソッドあたりの呼び出し数<br/>
+<strong>FOUT</strong> ファン・アウト (ある特定のメソッドが呼び出す他のメソッドの数)</p>
+
+<p>Inheritance（継承）</p>
+
+<p><strong>ANDC</strong> 直接の子孫の平均数<br/>
+<strong>AHH</strong> 継承ツリーの平均の深さ</p>
+
+<p>それらの値がピラミッドの中央に表示され、上段／下段の割合の数字が端に表示されます。</p>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2013/02/logger.overview-pyramid-31.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/02/logger.overview-pyramid-31.png" alt="logger.overview-pyramid-3" class="aligncenter size-full wp-image-1651" /></a>
+数字には色が付けられ基準となる値の範囲に入ってない事を知らせてくれます。<br/>
+これも同様に各フレームワークのチャートを用意しました。</p>
+
+<h3>Symfony</h3>
+
+<p><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/02/symfony-pyramid.svg" alt="symfony-pyramid" class="aligncenter size-full wp-image-1634" /></p>
+
+<h3>zf2</h3>
+
+<p><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/02/zf2-pyramid.svg" alt="zf2-pyramid" class="aligncenter size-full wp-image-1638" /></p>
+
+<h3>cakephp</h3>
+
+<p><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/02/cakephp-pyramid.svg" alt="cakephp-pyramid" class="aligncenter size-full wp-image-1624" /></p>
+
+<h3>CodeIgniter</h3>
+
+<p><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/02/CodeIgniter-pyramid.svg" alt="CodeIgniter-pyramid" class="aligncenter size-full wp-image-1626" /></p>
+
+<h3>fuel</h3>
+
+<p><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/02/fuel-pyramid.svg" alt="fuel-pyramid" class="aligncenter size-full wp-image-1628" /></p>
+
+<h3>Silex</h3>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2013/02/Silex-pyramid.svg"><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/02/Silex-pyramid.svg" alt="Silex-pyramid" class="aligncenter size-full wp-image-1645" /></a></p>
+
+<h3>laravel</h3>
+
+<p><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/02/laravel-pyramid.svg" alt="laravel-pyramid" class="aligncenter size-full wp-image-1630" /></p>
+
+<h3>Yii</h3>
+
+<p><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/02/yii-pyramid.svg" alt="yii-pyramid" class="aligncenter size-full wp-image-1636" /></p>
+
+<h3>Slim</h3>
+
+<p><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/02/Slim-pyramid.svg" alt="Slim-pyramid" class="aligncenter size-full wp-image-1632" /></p>
+
+<h3>BEAR.Sunday</h3>
+
+<p><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/02/bear-pyramid1.svg" alt="bear-pyramid" class="aligncenter size-full wp-image-1622" /></p>
+
+<h2>ソフトウエア品質はツールによって測定できるか</h2>
+
+<p>これには様々な議論があることも紹介します。この議論もとても興味深いものです。</p>
+
+<ul>
+<li><a href="http://blogs.itmedia.co.jp/hiranabe/2009/07/---by-tom-demar.html">「測定できないものは制御できない｣は誤りだった。&#8211; by Tom Demarco<br/>
+</a></li>
+<li>　<a href="http://d.hatena.ne.jp/january/20090720/1248076466">「測定できないものは制御できない｣は誤り？</a></li>
+</ul>
+
+
+<p>今回各フレームワークのチャート図を作ってみました。それぞれのフレームワークの傾向が出て面白いとも思うのですが<sup><a href="#footnote_0_1586" id="identifier_0_1586" class="footnote-link footnote-identifier-link" title="特にsymfony/zf2/cakephpのLOCが圧巻です">1</a></sup>、特に自分や自分のチームの開発しているソフトウエアに適用してその傾向や特徴を探る事も大事かと思います。ミニマムブートストラップを探る<a href="http://www.bear-project.net/blog/2011/08/php-hello-world%E3%82%B3%E3%83%BC%E3%83%AB%E3%82%B0%E3%83%A9%E3%83%952011/">HelloWorldベンチマーク</a>と同様です。</p>
+
+<p>参考URL</p>
+
+<ul>
+<li><a href="http://www.ibm.com/developerworks/jp/java/library/j-eaed6/index.html">http://www.ibm.com/developerworks/jp/java/library/j-eaed6/index.html<br/>
+</a></li>
+<li><a href="http://manuel-pichler.de/archives/31-Using-the-Overview-Pyramid.html">http://manuel-pichler.de/archives/31-Using-the-Overview-Pyramid.html</a></li>
+</ul>
+
+
+<ol class="footnotes">
+  <li id="footnote_0_1586" class="footnote">
+    特にsymfony/zf2/cakephpのLOCが圧巻です [<a href="#identifier_0_1586" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-06T00:00:00+09:00" pubdate data-updated="true">Feb 6<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/php/'>PHP</a>, <a class='category' href='/blog/categories/huremuwaku/'>フレームワーク</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://koriym.github.io/php-software-metric" data-via="koriym" data-counturl="http://koriym.github.io/php-software-metric" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+    <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button"
+       data-hatena-bookmark-layout="standard"
+       data-hatena-bookmark-url="http://koriym.github.io/php-software-metric">
+        <img src="http://b.st-hatena.com/images/entry-button/button-only.gif"
+             alt="このエントリーをはてなブックマークに追加" width="20" height="20"
+             style="border: none">
+    </a>
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/BEARSunday0.6.0" title="Previous Post: BEAR.Sunday 0.6.0">&laquo; BEAR.Sunday 0.6.0</a>
+      
+      
+        <a class="basic-alignment right" href="/WEB-DB-PRESS-Vol73" title="Next Post: WEB+DB PRESS Vol.73">WEB+DB PRESS Vol.73 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/12/04/php7-dot-0-0/">PHP7.0.0</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/08/haphpy-birthday/">HaPHPy Birthday PHP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/31/first-bear-sunday-stable-release/">First BEAR.Sunday Stable Release !</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/29/phpkansai2014/">基調講演「全てを結ぶ力」</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/koriym">@koriym</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'koriym',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+<section class="googleplus googleplus-hidden">
+  <h1>
+    <a href="https://plus.google.com/102811656239290261200?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Akihito Koriyama -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.</span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'koriym';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/ja_JP/all.js#appId=516362398477090&xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+<script>
+    (function(w,d){
+        var c,e=d.createDocumentFragment(),f=d.getElementsByTagName("script")[0],
+                a=function(a,b){if(!d.getElementById(b)){c=d.createElement("script");
+                    c.src=a;c.id=b||null;c.async=true;e.appendChild(c);}};
+                a("//b.st-hatena.com/js/bookmark_button_wo_al.js");
+                f.parentNode.insertBefore(e,f);
+            })(this,document);
+</script>
+
+
+</body>
+</html>

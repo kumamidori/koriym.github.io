@@ -1,0 +1,593 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>PHP Hello Worldコールグラフ(2011) « BEAR Blog</title>
+  <meta name="author" content="Akihito Koriyama">
+
+  
+  <meta name="description" content="Tweet Hello Worldベンチマーク 去年のHello Worldコールグラフに続いて再度HelloWorldグラフをとりました。 グラフをとるためにリファレンスにしたHelloWorldベンチマークのサイトは前回とは違い、 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://koriym.github.io/2011/08/php-hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%952011/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="BEAR Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  <meta property="og:title" content="PHP Hello Worldコールグラフ(2011) - BEAR Blog" />
+<meta property="og:description" content="Tweet Hello Worldベンチマーク 去年のHello Worldコールグラフに続いて再度HelloWorldグラフをとりました。 グラフをとるためにリファレンスにしたHelloWorldベンチマークのサイトは前回とは違い、 &hellip;" />
+<meta property="og:url" content="http://koriym.github.io/2011/08/php-hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%952011/" />
+<meta property="og:image" content="http://bearsunday.github.io/images/icon/favicon-144.png" />
+<meta property="og:author" content="Akihito Koriyama" />
+<meta property="og:site_name" content="BEAR Blog" />
+<meta property="og:locale" content="ja_JP" />
+<meta property="og:type" content="article" />
+<meta property="fb:app_id" content="516362398477090" />
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-6074569-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEAR Blog</a></h1>
+  
+    <h2>Because everything is a resource.</h2>
+  
+</hgroup>
+
+<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:koriym.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">PHP Hello Worldコールグラフ(2011)</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-06T00:00:00+09:00" pubdate data-updated="true">Aug 6<span>th</span>, 2011</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2011/08/php-hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%952011/">Tweet</a>
+</div>
+
+
+<h3>Hello Worldベンチマーク</h3>
+
+<p>去年の<a href="http://www.bear-project.net/blog/2010/04/hello-world%E3%82%B3%E3%83%BC%E3%83%AB%E3%82%B0%E3%83%A9%E3%83%95/">Hello Worldコールグラフ</a>に続いて再度HelloWorldグラフをとりました。</p>
+
+<p>グラフをとるためにリファレンスにしたHelloWorldベンチマークのサイトは前回とは違い、SolarPHPというフレームワークのリードDeveloperのPaul M Jones氏の<a href="https://github.com/pmjones/php-framework-benchmarks">php-framework-benchmarks</a>というプロジェクトです。</p>
+
+<p>SolarPHP自体はYiiのようにミニマムオーバーヘッドを特別アピールしているフレームワークではありませんが、Paul M Jones氏は数年前から定期的にこのような発表を行っていて、PHPでこの種のベンチマークに最も熱心に取り組んでる人だと思います。 Symfony2.0のリードコミッターのFabien氏もこのプロジェクトを<a href="https://github.com/fabpot/php-framework-benchmarks">fork</a>してSymfony2.0を加えています。</p>
+
+<div id="__ss_8705097" style="width: 595px;">
+  <strong style="display: block; margin: 12px 0 4px;"><a title="Benchmarking Applications and Frameworks" href="http://www.slideshare.net/pmjones88/benchmarking-applications-and-frameworks" target="_blank">Benchmarking Applications and Frameworks</a></strong>  <div style="padding: 5px 0 12px;">
+    View more <a href="http://www.slideshare.net/" target="_blank">presentations</a> from <a href="http://www.slideshare.net/pmjones88" target="_blank">pmjones88</a>
+  </div>
+</div>
+
+
+<h3>HelloWorldアプリのスペック</h3>
+
+<p>基準となるHelloWorldアプリは以下のようなものです。</p>
+
+<ul>
+<li>最小限のアプリ（フルアプリケーションでない)</li>
+<li>通常のconfig</li>
+<li>アクションコードなし</li>
+<li>ビューレイアウトもビューヘルパーもなし</li>
+<li>スタティックなテキスト</li>
+<li>ページキャッシュなし</li>
+<li>データーベースなし</li>
+</ul>
+
+
+<p>アプリケーションロジックを含まないが「HelloWorldに徹底的にカスタマイズしたされたものでもない」、ごく標準的仕様のミニマムアプリです。</p>
+
+<p>このアプリのベンチマークにはどういう意味があるのでしょうか。また比較にはどういう点に注意が必要でしょうか。スライドから抜粋して紹介します。</p>
+
+<h3>ベンチマーク結果の比較</h3>
+
+<h4>同じフレームワークでの比較</h4>
+
+<p>継続的ベンチマーキング、新しいアーキテクチャの採用には実行コストが伴う、その利点/コスト分析として。新旧バージョンでの比較統計。</p>
+
+<h4>違うフレームワークでの比較</h4>
+
+<p>他システムとの応答比較、アーキテクチャコスト比較等。速度比較をする場合は同じような&#8221;スタイル/クラス&#8221;（PHP5/デザインパターン/front,pageコントローラ/ビューの分離など）で比べるべきです。つまりCIとKohana、Cake/Lithium/Solar/Symfony/Yii/Zendで比較するのが妥当です。</p>
+
+<p>以上は特にフレームワーク開発者にとって重要です。同じクラス/スタイルのアーキテクチャで同程度の機能で極端な速度さがあればそれは設計や実装に見直す点が有るという事に繋がるでしょう。</p>
+
+<p>Webサイトは高度になり表現方法も多様化しています。１つのページを表示したあと、様々な&#8221;ページの断片&#8221;が用意されるようなGmailのようなページではそのつぶつぶのような断片的JSONの発行にそれぞれこのミニマムオーバーヘッドコストがかかってます。実行コストを最小化しつつ豊富な機能を実装するような技術的試みが続けられてると思います。<sup><a href="#footnote_0_628" id="identifier_0_628" class="footnote-link footnote-identifier-link" title="そういう意味でSymfony2のベンチ結果に注目していました">1</a></sup><sup><a href="#footnote_1_628" id="identifier_1_628" class="footnote-link footnote-identifier-link" title="前回の記事でのCakePHPやsymfonyはこの点にまったく配慮がなかったのですが、今回大きく改良しています。">2</a></sup></p>
+
+<h3>結果を過大評価しない</h3>
+
+<p>スライドの中では「最も遅いフレームワークでも充分早い」と言っています。フレームワークの選定基準には様々な判断材料がありますが、この種のベンチ結果は重要でないことは前回記事のリファレンスのphp-markでも言っていますし、このプロジェクトでも言っています。Do not interpret the numbers alone <a href="http://code.google.com/p/phpmark/">http://code.google.com/p/phpmark/</a>。この数字を過大評価してフレームワークを選定したり批評したりするのは適切ではないでしょう。</p>
+
+<p>「フレームワーク対決」の結果などではなく 、開発や対策など特定の目的を持ったときに意味のある数字だと思いますがどうでしょうか。</p>
+
+<h3>ベンチマーク結果</h3>
+
+<p>スライドで紹介されてる結果です。</p>
+
+<p><strong>WARNING: ベンチマークはミスリードさせる可能性があります</strong></p>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2011/08/51ed59663476e958f90c87515027326e.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2011/08/51ed59663476e958f90c87515027326e.png" title="FG 35%" width="597" height="369" class="alignnone size-full wp-image-747" /></a> <a href="http://www.bear-project.net/blog/wp-content/uploads/2011/08/39f1ac6508847c8a22ea39ab64eb56e7.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2011/08/39f1ac6508847c8a22ea39ab64eb56e7-300x187.png" title="FG 100%" width="300" height="187" class="alignnone size-medium wp-image-745" /></a> <div id="attachment_694" class="wp-caption alignnone" style="width: 601px">
+  <a href="http://www.bear-project.net/blog/wp-content/uploads/2011/08/a9947644a1f44666561852b0eaec3716.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2011/08/a9947644a1f44666561852b0eaec3716.png" title="Hello World benchmark 30%" width="591" height="441" class="size-full wp-image-694" /></a><p class="wp-caption-text"></p>
+
+<pre><code>フレームワークのスケール
+</code></pre>
+
+<p></div></p>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2011/08/18b9e5798fa07886cd4e0a2ff2dbf2b4.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2011/08/18b9e5798fa07886cd4e0a2ff2dbf2b4-300x224.png" title="hello_world_benchmark" width="300" height="224" class="alignnone size-medium wp-image-692" /></a>
+アーキテクチャの似たフレームワーク同士では結果が似たような速度の傾向があります。<br/>
+DBアクセスを含めたアプリで比較してるcakephperさんの記事と合わせて見ると一層興味深いのではないでしょうか。</p>
+
+<ul>
+<li><a href="http://d.hatena.ne.jp/cakephper/20110802/1312275110">cakephperの日記(CakePHP, MongoDB) &#8211; 色々なPHPフレームワークのパフォーマンスを比較</a></li>
+</ul>
+
+
+<h3>ベンチマーク結果の利用</h3>
+
+<p>基本的にアプリケーションロジックが取り除かれたこのコードが性能の上限です。キャンペーンや有名サイトでの紹介など一時的高負荷が予想されるときの負荷対策の基準になりえます。<sup><a href="#footnote_2_628" id="identifier_2_628" class="footnote-link footnote-identifier-link" title="高負荷のトップサイトなどでデータソースをRDBから他のキャッシュ向けストレージで利用する場合は、データベースの速度はあまり問題にならないでしょう。">3</a></sup></p>
+
+<h3>XHGUI</h3>
+
+<p>コールグラフは<a href="http://phpspot.org/blog/archives/2011/04/phpxhprofxhgui.html">XHGUI</a>というツールを利用しました。xhprofをフォークしたプロファイリングツールで結果保存にDBを利用し、複数回のプロファイリングを管理できます。</p>
+
+<p>apacheを毎回リスタートさせ、以下のコマンドラインで出た結果のうち良いものをグラフ描画用に使用しています。</p>
+
+<p><code>ab -c 10 -t 10 http://examplle.com/helloWorld/</code></p>
+
+<div id="attachment_714" class="wp-caption alignnone" style="width: 310px">
+  <a href="http://www.bear-project.net/blog/wp-content/uploads/2011/08/5c5d54d8f3985a7de20ca8719b89d500.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2011/08/5c5d54d8f3985a7de20ca8719b89d500-300x195.png" title="XHGUI" width="300" height="195" class="size-medium wp-image-714" /></a><p class="wp-caption-text">
+    XHGUI - ヒストリー画面
+
+</div>
+
+
+
+
+<div id="attachment_718" class="wp-caption alignnone" style="width: 310px">
+  <a href="http://www.bear-project.net/blog/wp-content/uploads/2011/08/79045a2d0cd2ad3d1fd7d375ee1780a3.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2011/08/79045a2d0cd2ad3d1fd7d375ee1780a3-300x134.png" title="XHGUI" width="300" height="134" class="size-medium wp-image-718" /></a><p class="wp-caption-text">
+    XHGUI - プロファイル詳細画面
+
+</div>
+
+
+<h3>Hello Worldコールグラフ</h3>
+
+<p>本題のコールグラフです。コール数の少ない順に表示しています。<br/>
+※クリックすると別画面で開きますが画像はとても大きいのに注意してください。</p>
+
+<p>アーキテクチャの似通ったフレームワークはやはり似通ったグラフの大きさとcall数になってますが、Yiiだけ特別です。特筆すべきはCakePHPの前回調査(v1.2)と今回(v1.3)の違いでコール数が1/10以下になっています。<sup><a href="#footnote_3_628" id="identifier_3_628" class="footnote-link footnote-identifier-link" title="前回が大すぎですね">4</a></sup></p>
+
+<div id="attachment_660" class="wp-caption alignnone" style="width: 748px">
+  <a href="http://www.bear-project.net/blog/wp-content/uploads/2011/08/Yii1.1.5.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2011/08/Yii1.1.5-738x1024.png" title="Yii1.1.5" width="738" height="1024" class="size-large wp-image-660" /></a><p class="wp-caption-text">
+    Yii1.1.5 / 269 calls / 4853x6728 px
+
+</div>
+
+
+
+
+<div id="attachment_663" class="wp-caption alignnone" style="width: 971px">
+  <a href="http://www.bear-project.net/blog/wp-content/uploads/2011/08/kohaa3.0.9.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2011/08/kohaa3.0.9-961x1024.png" title="kohaa3.0.9" width="961" height="1024" class="size-large wp-image-663" /></a><p class="wp-caption-text">
+    Kohaa3.0.9 / 365 calls / 3240x3451 px
+
+</div>
+
+
+
+
+<div id="attachment_740" class="wp-caption alignnone" style="width: 1034px">
+  <a href="http://www.bear-project.net/blog/wp-content/uploads/2011/08/ci.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2011/08/ci-1024x933.png" title="CodeIgniter2.0" width="1024" height="933" class="size-large wp-image-740" /></a><p class="wp-caption-text">
+    CodeIgniter 2.0 / 447 calls / 3515x3250px
+
+</div>
+
+
+
+
+<div id="attachment_661" class="wp-caption alignnone" style="width: 882px">
+  <a href="http://www.bear-project.net/blog/wp-content/uploads/2011/08/lithium0.9.9.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2011/08/lithium0.9.9-872x1024.png" title="lithium0.9.9" width="872" height="1024" class="size-large wp-image-661" /></a><p class="wp-caption-text">
+    Lithium 0.9.9 / 732 calls / 5839x6856 px
+
+</div>
+
+
+
+
+<div id="attachment_662" class="wp-caption alignnone" style="width: 613px">
+  <a href="http://www.bear-project.net/blog/wp-content/uploads/2011/08/SolarPHP1.1.1.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2011/08/SolarPHP1.1.1-603x1024.png" title="SolarPHP1.1.1" width="603" height="1024" class="size-large wp-image-662" /></a><p class="wp-caption-text">
+    SolarPHP 1.1.1 / 1,174 calls / 3228x5477 px
+
+</div>
+
+
+
+
+<div id="attachment_645" class="wp-caption alignnone" style="width: 833px">
+  <a href="http://www.bear-project.net/blog/wp-content/uploads/2011/08/cake1.3.10.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2011/08/cake1.3.10-823x1024.png" title="CakePHP 1.3.10" width="823" height="1024" class="size-large wp-image-645" /></a><p class="wp-caption-text">
+    CakePHP 1.3.10 / 1,177 calls / 4767x5982 px
+
+</div>
+
+
+
+
+<div id="attachment_665" class="wp-caption alignnone" style="width: 648px">
+  <a href="http://www.bear-project.net/blog/wp-content/uploads/2011/08/symfony2pr4.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2011/08/symfony2pr4-638x1024.png" title="symfony2pr4" width="638" height="1024" class="size-large wp-image-665" /></a><p class="wp-caption-text">
+    Symfony2 pr4 / 1,274 calls / 4595x7373 px
+
+</div>
+
+
+
+
+<div id="attachment_649" class="wp-caption alignnone" style="width: 1034px">
+  <a href="http://www.bear-project.net/blog/wp-content/uploads/2011/08/symfony1.4.8.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2011/08/symfony1.4.8-1024x926.png" title="symfony1.4.8" width="1024" height="926" class="size-large wp-image-649" /></a><p class="wp-caption-text">
+    symfony1.4.8 / Calls 1,661 / 5837x5280 px
+
+</div>
+
+
+
+
+<div id="attachment_664" class="wp-caption alignnone" style="width: 1034px">
+  <a href="http://www.bear-project.net/blog/wp-content/uploads/2011/08/Zend-1.11.9.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2011/08/Zend-1.11.9-1024x953.png" title="Zend 1.11.9" width="1024" height="953" class="size-large wp-image-664" /></a><p class="wp-caption-text">
+    Zend Framework 1.11.9 / 1,799 calls / 7324x6819 px
+
+</div>
+
+
+
+
+<div class="row-fluid">
+  <ul class="thumbnails">
+    <li class="span2">
+      <a class="thumbnail" href='http://www.bear-project.net/blog/2011/08/php-hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%952011/%e3%82%b9%e3%82%af%e3%83%aa%e3%83%bc%e3%83%b3%e3%82%b7%e3%83%a7%e3%83%83%e3%83%88-2011-08-06-11-52-52/' title='FG 35%'>FG 35%</a>
+    </li>
+    <li class="span2">
+      <a class="thumbnail" href='http://www.bear-project.net/blog/2011/08/php-hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%952011/%e3%82%b9%e3%82%af%e3%83%aa%e3%83%bc%e3%83%b3%e3%82%b7%e3%83%a7%e3%83%83%e3%83%88-2011-08-06-11-53-00/' title='FG 100%'>FG 100%</a>
+    </li>
+    <li class="span2">
+      <a class="thumbnail" href='http://www.bear-project.net/blog/2011/08/php-hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%952011/ci/' title='CodeIgniter2.0'>CodeIgniter2.0</a>
+    </li>
+    <li class="span2">
+      <a class="thumbnail" href='http://www.bear-project.net/blog/2011/08/php-hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%952011/%e3%82%b9%e3%82%af%e3%83%aa%e3%83%bc%e3%83%b3%e3%82%b7%e3%83%a7%e3%83%83%e3%83%88-2011-08-05-0-34-26/' title='XHGUI'>XHGUI</a>
+    </li>
+    <li class="span2">
+      <a class="thumbnail" href='http://www.bear-project.net/blog/2011/08/php-hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%952011/%e3%82%b9%e3%82%af%e3%83%aa%e3%83%bc%e3%83%b3%e3%82%b7%e3%83%a7%e3%83%83%e3%83%88-2011-08-06-2-28-19/' title='XHGUI'>XHGUI</a>
+    </li>
+    <li class="span2">
+      <a class="thumbnail" href='http://www.bear-project.net/blog/2011/08/php-hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%952011/%e3%82%b9%e3%82%af%e3%83%aa%e3%83%bc%e3%83%b3%e3%82%b7%e3%83%a7%e3%83%83%e3%83%88-2011-08-06-1-22-11/' title='Hello World benchmark 30%'>Hello World benchmark 30%</a>
+    </li>
+    <li class="span2">
+      <a class="thumbnail" href='http://www.bear-project.net/blog/2011/08/php-hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%952011/%e3%82%b9%e3%82%af%e3%83%aa%e3%83%bc%e3%83%b3%e3%82%b7%e3%83%a7%e3%83%83%e3%83%88-2011-08-06-1-21-57/' title='hello_world_benchmark'>hello_world_benchmark</a>
+    </li>
+    <li class="span2">
+      <a class="thumbnail" href='http://www.bear-project.net/blog/2011/08/php-hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%952011/symfony2pr4/' title='symfony2pr4'>symfony2pr4</a>
+    </li>
+    <li class="span2">
+      <a class="thumbnail" href='http://www.bear-project.net/blog/2011/08/php-hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%952011/zend-1-11-9/' title='Zend 1.11.9'>Zend 1.11.9</a>
+    </li>
+    <li class="span2">
+      <a class="thumbnail" href='http://www.bear-project.net/blog/2011/08/php-hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%952011/kohaa3-0-9/' title='kohaa3.0.9'>kohaa3.0.9</a>
+    </li>
+    <li class="span2">
+      <a class="thumbnail" href='http://www.bear-project.net/blog/2011/08/php-hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%952011/solarphp1-1-1/' title='SolarPHP1.1.1'>SolarPHP1.1.1</a>
+    </li>
+    <li class="span2">
+      <a class="thumbnail" href='http://www.bear-project.net/blog/2011/08/php-hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%952011/lithium0-9-9/' title='lithium0.9.9'>lithium0.9.9</a>
+    </li>
+    <li class="span2">
+      <a class="thumbnail" href='http://www.bear-project.net/blog/2011/08/php-hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%952011/yii1-1-5/' title='Yii1.1.5'>Yii1.1.5</a>
+    </li>
+    <li class="span2">
+      <a class="thumbnail" href='http://www.bear-project.net/blog/2011/08/php-hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%952011/symfony1-4-8/' title='symfony1.4.8'>symfony1.4.8</a>
+    </li>
+    <li class="span2">
+      <a class="thumbnail" href='http://www.bear-project.net/blog/2011/08/php-hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%952011/cake1-3-10/' title='CakePHP 1.3.10'>CakePHP 1.3.10</a>
+    </li>
+  </ul>
+</div>
+
+
+
+
+<ol class="footnotes">
+  <li id="footnote_0_628" class="footnote">
+    そういう意味でSymfony2のベンチ結果に注目していました [<a href="#identifier_0_628" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_1_628" class="footnote">
+    前回の記事でのCakePHPやsymfonyはこの点にまったく配慮がなかったのですが、今回大きく改良しています。 [<a href="#identifier_1_628" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_2_628" class="footnote">
+    高負荷のトップサイトなどでデータソースをRDBから他のキャッシュ向けストレージで利用する場合は、データベースの速度はあまり問題にならないでしょう。 [<a href="#identifier_2_628" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_3_628" class="footnote">
+    前回が大すぎですね [<a href="#identifier_3_628" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-06T00:00:00+09:00" pubdate data-updated="true">Aug 6<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://koriym.github.io/2011/08/php-hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%952011/" data-via="koriym" data-counturl="http://koriym.github.io/2011/08/php-hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%952011/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+    <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button"
+       data-hatena-bookmark-layout="standard"
+       data-hatena-bookmark-url="http://koriym.github.io/2011/08/php-hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%952011/">
+        <img src="http://b.st-hatena.com/images/entry-button/button-only.gif"
+             alt="このエントリーをはてなブックマークに追加" width="20" height="20"
+             style="border: none">
+    </a>
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2011/07/bear-sunday/" title="Previous Post: BEAR (Sunday)">&laquo; BEAR (Sunday)</a>
+      
+      
+        <a class="basic-alignment right" href="/2011/09/gdd2011-devquiz/" title="Next Post: GDD2011 DevQuiz">GDD2011 DevQuiz &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/12/04/php7-dot-0-0/">PHP7.0.0</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/08/haphpy-birthday/">HaPHPy Birthday PHP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/31/first-bear-sunday-stable-release/">First BEAR.Sunday Stable Release !</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/29/phpkansai2014/">基調講演「全てを結ぶ力」</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/koriym">@koriym</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'koriym',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+<section class="googleplus googleplus-hidden">
+  <h1>
+    <a href="https://plus.google.com/102811656239290261200?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Akihito Koriyama -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.</span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'koriym';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/ja_JP/all.js#appId=516362398477090&xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+<script>
+    (function(w,d){
+        var c,e=d.createDocumentFragment(),f=d.getElementsByTagName("script")[0],
+                a=function(a,b){if(!d.getElementById(b)){c=d.createElement("script");
+                    c.src=a;c.id=b||null;c.async=true;e.appendChild(c);}};
+                a("//b.st-hatena.com/js/bookmark_button_wo_al.js");
+                f.parentNode.insertBefore(e,f);
+            })(this,document);
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,780 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Ray.Tutorial &#8211; First DI framework « BEAR Blog</title>
+  <meta name="author" content="Akihito Koriyama">
+
+  
+  <meta name="description" content="Tweet 初めてのDIフレームワーク 準備 PHP5.4+で動作します。mysqlで予めテーブルを作成しておきます。
+2 フォルダをつくります。 1
+2
+$ mkdir ray.tutorial
+$ cd ray.tutorial まずは手動でインジェクションするコードソースを入力して実行します &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://koriym.github.io/first-di-framework">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="BEAR Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  <meta property="og:title" content="Ray.Tutorial &#8211; First DI framework - BEAR Blog" />
+<meta property="og:description" content="Tweet 初めてのDIフレームワーク 準備 PHP5.4+で動作します。mysqlで予めテーブルを作成しておきます。
+2 フォルダをつくります。 1
+2
+$ mkdir ray.tutorial
+$ cd ray.tutorial まずは手動でインジェクションするコードソースを入力して実行します &hellip;" />
+<meta property="og:url" content="http://koriym.github.io/first-di-framework" />
+<meta property="og:image" content="http://bearsunday.github.io/images/icon/favicon-144.png" />
+<meta property="og:author" content="Akihito Koriyama" />
+<meta property="og:site_name" content="BEAR Blog" />
+<meta property="og:locale" content="ja_JP" />
+<meta property="og:type" content="article" />
+<meta property="fb:app_id" content="516362398477090" />
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-6074569-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEAR Blog</a></h1>
+  
+    <h2>Because everything is a resource.</h2>
+  
+</hgroup>
+
+<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:koriym.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Ray.Tutorial &#8211; First DI Framework</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-17T00:00:00+09:00" pubdate data-updated="true">Aug 17<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div style="float: right; margin-left: 10px;"><a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/first-di-framework">Tweet</a></div>
+
+
+<h1>初めてのDIフレームワーク</h1>
+
+
+<h2>準備</h2>
+
+
+<ol>
+<li>PHP5.4+で動作します。mysqlで予め<a href="https://github.com/koriym/Ray.Tutorial/blob/master/doc/todo.sql">テーブルを作成</a>しておきます。
+2 フォルダをつくります。</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>mkdir ray.tutorial
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>ray.tutorial
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>まずは手動でインジェクションするコード<a href="https://github.com/koriym/Ray.Tutorial/blob/develop/src/todo2-manual-injection.php">ソース</a>を入力して実行します。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Todo</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * @var PDO</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">private</span> <span class="nv">$pdo</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * @param PDO $pdo</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">PDO</span> <span class="nv">$pdo</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">pdo</span> <span class="o">=</span> <span class="nv">$pdo</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * @param string $todo things to do</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">add</span><span class="p">(</span><span class="nv">$todo</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">pdo</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s1">&#39;INSERT INTO TODO (todo) VALUES (:todo)&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">&#39;:todo&#39;</span><span class="p">,</span> <span class="nv">$todo</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nv">$pdo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PDO</span><span class="p">(</span><span class="s1">&#39;mysql:dbname=test;host=localhost&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$todo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Todo</span><span class="p">(</span><span class="nv">$pdo</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$todo</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;Get laundry&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>実行してみます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="err">$</span> <span class="nx">php</span> <span class="nx">manual</span><span class="o">-</span><span class="nx">di</span><span class="o">.</span><span class="nx">php</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>データベースにtodoが入力されたか、コンソールかツール等で確認します。<sup><a href="#footnote_0_2143" id="identifier_0_2143" class="footnote-link footnote-identifier-link" title="あるいはSELECTをするメソッドを追加してください！">1</a></sup>
+確認できましたか？OK?
+では、次にcomposerのプロジェクトを作ってこのクラスをDI化してみましょう。</p>
+
+<h2>composerでRay.Di依存の空プロジェクトを作る</h2>
+
+
+<p>まずはcomposerをダウンロードします。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -sS https://getcomposer.org/installer | php
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>composerを使ってRay.Diを使うプロジェクトを作ります。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>php composer.phar init
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>すると色々質問されるので、ray/diのバージョン* (最新の安定板)をインストールするように答えます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>  <span class="nx">Welcome</span> <span class="nx">to</span> <span class="nx">the</span> <span class="nx">Composer</span> <span class="nx">config</span> <span class="nx">generator</span>
+</span><span class='line'><span class="k">This</span> <span class="nx">command</span> <span class="nx">will</span> <span class="nx">guide</span> <span class="nx">you</span> <span class="nx">through</span> <span class="nx">creating</span> <span class="nx">your</span> <span class="nx">composer</span><span class="o">.</span><span class="nx">json</span> <span class="nx">config</span><span class="o">.</span>
+</span><span class='line'><span class="nx">Package</span> <span class="nx">name</span> <span class="p">(</span><span class="o">&lt;</span><span class="nx">vendor</span><span class="o">&gt;/&lt;</span><span class="nx">name</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">[</span><span class="nx">akihito</span><span class="o">/</span><span class="nx">ray</span><span class="o">.</span><span class="nx">tutorial</span><span class="p">]</span><span class="o">:</span>
+</span><span class='line'><span class="nx">Description</span> <span class="p">[]</span><span class="o">:</span>
+</span><span class='line'><span class="nx">Author</span> <span class="p">[</span><span class="nx">Akihito</span> <span class="nx">Koriyama</span> <span class="o">&lt;</span><span class="nx">akihito</span> <span class="o">.</span><span class="nx">koriyama</span><span class="o">@</span><span class="nx">gmail</span><span class="o">.</span><span class="nx">com</span><span class="o">&gt;</span><span class="p">]</span><span class="o">:</span>
+</span><span class='line'><span class="nx">Minimum</span> <span class="nx">Stability</span> <span class="p">[]</span><span class="o">:</span>
+</span><span class='line'><span class="nx">License</span> <span class="p">[]</span><span class="o">:</span>
+</span><span class='line'><span class="nx">Define</span> <span class="nx">your</span> <span class="nx">dependencies</span><span class="o">.</span>
+</span><span class='line'><span class="nx">Would</span> <span class="nx">you</span> <span class="nx">like</span> <span class="nx">to</span> <span class="nb">define</span> <span class="nx">your</span> <span class="nx">dependencies</span> <span class="p">(</span><span class="k">require</span><span class="p">)</span> <span class="nx">interactively</span> <span class="p">[</span><span class="nx">yes</span><span class="p">]</span><span class="o">?</span>
+</span><span class='line'><span class="nx">Search</span> <span class="k">for</span> <span class="nx">a</span> <span class="nx">package</span> <span class="p">[]</span><span class="o">:</span> <span class="nx">ray</span><span class="o">/</span><span class="nx">di</span>
+</span><span class='line'><span class="nx">Found</span> <span class="mi">15</span> <span class="nx">packages</span> <span class="nx">matching</span> <span class="nx">ray</span><span class="o">/</span><span class="nx">di</span>
+</span><span class='line'>   <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="nx">ray</span><span class="o">/</span><span class="nx">di</span>
+</span><span class='line'>   <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="nx">ray</span><span class="o">/</span><span class="nx">aop</span>
+</span><span class='line'>   <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="nx">jms</span><span class="o">/</span><span class="nx">di</span><span class="o">-</span><span class="nx">extra</span><span class="o">-</span><span class="nx">bundle</span>
+</span><span class='line'>   <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="nx">aura</span><span class="o">/</span><span class="nx">di</span>
+</span><span class='line'>   <span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="nx">orno</span><span class="o">/</span><span class="nx">di</span>
+</span><span class='line'>   <span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="nx">league</span><span class="o">/</span><span class="nx">di</span>
+</span><span class='line'>   <span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="nx">mnapoli</span><span class="o">/</span><span class="nx">php</span><span class="o">-</span><span class="nx">di</span>
+</span><span class='line'>   <span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="nx">zendframework</span><span class="o">/</span><span class="nx">zend</span><span class="o">-</span><span class="nx">di</span>
+</span><span class='line'>   <span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="nx">mnapoli</span><span class="o">/</span><span class="nx">php</span><span class="o">-</span><span class="nx">di</span><span class="o">-</span><span class="nx">zf1</span>
+</span><span class='line'>   <span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="nx">ocramius</span><span class="o">/</span><span class="nx">ocra</span><span class="o">-</span><span class="nx">di</span><span class="o">-</span><span class="nx">compiler</span>
+</span><span class='line'>  <span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="nx">lcobucci</span><span class="o">/</span><span class="nx">di</span><span class="o">-</span><span class="nx">builder</span>
+</span><span class='line'>  <span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="nx">aimfeld</span><span class="o">/</span><span class="nx">di</span><span class="o">-</span><span class="nx">wrapper</span>
+</span><span class='line'>  <span class="p">[</span><span class="mi">12</span><span class="p">]</span> <span class="nx">kdyby</span><span class="o">/</span><span class="nx">autowired</span>
+</span><span class='line'>  <span class="p">[</span><span class="mi">13</span><span class="p">]</span> <span class="nx">seiffert</span><span class="o">/</span><span class="nx">console</span><span class="o">-</span><span class="nx">extra</span><span class="o">-</span><span class="nx">bundle</span>
+</span><span class='line'>  <span class="p">[</span><span class="mi">14</span><span class="p">]</span> <span class="nx">vojtech</span><span class="o">-</span><span class="nx">dobes</span><span class="o">/</span><span class="nx">extensions</span><span class="o">-</span><span class="k">list</span>
+</span><span class='line'><span class="nx">Enter</span> <span class="nx">package</span> <span class="c1"># to add, or the complete package name if it is not listed []: 0</span>
+</span><span class='line'><span class="nx">Enter</span> <span class="nx">the</span> <span class="nx">version</span> <span class="nx">constraint</span> <span class="nx">to</span> <span class="k">require</span> <span class="p">[]</span><span class="o">:</span> <span class="o">*</span>
+</span><span class='line'><span class="nx">Search</span> <span class="k">for</span> <span class="nx">a</span> <span class="nx">package</span> <span class="p">[]</span><span class="o">:</span>
+</span><span class='line'><span class="nx">Would</span> <span class="nx">you</span> <span class="nx">like</span> <span class="nx">to</span> <span class="nb">define</span> <span class="nx">your</span> <span class="nx">dev</span> <span class="nx">dependencies</span> <span class="p">(</span><span class="k">require</span><span class="o">-</span><span class="nx">dev</span><span class="p">)</span> <span class="nx">interactively</span> <span class="p">[</span><span class="nx">yes</span><span class="p">]</span><span class="o">?</span>
+</span><span class='line'><span class="nx">Search</span> <span class="k">for</span> <span class="nx">a</span> <span class="nx">package</span> <span class="p">[]</span><span class="o">:</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;akihito/ray.tutorial&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;require&quot;</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;ray/di&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="s2">&quot;authors&quot;</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;Akihito Koriyama&quot;</span><span class="p">,</span>
+</span><span class='line'>            <span class="s2">&quot;email&quot;</span><span class="o">:</span> <span class="s2">&quot;akihito.koriyama@gmail.com&quot;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">]</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">Do</span> <span class="nx">you</span> <span class="nx">confirm</span> <span class="nx">generation</span> <span class="p">[</span><span class="nx">yes</span><span class="p">]</span><span class="o">?</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">akihito</span><span class="o">&gt;&lt;/</span><span class="nx">name</span><span class="o">&gt;&lt;/</span><span class="nx">vendor</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>入力の必要な質問はこれだけでした。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nx">Search</span> <span class="k">for</span> <span class="nx">a</span> <span class="nx">package</span> <span class="p">[]</span><span class="o">:</span> <span class="nx">ray</span><span class="o">/</span><span class="nx">di</span>
+</span><span class='line'><span class="nx">Enter</span> <span class="nx">package</span> <span class="c1"># to add, or the complete package name if it is not listed []: 0</span>
+</span><span class='line'><span class="nx">Enter</span> <span class="nx">the</span> <span class="nx">version</span> <span class="nx">constraint</span> <span class="nx">to</span> <span class="k">require</span> <span class="p">[]</span><span class="o">:</span> <span class="o">*</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>すると最後に表示されたcomposer.jsonが出来上がりますが、まだray/diはインストールされていません。installコマンドでインストールします。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="err">$</span> <span class="nx">php</span> <span class="nx">composer</span><span class="o">.</span><span class="nx">phar</span> <span class="nx">install</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>initコマンドで作成したcomposer.jsonに従ってRay.Diとその依存ファイルとダウンロードされ、現在の依存の状態が記録されたcomposer.lockファイル、それにautoloaderを含むcomposerのファイル群もインストールされました。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="err">$</span> <span class="nx">tree</span> <span class="o">-</span><span class="nx">L</span> <span class="mi">2</span>
+</span><span class='line'><span class="err">├──</span> <span class="nx">composer</span><span class="o">.</span><span class="nx">json</span>
+</span><span class='line'><span class="err">├──</span> <span class="nx">composer</span><span class="o">.</span><span class="nx">lock</span>
+</span><span class='line'><span class="err">├──</span> <span class="nx">composer</span><span class="o">.</span><span class="nx">phar</span>
+</span><span class='line'><span class="err">└──</span> <span class="nx">vendor</span>
+</span><span class='line'>    <span class="err">├──</span> <span class="nx">aura</span>
+</span><span class='line'>    <span class="err">├──</span> <span class="nx">autoload</span><span class="o">.</span><span class="nx">php</span>
+</span><span class='line'>    <span class="err">├──</span> <span class="nx">composer</span>
+</span><span class='line'>    <span class="err">├──</span> <span class="nx">doctrine</span>
+</span><span class='line'>    <span class="err">└──</span> <span class="nx">ray</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="https://github.com/koriym/Ray.Tutorial/blob/develop/src/todo3-ray-di.php">Ray.Diを使ったコード</a>を入力してsrc/フォルダを作ってその下に配置します。
+src/todo3-ray-di.php</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span><span class="nx">php</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Doctrine\Common\Annotations\AnnotationRegistry</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Ray\Di\AbstractModule</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Ray\Di\Injector</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Ray\Di\Di\Inject</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Ray\Di\Di\Named</span><span class="p">;</span>
+</span><span class='line'><span class="nv">$loader</span> <span class="o">=</span> <span class="k">require</span> <span class="nb">dirname</span><span class="p">(</span><span class="nx">__DIR__</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;/vendor/autoload.php&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="nx">AnnotationRegistry</span><span class="o">::</span><span class="na">registerLoader</span><span class="p">([</span><span class="nv">$loader</span><span class="p">,</span> <span class="s1">&#39;loadClass&#39;</span><span class="p">]);</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Todo</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">private</span> <span class="nv">$pdo</span><span class="p">;</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * @Inject</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">PDO</span> <span class="nv">$pdo</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">pdo</span> <span class="o">=</span> <span class="nv">$pdo</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * @param $todo</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">add</span><span class="p">(</span><span class="nv">$todo</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">pdo</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s1">&#39;INSERT INTO TODO (todo) VALUES (:todo)&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">&#39;:todo&#39;</span><span class="p">,</span> <span class="nv">$todo</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Module</span> <span class="k">extends</span> <span class="nx">AbstractModule</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">configure</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$pdo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PDO</span><span class="p">(</span><span class="s1">&#39;mysql:dbname=test;host=localhost&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bind</span><span class="p">(</span><span class="s1">&#39;PDO&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">toInstance</span><span class="p">(</span><span class="nv">$pdo</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nv">$injector</span> <span class="o">=</span> <span class="nx">Injector</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="k">new</span> <span class="nx">Module</span><span class="p">]);</span>
+</span><span class='line'><span class="nv">$todo</span> <span class="o">=</span> <span class="nv">$injector</span><span class="o">-&gt;</span><span class="na">getInstance</span><span class="p">(</span><span class="s1">&#39;Todo&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="sd">/** @var $todo Todo */</span>
+</span><span class='line'><span class="nv">$todo</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;Walking in Ray&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>これがRay.Diを使ってDIを行っているコードです。変わった部分をそれぞれ見て行きます。</p>
+
+<h3>オートローダー</h3>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$loader</span> <span class="o">=</span> <span class="k">require</span> <span class="nb">dirname</span><span class="p">(</span><span class="nx">__DIR__</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;/vendor/autoload.php&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="nx">AnnotationRegistry</span><span class="o">::</span><span class="na">registerLoader</span><span class="p">([</span><span class="nv">$loader</span><span class="p">,</span> <span class="s1">&#39;loadClass&#39;</span><span class="p">]);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>composerを使うと依存ファイルのオートローディングの設定が含まれた、vendor/autoload.phpというオートローダーのファイルが自動で生成されます。
+Ray.Diのアノテーションは<a href="http://docs.doctrine-project.org/projects/doctrine-common/en/latest/reference/annotations.html">Doctrineのアノテーション</a>を使っています。アノテーションの読み込みにはオートローダーの登録が必要で、いくつかの方法がありますがここではcomposerのオートローダーをそのまま使っています。</p>
+
+<h3>アノテーション</h3>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * @Inject</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">PDO</span> <span class="nv">$pdo</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>依存を受け取るメソッドには<strong>@Inject</strong>とアノテート（注釈）されています。Ray.Diはこのアノテーションを目印にして依存が必要なメソッドを割り出します。<sup><a href="#footnote_1_2143" id="identifier_1_2143" class="footnote-link footnote-identifier-link" title="コンストラクタ以外でも依存を受け取る事ができます。@Injectとアノテートしてメソッド名は何でもかまいません">2</a></sup>
+アノテーションはクラスで、名前解決のためuse文が必要です。<sup><a href="#footnote_2_2143" id="identifier_2_2143" class="footnote-link footnote-identifier-link" title="Doctrineアノテーションの仕様です">3</a></sup></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">use</span> <span class="nx">Ray\Di\Di\Inject</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<h3>モジュール</h3>
+
+
+<p>モジュールでは依存を必要とする場所に依存をどう渡すかを記述します。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Module</span> <span class="k">extends</span> <span class="nx">AbstractModule</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">configure</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$pdo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PDO</span><span class="p">(</span><span class="s1">&#39;mysql:dbname=test;host=localhost&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bind</span><span class="p">(</span><span class="s1">&#39;PDO&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">toInstance</span><span class="p">(</span><span class="nv">$pdo</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>AbstractModuleを継承したクラスのconfigure()というメソッド内で、bind()メソッドを使って依存を束縛（バインド＝結びつけます）します。ここではPDOクラスを必要とするインジェクションポイントに作成した$pdoインスタンスを束縛しています。
+これによって<strong>アノテーション</strong>の節で説明したように@injectとアノテートされPDOクラスのタイプヒントを持つ引き数には$pdoインスタンスが渡されるようになります。</p>
+
+<h3>インジェクター</h3>
+
+
+<p>モジュールを使って作成した<strong>インジェクターは、どの依存が求められれば何を渡せばいいかを知っています</strong>。そのインジェクターを使って&#8217;Todo&#8217;クラスを取得するとインジェクターは必要とされる依存をモジュールで決めたルールで渡し、<strong>依存解決</strong>(dependency resolution)が行われます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$injector</span> <span class="o">=</span> <span class="nx">Injector</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="k">new</span> <span class="nx">Module</span><span class="p">]);</span>
+</span><span class='line'><span class="nv">$todo</span> <span class="o">=</span> <span class="nv">$injector</span><span class="o">-&gt;</span><span class="na">getInstance</span><span class="p">(</span><span class="s1">&#39;Todo&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ついに出来ました！！！！
+$todoオブジェクト！！！
+依存の問題を解決（外部の変数を外側から渡す）を自動化するために、様々な事が必要になりました。
+依存が必要な箇所にアノテーションが必要です。そのアノテーションクラスのオートローディング登録も必要で、モジュールでも依存の束縛の記述、束縛を使ったインジェクターの作成をしてようやく依存解決をするインジェクターが作成されました。
+１つの問題を解決するためにこれだけの事をしたのです。<sup><a href="#footnote_3_2143" id="identifier_3_2143" class="footnote-link footnote-identifier-link" title="NateさんのLithiumのスライド A Framework for People who Hate Frameworks &ndash; Lithium もご覧下さい">4</a></sup>DIフレームワークはRayだけではありません。他のDIフレームワークも同じような、あるいはこれ以上の準備の手順の複雑さを持っています。</p>
+
+<h3>オーバーエンジニアリング?</h3>
+
+
+<p>オーバーエンジニアリング（作り込みのし過ぎ、過剰技術）でしょうか？
+まず、他の技術同様に、<strong>説明のための単純な例で実利を感じる事は往々にして難しい</strong>事は頭に入れておく必要があります。例えば、HelloWorldのサンプルでフレームワークのメリットを実感する事はなかなか難しいでしょう。
+DIフレームワークの使用がオーバーエンジアリングか、クラス名のハードコーディングがアンダーエンジニアリングなのか、その辺りの判断を直感で出すのはひとまず置いといて、Ray DIフレームワークの使い方の実例をもう少し見て行きましょう。
+&#8230;続く</p>
+
+<ol class="footnotes"><li id="footnote_0_2143" class="footnote">あるいはSELECTをするメソッドを追加してください！ [<a href="#identifier_0_2143" class="footnote-link footnote-back-link">&#8617;</a>]</li><li id="footnote_1_2143" class="footnote">コンストラクタ以外でも依存を受け取る事ができます。@Injectとアノテートしてメソッド名は何でもかまいません [<a href="#identifier_1_2143" class="footnote-link footnote-back-link">&#8617;</a>]</li><li id="footnote_2_2143" class="footnote">Doctrineアノテーションの仕様です [<a href="#identifier_2_2143" class="footnote-link footnote-back-link">&#8617;</a>]</li><li id="footnote_3_2143" class="footnote">NateさんのLithiumのスライド <a href="http://www.slideshare.net/jperras/tekx-a-framework-for-people-who-hate-frameworks-lithium">A Framework for People who Hate Frameworks &#8211; Lithium</a> もご覧下さい [<a href="#identifier_3_2143" class="footnote-link footnote-back-link">&#8617;</a>]</li></ol>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">admin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-17T00:00:00+09:00" pubdate data-updated="true">Aug 17<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/bear/'>BEAR</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://koriym.github.io/first-di-framework" data-via="koriym" data-counturl="http://koriym.github.io/first-di-framework" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+    <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button"
+       data-hatena-bookmark-layout="standard"
+       data-hatena-bookmark-url="http://koriym.github.io/first-di-framework">
+        <img src="http://b.st-hatena.com/images/entry-button/button-only.gif"
+             alt="このエントリーをはてなブックマークに追加" width="20" height="20"
+             style="border: none">
+    </a>
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/ray-tutorial-introduction" title="Previous Post: Ray.Tutorial &#8211; introduction">&laquo; Ray.Tutorial &#8211; introduction</a>
+      
+      
+        <a class="basic-alignment right" href="/pear" title="Next Post: PEAR">PEAR &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/12/04/php7-dot-0-0/">PHP7.0.0</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/08/haphpy-birthday/">HaPHPy Birthday PHP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/05/31/first-bear-sunday-stable-release/">First BEAR.Sunday Stable Release !</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/29/phpkansai2014/">基調講演「全てを結ぶ力」</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/koriym">@koriym</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'koriym',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+<section class="googleplus googleplus-hidden">
+  <h1>
+    <a href="https://plus.google.com/102811656239290261200?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Akihito Koriyama -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.</span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'koriym';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/ja_JP/all.js#appId=516362398477090&xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+<script>
+    (function(w,d){
+        var c,e=d.createDocumentFragment(),f=d.getElementsByTagName("script")[0],
+                a=function(a,b){if(!d.getElementById(b)){c=d.createElement("script");
+                    c.src=a;c.id=b||null;c.async=true;e.appendChild(c);}};
+                a("//b.st-hatena.com/js/bookmark_button_wo_al.js");
+                f.parentNode.insertBefore(e,f);
+            })(this,document);
+</script>
+
+
+</body>
+</html>
