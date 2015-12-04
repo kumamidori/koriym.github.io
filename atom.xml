@@ -4,7 +4,7 @@
   <title><![CDATA[BEAR Blog]]></title>
   <link href="http://koriym.github.io/atom.xml" rel="self"/>
   <link href="http://koriym.github.io/"/>
-  <updated>2015-12-04T11:46:02+09:00</updated>
+  <updated>2015-12-04T11:55:25+09:00</updated>
   <id>http://koriym.github.io/</id>
   <author>
     <name><![CDATA[Akihito Koriyama]]></name>
@@ -20,9 +20,9 @@
     <id>http://koriym.github.io/blog/2015/12/04/php7-dot-0-0</id>
     <content type="html"><![CDATA[<h2>2011年</h2>
 
-<p>今から４年前の2011年12月17日(土)に東京で「<a href="http://labs.gree.jp/blog/2011/12/4367/">PHP Apocalypse</a>」なるイベントが開催されました。</p>
+<p>今から４年前の2011年12月17日(土)に東京で「<a href="http://labs.gree.jp/blog/2011/12/4367/">PHP Apocalypse</a>」というイベントが開催されました。</p>
 
-<p>タイトルが示すようにちょっと変わったイベントでした。
+<p>タイトルが示すようにちょっと変わったイベントでした。PHPに悲観的な見方を持っている参加者が多かったのです。
 冒頭のセッションで「PHPに未来を感じるか？」という問いがあり、周りを見回すと参加者で手をあげてるのはなんと自分一人。
 その時のエントリー<a href="http://koriym.github.io/2011/12/php-dis-is-it/">PHP: Dis Is It.</a>があります。</p>
 
