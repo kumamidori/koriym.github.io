@@ -4,7 +4,7 @@
   <title><![CDATA[BEAR Blog]]></title>
   <link href="http://koriym.github.io/atom.xml" rel="self"/>
   <link href="http://koriym.github.io/"/>
-  <updated>2015-12-04T11:25:59+09:00</updated>
+  <updated>2015-12-04T11:46:02+09:00</updated>
   <id>http://koriym.github.io/</id>
   <author>
     <name><![CDATA[Akihito Koriyama]]></name>
@@ -18,18 +18,13 @@
     <link href="http://koriym.github.io/blog/2015/12/04/php7-dot-0-0/"/>
     <updated>2015-12-04T11:00:00+09:00</updated>
     <id>http://koriym.github.io/blog/2015/12/04/php7-dot-0-0</id>
-    <content type="html"><![CDATA[<h1>2011年</h1>
+    <content type="html"><![CDATA[<h2>2011年</h2>
 
-<p>今から４年前の2011年12月17日(土)に東京で「PHP Apocalypse」なるイベントが開催されました。</p>
-
-<p><a href="http://labs.gree.jp/blog/2011/12/4367/">http://labs.gree.jp/blog/2011/12/4367/</a></p>
+<p>今から４年前の2011年12月17日(土)に東京で「<a href="http://labs.gree.jp/blog/2011/12/4367/">PHP Apocalypse</a>」なるイベントが開催されました。</p>
 
 <p>タイトルが示すようにちょっと変わったイベントでした。
 冒頭のセッションで「PHPに未来を感じるか？」という問いがあり、周りを見回すと参加者で手をあげてるのはなんと自分一人。
-その時のエントリーがあります。</p>
-
-<p>PHP: Dis Is It.
-<a href="http://koriym.github.io/2011/12/php-dis-is-it/">http://koriym.github.io/2011/12/php-dis-is-it/</a></p>
+その時のエントリー<a href="http://koriym.github.io/2011/12/php-dis-is-it/">PHP: Dis Is It.</a>があります。</p>
 
 <p>PHPはカリスマがいない。特定のイデオロギーを持たず、変化に躊躇がない。
 漸進的な進化を継続可能でそれを実践するものには未来がある。そう考えたのです。
@@ -37,27 +32,26 @@
 
 <p>そして４年が経ちました。</p>
 
-<p>サーバーサイドの言語で<a href="http://w3techs.com/technologies/overview/programming_language/all">80%のシェア</a>を持ち、エコシステムは大きく前進し、言語もPHP5.4(2012年3月)、PHP5.5(2013年7月)、PHP5.6(2014年8月)と高い互換性を維持しつつバージョンアップを繰り返し2014年にはFacebookのPHP&#8221;Hack&#8221;も公開されました。未来がないどころではなく、
+<p>サーバーサイドの言語で<a href="http://w3techs.com/technologies/overview/programming_language/all">80%のシェア</a>を持ち、エコシステムは大きく前進し、PHP5.4(2012年3月)、PHP5.5(2013年7月)、PHP5.6(2014年8月)と高い互換性を維持しつつバージョンアップを繰り返し2014年にはFacebookのPHP &ndash; Hackも公開されました。
 composerの登場もありました。言語もPHPコミュニティもエコシステムも全てがこの４年で大きく進化しました。</p>
 
 <p>そうです、未来がないと考えた参加者の予想は見事なくらい大外れしたのです。</p>
 
-<p>＃ PHP 7.0.0</p>
+<h2>PHP 7.0.0 リリース</h2>
 
-<p>そして本日2004年以来のメジャーバージョンアップ7.0.0がリリースされました！
+<p>そして本日2004年以来のメジャーバージョンアップPHP7がリリースされました！
 素晴らしい！！おめでとうございます！！！</p>
 
-<p>先日米国ワシントンで開催されたPHP Worldのアンソニー・フェラーラさんによる基調講演<a href="https://www.youtube.com/watch?v=MWTe-iswnqc">PHP7 and Beyond: The Future of PHP </a>をYouTubeでみました。
+<p>先日米国ワシントンで開催されたPHP Worldのアンソニー・フェラーラさんによる基調講演「<a href="https://www.youtube.com/watch?v=MWTe-iswnqc">PHP7 and Beyond: The Future of PHP </a>」をYouTubeで観ました。
 その中で「Victory for PHP」と話します。「PHPはプログラムを始めたばかりの初心者から、大企業のシニアまで、最小のWebサイトから世界最大級のサイトまで全ての人に力を与える。
 特定のイディオマティックなプログラミングパラダイムを押し付けることもない。ユーザーは選択可能で、可能な限り&#8221;&ldquo;許される&#8221;PHP。」</p>
 
-<p>そして以前アンドロイドの<a href="https://www.android.com/intl/ja_jp/be-together-not-the-same/">Adキャンペーン</a>で使われていた言葉を紹介します。</p>
+<p>そして以前アンドロイドの<a href="https://www.youtube.com/watch?v=vnVuqfXohxc">Adキャンペーン</a>で使われていた言葉を紹介します。</p>
 
-<p>”Be together, Not the same&#8221;
-<a href="https://www.youtube.com/watch?v=vnVuqfXohxc">https://www.youtube.com/watch?v=vnVuqfXohxc</a></p>
+<p>”Be together, Not the same&#8221;</p>
 
-<p>皆が同じになる必要はない。それぞれが違うアイデンティティを誇り、尊重しあい、しかし一緒に進もう。
-多様性を乱立と呼び問題視するのではなく、相互に影響しあってコミュニティ全体を前進させるための仕組みと考えましょうと。
+<p>皆が同じになる必要はない。それぞれが違うアイデンティティを誇り、尊重しあって、しかし一緒に進もう。
+多様性を乱立と呼び問題視するのではなく、相互に影響しあってコミュニティ全体を前進させるための仕組みと考えよう、と。
 素晴らしい！小さなプロジェクトにずっと取り組んでいる身に響く言葉です。</p>
 
 <p>PHP7のリリースおめでとうございます！
