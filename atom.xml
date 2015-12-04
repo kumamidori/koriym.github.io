@@ -4,7 +4,7 @@
   <title><![CDATA[BEAR Blog]]></title>
   <link href="http://koriym.github.io/atom.xml" rel="self"/>
   <link href="http://koriym.github.io/"/>
-  <updated>2015-12-04T12:13:23+09:00</updated>
+  <updated>2015-12-04T12:15:58+09:00</updated>
   <id>http://koriym.github.io/</id>
   <author>
     <name><![CDATA[Akihito Koriyama]]></name>
@@ -26,7 +26,8 @@
 冒頭のセッションで「PHPに未来を感じるか？」という問いがあり、周りを見回すと参加者で手をあげてるのはなんと自分一人。
 その時のエントリー<a href="http://koriym.github.io/2011/12/php-dis-is-it/">PHP: Dis Is It.</a>があります。</p>
 
-<p>PHPは特別のイデオロギーを見おた変化に躊躇がない。漸進的な進化が可能でそれを実践するものには未来がある。そう考えたのです。
+<p>PHPは特定のイデオロギーを持たず、変化に躊躇がない。
+漸進的な進化が継続可能でそれを実践するものには未来がある。そう考えたのです。
 よく問題とされることは単に詳細の話で深刻なものではないとも考えました。</p>
 
 <p>そして４年が経ちました。</p>
@@ -34,7 +35,7 @@
 <p>サーバーサイドの言語で<a href="http://w3techs.com/technologies/overview/programming_language/all">80%のシェア</a>を持ち、エコシステムは大きく前進し、PHP5.4(2012年3月)、PHP5.5(2013年7月)、PHP5.6(2014年8月)と高い互換性を維持しつつバージョンアップを繰り返し2014年にはFacebookのPHP &ndash; Hackも公開されました。
 composerの登場もありました。言語もPHPコミュニティもエコシステムも全てがこの４年で大きく進化しました。</p>
 
-<p>未来がないと考えた参加者の予想は当たりませんでした。</p>
+<p>そうです、未来がないと考えた参加者の予想は見事なくらい大外れしたのです。</p>
 
 <h2>PHP 7.0.0 リリース</h2>
 
