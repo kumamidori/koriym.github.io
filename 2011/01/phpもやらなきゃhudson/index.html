@@ -5,8 +5,8 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>PHPもやらなきゃHudson « BEAR Blog</title>
-  <meta name="author" content="Akihito Koriyama">
+  <title>PHPもやらなきゃHudson « My Octopress Blog</title>
+  <meta name="author" content="Your Name">
 
   
   <meta name="description" content="Tweet Hudsonとは Hudsonとは「継続的インテグレーションサーバー」です。継続的インテグレーションとは Extreme Programmingに端を発し，Martin Fowlerによって広められた概念で，狭義には，別々に開発された部品を持ち寄ってお互いの動作を検証する「統合テスト &hellip;">
@@ -24,42 +24,30 @@
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="/javascripts/ender.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="BEAR Blog" type="application/atom+xml">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
-  <meta property="og:title" content="PHPもやらなきゃHudson - BEAR Blog" />
+  <meta property="og:title" content="PHPもやらなきゃHudson - My Octopress Blog" />
 <meta property="og:description" content="Tweet Hudsonとは Hudsonとは「継続的インテグレーションサーバー」です。継続的インテグレーションとは Extreme Programmingに端を発し，Martin Fowlerによって広められた概念で，狭義には，別々に開発された部品を持ち寄ってお互いの動作を検証する「統合テスト &hellip;" />
 <meta property="og:url" content="http://koriym.github.io/2011/01/php%e3%82%82%e3%82%84%e3%82%89%e3%81%aa%e3%81%8d%e3%82%83hudson/" />
-<meta property="og:image" content="http://bearsunday.github.io/images/icon/favicon-144.png" />
-<meta property="og:author" content="Akihito Koriyama" />
-<meta property="og:site_name" content="BEAR Blog" />
-<meta property="og:locale" content="ja_JP" />
+<meta property="og:image" content="" />
+<meta property="og:author" content="Your Name" />
+<meta property="og:site_name" content="My Octopress Blog" />
+<meta property="og:locale" content="" />
 <meta property="og:type" content="article" />
-<meta property="fb:app_id" content="516362398477090" />
+<meta property="fb:app_id" content="" />
 
   
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-6074569-2']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
 
 </head>
 
 <body   >
   <header role="banner"><hgroup>
-  <h1><a href="/">BEAR Blog</a></h1>
+  <h1><a href="/">My Octopress Blog</a></h1>
   
-    <h2>Because everything is a resource.</h2>
+    <h2>A blogging framework for hackers.</h2>
   
 </hgroup>
 
@@ -70,7 +58,7 @@
   
 </ul>
   
-<form action="http://google.com/search" method="get">
+<form action="https://www.google.com/search" method="get">
   <fieldset role="search">
     <input type="hidden" name="q" value="site:koriym.github.io" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
@@ -107,9 +95,7 @@
   
 
 
-<time datetime="2011-01-17T00:00:00+09:00" pubdate data-updated="true">Jan 17<span>th</span>, 2011</time>
-        
-         | <a href="#disqus_thread">Comments</a>
+<time datetime="2011-01-17T00:00:00+09:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -188,10 +174,7 @@
 </div>
 
 
-
-
-<br clear="all" />
-
+<p><br clear="all" /></p>
 
 <h5>起動</h5>
 
@@ -207,10 +190,7 @@ $ java -jar /Applications/hudson.war
 </div>
 
 
-
-
-<br clear="all" />
-
+<p><br clear="all" /></p>
 
 <h4>必要なHudsonプラグインのインストール</h4>
 
@@ -290,20 +270,17 @@ pear install --alldeps phpunit/PHPUnit
 
 <p>※例えばコード規約の設定をPEARにしたいのならphpcsのセクションを以下のようにします。</p>
 
-<p>`
- <!-- Generate checkstyle.xml -->
- <target name="phpcs">
-  <exec executable="phpcs" output="/dev/null">
-   &lt;arg line=&ldquo;&mdash;report=checkstyle</p>
-
-<pre><code>          --report-file=${basedir}/build/logs/checkstyle.xml
-          --standard=PEAR
-          BEAR" /&gt;
-</code></pre>
-
-<p>  </exec>
- </target>
-`</p>
+<p><code>
+ &lt;!-- Generate checkstyle.xml --&gt;
+ &lt;target name="phpcs"&gt;
+  &lt;exec executable="phpcs" output="/dev/null"&gt;
+   &lt;arg line="--report=checkstyle
+              --report-file=${basedir}/build/logs/checkstyle.xml
+              --standard=PEAR
+              BEAR" /&gt;
+  &lt;/exec&gt;
+ &lt;/target&gt;
+</code></p>
 
 <h3>Hudsonでプロジェクト作成</h3>
 
@@ -325,33 +302,27 @@ $ git clone git://github.com/sebastianbergmann/php-hudson-template.git</p>
 
 <p>それでもphpmdがうまくいかない。antをコマンドラインで実行してみる。</p>
 
-<p>`
-$ cd ~/.hudson/jobs/&lt; プロジェクトフォルダ>/workspace
+<p><code>
+$ cd ~/.hudson/jobs/&lt; プロジェクトフォルダ&gt;/workspace
 $ ant phpmd
-phpmd:</p>
-
-<pre><code> [exec] Invalid field modifiers given, allowed modifiers are IS_PUBLIC, IS_PROTECTED, IS_PRIVATE and IS_STATIC.
- [exec] Result: 1
-</code></pre>
-
-<p>`</p>
+phpmd:
+     [exec] Invalid field modifiers given, allowed modifiers are IS_PUBLIC, IS_PROTECTED, IS_PRIVATE and IS_STATIC.
+     [exec] Result: 1
+</code></p>
 
 <p>とエラーがでる。<br/>
 恐らくPEAR等のPHP4コードで修飾子がついてないところで例外が出てるのではと当たりをつけてみる。とりあえず消極的解決法として該当例外をコメントアウト。</p>
 
 <p>/pdepend/PHP/Depend/Code/ASTFieldDeclaration.php<br/>
 のsetModifiers()メソッド内の例外スローをコメントアウト<br/>
-`
-if (($expected &#038; $modifiers) !== 0) {</p>
-
-<pre><code>        //throw new InvalidArgumentException(
-        //    'Invalid field modifiers given, allowed modifiers are ' .
-        //    'IS_PUBLIC, IS_PROTECTED, IS_PRIVATE and IS_STATIC.'
-        //);
-    }
-</code></pre>
-
-<p>`<br/>
+<code>
+if (($expected &amp;#038; $modifiers) !== 0) {
+            //throw new InvalidArgumentException(
+            //    'Invalid field modifiers given, allowed modifiers are ' .
+            //    'IS_PUBLIC, IS_PROTECTED, IS_PRIVATE and IS_STATIC.'
+            //);
+        }
+</code><br/>
 再度$ ant phpmd</p>
 
 <p>BUILD SUCCESSFUL<br/>
@@ -419,12 +390,12 @@ PMD警告<br/>
   
 
 
-<time datetime="2011-01-17T00:00:00+09:00" pubdate data-updated="true">Jan 17<span>th</span>, 2011</time>
+<time datetime="2011-01-17T00:00:00+09:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/php/'>PHP</a>
+    <a class='category' href='/blog/categories/php/'>php</a>
   
 </span>
 
@@ -433,10 +404,8 @@ PMD警告<br/>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://koriym.github.io/2011/01/php%e3%82%82%e3%82%84%e3%82%89%e3%81%aa%e3%81%8d%e3%82%83hudson/" data-via="koriym" data-counturl="http://koriym.github.io/2011/01/php%e3%82%82%e3%82%84%e3%82%89%e3%81%aa%e3%81%8d%e3%82%83hudson/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://koriym.github.io/2011/01/php%e3%82%82%e3%82%84%e3%82%89%e3%81%aa%e3%81%8d%e3%82%83hudson/" data-via="" data-counturl="http://koriym.github.io/2011/01/php%e3%82%82%e3%82%84%e3%82%89%e3%81%aa%e3%81%8d%e3%82%83hudson/" >Tweet</a>
   
-  
-  <div class="g-plusone" data-size="medium"></div>
   
     <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button"
        data-hatena-bookmark-layout="standard"
@@ -445,8 +414,6 @@ PMD警告<br/>
              alt="このエントリーをはてなブックマークに追加" width="20" height="20"
              style="border: none">
     </a>
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
   
 </div>
 
@@ -493,45 +460,7 @@ PMD警告<br/>
   </ul>
 </section>
 
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/koriym">@koriym</a> on GitHub
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
 
-        github.showRepos({
-            user: 'koriym',
-            count: 3,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-
-<section class="googleplus googleplus-hidden">
-  <h1>
-    <a href="https://plus.google.com/102811656239290261200?rel=author">
-      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
-      Google+
-    </a>
-  </h1>
-</section>
 
 
 
@@ -542,47 +471,17 @@ PMD警告<br/>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2015 - Akihito Koriyama -
+  Copyright &copy; 2016 - Your Name -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.</span>
 </p>
 
 </footer>
   
 
-<script type="text/javascript">
-      var disqus_shortname = 'koriym';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
 
 
 
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/ja_JP/all.js#appId=516362398477090&xfbml=1";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-  <script type="text/javascript">
-    (function() {
-      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
-      script.src = 'https://apis.google.com/js/plusone.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
-    })();
-  </script>
 
 
 

@@ -5,8 +5,8 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>BEAR Blog</title>
-  <meta name="author" content="Akihito Koriyama">
+  <title>My Octopress Blog</title>
+  <meta name="author" content="Your Name">
 
   
   <meta name="description" content="Tweet Dependency Injection BEAR.Sundayではオブジェクトが必要とするインスタンスを、自ら取得しないでインジェクターに代入してもらうことを期待します。 コンストラクタやセッターメソッド経由で外部から代入されることをインジェクション（注入）、 &hellip;">
@@ -18,48 +18,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://koriym.github.io/blog/page/5/">
+  <link rel="canonical" href="http://koriym.github.io/posts/5/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="/javascripts/ender.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="BEAR Blog" type="application/atom+xml">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
-  <meta property="og:title" content="BEAR Blog" />
+  <meta property="og:title" content="My Octopress Blog" />
 <meta property="og:description" content="Tweet Dependency Injection BEAR.Sundayではオブジェクトが必要とするインスタンスを、自ら取得しないでインジェクターに代入してもらうことを期待します。 コンストラクタやセッターメソッド経由で外部から代入されることをインジェクション（注入）、 &hellip;" />
-<meta property="og:url" content="http://koriym.github.io/blog/page/5/" />
-<meta property="og:image" content="http://bearsunday.github.io/images/icon/favicon-144.png" />
-<meta property="og:author" content="Akihito Koriyama" />
-<meta property="og:site_name" content="BEAR Blog" />
-<meta property="og:locale" content="ja_JP" />
+<meta property="og:url" content="http://koriym.github.io/posts/5/" />
+<meta property="og:image" content="" />
+<meta property="og:author" content="Your Name" />
+<meta property="og:site_name" content="My Octopress Blog" />
+<meta property="og:locale" content="" />
 <meta property="og:type" content="blog" />
-<meta property="fb:app_id" content="516362398477090" />
+<meta property="fb:app_id" content="" />
 
   
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-6074569-2']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
 
 </head>
 
 <body   >
   <header role="banner"><hgroup>
-  <h1><a href="/">BEAR Blog</a></h1>
+  <h1><a href="/">My Octopress Blog</a></h1>
   
-    <h2>Because everything is a resource.</h2>
+    <h2>A blogging framework for hackers.</h2>
   
 </hgroup>
 
@@ -70,7 +58,7 @@
   
 </ul>
   
-<form action="http://google.com/search" method="get">
+<form action="https://www.google.com/search" method="get">
   <fieldset role="search">
     <input type="hidden" name="q" value="site:koriym.github.io" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
@@ -110,9 +98,7 @@
   
 
 
-<time datetime="2012-04-25T00:00:00+09:00" pubdate data-updated="true">Apr 25<span>th</span>, 2012</time>
-        
-         | <a href="/2012/04/di/#disqus_thread">Comments</a>
+<time datetime="2012-04-25T00:00:00+09:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -157,7 +143,7 @@ BEAR.Sundayではオブジェクトが必要とするインスタンスを、自
 </span><span class='line'>        <span class="s1">&#39;es&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hola Mundo&#39;</span>
 </span><span class='line'>    <span class="p">];</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$lang</span> <span class="o">=</span> <span class="err">‘</span><span class="nx">en</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$lang</span> <span class="o">=</span> <span class="nx">‘en’</span><span class="p">)</span>
 </span><span class='line'>    <span class="p">{</span>
 </span><span class='line'>        <span class="nv">$greeting</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">message</span><span class="p">[</span><span class="nv">$lang</span><span class="p">];</span>
 </span><span class='line'>        <span class="k">return</span> <span class="nv">$greeting</span><span class="p">;</span>
@@ -232,7 +218,7 @@ BEAR.Sundayではオブジェクトが必要とするインスタンスを、自
 </span><span class='line'>            <span class="s1">&#39;ja&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Konichiwa Sekai&#39;</span><span class="p">,</span>
 </span><span class='line'>            <span class="s1">&#39;es&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hola Mundo&#39;</span>
 </span><span class='line'>        <span class="p">];</span>
-</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bind</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">named</span><span class="p">(</span><span class="err">‘</span><span class="nx">greeting_message</span><span class="err">’</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">toInsntance</span><span class="p">(</span><span class="nv">$message</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bind</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">named</span><span class="p">(</span><span class="nx">‘greeting_message’</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">toInsntance</span><span class="p">(</span><span class="nv">$message</span><span class="p">);</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -245,7 +231,7 @@ BEAR.Sundayではオブジェクトが必要とするインスタンスを、自
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$injector</span> <span class="o">=</span> <span class="nx">Injector</span><span class="o">::</span><span class="na">create</span><span class="p">([</span><span class="k">new</span> <span class="nx">AppModule</span><span class="p">]);</span>
-</span><span class='line'><span class="nv">$injector</span><span class="o">-&gt;</span><span class="na">getInstance</span><span class="p">(</span><span class="err">‘</span><span class="nx">name\space\Greeting</span><span class="err">’</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$injector</span><span class="o">-&gt;</span><span class="na">getInstance</span><span class="p">(</span><span class="nx">‘name\space\Greeting’</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -341,7 +327,7 @@ BEAR.Sundayではオブジェクトが必要とするインスタンスを、自
 </span><span class='line'>    <span class="k">use</span> <span class="nx">ResourceInject</span><span class="p">;</span>
 </span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span>
 </span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="nv">$this</span><span class="p">[</span><span class="s1">&#39;greeting&#39;</span><span class="p">]</span> <span class="o">=</span><span class="err">‘</span><span class="nx">Hello</span><span class="p">,</span> <span class="nx">BEAR</span><span class="o">.</span><span class="nx">Sunday</span><span class="o">.</span><span class="err">’</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="p">[</span><span class="s1">&#39;greeting&#39;</span><span class="p">]</span> <span class="o">=</span><span class="nx">‘Hello</span><span class="p">,</span> <span class="nx">BEAR</span><span class="o">.</span><span class="nx">Sunday</span><span class="o">.</span><span class="nx">’</span><span class="p">;</span>
 </span><span class='line'>        <span class="nv">$this</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
 </span><span class='line'>            <span class="s1">&#39;php&#39;</span>  <span class="o">=&gt;</span> <span class="nb">phpversion</span><span class="p">(),</span>
 </span><span class='line'>            <span class="s1">&#39;BEAR&#39;</span> <span class="o">=&gt;</span> <span class="nx">Framework</span><span class="o">::</span><span class="na">VERSION</span>
@@ -360,13 +346,13 @@ BEAR.Sundayではオブジェクトが必要とするインスタンスを、自
 </span><span class='line'><span class="sd">     */</span>
 </span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">()</span>
 </span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="nv">$cache</span> <span class="o">=</span> <span class="nb">apc_cache_info</span><span class="p">(</span><span class="err">‘</span><span class="nx">user</span><span class="err">’</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$cache</span> <span class="o">=</span> <span class="nb">apc_cache_info</span><span class="p">(</span><span class="nx">‘user’</span><span class="p">);</span>
 </span><span class='line'>        <span class="nv">$this</span><span class="p">[</span><span class="s1">&#39;apc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
 </span><span class='line'>           <span class="s1">&#39;total&#39;</span> <span class="o">=&gt;</span> <span class="nv">$cache</span><span class="p">[</span><span class="s1">&#39;num_entries&#39;</span><span class="p">],</span>
-</span><span class='line'>           <span class="err">‘</span><span class="nx">size</span><span class="err">’</span> <span class="o">=&gt;</span> <span class="nv">$cache</span><span class="p">[</span><span class="s1">&#39;mem_size&#39;</span><span class="p">]</span>
+</span><span class='line'>           <span class="nx">‘size’</span> <span class="o">=&gt;</span> <span class="nv">$cache</span><span class="p">[</span><span class="s1">&#39;mem_size&#39;</span><span class="p">]</span>
 </span><span class='line'>        <span class="p">];</span>
 </span><span class='line'>        <span class="c1">// page / sec</span>
-</span><span class='line'>        <span class="nv">$this</span><span class="p">[</span><span class="s1">&#39;performance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">resource</span><span class="o">-&gt;</span><span class="na">get</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="err">‘</span><span class="nx">app</span><span class="o">://</span><span class="nx">self</span><span class="o">/</span><span class="nx">performance</span><span class="err">’</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">();</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="p">[</span><span class="s1">&#39;performance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">resource</span><span class="o">-&gt;</span><span class="na">get</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="nx">‘app</span><span class="o">://</span><span class="nx">self</span><span class="o">/</span><span class="nx">performance’</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">();</span>
 </span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'><span class="p">}</span>
@@ -424,7 +410,7 @@ BEAR.Sundayではオブジェクトが必要とするインスタンスを、自
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>    <span class="k">use</span> <span class="nx">MessageInject</span><span class="p">;</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$lang</span> <span class="o">=</span> <span class="err">‘</span><span class="nx">en</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$lang</span> <span class="o">=</span> <span class="nx">‘en’</span><span class="p">)</span>
 </span><span class='line'>    <span class="p">{</span>
 </span><span class='line'>        <span class="nv">$greeting</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">message</span><span class="p">[</span><span class="nv">$lang</span><span class="p">];</span>
 </span><span class='line'>        <span class="k">return</span> <span class="nv">$greeting</span><span class="p">;</span>
@@ -503,12 +489,8 @@ BEAR.Sundayではオブジェクトが必要とするインスタンスを、自
 </div>
 
 
-
-
-<br class="wp_social_bookmarking_light_clear" /> <ol class="footnotes">
-
-
-<p><li id="footnote_0_1296" class="footnote">
+<p><br class="wp_social_bookmarking_light_clear" /> <ol class="footnotes">
+<li id="footnote_0_1296" class="footnote">
   つまりこのリソースは$messageデータに依存しています [<a href="#identifier_0_1296" class="footnote-link footnote-back-link">↩</a>]
 </li>
 <li id="footnote_1_1296" class="footnote">
@@ -570,9 +552,7 @@ BEAR.Sundayではオブジェクトが必要とするインスタンスを、自
   
 
 
-<time datetime="2012-04-25T00:00:00+09:00" pubdate data-updated="true">Apr 25<span>th</span>, 2012</time>
-        
-         | <a href="/2012/04/bear-resource/#disqus_thread">Comments</a>
+<time datetime="2012-04-25T00:00:00+09:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -616,7 +596,7 @@ BEAR.Sundayではオブジェクトが必要とするインスタンスを、自
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span>
 </span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">body</span> <span class="o">=</span> <span class="err">‘</span><span class="nx">Hello</span> <span class="err">‘</span> <span class="o">.</span> <span class="nv">$name</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">body</span> <span class="o">=</span> <span class="nx">‘Hello</span> <span class="nx">‘</span> <span class="o">.</span> <span class="nv">$name</span><span class="p">;</span>
 </span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'><span class="p">}</span>
@@ -638,7 +618,7 @@ BEAR.Sundayではオブジェクトが必要とするインスタンスを、自
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span>
 </span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="err">‘</span><span class="nx">Hello</span> <span class="err">‘</span> <span class="o">.</span> <span class="nv">$name</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nx">‘Hello</span> <span class="nx">‘</span> <span class="o">.</span> <span class="nv">$name</span><span class="p">;</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -695,7 +675,7 @@ pageリソースはwebクライアウントから最初にコールされるリ�
 </span><span class='line'>        <span class="s1">&#39;es&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hola Mundo&#39;</span>
 </span><span class='line'>    <span class="p">];</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$lang</span> <span class="o">=</span> <span class="err">‘</span><span class="nx">en</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$lang</span> <span class="o">=</span> <span class="nx">‘en’</span><span class="p">)</span>
 </span><span class='line'>    <span class="p">{</span>
 </span><span class='line'>        <span class="nv">$greeting</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">message</span><span class="p">[</span><span class="nv">$lang</span><span class="p">];</span>
 </span><span class='line'>        <span class="k">return</span> <span class="nv">$greeting</span><span class="p">;</span>
@@ -710,7 +690,7 @@ pageリソースはwebクライアウントから最初にコールされるリ�
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$lang</span> <span class="o">=</span> <span class="err">‘</span><span class="nx">en</span><span class="err">’</span><span class="p">)</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$lang</span> <span class="o">=</span> <span class="nx">‘en’</span><span class="p">)</span>
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">body</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">message</span><span class="p">[</span><span class="nv">$lang</span><span class="p">];</span>
 </span><span class='line'>    <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
@@ -733,8 +713,8 @@ pageリソースはwebクライアウントから最初にコールされるリ�
 <span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$request</span> <span class="o">=</span> <span class="nv">$resource</span>
 </span><span class='line'>           <span class="o">-&gt;</span><span class="na">get</span>
-</span><span class='line'>           <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="err">‘</span><span class="nx">app</span><span class="o">://</span><span class="nx">self</span><span class="o">/</span><span class="nx">greeting</span><span class="err">’</span><span class="p">)</span>
-</span><span class='line'>           <span class="o">-&gt;</span><span class="na">withQuery</span><span class="p">([</span><span class="s1">&#39;lang&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="err">‘</span><span class="nx">ja</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'>           <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="nx">‘app</span><span class="o">://</span><span class="nx">self</span><span class="o">/</span><span class="nx">greeting’</span><span class="p">)</span>
+</span><span class='line'>           <span class="o">-&gt;</span><span class="na">withQuery</span><span class="p">([</span><span class="s1">&#39;lang&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="nx">‘ja’</span><span class="p">)</span>
 </span><span class='line'>           <span class="o">-&gt;</span><span class="na">request</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -765,8 +745,8 @@ pageリソースはwebクライアウントから最初にコールされるリ�
 <span class='line-number'>6</span>
 </pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$result</span> <span class="o">=</span> <span class="nv">$resource</span>
 </span><span class='line'>          <span class="o">-&gt;</span><span class="na">get</span>
-</span><span class='line'>          <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="err">‘</span><span class="nx">app</span><span class="o">://</span><span class="nx">self</span><span class="o">/</span><span class="nx">greeting</span><span class="err">’</span><span class="p">)</span>
-</span><span class='line'>          <span class="o">-&gt;</span><span class="na">withQuery</span><span class="p">([</span><span class="s1">&#39;lang&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="err">‘</span><span class="nx">ja</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'>          <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="nx">‘app</span><span class="o">://</span><span class="nx">self</span><span class="o">/</span><span class="nx">greeting’</span><span class="p">)</span>
+</span><span class='line'>          <span class="o">-&gt;</span><span class="na">withQuery</span><span class="p">([</span><span class="s1">&#39;lang&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="nx">‘ja’</span><span class="p">)</span>
 </span><span class='line'>          <span class="o">-&gt;</span><span class="na">eager</span>
 </span><span class='line'>          <span class="o">-&gt;</span><span class="na">request</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -862,7 +842,7 @@ pageリソースはwebクライアウントから最初にコールされるリ�
 </pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$this</span><span class="p">[</span><span class="s1">&#39;performance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$this</span>
 </span><span class='line'>                       <span class="o">-&gt;</span><span class="na">resource</span>
 </span><span class='line'>                       <span class="o">-&gt;</span><span class="na">get</span>
-</span><span class='line'>                       <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="err">‘</span><span class="nx">app</span><span class="o">://</span><span class="nx">self</span><span class="o">/</span><span class="nx">performance</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'>                       <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="nx">‘app</span><span class="o">://</span><span class="nx">self</span><span class="o">/</span><span class="nx">performance’</span><span class="p">)</span>
 </span><span class='line'>                       <span class="o">-&gt;</span><span class="na">request</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -876,7 +856,7 @@ pageリソースはwebクライアウントから最初にコールされるリ�
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;&amp;</span><span class="nb">copy</span><span class="p">;</span> <span class="mi">2012</span> <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="err">”</span><span class="nx">https</span><span class="o">://</span><span class="nx">twitter</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="c1">#!/bearsunday”&gt;@BEARSunday&lt;/a&gt; (&lt;?php echo $_smarty_tpl-&gt;tpl_vars[&#39;performance&#39;]-&gt;value;?&gt;</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;&amp;</span><span class="nb">copy</span><span class="p">;</span> <span class="mi">2012</span> <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="nx">”https</span><span class="o">://</span><span class="nx">twitter</span><span class="o">.</span><span class="nx">com</span><span class="o">/</span><span class="c1">#!/bearsunday”&gt;@BEARSunday&lt;/a&gt; (&lt;?php echo $_smarty_tpl-&gt;tpl_vars[&#39;performance&#39;]-&gt;value;?&gt;</span>
 </span><span class='line'><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -936,9 +916,7 @@ pageリソースはwebクライアウントから最初にコールされるリ�
   
 
 
-<time datetime="2012-02-18T00:00:00+09:00" pubdate data-updated="true">Feb 18<span>th</span>, 2012</time>
-        
-         | <a href="/2012/02/php-annotation/#disqus_thread">Comments</a>
+<time datetime="2012-02-18T00:00:00+09:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -1017,12 +995,12 @@ pageリソースはwebクライアウントから最初にコールされるリ�
 </span><span class='line'>
 </span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">\stdClass</span> <span class="nv">$value</span><span class="p">)</span>
 </span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="nv">$this</span><span class="o">&ndash;&gt;</span><span class="na">value</span> <span class="o">=</span> <span class="nv">$value</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">value</span> <span class="o">=</span> <span class="nv">$value</span><span class="p">;</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'>
 </span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">getValue</span><span class="p">()</span>
 </span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="o">&ndash;&gt;</span><span class="na">value</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">value</span><span class="p">;</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure></p>
@@ -1059,19 +1037,18 @@ pageリソースはwebクライアウントから最初にコールされるリ�
 
 <p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$reflClass</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\ReflectionClass</span><span class="p">(</span><span class="err">‘</span><span class="nx">Foo</span><span class="err">’</span><span class="p">);</span>
-</span><span class='line'><span class="nb">var_dump</span><span class="p">(</span><span class="nv">$reflClass</span><span class="o">&ndash;&gt;</span><span class="na">getAnnotations</span><span class="p">());</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$reflClass</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\ReflectionClass</span><span class="p">(</span><span class="nx">‘Foo’</span><span class="p">);</span>
+</span><span class='line'><span class="nb">var_dump</span><span class="p">(</span><span class="nv">$reflClass</span><span class="o">-&gt;</span><span class="na">getAnnotations</span><span class="p">());</span>
 </span></code></pre></td></tr></table></div></figure></p>
 
 <p>PHPの言語としてのサポートにが無いのにも関わらず、現在多くのライブラリ・フレームワークでアノテーションがサポートされています。なぜアノテーションを必要と考えるのでしょうか？提案者はこのように説明しています。</p>
 
 <blockquote><h3><a id="why_do_we_need_class_metadata" name="why_do_we_need_class_metadata">Why do we need Class Metadata?</a></h3></blockquote>
 
-<p><quote></p>
+<p><quote>
+    Frameworks in general rely on metadata information in order to correctly work. They can use it for many purposes:</p>
 
-<pre><code>Frameworks in general rely on metadata information in order to correctly work. They can use it for many purposes:
-
-    phpUnit Providing meta functionality for test cases, examples: @dataProvider for test data iteration, @expectedException for catching exceptions, etc.
+<pre><code>    phpUnit Providing meta functionality for test cases, examples: @dataProvider for test data iteration, @expectedException for catching exceptions, etc.
     Doctrine For Object-Relational mapping, examples: @Entity, @OneToOne, @Id, etc.
     Zend Framework Server classes Used to automate mappings for XML-RPC, SOAP, etc.
     FLOW3 for dependency injection and validation
@@ -1160,7 +1137,7 @@ These types of use cases (hints to the Zend lexer/parser or other PHP implementa
 </span><span class='line'><span class="sd"> </em>/</span>
 </span><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">setDb</span><span class="p">(</span><span class="nx">DbInterface</span> <span class="nv">$db</span><span class="p">)</span>
 </span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="nv">$this</span><span class="o">&ndash;&gt;</span><span class="na">db</span> <span class="o">=</span> <span class="nv">$db</span><span class="p">;</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span> <span class="o">=</span> <span class="nv">$db</span><span class="p">;</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure></p>
 
@@ -1168,15 +1145,15 @@ These types of use cases (hints to the Zend lexer/parser or other PHP implementa
 
 <p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$reflMethod</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ReflectionMethod</span><span class="p">(</span><span class="err">‘</span><span class="nx">MyCompany\Entity\User</span><span class="err">’</span><span class="p">,</span> <span class="err">‘</span><span class="nx">setDb</span><span class="err">’</span><span class="p">);</span>
-</span><span class='line'><span class="nv">$methodAnnotations</span> <span class="o">=</span> <span class="nv">$reader</span><span class="o">&ndash;&gt;</span><span class="na">getMethodAnnotations</span><span class="p">(</span><span class="nv">$reflMethod</span><span class="p">);</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$reflMethod</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ReflectionMethod</span><span class="p">(</span><span class="nx">‘MyCompany\Entity\User’</span><span class="p">,</span> <span class="nx">‘setDb’</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$methodAnnotations</span> <span class="o">=</span> <span class="nv">$reader</span><span class="o">-&gt;</span><span class="na">getMethodAnnotations</span><span class="p">(</span><span class="nv">$reflMethod</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure></p>
 
 <p>これで全てのアノテーションが取得できます。<br/>
 あるいは以下のようにして特定アノテーションの値が取得できます。</p>
 
 <p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$methodAnnotation</span> <span class="o">=</span> <span class="nv">$reader</span><span class="o">&ndash;&gt;</span><span class="na">getMethodAnnotation</span><span class="p">(</span><span class="nv">$reflMethod</span><span class="p">,</span> <span class="nv">$annotation</span><span class="p">);</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$methodAnnotation</span> <span class="o">=</span> <span class="nv">$reader</span><span class="o">-&gt;</span><span class="na">getMethodAnnotation</span><span class="p">(</span><span class="nv">$reflMethod</span><span class="p">,</span> <span class="nv">$annotation</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure></p>
 
 <p>Doctrine\Common\Annotations\AnnotationReader が標準的なアノテーションリーダーです。 (Symfony2では標準でサービスコンテナに登録されてるようです)。
@@ -1257,9 +1234,7 @@ Fabienさんの記事で、@masakielasticさん翻訳の記事です [<a href="#
   
 
 
-<time datetime="2011-12-18T00:00:00+09:00" pubdate data-updated="true">Dec 18<span>th</span>, 2011</time>
-        
-         | <a href="/2011/12/php-dis-is-it/#disqus_thread">Comments</a>
+<time datetime="2011-12-18T00:00:00+09:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -1372,9 +1347,7 @@ UNIXはいわば”Mother of Software” 過去から今日にいたってあら
   
 
 
-<time datetime="2011-10-26T00:00:00+09:00" pubdate data-updated="true">Oct 26<span>th</span>, 2011</time>
-        
-         | <a href="/2011/10/ray-di-on-aura-di/#disqus_thread">Comments</a>
+<time datetime="2011-10-26T00:00:00+09:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -1494,7 +1467,7 @@ UNIXはいわば”Mother of Software” 過去から今日にいたってあら
 
 <p>イーガーセットでは準備の段階で引き数に必要なインスタンスを生成しましたが、もしかしたら使わないかも、あるいは準備時にはまだインスタンスが確定できないものはlazyNewというメソッドを使ったレイジーセットが行えます。インスタンスの代わりにインスタンスの生成方法をセットしておいてgetInstance()時に遅延実行されコンストラクタ引き数として渡されます。引き数１つめにクラス名、２つ目に引き数をネームドパラメーターで指定します。</p>
 
-<p>クラス同様、コンストラクタインジェクションの<strong>設定も親クラスから小クラスに継承されます</strong>。つまり、Finderクラスを継承した子クラスの取得時にも適用されます。またgetInstance()の第二引き数でインスタンス取得時に、設定した引き数を指定したパラメーターだけ上書きすることができます。<sup><a href="#footnote_3_950" id="identifier_3_950" class="footnote-link footnote-identifier-link" title="$host, $id, $passを引き数に取るようなコンストラクタでgetInstance($class, array(&lsquo;host&rsquo; => $host);と指定すると$id, $passはデフォルトの値で$hostだけを指定できます。&#8221;>4</a></sup></p>
+<p>クラス同様、コンストラクタインジェクションの<strong>設定も親クラスから小クラスに継承されます</strong>。つまり、Finderクラスを継承した子クラスの取得時にも適用されます。またgetInstance()の第二引き数でインスタンス取得時に、設定した引き数を指定したパラメーターだけ上書きすることができます。<sup><a href="#footnote_3_950" id="identifier_3_950" class="footnote-link footnote-identifier-link" title="$host, $id, $passを引き数に取るようなコンストラクタでgetInstance($class, array(&lsquo;host&rsquo; => $host);と指定すると$id, $passはデフォルトの値で$hostだけを指定できます。">4</a></sup></p>
 
 <h3>アノテーションを使うコンストラクタ・インジェクション</h3>
 
@@ -1619,9 +1592,7 @@ UNIXはいわば”Mother of Software” 過去から今日にいたってあら
   
 
 
-<time datetime="2011-10-24T00:00:00+09:00" pubdate data-updated="true">Oct 24<span>th</span>, 2011</time>
-        
-         | <a href="/2011/10/ray-annotation-based-di-system-for-php/#disqus_thread">Comments</a>
+<time datetime="2011-10-24T00:00:00+09:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -1903,9 +1874,9 @@ UNIXはいわば”Mother of Software” 過去から今日にいたってあら
 </span><span class='line'><span class="nv">$injector</span><span class="o">-&gt;</span><span class="na">setModule</span><span class="p">(</span><span class="k">new</span> <span class="nx">UserModule</span><span class="p">);</span>
 </span><span class='line'><span class="nv">$user</span> <span class="o">=</span> <span class="nv">$injector</span><span class="o">-&gt;</span><span class="na">getInstance</span><span class="p">(</span><span class="s1">&#39;Ray\Di\Sample\User&#39;</span><span class="p">);</span>
 </span><span class='line'><span class="cm">/* @var $user \Ray\Di\Sample\User */</span>
-</span><span class='line'><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">createUser</span><span class="p">(</span><span class="s1">&#39;Koriym&#39;</span><span class="p">,</span> <span class="nx">rand</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">35</span><span class="p">));</span>
-</span><span class='line'><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">createUser</span><span class="p">(</span><span class="s1">&#39;Bear&#39;</span><span class="p">,</span> <span class="nx">rand</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">35</span><span class="p">));</span>
-</span><span class='line'><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">createUser</span><span class="p">(</span><span class="s1">&#39;Yoshi&#39;</span><span class="p">,</span> <span class="nx">rand</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">35</span><span class="p">));</span>
+</span><span class='line'><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">createUser</span><span class="p">(</span><span class="s1">&#39;Koriym&#39;</span><span class="p">,</span> <span class="nb">rand</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">35</span><span class="p">));</span>
+</span><span class='line'><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">createUser</span><span class="p">(</span><span class="s1">&#39;Bear&#39;</span><span class="p">,</span> <span class="nb">rand</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">35</span><span class="p">));</span>
+</span><span class='line'><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">createUser</span><span class="p">(</span><span class="s1">&#39;Yoshi&#39;</span><span class="p">,</span> <span class="nb">rand</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">35</span><span class="p">));</span>
 </span><span class='line'><span class="nv">$users</span> <span class="o">=</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">readUsers</span><span class="p">();</span>
 </span><span class='line'><span class="nb">var_export</span><span class="p">(</span><span class="nv">$users</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -1963,9 +1934,9 @@ Name:Yoshi Age:18
 </pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$pdo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\PDO</span><span class="p">(</span><span class="s1">&#39;sqlite::memory:&#39;</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="k">null</span><span class="p">);</span>
 </span><span class='line'><span class="nv">$user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Ray\Di\Sample\User</span><span class="p">(</span><span class="nv">$pdo</span><span class="p">);</span>
 </span><span class='line'><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">init</span><span class="p">();</span>
-</span><span class='line'><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">createUser</span><span class="p">(</span><span class="s1">&#39;Koriym&#39;</span><span class="p">,</span> <span class="nx">rand</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">35</span><span class="p">));</span>
-</span><span class='line'><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">createUser</span><span class="p">(</span><span class="s1">&#39;Bear&#39;</span><span class="p">,</span> <span class="nx">rand</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">35</span><span class="p">));</span>
-</span><span class='line'><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">createUser</span><span class="p">(</span><span class="s1">&#39;Yoshi&#39;</span><span class="p">,</span> <span class="nx">rand</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">35</span><span class="p">));</span>
+</span><span class='line'><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">createUser</span><span class="p">(</span><span class="s1">&#39;Koriym&#39;</span><span class="p">,</span> <span class="nb">rand</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">35</span><span class="p">));</span>
+</span><span class='line'><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">createUser</span><span class="p">(</span><span class="s1">&#39;Bear&#39;</span><span class="p">,</span> <span class="nb">rand</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">35</span><span class="p">));</span>
+</span><span class='line'><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">createUser</span><span class="p">(</span><span class="s1">&#39;Yoshi&#39;</span><span class="p">,</span> <span class="nb">rand</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">35</span><span class="p">));</span>
 </span><span class='line'><span class="nv">$users</span> <span class="o">=</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">readUsers</span><span class="p">();</span>
 </span><span class='line'><span class="nb">var_export</span><span class="p">(</span><span class="nv">$users</span><span class="p">);</span>
 </span><span class='line'><span class="k">array</span> <span class="p">(</span>
@@ -2047,9 +2018,7 @@ Name:Yoshi Age:18
   
 
 
-<time datetime="2011-10-07T00:00:00+09:00" pubdate data-updated="true">Oct 7<span>th</span>, 2011</time>
-        
-         | <a href="/2011/10/stevejobs1955-2011/#disqus_thread">Comments</a>
+<time datetime="2011-10-07T00:00:00+09:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -2064,10 +2033,8 @@ Name:Yoshi Age:18
 <p>2011年10月5日 Steve Jobs氏死去。<br/>
 謹んでご冥福をお祈りします。</p>
 
-<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2011/10/t_hero.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2011/10/t_hero.png" alt="Steve Jobs" title="Steve Jobs" width="706" height="644" class="alignleft size-full wp-image-832" /></a></p>
-
-<br clear="all" />
-
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2011/10/t_hero.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2011/10/t_hero.png" alt="Steve Jobs" title="Steve Jobs" width="706" height="644" class="alignleft size-full wp-image-832" /></a>
+<br clear="all" /></p>
 
 <p>16の時にApple IIcを使い始めて以来のApple製品ユーザーです。</p>
 
@@ -2085,10 +2052,8 @@ Name:Yoshi Age:18
 
 <p>MacintoshもiPodも価格が高すぎるとも言われ、どちらも市場に登場した時には少なからず批判もありました。</p>
 
-<br clear="all" />  
-
-
-<p>今は分かります。<br/>
+<p><br clear="all" /><br/>
+今は分かります。<br/>
 真にイノベイティブな製品は同時代の人に登場の時からすぐに熱狂的に支持されるものではないということを。</p>
 
 <p>Keynoteの中でJobsは我々の世界の先駆者としてAllan Kayの言葉を引用します。</p>
@@ -2169,9 +2134,7 @@ Name:Yoshi Age:18
   
 
 
-<time datetime="2011-10-02T00:00:00+09:00" pubdate data-updated="true">Oct 2<span>nd</span>, 2011</time>
-        
-         | <a href="/2011/10/the-new-era-of-php-web-development/#disqus_thread">Comments</a>
+<time datetime="2011-10-02T00:00:00+09:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -2225,9 +2188,7 @@ Name:Yoshi Age:18
   
 
 
-<time datetime="2011-09-14T00:00:00+09:00" pubdate data-updated="true">Sep 14<span>th</span>, 2011</time>
-        
-         | <a href="/2011/09/php5-4%e3%83%90%e3%82%a4%e3%83%8a%e3%83%aa%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab/#disqus_thread">Comments</a>
+<time datetime="2011-09-14T00:00:00+09:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -2266,7 +2227,7 @@ Name:Yoshi Age:18
 <span class='line-number'>6</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>/usr/local/php5/bin/php -v
 </span><span class='line'>
-</span><span class='line'>PHP 5.4.0beta1-dev <span class="o">(</span>cli<span class="o">)</span> <span class="o">(</span>built: Aug 23 2011 11:16:42<span class="o">)</span>
+</span><span class='line'>PHP 5.4.0beta1-dev <span class="o">(</span>cli<span class="o">)</span> <span class="o">(</span>built: Aug <span class="m">23</span> <span class="m">2011</span> 11:16:42<span class="o">)</span>
 </span><span class='line'>Copyright <span class="o">(</span>c<span class="o">)</span> 1997-2011 The PHP Group
 </span><span class='line'>Zend Engine v2.4.0, Copyright <span class="o">(</span>c<span class="o">)</span> 1998-2011 Zend Technologies
 </span><span class='line'>with Xdebug v2.2.0-dev, Copyright <span class="o">(</span>c<span class="o">)</span> 2002-2011, by Derick Rethans
@@ -2362,9 +2323,7 @@ Name:Yoshi Age:18
   
 
 
-<time datetime="2011-09-13T00:00:00+09:00" pubdate data-updated="true">Sep 13<span>th</span>, 2011</time>
-        
-         | <a href="/2011/09/gdd2011-devquiz/#disqus_thread">Comments</a>
+<time datetime="2011-09-13T00:00:00+09:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -2437,28 +2396,25 @@ Name:Yoshi Age:18
 
 
 <p>manifest.json<br/>
-`
+<code>
 {
-  &ldquo;name&rdquo;: &ldquo;ChromeExtensionSolverHint&rdquo;,
-  &ldquo;version&rdquo;: &ldquo;1.0&rdquo;,
-  &ldquo;description&rdquo;: &ldquo;Open the first card and show background color of the card.&rdquo;,
-  &ldquo;content_scripts&rdquo;: [</p>
-
-<pre><code>{
-  "matches": [
-    "http://gdd-2011-quiz-japan.appspot.com/webgame/problem*"
+  "name": "ChromeExtensionSolverHint",
+  "version": "1.0",
+  "description": "Open the first card and show background color of the card.",
+  "content_scripts": [
+    {
+      "matches": [
+        "http://gdd-2011-quiz-japan.appspot.com/webgame/problem*"
+      ],
+      "js": [
+        "solver.js"
+      ]
+    }
   ],
-  "js": [
-    "solver.js"
+  "permissions": [
   ]
 }
-</code></pre>
-
-<p>  ],
-  &ldquo;permissions&rdquo;: [
-  ]
-}
-`</p>
+</code></p>
 
 <h3>Go</h3>
 
@@ -2590,7 +2546,7 @@ Name:Yoshi Age:18
 本体。answer.txtがあれば解答済みファイルとしてスキップに利用、答えはoutput.txtで出力。<br/>
 どのパズルをスキップするか、およびパズルに応じたタスク管理を選択するロジックをクロージャで渡して演算を開始。</p>
 
-<p>幅優先探索は、反復深化深さ優先探索ははどちらもブラインドサーチで3x3と3x4,4/3のみに対応。それ以上は=(壁)検知付きマンハッタン距離、正位置にあるピースに重みづけ、それに手数削減のための過去の移動距離をそれぞれコストとして合計したものを関数としてヒューリスティック探索。繰り返し検知、逆探索検索付き。消費メモリ、消費時間に応じて無回答。制限時間になってもヒューリスティック関数の値が上昇し続けてたら時間制限を延長する”もう少しかも、頑張れ&#8221;機能。&#8221;下端を除くゲーム盤面の端で1つ足りないだけの状態にペナルティの効果&#8221;は今ひとつ。</p>
+<p>幅優先探索は、反復深化深さ優先探索ははどちらもブラインドサーチで3x3と3x4,4/3のみに対応。それ以上は=(壁)検知付きマンハッタン距離、正位置にあるピースに重みづけ、それに手数削減のための過去の移動距離をそれぞれコストとして合計したものを関数としてヒューリスティック探索。繰り返し検知、逆探索検索付き。消費メモリ、消費時間に応じて無回答。制限時間になってもヒューリスティック関数の値が上昇し続けてたら時間制限を延長する”もう少しかも、頑張れ"機能。"下端を除くゲーム盤面の端で1つ足りないだけの状態にペナルティの効果"は今ひとつ。</p>
 
 <p>演算コスト削減は、マンハッタン距離コストマップ、移動可否マップの事前演算。メモリ省力化として配列のSplFixedArray使用等。基本的な探索実装で目標スコア3000後半程度。肝心のソルバーは強くないが想定の範囲は大体実装。</p>
 
@@ -2614,7 +2570,7 @@ BFS, IDDFS, A*探索を行うためのタスクマネージメントクラス。
 <h4>Clean Code</h4>
 
 <p>限られた時間である程度の結果を出しながら多くのOOP原則に従ったClean Codeで記述というのも今回の目標の一つでした<sup><a href="#footnote_6_763" id="identifier_6_763" class="footnote-link footnote-identifier-link" title="点にはなりませんが">7</a></sup><br/>
-単一責任原則（SRP:the Single Responsibility Principle） 、デメテルの法則（Law of Demetre (LoD)）、おまえが呼ぶな、俺が呼ぶの「ハリウッドの原則」、オープン・クローズドの原則（OCP）、gettr/setterの排除、等々意識したのですが不十分な所も多々あり反省の残るところです。それでも&#8221;次&#8221;にはかなり再利用できそうです。また、PHPのコーディングでprivate/protectedのprefixに_（アンダースコア）を使わないスタイルがいいのでは？にというトレンドが一部であるようで今回はそれに従ってみました。その他は現在のPHPのごく標準的なコード規約に従ってると思います。</p>
+単一責任原則（SRP:the Single Responsibility Principle） 、デメテルの法則（Law of Demetre (LoD)）、おまえが呼ぶな、俺が呼ぶの「ハリウッドの原則」、オープン・クローズドの原則（OCP）、gettr/setterの排除、等々意識したのですが不十分な所も多々あり反省の残るところです。それでも"次"にはかなり再利用できそうです。また、PHPのコーディングでprivate/protectedのprefixに_（アンダースコア）を使わないスタイルがいいのでは？にというトレンドが一部であるようで今回はそれに従ってみました。その他は現在のPHPのごく標準的なコード規約に従ってると思います。</p>
 
 <h4>実行方法</h4>
 
@@ -2666,11 +2622,11 @@ $ php slide.php
   
   <div class="pagination">
     
-      <a class="prev" href="/blog/page/6/">&larr; Older</a>
+      <a class="prev" href="6">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
-    <a class="next" href="/blog/page/4/">Newer &rarr;</a>
+    <a class="next" href="4">Newer &rarr;</a>
     
   </div>
 </div>
@@ -2703,45 +2659,7 @@ $ php slide.php
   </ul>
 </section>
 
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/koriym">@koriym</a> on GitHub
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
 
-        github.showRepos({
-            user: 'koriym',
-            count: 3,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-
-<section class="googleplus googleplus-hidden">
-  <h1>
-    <a href="https://plus.google.com/102811656239290261200?rel=author">
-      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
-      Google+
-    </a>
-  </h1>
-</section>
 
 
 
@@ -2751,47 +2669,17 @@ $ php slide.php
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2015 - Akihito Koriyama -
+  Copyright &copy; 2016 - Your Name -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.</span>
 </p>
 
 </footer>
   
 
-<script type="text/javascript">
-      var disqus_shortname = 'koriym';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
 
 
 
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/ja_JP/all.js#appId=516362398477090&xfbml=1";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-  <script type="text/javascript">
-    (function() {
-      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
-      script.src = 'https://apis.google.com/js/plusone.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
-    })();
-  </script>
 
 
 

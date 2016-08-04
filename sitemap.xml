@@ -1,273 +1,284 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
-    <url>
-        <loc>http://koriym.github.io/2010/04/startin-somethin/</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/2010/04/bear/</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://koriym.github.io/2010/04/hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%95/
-        </loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/2010/05/resource_cache/</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/2010/09/gdd-2010-pacman%e5%95%8f%e9%a1%8c/</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://koriym.github.io/2011/01/php%e3%82%82%e3%82%84%e3%82%89%e3%81%aa%e3%81%8d%e3%82%83hudson/
-        </loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://koriym.github.io/2011/05/php%e3%82%82%e3%82%84%e3%82%89%e3%81%aa%e3%81%8d%e3%82%83jenkins/
-        </loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/2011/07/bear1-to-saturday/</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/2011/07/net-baka/</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/2011/07/bear-sunday/</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://koriym.github.io/2011/08/php-hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%952011/
-        </loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/2011/09/gdd2011-devquiz/</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://koriym.github.io/2011/09/php5-4%e3%83%90%e3%82%a4%e3%83%8a%e3%83%aa%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab/
-        </loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/2011/10/the-new-era-of-php-web-development/</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/2011/10/stevejobs1955-2011/</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/2011/10/ray-annotation-based-di-system-for-php/</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/2011/10/ray-di-on-aura-di/</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/2011/12/php-dis-is-it/</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/2012/02/php-annotation/</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/2012/04/bear-resource/</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/2012/04/di/</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/2012/04/object-framework-ray-aop/</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/2012/05/dip-dependency-inversion-principle/</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/2012/10/codeasdocumentation/</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/phpmatsuri2012</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/binding</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/adv2</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/adv3</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/adv1</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/adv4</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/adv5</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/2012/12/advent-day-6-di-soc/</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/adv7</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/adv8</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/adv9</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/adv10</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/adv11</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/adv12</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/BEARSunday0.6.0</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/php-software-metric</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/WEB-DB-PRESS-Vol73</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/bear-sunday-quick-tour</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/2013/03/be-the-first-one/</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/2013/04/ray-1-0-0/</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/2013/04/time_annotation/</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/tedxtokyo2013</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/bearsunday_meetup2</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/ray-tutorial-introduction</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/first-di-framework</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/pear</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/2013/09/bear-sunday-england-tour-2013/</loc>
-        <lastmod>2014-06-10T18:29:53+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/blog/2014/01/04/phpnw2013/</loc>
-        <lastmod>2014-06-29T01:29:56+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/blog/2014/01/10/phpnw2013-part2/</loc>
-        <lastmod>2014-06-29T01:29:56+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/blog/2014/06/08/action-domain-responder/</loc>
-        <lastmod>2014-06-29T01:29:56+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/blog/2014/06/10/tedxtokyo-2014/</loc>
-        <lastmod>2014-06-29T01:29:56+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/blog/2014/06/22/phpnw2013-3-feedback/</loc>
-        <lastmod>2014-06-29T01:29:56+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/blog/2014/06/29/phpkansai2014/</loc>
-        <lastmod>2015-12-04T11:10:41+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/blog/2015/05/31/first-bear-sunday-stable-release/</loc>
-        <lastmod>2015-12-04T00:41:45+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/blog/2015/06/08/haphpy-birthday/</loc>
-        <lastmod>2015-12-04T00:41:45+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/blog/2015/07/01/phpconfuk2015/</loc>
-        <lastmod>2015-12-04T00:41:45+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/blog/2015/12/04/php7-dot-0-0/</loc>
-        <lastmod>2015-12-04T12:18:14+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/about/</loc>
-        <lastmod>2015-12-04T00:41:45+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/blog/archives/</loc>
-        <lastmod>2015-12-04T12:18:14+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/</loc>
-        <lastmod>2015-12-04T12:18:14+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://koriym.github.io/robots.txt</loc>
-        <lastmod>2014-06-10T18:29:55+09:00</lastmod>
-    </url>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>http://koriym.github.io/blog/2015/12/04/php7-dot-0-0/</loc>
+<lastmod>2015-12-04T11:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/blog/2015/07/01/phpconfuk2015/</loc>
+<lastmod>2015-07-01T00:44:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/blog/2015/06/08/haphpy-birthday/</loc>
+<lastmod>2015-06-08T19:03:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/blog/2015/05/31/first-bear-sunday-stable-release/</loc>
+<lastmod>2015-05-31T18:50:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/blog/2014/06/29/phpkansai2014/</loc>
+<lastmod>2014-06-29T08:59:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/blog/2014/06/22/phpnw2013-3-feedback/</loc>
+<lastmod>2014-06-22T11:14:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/blog/2014/06/10/tedxtokyo-2014/</loc>
+<lastmod>2014-06-10T02:34:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/blog/2014/06/08/action-domain-responder/</loc>
+<lastmod>2014-06-08T09:50:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/blog/2014/01/10/phpnw2013-part2/</loc>
+<lastmod>2014-01-10T19:53:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/blog/2014/01/04/phpnw2013/</loc>
+<lastmod>2014-01-04T22:30:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2013/09/bear-sunday-england-tour-2013/</loc>
+<lastmod>2013-09-26T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/pear</loc>
+<lastmod>2013-08-25T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/first-di-framework</loc>
+<lastmod>2013-08-17T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/ray-tutorial-introduction</loc>
+<lastmod>2013-08-16T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/bearsunday_meetup2</loc>
+<lastmod>2013-07-30T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/tedxtokyo2013</loc>
+<lastmod>2013-05-13T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2013/04/time_annotation/</loc>
+<lastmod>2013-04-04T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2013/04/ray-1-0-0/</loc>
+<lastmod>2013-04-01T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2013/03/be-the-first-one/</loc>
+<lastmod>2013-03-29T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/bear-sunday-quick-tour</loc>
+<lastmod>2013-03-04T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/WEB-DB-PRESS-Vol73</loc>
+<lastmod>2013-02-24T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/php-software-metric</loc>
+<lastmod>2013-02-06T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/BEARSunday0.6.0</loc>
+<lastmod>2013-01-27T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/adv12</loc>
+<lastmod>2012-12-18T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/adv11</loc>
+<lastmod>2012-12-13T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/adv10</loc>
+<lastmod>2012-12-13T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/adv9</loc>
+<lastmod>2012-12-12T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/adv8</loc>
+<lastmod>2012-12-12T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/adv7</loc>
+<lastmod>2012-12-11T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2012/12/advent-day-6-di-soc/</loc>
+<lastmod>2012-12-10T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/adv5</loc>
+<lastmod>2012-12-06T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/adv4</loc>
+<lastmod>2012-12-04T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/adv1</loc>
+<lastmod>2012-12-03T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/adv3</loc>
+<lastmod>2012-12-03T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/adv2</loc>
+<lastmod>2012-12-03T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/binding</loc>
+<lastmod>2012-11-17T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/phpmatsuri2012</loc>
+<lastmod>2012-11-10T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2012/10/codeasdocumentation/</loc>
+<lastmod>2012-10-28T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2012/05/dip-dependency-inversion-principle/</loc>
+<lastmod>2012-05-17T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2012/04/object-framework-ray-aop/</loc>
+<lastmod>2012-04-27T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2012/04/di/</loc>
+<lastmod>2012-04-25T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2012/04/bear-resource/</loc>
+<lastmod>2012-04-25T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2012/02/php-annotation/</loc>
+<lastmod>2012-02-18T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2011/12/php-dis-is-it/</loc>
+<lastmod>2011-12-18T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2011/10/ray-di-on-aura-di/</loc>
+<lastmod>2011-10-26T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2011/10/ray-annotation-based-di-system-for-php/</loc>
+<lastmod>2011-10-24T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2011/10/stevejobs1955-2011/</loc>
+<lastmod>2011-10-07T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2011/10/the-new-era-of-php-web-development/</loc>
+<lastmod>2011-10-02T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2011/09/php5-4%E3%83%90%E3%82%A4%E3%83%8A%E3%83%AA%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB/</loc>
+<lastmod>2011-09-14T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2011/09/gdd2011-devquiz/</loc>
+<lastmod>2011-09-13T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2011/08/php-hello-world%E3%82%B3%E3%83%BC%E3%83%AB%E3%82%B0%E3%83%A9%E3%83%952011/</loc>
+<lastmod>2011-08-06T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2011/07/bear-sunday/</loc>
+<lastmod>2011-07-29T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2011/07/net-baka/</loc>
+<lastmod>2011-07-24T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2011/07/bear1-to-saturday/</loc>
+<lastmod>2011-07-14T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2011/05/php%E3%82%82%E3%82%84%E3%82%89%E3%81%AA%E3%81%8D%E3%82%83jenkins/</loc>
+<lastmod>2011-05-20T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2011/01/php%E3%82%82%E3%82%84%E3%82%89%E3%81%AA%E3%81%8D%E3%82%83hudson/</loc>
+<lastmod>2011-01-17T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2010/09/gdd-2010-pacman%E5%95%8F%E9%A1%8C/</loc>
+<lastmod>2010-09-17T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2010/05/resource_cache/</loc>
+<lastmod>2010-05-20T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2010/04/hello-world%E3%82%B3%E3%83%BC%E3%83%AB%E3%82%B0%E3%83%A9%E3%83%95/</loc>
+<lastmod>2010-04-08T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2010/04/bear/</loc>
+<lastmod>2010-04-03T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/2010/04/startin-somethin/</loc>
+<lastmod>2010-04-02T00:00:00+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/blog/archives/</loc>
+</url>
+<url>
+<loc>http://koriym.github.io/</loc>
+</url>
+<url>
+<loc>http://koriym.github.io/about/</loc>
+</url>
+<url>
+<loc>http://koriym.github.io/blog/categories/bear/</loc>
+</url>
+<url>
+<loc>http://koriym.github.io/blog/categories/huremuwaku/</loc>
+</url>
+<url>
+<loc>http://koriym.github.io/blog/categories/puroguramu/</loc>
+</url>
+<url>
+<loc>http://koriym.github.io/blog/categories/php/</loc>
+</url>
+<url>
+<loc>http://koriym.github.io/blog/categories/test/</loc>
+</url>
+<url>
+<loc>http://koriym.github.io/blog/categories/wei-fen-lei/</loc>
+</url>
+<url>
+<loc>http://koriym.github.io/blog/categories/advent2012/</loc>
+</url>
+<url>
+<loc>http://koriym.github.io/blog/categories/ted/</loc>
+</url>
+<url>
+<loc>http://koriym.github.io/wp-content/uploads/2013/02/view-source-sandbox.sunday.local-dev-resource-graph.php-uriapp-self-first-hypermedia-payment.html</loc>
+<lastmod>2016-08-04T11:44:11+09:00</lastmod>
+</url>
 </urlset>

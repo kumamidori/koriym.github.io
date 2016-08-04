@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: TED | BEAR Blog]]></title>
+  <title><![CDATA[Category: ted | My Octopress Blog]]></title>
   <link href="http://koriym.github.io/blog/categories/ted/atom.xml" rel="self"/>
   <link href="http://koriym.github.io/"/>
-  <updated>2015-12-04T12:19:01+09:00</updated>
+  <updated>2016-08-04T13:21:14+09:00</updated>
   <id>http://koriym.github.io/</id>
   <author>
-    <name><![CDATA[Akihito Koriyama]]></name>
+    <name><![CDATA[Your Name]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -25,7 +25,7 @@
 
 <h2>TED / TEDxとは?</h2>
 
-<p>{% youtube d0NHOpeczUU %}</p>
+<p><div class="embed-video-container"><iframe src="http://www.youtube.com/embed/d0NHOpeczUU "></iframe></div></p>
 
 <blockquote><p>TEDx（テデックス）は、TEDの精神である「広める価値のあるアイデア」を共有するために世界各地で生まれているコミュニティー。TEDxTokyo（テデックス・トーキョー）は、世界で2番目、米国以外では最初のTEDxとして、近年のTEDxムーブメントを先導してきました。</p></blockquote>
 
@@ -131,22 +131,22 @@
 
 <p>% img <a href="http://placekitten.com/890/280">http://placekitten.com/890/280</a> %}</p>
 
-<p>{% img /wp-content/uploads/2013/05/IMG_6216.jpg %}
-{% img /wp-content/uploads/2013/05/IMG_6210.jpg %}
-{% img /wp-content/uploads/2013/05/IMG_6188.jpg %}
-{% img /wp-content/uploads/2013/05/IMG_6198.jpg %}
-{% img /wp-content/uploads/2013/05/IMG_6184.jpg %}
-{% img /wp-content/uploads/2013/05/img_6178.jpg %}
-{% img /wp-content/uploads/2013/05/IMG_6167.jpg %}
-{% img /wp-content/uploads/2013/05/img_6162.jpg %}
-{% img /wp-content/uploads/2013/05/img_6158.jpg %}
-{% img /wp-content/uploads/2013/05/img_4073.jpg %}
-{% img /wp-content/uploads/2013/05/img_4076.jpg %}
-{% img /wp-content/uploads/2013/05/img_4071.jpg %}
-{% img /wp-content/uploads/2013/05/img_4066.jpg %}
-{% img /wp-content/uploads/2013/05/img_4064.jpg %}
-{% img /wp-content/uploads/2013/05/img_4061.jpg %}
-{% img /wp-content/uploads/2013/05/img_4060.jpg %}</p>
+<p><img src="/wp-content/uploads/2013/05/IMG_6216.jpg">
+<img src="/wp-content/uploads/2013/05/IMG_6210.jpg">
+<img src="/wp-content/uploads/2013/05/IMG_6188.jpg">
+<img src="/wp-content/uploads/2013/05/IMG_6198.jpg">
+<img src="/wp-content/uploads/2013/05/IMG_6184.jpg">
+<img src="/wp-content/uploads/2013/05/img_6178.jpg">
+<img src="/wp-content/uploads/2013/05/IMG_6167.jpg">
+<img src="/wp-content/uploads/2013/05/img_6162.jpg">
+<img src="/wp-content/uploads/2013/05/img_6158.jpg">
+<img src="/wp-content/uploads/2013/05/img_4073.jpg">
+<img src="/wp-content/uploads/2013/05/img_4076.jpg">
+<img src="/wp-content/uploads/2013/05/img_4071.jpg">
+<img src="/wp-content/uploads/2013/05/img_4066.jpg">
+<img src="/wp-content/uploads/2013/05/img_4064.jpg">
+<img src="/wp-content/uploads/2013/05/img_4061.jpg">
+<img src="/wp-content/uploads/2013/05/img_4060.jpg"></p>
 
 <ol class="footnotes">
   <li id="footnote_0_1880" class="footnote">

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[BEAR Blog]]></title>
+  <title><![CDATA[My Octopress Blog]]></title>
   <link href="http://koriym.github.io/atom.xml" rel="self"/>
   <link href="http://koriym.github.io/"/>
-  <updated>2015-12-04T12:17:32+09:00</updated>
+  <updated>2016-08-04T13:21:14+09:00</updated>
   <id>http://koriym.github.io/</id>
   <author>
-    <name><![CDATA[Akihito Koriyama]]></name>
+    <name><![CDATA[Your Name]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -18,40 +18,46 @@
     <link href="http://koriym.github.io/blog/2015/12/04/php7-dot-0-0/"/>
     <updated>2015-12-04T11:00:00+09:00</updated>
     <id>http://koriym.github.io/blog/2015/12/04/php7-dot-0-0</id>
-    <content type="html"><![CDATA[<h2>2011年</h2>
+    <content type="html"><![CDATA[<h1>2011年</h1>
 
-<p>今から４年前の2011年12月17日(土)に東京で「<a href="http://labs.gree.jp/blog/2011/12/4367/">PHP Apocalypse</a>」というイベントが開催されました。</p>
+<p>今から４年前の2011年12月17日(土)に東京で「PHP Apocalypse」なるイベントが開催されました。</p>
 
-<p>タイトルが示すようにちょっと変わったイベントでした。PHPに悲観的な見方を持っている参加者が多かったのです。
+<p><a href="http://labs.gree.jp/blog/2011/12/4367/">http://labs.gree.jp/blog/2011/12/4367/</a></p>
+
+<p>タイトルが示すようにちょっと変わったイベントでした。
 冒頭のセッションで「PHPに未来を感じるか？」という問いがあり、周りを見回すと参加者で手をあげてるのはなんと自分一人。
-その時のエントリー<a href="http://koriym.github.io/2011/12/php-dis-is-it/">PHP: Dis Is It.</a>があります。</p>
+その時のエントリーがあります。</p>
 
-<p>PHPは特定のイデオロギーを持たず、変化に躊躇がない。
-漸進的な進化が継続可能でそれを実践するものには未来がある。そう考えたのです。
+<p>PHP: Dis Is It.
+<a href="http://koriym.github.io/2011/12/php-dis-is-it/">http://koriym.github.io/2011/12/php-dis-is-it/</a></p>
+
+<p>PHPはカリスマがいない。特定のイデオロギーを持たず、変化に躊躇がない。
+漸進的な進化を継続可能でそれを実践するものには未来がある。そう考えたのです。
 よく問題とされることは単に詳細の話で深刻なものではないとも考えました。</p>
 
 <p>そして４年が経ちました。</p>
 
-<p>サーバーサイドの言語で<a href="http://w3techs.com/technologies/overview/programming_language/all">80%のシェア</a>を持ち、エコシステムは大きく前進し、PHP5.4(2012年3月)、PHP5.5(2013年7月)、PHP5.6(2014年8月)と高い互換性を維持しつつバージョンアップを繰り返し2014年にはFacebookのPHP &ndash; Hackも公開されました。
+<p>サーバーサイドの言語で<a href="http://w3techs.com/technologies/overview/programming_language/all">80%のシェア</a>を持ち、エコシステムは大きく前進し、言語もPHP5.4(2012年3月)、PHP5.5(2013年7月)、PHP5.6(2014年8月)と高い互換性を維持しつつバージョンアップを繰り返し2014年にはFacebookのPHP"Hack"も公開されました。未来がないどころではなく、
 composerの登場もありました。言語もPHPコミュニティもエコシステムも全てがこの４年で大きく進化しました。</p>
 
 <p>そうです、未来がないと考えた参加者の予想は見事なくらい大外れしたのです。</p>
 
-<h2>PHP 7.0.0 リリース</h2>
+<p>＃ PHP 7.0.0</p>
 
-<p>そして本日2004年以来のメジャーバージョンアップPHP7がリリースされました！
+<p>そして本日2004年以来のメジャーバージョンアップ7.0.0がリリースされました！
 素晴らしい！！おめでとうございます！！！</p>
 
-<p>先日米国ワシントンで開催されたPHP Worldのアンソニー・フェラーラさんによる基調講演「<a href="https://www.youtube.com/watch?v=MWTe-iswnqc">PHP7 and Beyond: The Future of PHP </a>」をYouTubeで観ました。
+<p>先日米国ワシントンで開催されたPHP Worldのアンソニー・フェラーラさんによる基調講演<a href="https://www.youtube.com/watch?v=MWTe-iswnqc">PHP7 and Beyond: The Future of PHP </a>をYouTubeでみました。
 その中で「Victory for PHP」と話します。「PHPはプログラムを始めたばかりの初心者から、大企業のシニアまで、最小のWebサイトから世界最大級のサイトまで全ての人に力を与える。
-特定のイディオマティックなプログラミングパラダイムを押し付けることもない。ユーザーは選択可能で、可能な限り&#8221;&ldquo;許される&#8221;PHP。」</p>
+特定のイディオマティックなプログラミングパラダイムを押し付けることもない。ユーザーは選択可能で、可能な限り"&ldquo;許される"PHP。」</p>
 
-<p>そして以前アンドロイドの<a href="https://www.youtube.com/watch?v=vnVuqfXohxc">Adキャンペーン</a>で使われていた言葉を紹介します。</p>
+<p>そして以前アンドロイドの<a href="https://www.android.com/intl/ja_jp/be-together-not-the-same/">Adキャンペーン</a>で使われていた言葉を紹介します。</p>
 
-<p>”Be together, Not the same&#8221;</p>
+<p>”Be together, Not the same"
+<a href="https://www.youtube.com/watch?v=vnVuqfXohxc">https://www.youtube.com/watch?v=vnVuqfXohxc</a></p>
 
-<p>皆が同じになる必要はない。それぞれが違うアイデンティティを誇り、尊重しあって、しかし一緒に進もう。
-多様性を乱立と呼び問題視するのではなく、相互に影響しあってコミュニティ全体を前進させるための仕組みと考えよう、と。
+<p>皆が同じになる必要はない。それぞれが違うアイデンティティを誇り、尊重しあい、しかし一緒に進もう。
+多様性を乱立と呼び問題視するのではなく、相互に影響しあってコミュニティ全体を前進させるための仕組みと考えましょうと。
 素晴らしい！小さなプロジェクトにずっと取り組んでいる身に響く言葉です。</p>
 
 <p>PHP7のリリースおめでとうございます！
@@ -70,7 +76,7 @@ composerの登場もありました。言語もPHPコミュニティもエコシ
     <id>http://koriym.github.io/blog/2015/07/01/phpconfuk2015</id>
     <content type="html"><![CDATA[<h2>2015/06/27 10:20AM 福岡FFB HALL</h2>
 
-<script async class="speakerdeck-embed" data-id="55b2bbd1f70847408c0e23ec371616d8" data-ratio="1.33333333333333" src="http://koriym.github.io//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="55b2bbd1f70847408c0e23ec371616d8" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
 
 
 <p>　</p>
@@ -78,7 +84,7 @@ composerの登場もありました。言語もPHPコミュニティもエコシ
 <h2>PHP20周年</h2>
 
 <p>福岡で初めてのPHPカンファレンスが開催され、その基調講演を行う機会をいただきました。
-今年はPHPが生まれて20年の記念すべき年です。アニバーサリーに行う講演ということでPHPの&#8221;真ん中&#8221;は何処から来たのか、そのオリジンを問いそして祝福するような話をしたいと考えました。</p>
+今年はPHPが生まれて20年の記念すべき年です。アニバーサリーに行う講演ということでPHPの"真ん中"は何処から来たのか、そのオリジンを問いそして祝福するような話をしたいと考えました。</p>
 
 <p>ちょうど一年前の6月28日（福岡は6月27日！）に去年のPHPカンファレンス関西が行われ、同名のタイトルの講演<a href="http://koriym.github.io/blog/2014/06/29/phpkansai2014/">全てを結ぶ力</a>を行ったのですが、
 今回も沢山の方に聞いていただきました。ありがとうございました。</p>
@@ -112,7 +118,7 @@ PHPの生まれた1995年を懐かしいという人もいたし、PHPと自分�
 <p><img src ="http://koriym.github.io/images/phpkansai2014/subete-wo-musubu-chikara.010.jpg"></p>
 
 <p>今から20年前の6/8日にPHPのクリエーターの<a href="http://en.wikipedia.org/wiki/Rasmus_Lerdorf">Rasmus</a>さんが
-初めてPHPを&#8221;Personal Home Page Tools&#8221;としてソースコードを共有しました。</p>
+初めてPHPを"Personal Home Page Tools"としてソースコードを共有しました。</p>
 
 <p>世界の82%のWebサイトがPHPで動いてます。20周年おめでとう！おめでとう！!</p>
 
@@ -227,51 +233,43 @@ BEAR.Saturdayの時からずっとBEARのファンでいてくれる <a href="ht
 <p>最小のネットーワーク</p>
 
 
-<br>
-
+<p><br></p>
 
 <p><img src="http://koriym.github.io/images/phpkansai2014/subete-wo-musubu-chikara.005.jpg" width="640"></p>
 
 <p>最大のネットワーク</p>
 
 
-<br>
-
+<p><br></p>
 
 <p><img src="http://koriym.github.io/images/phpkansai2014/subete-wo-musubu-chikara.007.jpg" width="640"></p>
 
 <p>最初のウェブサイト</p>
 
 
-<br>
-
+<p><br></p>
 
 <p><img src="http://koriym.github.io/images/phpkansai2014/subete-wo-musubu-chikara.010.jpg" width="640"></p>
 
 <p>最初のPHP</p>
 
 
-<br>
-
+<p><br></p>
 
 <p><img src="http://koriym.github.io/images/phpkansai2014/subete-wo-musubu-chikara.012.jpg" width="640"></p>
 
 <p>最初のアプリケーションサーバー</p>
 
 
-<br>
-
-
-<br>
-
+<p><br>
+<br></p>
 
 <p><img src="http://koriym.github.io/images/phpkansai2014/subete-wo-musubu-chikara.028.jpg" width="640"></p>
 
 <p>最初のつぶやき</p>
 
 
-<br>
-
+<p><br></p>
 
 <p><img src="http://koriym.github.io/images/phpkansai2014/subete-wo-musubu-chikara.031.jpg" width="640">
 <img src="http://koriym.github.io/images/phpkansai2014/subete-wo-musubu-chikara.032.jpg" width="640"></p>
@@ -279,8 +277,7 @@ BEAR.Saturdayの時からずっとBEARのファンでいてくれる <a href="ht
 <p>決意</p>
 
 
-<br>
-
+<p><br></p>
 
 <p><img src="http://koriym.github.io/images/phpkansai2014/subete-wo-musubu-chikara.037.jpg" width="640">
 <img src="http://koriym.github.io/images/phpkansai2014/subete-wo-musubu-chikara.038.jpg" width="640"></p>
@@ -288,8 +285,7 @@ BEAR.Saturdayの時からずっとBEARのファンでいてくれる <a href="ht
 <p>インターネットの原則</p>
 
 
-<br>
-
+<p><br></p>
 
 <p><img src="http://koriym.github.io/images/phpkansai2014/subete-wo-musubu-chikara.044.jpg" width="640">
 <img src="http://koriym.github.io/images/phpkansai2014/subete-wo-musubu-chikara.045.jpg" width="640"></p>
@@ -297,8 +293,7 @@ BEAR.Saturdayの時からずっとBEARのファンでいてくれる <a href="ht
 <p>ソフトウエアの背後にいる人々</p>
 
 
-<br>
-
+<p><br></p>
 
 <p><img src="http://koriym.github.io/images/phpkansai2014/subete-wo-musubu-chikara.046.jpg" width="640">
 <img src="http://koriym.github.io/images/phpkansai2014/subete-wo-musubu-chikara.057.jpg" width="640"></p>
@@ -306,8 +301,7 @@ BEAR.Saturdayの時からずっとBEARのファンでいてくれる <a href="ht
 <p>私たち開発者</p>
 
 
-<br>
-
+<p><br></p>
 
 <p><img src="http://koriym.github.io/images/phpkansai2014/subete-wo-musubu-chikara.058.jpg" width="640">
 <img src="http://koriym.github.io/images/phpkansai2014/subete-wo-musubu-chikara.059.jpg" width="640">
@@ -317,8 +311,7 @@ BEAR.Saturdayの時からずっとBEARのファンでいてくれる <a href="ht
 <p>メディアシフト</p>
 
 
-<br>
-
+<p><br></p>
 
 <p><img src="http://koriym.github.io/images/phpkansai2014/subete-wo-musubu-chikara.062.jpg" width="640">
 <img src="http://koriym.github.io/images/phpkansai2014/subete-wo-musubu-chikara.065.jpg" width="640"></p>
@@ -367,7 +360,7 @@ BEAR.Saturdayの時からずっとBEARのファンでいてくれる <a href="ht
 
 <p>その点を除けばアイデアや問題解決のためのアプローチを肯定する良い評価が並びました。</p>
 
-<p><b>&ldquo;A novel presentation&rdquo;, &ldquo;Love the passion&rdquo;, &ldquo;A really inspiring&rdquo;, &ldquo;Mind-blowing bunch of ideas&#8221;。</b>最上級の言葉が並びました。
+<p><b>&ldquo;A novel presentation&rdquo;, &ldquo;Love the passion&rdquo;, &ldquo;A really inspiring&rdquo;, &ldquo;Mind-blowing bunch of ideas"。</b>最上級の言葉が並びました。
 プレゼンテーションは成功したのです！！</p>
 
 <h3>Twitter</h3>
@@ -377,7 +370,7 @@ BEAR.Saturdayの時からずっとBEARのファンでいてくれる <a href="ht
 <blockquote class="twitter-tweet" lang="ja"><p><a href="https://twitter.com/koriym">@koriym</a> good talk today buddy and congratulations on the framework!</p>&mdash; John Crossley ∆ (@JonnoTheBonno) <a href="https://twitter.com/JonnoTheBonno/statuses/386174891222786048">2013, 10月 4</a></blockquote>
 
 
-<script async src="http://koriym.github.io//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 
@@ -385,7 +378,7 @@ BEAR.Saturdayの時からずっとBEARのファンでいてくれる <a href="ht
 <blockquote class="twitter-tweet" lang="ja"><p>I&#39;ve learned about BEAR.Sunday . Very interesting. Session by <a href="https://twitter.com/koriym">@koriym</a> <a href="https://twitter.com/mackstar">@mackstar</a> at <a href="https://twitter.com/search?q=%23phpnw13&amp;src=hash">#phpnw13</a> <a href="http://t.co/9vvzUtwt3R">pic.twitter.com/9vvzUtwt3R</a></p>&mdash; Mark Szymik (@markszymik) <a href="https://twitter.com/markszymik/statuses/386502810051026944">2013, 10月 5</a></blockquote>
 
 
-<script async src="http://koriym.github.io//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 
@@ -393,7 +386,7 @@ BEAR.Saturdayの時からずっとBEARのファンでいてくれる <a href="ht
 <blockquote class="twitter-tweet" lang="ja"><p>DIC = graph; app = root node; compile it once and cache - those are my learnings from BEAR.Sunday talk. It was <a href="https://twitter.com/search?q=%23outOfThisWorld&amp;src=hash">#outOfThisWorld</a> <a href="https://twitter.com/search?q=%23phpnw13&amp;src=hash">#phpnw13</a></p>&mdash; Marijus Kilmanas (@mkilmanas) <a href="https://twitter.com/mkilmanas/statuses/386509192670244864">2013, 10月 5</a></blockquote>
 
 
-<script async src="http://koriym.github.io//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 
@@ -401,7 +394,7 @@ BEAR.Saturdayの時からずっとBEARのファンでいてくれる <a href="ht
 <blockquote class="twitter-tweet" lang="ja"><p>I think I’m going to use the time to read up on BEAR.sunday, it looks really interesting. /via <a href="https://twitter.com/mackstar">@mackstar</a> <a href="https://twitter.com/koriym">@koriym</a> <a href="https://twitter.com/search?q=%23phpnw13&amp;src=hash">#phpnw13</a></p>&mdash; Anthony Sterling (@anthonysterling) <a href="https://twitter.com/anthonysterling/statuses/386728438880813057">2013, 10月 6</a></blockquote>
 
 
-<script async src="http://koriym.github.io//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 
@@ -409,7 +402,7 @@ BEAR.Saturdayの時からずっとBEARのファンでいてくれる <a href="ht
 <blockquote class="twitter-tweet" lang="ja"><p>New home for my Bear Sunday badge. /cc <a href="https://twitter.com/koriym">@koriym</a> <a href="https://twitter.com/mackstar">@mackstar</a> <a href="https://twitter.com/search?q=%23phpnw13&amp;src=hash">#phpnw13</a> <a href="http://t.co/UYYDmqEZej">pic.twitter.com/UYYDmqEZej</a></p>&mdash; Ryan Marshall (@rsmarshall) <a href="https://twitter.com/rsmarshall/statuses/386866175277551617">2013, 10月 6</a></blockquote>
 
 
-<script async src="http://koriym.github.io//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 <p>中でも気に入ってるのはこの「looks crazy! 」です。</p>
@@ -417,7 +410,7 @@ BEAR.Saturdayの時からずっとBEARのファンでいてくれる <a href="ht
 <blockquote class="twitter-tweet" data-cards="hidden" lang="ja"><p>BEAR.Sunday <a href="https://twitter.com/search?q=%23PHP&amp;src=hash">#PHP</a> 5.4 framework looks crazy! Resource oriented, REST hypermedia, DI and AOP: <a href="https://t.co/qqXAs2KPXz">https://t.co/qqXAs2KPXz</a></p>&mdash; Loïc Chardonnet (@epiloic) <a href="https://twitter.com/epiloic/statuses/386520372503257088">2013, 10月 5</a></blockquote>
 
 
-<script async src="http://koriym.github.io//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 <h2>Blog</h2>
@@ -459,7 +452,7 @@ BEAR.Saturdayの時からずっとBEARのファンでいてくれる <a href="ht
 <blockquote class="twitter-tweet" lang="ja"><p>Wow! I think everyone would agree they have just been enlightened by <a href="https://twitter.com/koriym">@koriym</a> and BEAR.Sunday</p>&mdash; Leeds PHP User Group (@leedsphp) <a href="https://twitter.com/leedsphp/statuses/384767549382356992">2013, 9月 30</a></blockquote>
 
 
-<script async src="http://koriym.github.io//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 <h2>直接のフィードバック</h2>
@@ -505,15 +498,15 @@ phpnwは参加者同士が交流できる多くの時間が用意されていま
     <id>http://koriym.github.io/blog/2014/06/10/tedxtokyo-2014</id>
     <content type="html"><![CDATA[<h2>Connecting the unconnected</h2>
 
-<p>2014 5/31 (土) 9:00 &ndash; 18:00</p>
+<p>2014 5/31 (土) 9:00 - 18:00</p>
 
-<iframe width="560" height="315" src="http://koriym.github.io//www.youtube.com/embed/AxjuLiiX1mo?rel=0" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="//www.youtube.com/embed/AxjuLiiX1mo?rel=0" frameborder="0" allowfullscreen></iframe>
 
 
 <p>5月31日にヒカリエで開かれたTEDxTokyo 2014でオーディエンスとして参加する機会をいただきました。
 去年に続いて二度目です。</p>
 
-<iframe width="560" height="315" src="http://koriym.github.io//www.youtube.com/embed/u8S2-H0E4Q8?rel=0" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="//www.youtube.com/embed/u8S2-H0E4Q8?rel=0" frameborder="0" allowfullscreen></iframe>
 
 
 <blockquote><p>&ldquo;25年以上前にカンファレンスとして始まりましたが、素晴らしい考えやアイデアを識別し広める幅広いプラットフォームへと進化しました。&rdquo;</p></blockquote>
@@ -531,7 +524,7 @@ TEDxTokyoはその精神を引き継いだ米国以外では初めてのTEDxイ�
 
 <h2>結</h2>
 
-<p>一番最初のプレゼンテーションは米国で活動する書家アーティストの<a href="http://www.shift.jp.org/ja/archives/2011/06/aoi_yamaguchi.html">山口 碧生</a>さん、今年のテーマ「Connecting the Unconnected」その「結」を特大の筆で書き上げ、それを壁に掲げます。パフォーマンスと音楽を融合した彼女の&#8221;書&#8221;は迫力のあるものです。</p>
+<p>一番最初のプレゼンテーションは米国で活動する書家アーティストの<a href="http://www.shift.jp.org/ja/archives/2011/06/aoi_yamaguchi.html">山口 碧生</a>さん、今年のテーマ「Connecting the Unconnected」その「結」を特大の筆で書き上げ、それを壁に掲げます。パフォーマンスと音楽を融合した彼女の"書"は迫力のあるものです。</p>
 
 <p>しかし同時に自分たち＝ここに集まった大勢の人が見ているのは「文字を一文字書く」それだけの事という事にも気付きます。それが百の言葉より説得力を持ち、力となり、見ている人達の熱狂を誘うのです。今年のTEDxTokyoのテーマを１文字で書き上げる素晴らしいオープニングになったと感じました。</p>
 
@@ -541,15 +534,15 @@ TEDxTokyoはその精神を引き継いだ米国以外では初めてのTEDxイ�
 
 <p>「バーニングマン」は8月１週間だけネバダの砂漠に都市「ブラック・ロック・シティ」が現れる奇跡のようなイベントです。数年前に参加した友人の写真で度肝を抜かれました。</p>
 
-<iframe width="560" height="315" src="http://koriym.github.io//www.youtube.com/embed/IP1fh9iO5yo?rel=0" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="//www.youtube.com/embed/IP1fh9iO5yo?rel=0" frameborder="0" allowfullscreen></iframe>
 
 
 <p>そのバーニングマンのオーガナイザー、マリアン・グッデルが次のプレゼンテーションを行いました。</p>
 
-<iframe width="560" height="315" src="http://koriym.github.io//www.youtube.com/embed/DXbd2h_cNJI?list=PLsRNoUx8w3rMPnRKHwjijK_kz26T9IAH2" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="//www.youtube.com/embed/DXbd2h_cNJI?list=PLsRNoUx8w3rMPnRKHwjijK_kz26T9IAH2" frameborder="0" allowfullscreen></iframe>
 
 
-<p>聞きながら&#8217;01年の<a href="http://ja.wikipedia.org/wiki/%E6%AD%A6%E5%B0%8A%E7%A5%AD">武尊祭</a>を思い出し、あの頃のパーティーカルチャーもこのバーニングマンの十大原則のいくつかを共有してるのではと思いました。優れた原則や理念を持ったコミュニティは特別なコミニュケーションを生み出します。バーニングマン、TED、TEDx、独創的なオーガナイザーによって開かれた幾多のパーティー、みな共通するものがあるのではないでしょうか。</p>
+<p>聞きながら'01年の<a href="http://ja.wikipedia.org/wiki/%E6%AD%A6%E5%B0%8A%E7%A5%AD">武尊祭</a>を思い出し、あの頃のパーティーカルチャーもこのバーニングマンの十大原則のいくつかを共有してるのではと思いました。優れた原則や理念を持ったコミュニティは特別なコミニュケーションを生み出します。バーニングマン、TED、TEDx、独創的なオーガナイザーによって開かれた幾多のパーティー、みな共通するものがあるのではないでしょうか。</p>
 
 <p><img src="http://koriym.github.io/images/tedxtokyo/burningman_principles.png"></p>
 
@@ -557,26 +550,26 @@ TEDxTokyoはその精神を引き継いだ米国以外では初めてのTEDxイ�
 
 <p>多くのプレゼンテーションの中でも特に印象に残ったのがこの２つです。</p>
 
-<iframe width="560" height="315" src="http://koriym.github.io//www.youtube.com/embed/-uTRVcvEUMY?rel=0" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="//www.youtube.com/embed/-uTRVcvEUMY?rel=0" frameborder="0" allowfullscreen></iframe>
 
 
 
 
-<iframe width="560" height="315" src="http://koriym.github.io//www.youtube.com/embed/q84-jGZO3Rg?rel=0" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="//www.youtube.com/embed/q84-jGZO3Rg?rel=0" frameborder="0" allowfullscreen></iframe>
 
 
 <p>経営学者の<a href="http://www.tedxtokyo.com/talk/yoko-ishikura/">石倉 洋子</a>さんのスピーチは非常にパーソナルな内容で、自分の半生をカイトに見立て、時に舞い上がり、時に逆風にさらされる様を静かに熱く語ります。</p>
 
 <p>フォトグラファーの<a href="http://www.tedxtokyo.com/talk/leslie-kee/">レスリー・キー</a>さんは世界的名声を得た今も青年の時の気持ちをずっと胸にいだき、それを大切にしてきたか、それが伝わる情熱に満ちたものでした。</p>
 
-<p>そうなのです、”知の渦にダイブ&#8221;のTEDxで強く心に残るのは、自らが求める課題に対峙するその真摯な姿勢なのです。
+<p>そうなのです、”知の渦にダイブ"のTEDxで強く心に残るのは、自らが求める課題に対峙するその真摯な姿勢なのです。
 語られる「広める価値のある」優れたアイデアは頭に脳に強く作用するのですが、それを語る人達の精神性や人間性に心が打たれるのです。</p>
 
 <p>前回は特に<a href="http://www.tedxtokyo.com/talk/manabu/">田子 學</a>さんと<a href="http://www.tedxtokyo.com/talk/ban/">坂 茂</a>さんのスピーチがそうでした。田子さんは今回オーディエンスとして参加されていて、去年のスピーチの感想や印象を伝える事ができました。嬉しくて「講演者と参加者の区別はほとんどありません」のTEDxの理念はどこかに飛んでいきスターにあったファンのように興奮し（コーヒーをこぼすぐらい！）田子さんのスピーチがいかにその後に影響を与え、ずっと印象に残ってるかを話しました。</p>
 
 <p>ケンジ・ウイリアムズさんの最後のスピーチは特別なものでした。スピーカーとオーディエンスという形で再会でき、彼のバイオリンを8年振りに聞く事ができたのです。演じた「Bella Gaia」の一部は音楽と地球規模のデータの融合し、見ている人の意識に作用する素晴らしいパーフォマンスでした。アフターパーティーではBella Gaiaの方と意見交換する事もできました。</p>
 
-<iframe width="560" height="315" src="http://koriym.github.io//www.youtube.com/embed/RCV0vOrABTw?rel=0" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="//www.youtube.com/embed/RCV0vOrABTw?rel=0" frameborder="0" allowfullscreen></iframe>
 
 
 <h2>熱狂の一日</h2>
@@ -591,12 +584,9 @@ TEDxTokyoはその精神を引き継いだ米国以外では初めてのTEDxイ�
 <a href="https://www.facebook.com/media/set/?set=a.10152494229284859.1073741838.98089389858&amp;type=3">https://www.facebook.com/media/set/?set=a.10152494229284859.1073741838.98089389858&amp;type=3</a></p>
 
 <p><img src="http://koriym.github.io/images/tedxtokyo/DSC01928.jpg">
-<img src="http://koriym.github.io/images/tedxtokyo/DSC02020.jpg"></p>
-
+<img src="http://koriym.github.io/images/tedxtokyo/DSC02020.jpg">
 <br>
-
-
-<p>田子さんありがとうございました！ / ボランティアの方達は本当に素晴らしいです。/ <a href="http://www.tedxtokyo.com/touchy-human-camera/">Touchy</a>にも会えました。</p>
+田子さんありがとうございました！ / ボランティアの方達は本当に素晴らしいです。/ <a href="http://www.tedxtokyo.com/touchy-human-camera/">Touchy</a>にも会えました。</p>
 ]]></content>
   </entry>
   
@@ -605,12 +595,9 @@ TEDxTokyoはその精神を引き継いだ米国以外では初めてのTEDxイ�
     <link href="http://koriym.github.io/blog/2014/06/08/action-domain-responder/"/>
     <updated>2014-06-08T09:50:00+09:00</updated>
     <id>http://koriym.github.io/blog/2014/06/08/action-domain-responder</id>
-    <content type="html"><![CDATA[<p><img class="left" src="https://raw.githubusercontent.com/pmjones/mvc-refinement/master/adr.png"></p>
-
+    <content type="html"><![CDATA[<p><img class="left" src="https://raw.githubusercontent.com/pmjones/mvc-refinement/master/adr.png">
 <br clear=all>
-
-
-<p><a href="https://github.com/pmjones/mvc-refinement">https://github.com/pmjones/mvc-refinement</a></p>
+<a href="https://github.com/pmjones/mvc-refinement">https://github.com/pmjones/mvc-refinement</a></p>
 
 <p>Here is my random thought about <a href="https://github.com/pmjones/mvc-refinement">ADR</a>.</p>
 
@@ -620,7 +607,7 @@ TEDxTokyoはその精神を引き継いだ米国以外では初めてのTEDxイ�
 
 <p>I don’t see any particular problem in having  “More classes in the application”. I think it can gain more benefit by having a smaller amount of LOC per class. It seems people can move from MVC to ADR with ease and gain the benefits instantly.</p>
 
-<p>I would like to add a few personal slightly biased comments, (Just casual remarks &ndash; feel free to dismiss.)</p>
+<p>I would like to add a few personal slightly biased comments, (Just casual remarks - feel free to dismiss.)</p>
 
 <p>In most MVC application frameworks, the existing system (architecture) is mapped to the web. CRUD and OOP paradigms are mapped to HTTP methods and resources. But the opposite is not true. ADR seems to have the same limitation. I would like to echo @nateabele’s tweet “resources aren&rsquo;t like controllers, in that they&rsquo;re intended to be more cohesive”.</p>
 
@@ -992,7 +979,7 @@ The interception is registered upon binding.</p>
 
 <ul>
 <li><p>Lets Break up the concerns</p></li>
-<li><p>Pull out the logging etc &ndash; this is not business logic, they are app logic</p></li>
+<li><p>Pull out the logging etc - this is not business logic, they are app logic</p></li>
 </ul>
 
 
@@ -1013,7 +1000,7 @@ The interception is registered upon binding.</p>
 <p>Imagine a Rock Concert</p>
 
 <ul>
-<li>Band &ndash; single concern &ndash; business logic</li>
+<li>Band - single concern - business logic</li>
 <li>Security barrier and guards are an aspect</li>
 </ul>
 
@@ -1050,8 +1037,8 @@ The interception is registered upon binding.</p>
 <p>A Simple cache interceptor.</p>
 
 <ul>
-<li>You can add fancy rules too &ndash; this is simple</li>
-<li>Is the cache there &ndash; yes? Just return it, no? Use invocation->proceed</li>
+<li>You can add fancy rules too - this is simple</li>
+<li>Is the cache there - yes? Just return it, no? Use invocation->proceed</li>
 </ul>
 
 
@@ -1065,7 +1052,7 @@ The interception is registered upon binding.</p>
 
 <ul>
 <li>This shows @db annotation binding</li>
-<li>@api  annotation &ndash; JSON would be this implementation.</li>
+<li>@api  annotation - JSON would be this implementation.</li>
 </ul>
 
 
@@ -1136,7 +1123,7 @@ attached + detached DEPENDING on context.</p>
 <li>It is ugly</li>
 <li>It is created for you</li>
 <li>NOT weaver model, AOP Compiler model</li>
-<li>For Type Safety &ndash; For Dependency Injection &ndash; Super fast!</li>
+<li>For Type Safety - For Dependency Injection - Super fast!</li>
 </ul>
 
 
@@ -1338,7 +1325,7 @@ HyperMedia Framework 、それはオブジェクトをWebサービスのよう�
 
 <p>AOPプログラミングに行ったん慣れてしまうと、一体以前はどこにログやトランザクション、認証やバリデーションを置く事ができたのか不思議に思うでしょう。</p>
 
-<p>REST &ndash; Hypermediaは情報と情報、リソースとリソースを接続します。リソースは意味によって繋がれ、そのリンクはサービスサイドで変更可能です。</p>
+<p>REST - Hypermediaは情報と情報、リソースとリソースを接続します。リソースは意味によって繋がれ、そのリンクはサービスサイドで変更可能です。</p>
 
 <p>情報に真の意味での価値を与えるのはその繋がりです。APIをハブに、RESTを中心にしたロングタームのアーキテクチャをするのです。</p>
 
@@ -1410,7 +1397,7 @@ You add more elements and functions until you can’t add anymore, then you will
 
 <p>I hope your imagination, your creativity can be maximized through this connecting framework, a harmony framework.</p>
 
-<p>Lastly, don’t put &rsquo;d&#8217; after &lsquo;n&rsquo;, That’s another framework. Thank you very much.</p>
+<p>Lastly, don’t put &rsquo;d' after &lsquo;n&rsquo;, That’s another framework. Thank you very much.</p>
 
 <hr />
 
@@ -1519,11 +1506,11 @@ BEAR.Sunday is a REST-centric framework that makes you think totally different a
 <p>セッションは土曜日から始まります。オープニングキーノートはLorna MitchellさんとIvo Janschさんの <strong><a href="http://conference.phpnw.org.uk/phpnw13/schedule/lorna-mitchell-ivo-jansch/">0x0F Ways to be a Better Developer</a></strong>
 （より良いディベロッパーになる0x0Fの方法）。</p>
 
-<script async class="speakerdeck-embed" data-id="2a6e79d01160013121333e135808c36d" data-ratio="1.33333333333333" src="http://koriym.github.io//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="2a6e79d01160013121333e135808c36d" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
 
 
 <p>会場は２つに別れていて、二人のスピーカーを映像で繋げそれぞれ交互に変わりながらプレゼンテーションを行うといった凝った仕掛けです。キーノートのテーマがPHPの進化や特定技術ではなくて「より良い開発者になる」というのは印象的でした。
-例えば<em>&ldquo;Get Out of Your Comfort Zone&rdquo;</em> 「普段の安全で良く知った自分のフィールドから飛び出し、リスクをとって&#8221;Enjoy the unknown&#8221;しましょう」という事ですが、
+例えば<em>&ldquo;Get Out of Your Comfort Zone&rdquo;</em> 「普段の安全で良く知った自分のフィールドから飛び出し、リスクをとって"Enjoy the unknown"しましょう」という事ですが、
 「今回マンチェスターで自作のフレームワークのプレゼンテーションを行うのは充分<code>Get Out</code>してますしてます。<code>the unknown</code>を楽しんでます！」と頷きながら聞いてました。</p>
 
 <p>自分達の発表の練習や最後の準備もしなければなりませんが、聞きたいセッションも沢山あります。プレンゼンテーションの内容は非常に充実していて、スピーカーも普段もネットで目にするような有名な人ばかりです。</p>
@@ -1567,12 +1554,8 @@ BEAR.Sunday is a REST-centric framework that makes you think totally different a
 <div class='fb-post' data-href='https://www.facebook.com/permalink.php?id=110116939178462&story_fbid=168349486688540 '></div>
 
 
-
-
-<br clear="all" />  
-
-
-<p>無名の個人が作った無名のフレームワークをこれだけの規模のカンファレンスで発表するというのを聞いた事がありません。そもそも「誰も新しいフレームワークに興味が無い」というこで、新しいどころか世界の誰もが知っているフレームワークが200を超えるCfPの中で落選してる事も知りました。</p>
+<p><br clear="all" /><br/>
+無名の個人が作った無名のフレームワークをこれだけの規模のカンファレンスで発表するというのを聞いた事がありません。そもそも「誰も新しいフレームワークに興味が無い」というこで、新しいどころか世界の誰もが知っているフレームワークが200を超えるCfPの中で落選してる事も知りました。</p>
 
 <p>そこでこういう言葉でセッションを始めることにしました。紹介します。</p>
 
@@ -1781,7 +1764,7 @@ How do we look at the problem.</p>
 <p>まずはcomposerをダウンロードします。</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -sS https://getcomposer.org/installer | php
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -sS https://getcomposer.org/installer <span class="p">|</span> php
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -1918,15 +1901,15 @@ How do we look at the problem.</p>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
 </pre></td><td class='code'><pre><code class='php'><span class='line'><span class="err">$</span> <span class="nx">tree</span> <span class="o">-</span><span class="nx">L</span> <span class="mi">2</span>
-</span><span class='line'><span class="err">├──</span> <span class="nx">composer</span><span class="o">.</span><span class="nx">json</span>
-</span><span class='line'><span class="err">├──</span> <span class="nx">composer</span><span class="o">.</span><span class="nx">lock</span>
-</span><span class='line'><span class="err">├──</span> <span class="nx">composer</span><span class="o">.</span><span class="nx">phar</span>
-</span><span class='line'><span class="err">└──</span> <span class="nx">vendor</span>
-</span><span class='line'>    <span class="err">├──</span> <span class="nx">aura</span>
-</span><span class='line'>    <span class="err">├──</span> <span class="nx">autoload</span><span class="o">.</span><span class="nx">php</span>
-</span><span class='line'>    <span class="err">├──</span> <span class="nx">composer</span>
-</span><span class='line'>    <span class="err">├──</span> <span class="nx">doctrine</span>
-</span><span class='line'>    <span class="err">└──</span> <span class="nx">ray</span>
+</span><span class='line'><span class="nx">├──</span> <span class="nx">composer</span><span class="o">.</span><span class="nx">json</span>
+</span><span class='line'><span class="nx">├──</span> <span class="nx">composer</span><span class="o">.</span><span class="nx">lock</span>
+</span><span class='line'><span class="nx">├──</span> <span class="nx">composer</span><span class="o">.</span><span class="nx">phar</span>
+</span><span class='line'><span class="nx">└──</span> <span class="nx">vendor</span>
+</span><span class='line'>    <span class="nx">├──</span> <span class="nx">aura</span>
+</span><span class='line'>    <span class="nx">├──</span> <span class="nx">autoload</span><span class="o">.</span><span class="nx">php</span>
+</span><span class='line'>    <span class="nx">├──</span> <span class="nx">composer</span>
+</span><span class='line'>    <span class="nx">├──</span> <span class="nx">doctrine</span>
+</span><span class='line'>    <span class="nx">└──</span> <span class="nx">ray</span>
 </span></code></pre></td></tr></table></div></figure>
 
 

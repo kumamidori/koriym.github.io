@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: 未分類 | BEAR Blog]]></title>
+  <title><![CDATA[Category: 未分類 | My Octopress Blog]]></title>
   <link href="http://koriym.github.io/blog/categories/wei-fen-lei/atom.xml" rel="self"/>
   <link href="http://koriym.github.io/"/>
-  <updated>2015-12-04T12:19:01+09:00</updated>
+  <updated>2016-08-04T13:21:14+09:00</updated>
   <id>http://koriym.github.io/</id>
   <author>
-    <name><![CDATA[Akihito Koriyama]]></name>
+    <name><![CDATA[Your Name]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -34,42 +34,34 @@ BEAR.Sundayではオブジェクトが必要とするインスタンスを、自
 
 <p>前回記事の挨拶リソースに戻りましょう。このリソースはメッセージを返す為に、$messageデータを必要としています。<sup><a href="#footnote_0_1296" id="identifier_0_1296" class="footnote-link footnote-identifier-link" title="つまりこのリソースは$messageデータに依存しています">1</a></sup></p>
 
-<p>```php
-class Greetings extends AbstractObject
-{</p>
-
-<pre><code>$message = [
-    'en' =&gt; 'Hello World',
-    'ja' =&gt; 'Konichiwa Sekai',
-    'es' =&gt; 'Hola Mundo'
-];
-
-public function onGet($lang = ‘en’)
+<pre><code class="php">class Greetings extends AbstractObject
 {
-    $greeting = $this-&gt;message[$lang];
-    return $greeting;
+    $message = [
+        'en' =&gt; 'Hello World',
+        'ja' =&gt; 'Konichiwa Sekai',
+        'es' =&gt; 'Hola Mundo'
+    ];
+
+    public function onGet($lang = ‘en’)
+    {
+        $greeting = $this-&gt;message[$lang];
+        return $greeting;
+    }
 }
 </code></pre>
-
-<p>}
-```</p>
 
 <p>$messageデータをクラスに固定で持たないで、外部から代入するように変更してみましょう。<br/>
 このようなセッターメソッドが必要です。</p>
 
-<p>```php
-/<em>*
+<pre><code class="php">/**
  * @Inject
  * @Name(“greeting_message”)
- </em>/
+ */
 public function setMessage(array $message)
-{</p>
-
-<pre><code>$this-&gt;message = $message;
+{
+    $this-&gt;message = $message;
+}
 </code></pre>
-
-<p>}
-```</p>
 
 <p>固定されていたデータが外部から代入できるようになりました。</p>
 
@@ -83,41 +75,35 @@ public function setMessage(array $message)
 
 <p>※注）アノテーションはDoctrine.CommonsのAnnotationを使用していて、このアノテーションを使うためのuse文が必要です。</p>
 
-<p><code>php
-use Ray\Di\Di\Inject;
+<pre><code class="php">use Ray\Di\Di\Inject;
 use Ray\Di\Di\Named;
-</code></p>
+</code></pre>
 
 <p>インジェクションポイントに実際に何をセットするかは<strong>モジュール</strong>で設定します。モジュールではインジェクションポイントとインスタンスをバインドします。バインドの方法はいくつかありますがここでは特定の名前をつけてインジェクションポイントを指定する方法を使用していています。</p>
 
 <p>実際のモジュールのコードはこのようになります。</p>
 
-<p>```php
-class AppModule extends AbstractModule
-{</p>
-
-<pre><code>protected function configure()
+<pre><code class="php">class AppModule extends AbstractModule
 {
-    $message = [
-        'en' =&gt; 'Hello World',
-        'ja' =&gt; 'Konichiwa Sekai',
-        'es' =&gt; 'Hola Mundo'
-    ];
-    $this-&gt;bind()-&gt;named(‘greeting_message’)-&gt;toInsntance($message);
+    protected function configure()
+    {
+        $message = [
+            'en' =&gt; 'Hello World',
+            'ja' =&gt; 'Konichiwa Sekai',
+            'es' =&gt; 'Hola Mundo'
+        ];
+        $this-&gt;bind()-&gt;named(‘greeting_message’)-&gt;toInsntance($message);
+    }
 }
 </code></pre>
-
-<p>}
-```</p>
 
 <h2>インジェクターの生成とオブジェクトグラフ生成</h2>
 
 <p>インジェクターを使ってこのクラスにディペンデンシーをインジェクトしてインスタンスを取得します。</p>
 
-<p><code>php
-$injector = Injector::create([new AppModule]);
+<pre><code class="php">$injector = Injector::create([new AppModule]);
 $injector-&gt;getInstance(‘name\space\Greeting’);
-</code></p>
+</code></pre>
 
 <p>モジュールにはインジェクションポイントに対してどのインスタンスを提供するかという、いわばアプリケーションの構成知識が凝縮されています。その構成知識を使ってインジェクターはオブジェクトのコンストラクション（生成、インジェクト、ライフサイクルのセット）を行いインスタンスを返します。</p>
 
@@ -127,17 +113,15 @@ $injector-&gt;getInstance(‘name\space\Greeting’);
 
 <p>たとえばUserクラスはDbクラスのインスタンスが必要でDbクラスはDB接続情報の文字列が必要だとします。これを手動のインジェクトするためには例えばこのようなコードが必要でしょう。</p>
 
-<p><code>php
-$dsn = $_ENV['master_db'];
+<pre><code class="php">$dsn = $_ENV['master_db'];
 $db = new Db($dsn);
 $user = new User($db);
-</code></p>
+</code></pre>
 
 <p>一行だとこうです</p>
 
-<p><code>php
-$user = new User(new Db($_ENV['master_db']));
-</code></p>
+<pre><code class="php">$user = new User(new Db($_ENV['master_db']));
+</code></pre>
 
 <p>このコードで明らかなのは、依存に依存があればその「依存の依存」から先に用意して順番に次の依存に渡さなければならないことです。Userクラスを生成する前に、DBオブジェクトの生成が完了してる必要があります。DBオブジェクトを生成するにはDB接続情報を取得しておく必要があります。これは通常のプログラムではごく当たり前のことです。</p>
 
@@ -168,87 +152,77 @@ $user = new User(new Db($_ENV['master_db']));
 
 <h5>indexページリソーススクリプト</h5>
 
-<p>```php
-class Index extends Page
-{</p>
-
-<pre><code>use ResourceInject;
-public function __construct()
+<pre><code class="php">class Index extends Page
 {
-    $this['greeting'] =‘Hello, BEAR.Sunday.’;
-    $this['version'] = [
-        'php'  =&gt; phpversion(),
-        'BEAR' =&gt; Framework::VERSION
-    ];
-    $this['extentions'] = [
-        'apc'  =&gt; extension_loaded('apc') ? phpversion('apc') : 'n/a',
-        'memcache'  =&gt; extension_loaded('memcache') ? phpversion('memcache') : 'n/a',
-        'mysqlnd'  =&gt; extension_loaded('mysqlnd') ? phpversion('mysqlnd') : 'n/a',
-        'pdo_sqlite'  =&gt; extension_loaded('pdo_sqlite') ? phpversion('pdo_sqlite') : 'n/a',
-        'Xdebug'  =&gt; extension_loaded('Xdebug') ? phpversion('Xdebug') : 'n/a',
-        'xhprof' =&gt; extension_loaded('xhprof') ? phpversion('xhprof') : 'n/a'
-    ];
-}
-/**
- * Get
- */
-public function onGet()
-{
-    $cache = apc_cache_info(‘user’);
-    $this['apc'] = [
-       'total' =&gt; $cache['num_entries'],
-       ‘size’ =&gt; $cache['mem_size']
-    ];
-    // page / sec
-    $this['performance'] = $this-&gt;resource-&gt;get-&gt;uri(‘app://self/performance’)-&gt;request();
-    return $this;
+    use ResourceInject;
+    public function __construct()
+    {
+        $this['greeting'] =‘Hello, BEAR.Sunday.’;
+        $this['version'] = [
+            'php'  =&gt; phpversion(),
+            'BEAR' =&gt; Framework::VERSION
+        ];
+        $this['extentions'] = [
+            'apc'  =&gt; extension_loaded('apc') ? phpversion('apc') : 'n/a',
+            'memcache'  =&gt; extension_loaded('memcache') ? phpversion('memcache') : 'n/a',
+            'mysqlnd'  =&gt; extension_loaded('mysqlnd') ? phpversion('mysqlnd') : 'n/a',
+            'pdo_sqlite'  =&gt; extension_loaded('pdo_sqlite') ? phpversion('pdo_sqlite') : 'n/a',
+            'Xdebug'  =&gt; extension_loaded('Xdebug') ? phpversion('Xdebug') : 'n/a',
+            'xhprof' =&gt; extension_loaded('xhprof') ? phpversion('xhprof') : 'n/a'
+        ];
+    }
+    /**
+     * Get
+     */
+    public function onGet()
+    {
+        $cache = apc_cache_info(‘user’);
+        $this['apc'] = [
+           'total' =&gt; $cache['num_entries'],
+           ‘size’ =&gt; $cache['mem_size']
+        ];
+        // page / sec
+        $this['performance'] = $this-&gt;resource-&gt;get-&gt;uri(‘app://self/performance’)-&gt;request();
+        return $this;
+    }
 }
 </code></pre>
-
-<p>}
-```</p>
 
 <h2>トレイトを使ったセッターインジェクション</h2>
 
 <p>違うクラスでも求める依存が同じなら、同じセッターが利用できます。セッターメソッドはクラスをまたいで横断的に再利用できます。モジュールに新たな設定はありません。 メソッドの横断的利用、PHP5.4の新機能のtraitにすると便利で表記も簡潔になります。</p>
 
-<p>```php
-use Ray\Di\Di\Inject;
+<pre><code class="php">use Ray\Di\Di\Inject;
 use Ray\Di\Di\Named;
 trait MessageInject
 {
   private $message;
-  /<em>*
+  /**
    * @Inject
    * @Name(“greeting_message”)
-   </em>/
+   */
   public function setMessage(array $message)
-  {</p>
-
-<pre><code>  $this-&gt;message = $message;
+  {
+      $this-&gt;message = $message;
+  }
+}
 </code></pre>
 
-<p>  }
-}
-```
-アノテーションのuse文も入っているので、利用クラスでは簡単にインジェクションが表記できます。まとめるとこうなります。</p>
+<p>アノテーションのuse文も入っているので、利用クラスでは簡単にインジェクションが表記できます。まとめるとこうなります。</p>
 
-<p>```php
-class Greetings extends AbstractObject
-{</p>
-
-<pre><code>use MessageInject;
-
-public function onGet($lang = ‘en’)
+<pre><code class="php">class Greetings extends AbstractObject
 {
-    $greeting = $this-&gt;message[$lang];
-    return $greeting;
+    use MessageInject;
+
+    public function onGet($lang = ‘en’)
+    {
+        $greeting = $this-&gt;message[$lang];
+        return $greeting;
+    }
 }
 </code></pre>
 
-<p>}
-```
-ボイラープレートになりがちなセッターインジェクションコードがスッキリ一行になり、依存関係を記すセルフドキュメントのようになってるのではないでしょうか。</p>
+<p>ボイラープレートになりがちなセッターインジェクションコードがスッキリ一行になり、依存関係を記すセルフドキュメントのようになってるのではないでしょうか。</p>
 
 <h2>プロバイダー<sup><a href="#footnote_5_1296" id="identifier_5_1296" class="footnote-link footnote-identifier-link" title="このセクションはstackoverflowの記事を元にしています。http://stackoverflow.com/questions/2504798/dependency-injection-in-constructors ">6</a></sup></h2>
 
@@ -264,10 +238,9 @@ public function onGet($lang = ‘en’)
 <strong>肝心なのはコンストラクションとエクスキューションを完全に分離して混ぜないことです。</strong>コンシュマーにディペンシーインジェクターやサービスコンテナを渡したりする事は推奨されません。<sup><a href="#footnote_6_1296" id="identifier_6_1296" class="footnote-link footnote-identifier-link" title="コンシュマーがインジェクターを使ってサービスを取得することは、デメテルの法則（最小知識の法則）に違反します。">7</a></sup><sup><a href="#footnote_7_1296" id="identifier_7_1296" class="footnote-link footnote-identifier-link" title="例外はそのコンシュマーがファクトリークラスの場合です。BEAR.Sundayで唯一インジェクターを依存として受け取りオブジェクトコンストラクションをしてるのはリソースのnewInstance()メソッドです。">8</a></sup>
 ンシュマー内で新しいインスタンスが都度欲しい時は<strong>プロバイダー</strong>を使います。プロバイダーは最小のファクトリーで、引き数なしのget()というメソッドだけを持ちます。たとえばテンポラリーファイルのハンドルが都度、複数欲しいなら(Provider)$tmpFilePorviderをインジェクトしてもらって、このように使います。</p>
 
-<p><code>php
-$tmpFile1 = $this-&gt;tmpFileProvider-&gt;get();
+<pre><code class="php">$tmpFile1 = $this-&gt;tmpFileProvider-&gt;get();
 $tmpFile2 = $this-&gt;tmpFileProvider-&gt;get();
-</code></p>
+</code></pre>
 
 <p>プロバイダーはどのようにインスタンスを作るかという知識を全て持っています。引き数は渡す事ができず、最小化されたこのファクトリーに伝える事ができるのは生成のタイミングだけです。
 なお、newは絶対に使っていけないというわけではありません。ごく小さなオブジェクトやPHPの組み込みオブジェクトなどは問題ないでしょう。</p>
@@ -316,12 +289,8 @@ $tmpFile2 = $this-&gt;tmpFileProvider-&gt;get();
 </div>
 
 
-
-
-<br class="wp_social_bookmarking_light_clear" /> <ol class="footnotes">
-
-
-<p><li id="footnote_0_1296" class="footnote">
+<p><br class="wp_social_bookmarking_light_clear" /> <ol class="footnotes">
+<li id="footnote_0_1296" class="footnote">
   つまりこのリソースは$messageデータに依存しています [<a href="#identifier_0_1296" class="footnote-link footnote-back-link">↩</a>]
 </li>
 <li id="footnote_1_1296" class="footnote">
@@ -415,30 +384,25 @@ $tmpFile2 = $this-&gt;tmpFileProvider-&gt;get();
 
 <p>アノテーションの定義</p>
 
-<p>```php
-class ReflectionAnnotation
-{</p>
-
-<pre><code>private $value;
-
-public function __construct(\stdClass $value)
+<pre><code class="php">class ReflectionAnnotation
 {
-    $this-&gt;value = $value;
-}
+    private $value;
 
-public function getValue()
-{
-    return $this-&gt;value;
+    public function __construct(\stdClass $value)
+    {
+        $this-&gt;value = $value;
+    }
+
+    public function getValue()
+    {
+        return $this-&gt;value;
+    }
 }
 </code></pre>
 
-<p>}
-```</p>
-
 <p>アノテーションの表記</p>
 
-<p><code>php
-/**
+<pre><code class="php">/**
  * Foo class.
  *
  * @Entity {"repositoryClass": "FooRepository"}
@@ -450,24 +414,22 @@ class Foo
 {
   // …
 }
-</code></p>
+</code></pre>
 
 <p>アノテーションの利用</p>
 
-<p><code>php
-$reflClass = new \ReflectionClass(‘Foo’);
+<pre><code class="php">$reflClass = new \ReflectionClass(‘Foo’);
 var_dump($reflClass-&gt;getAnnotations());
-</code></p>
+</code></pre>
 
 <p>PHPの言語としてのサポートにが無いのにも関わらず、現在多くのライブラリ・フレームワークでアノテーションがサポートされています。なぜアノテーションを必要と考えるのでしょうか？提案者はこのように説明しています。</p>
 
 <blockquote><h3><a id="why_do_we_need_class_metadata" name="why_do_we_need_class_metadata">Why do we need Class Metadata?</a></h3></blockquote>
 
-<p><quote></p>
+<p><quote>
+    Frameworks in general rely on metadata information in order to correctly work. They can use it for many purposes:</p>
 
-<pre><code>Frameworks in general rely on metadata information in order to correctly work. They can use it for many purposes:
-
-    phpUnit Providing meta functionality for test cases, examples: @dataProvider for test data iteration, @expectedException for catching exceptions, etc.
+<pre><code>    phpUnit Providing meta functionality for test cases, examples: @dataProvider for test data iteration, @expectedException for catching exceptions, etc.
     Doctrine For Object-Relational mapping, examples: @Entity, @OneToOne, @Id, etc.
     Zend Framework Server classes Used to automate mappings for XML-RPC, SOAP, etc.
     FLOW3 for dependency injection and validation
@@ -510,8 +472,7 @@ These types of use cases (hints to the Zend lexer/parser or other PHP implementa
 <p>@Annotation、@Targetは Doctrineが使用するアノテーションのアノテーションです。<br/>
 このアノテーションはクラスとメソッドにアノテートすることができます。</p>
 
-<p><code>php
-/**
+<pre><code class="php">/**
  * Inject
  *
  * @Annotation
@@ -524,38 +485,32 @@ These types of use cases (hints to the Zend lexer/parser or other PHP implementa
 final class Inject implements Annotation
 {
 }
-</code></p>
+</code></pre>
 
 <p>setDbメソッドを@Injectとアノテートしました。</p>
 
-<p>```php</p>
-
-<pre><code>/**
- * @Inject
- *
- * @param DbInterface $db
- */
-public function setDb(DbInterface $db)
-{
-    $this-&gt;db = $db;
-}
+<pre><code class="php">    /**
+     * @Inject
+     *
+     * @param DbInterface $db
+     */
+    public function setDb(DbInterface $db)
+    {
+        $this-&gt;db = $db;
+    }
 </code></pre>
-
-<p>```</p>
 
 <p>アノテーションの利用</p>
 
-<p><code>php
-$reflMethod = new ReflectionMethod(‘MyCompany\Entity\User’, ‘setDb’);
+<pre><code class="php">$reflMethod = new ReflectionMethod(‘MyCompany\Entity\User’, ‘setDb’);
 $methodAnnotations = $reader-&gt;getMethodAnnotations($reflMethod);
-</code></p>
+</code></pre>
 
 <p>これで全てのアノテーションが取得できます。<br/>
 あるいは以下のようにして特定アノテーションの値が取得できます。</p>
 
-<p><code>php
-$methodAnnotation = $reader-&gt;getMethodAnnotation($reflMethod, $annotation);
-</code></p>
+<pre><code class="php">$methodAnnotation = $reader-&gt;getMethodAnnotation($reflMethod, $annotation);
+</code></pre>
 
 <p>Doctrine\Common\Annotations\AnnotationReader が標準的なアノテーションリーダーです。 (Symfony2では標準でサービスコンテナに登録されてるようです)。
 他にはそのAnnotationReaderを利用するCachedReader、use文による名前解決を行わない、より簡素な SimpleAnnotationReaderがあります。</p>
@@ -625,7 +580,7 @@ Fabienさんの記事で、@masakielasticさん翻訳の記事です [<a href="#
 <h3>メッセージであるというメッセージ</h3>
 
 <blockquote><p>「メディアはメッセージである」<br/>
-&ndash; マーシャル・マクルーハン　1964年「メディア論」</p></blockquote>
+- マーシャル・マクルーハン　1964年「メディア論」</p></blockquote>
 
 <p>本書で最初に引用されるのがマクルーハンのこの有名な一文。自分が初めて聞いたのは確か高校生の時だったと思う。それからあらゆるメディアの登場の度に引用され、語られて来たのを見ている。<sup><a href="#footnote_0_439" id="identifier_0_439" class="footnote-link footnote-identifier-link" title="いつか読もうと思ってるが僕はこのメディア論を読んだ事はない。しかし絶頂期でさえ読まれる事より引用される事の方が多かったそうだ。">1</a></sup><sup><a href="#footnote_1_439" id="identifier_1_439" class="footnote-link footnote-identifier-link" title="http://ja.wikipedia.org/wiki/%E3%83%9E%E3%83%BC%E3%82%B7%E3%83%A3%E3%83%AB%E3%83%BB%E3%83%9E%E3%82%AF%E3%83%AB%E3%83%BC%E3%83%8F%E3%83%B3">2</a></sup></p>
 

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: PHP | BEAR Blog]]></title>
+  <title><![CDATA[Category: php | My Octopress Blog]]></title>
   <link href="http://koriym.github.io/blog/categories/php/atom.xml" rel="self"/>
   <link href="http://koriym.github.io/"/>
-  <updated>2015-12-04T12:19:01+09:00</updated>
+  <updated>2016-08-04T13:21:14+09:00</updated>
   <id>http://koriym.github.io/</id>
   <author>
-    <name><![CDATA[Akihito Koriyama]]></name>
+    <name><![CDATA[Your Name]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -53,106 +53,93 @@
 
 <h2>2014/06/28 10:30 AM 大阪産業創造館</h2>
 
-<p>{% img /images/phpkansai2014/subete-wo-musubu-chikara.003.jpg 640 %}</p>
+<p><img src="/images/phpkansai2014/subete-wo-musubu-chikara.003.jpg" width="640"></p>
 
 <p>最小のネットーワーク</p>
 
 
-<br>
+<p><br></p>
 
-
-<p>{% img /images/phpkansai2014/subete-wo-musubu-chikara.005.jpg 640 %}</p>
+<p><img src="/images/phpkansai2014/subete-wo-musubu-chikara.005.jpg" width="640"></p>
 
 <p>最大のネットワーク</p>
 
 
-<br>
+<p><br></p>
 
-
-<p>{% img /images/phpkansai2014/subete-wo-musubu-chikara.007.jpg 640 %}</p>
+<p><img src="/images/phpkansai2014/subete-wo-musubu-chikara.007.jpg" width="640"></p>
 
 <p>最初のウェブサイト</p>
 
 
-<br>
+<p><br></p>
 
-
-<p>{% img /images/phpkansai2014/subete-wo-musubu-chikara.010.jpg 640 %}</p>
+<p><img src="/images/phpkansai2014/subete-wo-musubu-chikara.010.jpg" width="640"></p>
 
 <p>最初のPHP</p>
 
 
-<br>
+<p><br></p>
 
-
-<p>{% img /images/phpkansai2014/subete-wo-musubu-chikara.012.jpg 640 %}</p>
+<p><img src="/images/phpkansai2014/subete-wo-musubu-chikara.012.jpg" width="640"></p>
 
 <p>最初のアプリケーションサーバー</p>
 
 
-<br>
+<p><br>
+<br></p>
 
-
-<br>
-
-
-<p>{% img /images/phpkansai2014/subete-wo-musubu-chikara.028.jpg 640 %}</p>
+<p><img src="/images/phpkansai2014/subete-wo-musubu-chikara.028.jpg" width="640"></p>
 
 <p>最初のつぶやき</p>
 
 
-<br>
+<p><br></p>
 
-
-<p>{% img /images/phpkansai2014/subete-wo-musubu-chikara.031.jpg 640 %}
-{% img /images/phpkansai2014/subete-wo-musubu-chikara.032.jpg 640 %}</p>
+<p><img src="/images/phpkansai2014/subete-wo-musubu-chikara.031.jpg" width="640">
+<img src="/images/phpkansai2014/subete-wo-musubu-chikara.032.jpg" width="640"></p>
 
 <p>決意</p>
 
 
-<br>
+<p><br></p>
 
-
-<p>{% img /images/phpkansai2014/subete-wo-musubu-chikara.037.jpg 640 %}
-{% img /images/phpkansai2014/subete-wo-musubu-chikara.038.jpg 640 %}</p>
+<p><img src="/images/phpkansai2014/subete-wo-musubu-chikara.037.jpg" width="640">
+<img src="/images/phpkansai2014/subete-wo-musubu-chikara.038.jpg" width="640"></p>
 
 <p>インターネットの原則</p>
 
 
-<br>
+<p><br></p>
 
-
-<p>{% img /images/phpkansai2014/subete-wo-musubu-chikara.044.jpg 640 %}
-{% img /images/phpkansai2014/subete-wo-musubu-chikara.045.jpg 640 %}</p>
+<p><img src="/images/phpkansai2014/subete-wo-musubu-chikara.044.jpg" width="640">
+<img src="/images/phpkansai2014/subete-wo-musubu-chikara.045.jpg" width="640"></p>
 
 <p>ソフトウエアの背後にいる人々</p>
 
 
-<br>
+<p><br></p>
 
-
-<p>{% img /images/phpkansai2014/subete-wo-musubu-chikara.046.jpg 640 %}
-{% img /images/phpkansai2014/subete-wo-musubu-chikara.057.jpg 640 %}</p>
+<p><img src="/images/phpkansai2014/subete-wo-musubu-chikara.046.jpg" width="640">
+<img src="/images/phpkansai2014/subete-wo-musubu-chikara.057.jpg" width="640"></p>
 
 <p>私たち開発者</p>
 
 
-<br>
+<p><br></p>
 
-
-<p>{% img /images/phpkansai2014/subete-wo-musubu-chikara.058.jpg 640 %}
-{% img /images/phpkansai2014/subete-wo-musubu-chikara.059.jpg 640 %}
-{% img /images/phpkansai2014/subete-wo-musubu-chikara.060.jpg 640 %}
-{% img /images/phpkansai2014/subete-wo-musubu-chikara.061.jpg 640 %}</p>
+<p><img src="/images/phpkansai2014/subete-wo-musubu-chikara.058.jpg" width="640">
+<img src="/images/phpkansai2014/subete-wo-musubu-chikara.059.jpg" width="640">
+<img src="/images/phpkansai2014/subete-wo-musubu-chikara.060.jpg" width="640">
+<img src="/images/phpkansai2014/subete-wo-musubu-chikara.061.jpg" width="640"></p>
 
 <p>メディアシフト</p>
 
 
-<br>
+<p><br></p>
 
-
-<p>{% img /images/phpkansai2014/subete-wo-musubu-chikara.062.jpg 640 %}
-{% img /images/phpkansai2014/subete-wo-musubu-chikara.065.jpg 640 %}</p>
+<p><img src="/images/phpkansai2014/subete-wo-musubu-chikara.062.jpg" width="640">
+<img src="/images/phpkansai2014/subete-wo-musubu-chikara.065.jpg" width="640"></p>
 
 <p>エピローグ</p>
 
@@ -174,12 +161,9 @@
     <link href="http://koriym.github.io/blog/2014/06/08/action-domain-responder/"/>
     <updated>2014-06-08T09:50:00+09:00</updated>
     <id>http://koriym.github.io/blog/2014/06/08/action-domain-responder</id>
-    <content type="html"><![CDATA[<p>{% img left  <a href="https://raw.githubusercontent.com/pmjones/mvc-refinement/master/adr.png">https://raw.githubusercontent.com/pmjones/mvc-refinement/master/adr.png</a> %}</p>
-
+    <content type="html"><![CDATA[<p><img class="left  <a" src="href="https://raw.githubusercontent.com/pmjones/mvc-refinement/master/adr.png">https://raw.githubusercontent.com/pmjones/mvc-refinement/master/adr.png</a>">
 <br clear=all>
-
-
-<p><a href="https://github.com/pmjones/mvc-refinement">https://github.com/pmjones/mvc-refinement</a></p>
+<a href="https://github.com/pmjones/mvc-refinement">https://github.com/pmjones/mvc-refinement</a></p>
 
 <p>Here is my random thought about <a href="https://github.com/pmjones/mvc-refinement">ADR</a>.</p>
 
@@ -189,7 +173,7 @@
 
 <p>I don’t see any particular problem in having  “More classes in the application”. I think it can gain more benefit by having a smaller amount of LOC per class. It seems people can move from MVC to ADR with ease and gain the benefits instantly.</p>
 
-<p>I would like to add a few personal slightly biased comments, (Just casual remarks &ndash; feel free to dismiss.)</p>
+<p>I would like to add a few personal slightly biased comments, (Just casual remarks - feel free to dismiss.)</p>
 
 <p>In most MVC application frameworks, the existing system (architecture) is mapped to the web. CRUD and OOP paradigms are mapped to HTTP methods and resources. But the opposite is not true. ADR seems to have the same limitation. I would like to echo @nateabele’s tweet “resources aren&rsquo;t like controllers, in that they&rsquo;re intended to be more cohesive”.</p>
 
@@ -226,13 +210,13 @@
 
 <p>撮影されたビデオはいまだに公開されていないので、発表ノートと共に全てのスライド77枚を紹介します。</p>
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.002.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.002.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <h2>Introduction</h2>
 
 <p>(after self introduction)</p>
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.005.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.005.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>I was really surprised when BEAR.Sunday was chosen for this great conference session.</p>
 
@@ -248,7 +232,7 @@
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.006.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.006.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>BEAR.Sunday offers no libraries of its own.</p>
 
@@ -258,24 +242,24 @@
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.007.jpg BEAR.Sunday@PHPNW13 %}
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.007.jpg" title="BEAR.Sunday@PHPNW13" >
 No libraries, instead, BEAR.Sunday offers three object frameworks.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.008.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.008.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>What is the framework, by the way ?</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.009.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.009.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>My friend told me like that.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.013.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.013.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>Dependency Injection framework,
 Aspect Oriented Framework,
@@ -287,7 +271,7 @@ let’s start DI.</p>
 
 <h1>DI Framework</h1>
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.014.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.014.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>DI &hellip; in many case, People said DI is good tool for testing.
 Well, it is true&hellip;but  Is it really core value for DI pattern ? 
@@ -295,7 +279,7 @@ We will see some another benefit, mainly these two. </p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.015.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.015.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>DIP, Dependency Inversion Principle.</p>
 
@@ -305,7 +289,7 @@ We will see some another benefit, mainly these two. </p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.016.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.016.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>Robert C. Martin says the following.</p>
 
@@ -313,7 +297,7 @@ We will see some another benefit, mainly these two. </p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.017.jpg BEAR.Sunday@PHPNW13 %}
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.017.jpg" title="BEAR.Sunday@PHPNW13" >
 Let’s take look at the code.</p>
 
 <p>BEAR.Sunday uses Ray.Di which is a subset of Google Guice for PHP.</p>
@@ -322,7 +306,7 @@ Let’s take look at the code.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.018.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.018.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>This class needs renderer as a dependency,
 We annotate it with an injection point. 
@@ -330,7 +314,7 @@ You can also annotate setter methods with @Inject.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.019.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.019.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>You then bind the interface to an instance provider.
 Concrete class, factory or an instance.</p>
@@ -339,7 +323,7 @@ Concrete class, factory or an instance.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.020.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.020.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>Now the module knows about all of the bindings.</p>
 
@@ -347,14 +331,14 @@ Concrete class, factory or an instance.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.021.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.021.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>Then, We can pull an instance with bound dependencies using an interface.<em>
 We do this with the injector that knows all bindings in the application.</em></p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.022.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.022.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>You can change an object graph depending on context.</p>
 
@@ -369,7 +353,7 @@ Even though we use objects, this is more like procedural programing.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.023.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.023.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>In BEAR.Sunday there is a clear distinction between compilation and runtime.</p>
 
@@ -377,7 +361,7 @@ Even though we use objects, this is more like procedural programing.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.024.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.024.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>Then at runtime it looks like this.</p>
 
@@ -392,7 +376,7 @@ it is here to describe the <strong>applications design</strong>.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.025.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.025.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>Best practice says you should have only one root object in your bootstrap.</p>
 
@@ -400,14 +384,14 @@ it is here to describe the <strong>applications design</strong>.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.026.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.026.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>It might sound crazy,
 but we follow this practice.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.027.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.027.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>The role of application object in BEAR.Sunday is very simple.
 It holds the services that we use in the application script. That’s all.</p>
@@ -423,7 +407,7 @@ That kind of state information has permanently disappeared after injection. We
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.028.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.028.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>Let’s take a look at a BEAR.Sunday application object graph.</p>
 
@@ -431,7 +415,7 @@ That kind of state information has permanently disappeared after injection. We
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.029.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.029.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>The AppModule knows all of bindings and their abstractions.
 The injection is then made to get the root object using these binding rules.
@@ -441,7 +425,7 @@ The injector now can grab the application object.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.030.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.030.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>A Router, web response, resource client and dependency injector.</p>
 
@@ -451,7 +435,7 @@ The injector now can grab the application object.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.031.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.031.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>The Application script is a simple script which shows its own structure.</p>
 
@@ -463,13 +447,13 @@ This is pre-”separation of concerns”
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.032.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.032.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>The services in the application script may also need dependencies recursively. </p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.033.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.033.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>Finally we can get one single object graph. Which is huge. Even my 27 monitor can’t show all the objects at once.</p>
 
@@ -477,7 +461,7 @@ This is pre-”separation of concerns”
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.034.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.034.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>This also another principle of BEAR.Sunday.</p>
 
@@ -492,7 +476,7 @@ Super fast.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.035.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.035.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>Have you got it ?  BEAR.Sunday’s application object is build in the correct way, with DI best practices and performance.
  DI is not only a convenient tool for testability*. That is just one part of the power of DI.  By following DIP completely it can lead us to proper application architecture.
@@ -504,11 +488,11 @@ Super fast.</p>
 
 <h1>AOP Framework</h1>
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.036.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.036.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.037.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.037.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>Who of you know about AOP?</p>
 
@@ -518,7 +502,7 @@ Super fast.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.038.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.038.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <ul>
 <li><p>Have you seen code like in RED? Mixture of business &amp; app logic?</p></li>
@@ -531,7 +515,7 @@ Super fast.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.039.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.039.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>The Aspect Orientated Framework that BEAR.Sunday uses,
 implements AOP using what is called method interception.</p>
@@ -540,7 +524,7 @@ implements AOP using what is called method interception.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.040.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.040.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <ul>
 <li><p>Consumer and method stay exactly the same</p></li>
@@ -557,11 +541,11 @@ The interception is registered upon binding.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.041.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.041.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <ul>
 <li><p>Lets Break up the concerns</p></li>
-<li><p>Pull out the logging etc &ndash; this is not business logic, they are app logic</p></li>
+<li><p>Pull out the logging etc - this is not business logic, they are app logic</p></li>
 </ul>
 
 
@@ -577,19 +561,19 @@ The interception is registered upon binding.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.042.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.042.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>Imagine a Rock Concert</p>
 
 <ul>
-<li>Band &ndash; single concern &ndash; business logic</li>
+<li>Band - single concern - business logic</li>
 <li>Security barrier and guards are an aspect</li>
 </ul>
 
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.043.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.043.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>This is how we use the interceptor in BEAR.Sunday. The interceptor is simple.</p>
 
@@ -602,7 +586,7 @@ The interception is registered upon binding.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.044.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.044.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>Here is an example of how to use a transaction in AOP.</p>
 
@@ -614,13 +598,13 @@ The interception is registered upon binding.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.045.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.045.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>A Simple cache interceptor.</p>
 
 <ul>
-<li>You can add fancy rules too &ndash; this is simple</li>
-<li>Is the cache there &ndash; yes? Just return it, no? Use invocation->proceed</li>
+<li>You can add fancy rules too - this is simple</li>
+<li>Is the cache there - yes? Just return it, no? Use invocation->proceed</li>
 </ul>
 
 
@@ -628,19 +612,19 @@ The interception is registered upon binding.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.046.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.046.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>Create bindings with annotations</p>
 
 <ul>
 <li>This shows @db annotation binding</li>
-<li>@api  annotation &ndash; JSON would be this implementation.</li>
+<li>@api  annotation - JSON would be this implementation.</li>
 </ul>
 
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.047.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.047.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <ul>
 <li>Is MVC enough?</li>
@@ -652,13 +636,13 @@ The interception is registered upon binding.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.048.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.048.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>An API will often need to change its processing order.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.049.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.049.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>For example:</p>
 
@@ -672,7 +656,7 @@ The interception is registered upon binding.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.050.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.050.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>In BEAR these cross-cutting concerns can be registered using</p>
 
@@ -685,7 +669,7 @@ attached + detached DEPENDING on context.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.051.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.051.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <ul>
 <li><p>Model interacted with differently depending on CONTEXT</p></li>
@@ -697,7 +681,7 @@ attached + detached DEPENDING on context.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.052.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.052.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>This is the magic</p>
 
@@ -705,13 +689,13 @@ attached + detached DEPENDING on context.</p>
 <li>It is ugly</li>
 <li>It is created for you</li>
 <li>NOT weaver model, AOP Compiler model</li>
-<li>For Type Safety &ndash; For Dependency Injection &ndash; Super fast!</li>
+<li>For Type Safety - For Dependency Injection - Super fast!</li>
 </ul>
 
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.053.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.053.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>INJECTION BY ASPECT</p>
 
@@ -734,7 +718,7 @@ attached + detached DEPENDING on context.</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.054.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.054.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>To wrap UP</p>
 
@@ -748,23 +732,23 @@ attached + detached DEPENDING on context.</p>
 
 <h1>Hypermedia Framework</h1>
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.055.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.055.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.056.jpg BEAR.Sunday@PHPNW13 %}
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.056.jpg" title="BEAR.Sunday@PHPNW13" >
 HyperMedia Framework 、それはオブジェクトをWebサービスのように扱うという試みです。</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.057.jpg BEAR.Sunday@PHPNW13 %}
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.057.jpg" title="BEAR.Sunday@PHPNW13" >
 これがリソースオブジェクトです。URIがクラスにマップされます。</p>
 
 <p>publicプロパティとリクエストインターフェイスがあり、リクエストはステートレスに行われます</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.058.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.058.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>リクエストには専用のクライアントが必要です。リクエストを受け取ったリソースは自分の値を決定します。</p>
 
@@ -776,7 +760,7 @@ HyperMedia Framework 、それはオブジェクトをWebサービスのよう�
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.059.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.059.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>HATEOASという言葉を聞いた事あるでしょうか。</p>
 
@@ -784,13 +768,13 @@ HyperMedia Framework 、それはオブジェクトをWebサービスのよう�
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.060.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.060.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>@LinkアノテーションとURIテンプレートを使って、リソースをリンクします。</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.061.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.061.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>ハイパーメディアAPIはAPIとAPIを繋げ、本当の意味のRESTにします。</p>
 
@@ -798,7 +782,7 @@ HyperMedia Framework 、それはオブジェクトをWebサービスのよう�
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.062.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.062.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>world wide webが成功した理由。</p>
 
@@ -806,7 +790,7 @@ HyperMedia Framework 、それはオブジェクトをWebサービスのよう�
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.063.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.063.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>REST、つまりAPI開発を開発の中心にしているです。</p>
 
@@ -818,7 +802,7 @@ HyperMedia Framework 、それはオブジェクトをWebサービスのよう�
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.064.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.064.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>アンクルBobのClean Architecture、この図を見た事あるでしょう。</p>
 
@@ -826,7 +810,7 @@ HyperMedia Framework 、それはオブジェクトをWebサービスのよう�
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.065.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.065.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>BEAR.Sundayのリソースは同じようにレイヤリングされています。RESTのネイチャーです。</p>
 
@@ -836,7 +820,7 @@ HyperMedia Framework 、それはオブジェクトをWebサービスのよう�
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.066.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.066.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>実際のリソースをみてみましょう。</p>
 
@@ -844,7 +828,7 @@ HyperMedia Framework 、それはオブジェクトをWebサービスのよう�
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.067.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.067.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>開発画面ではURIとそのバウンダリー、そして開発ツールが表示されています。</p>
 
@@ -852,7 +836,7 @@ HyperMedia Framework 、それはオブジェクトをWebサービスのよう�
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.068.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.068.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>ページリソースはwebページの役割をし、HTTPのメソッドに対応したリクエストメソッドを持ちます。</p>
 
@@ -860,14 +844,14 @@ HyperMedia Framework 、それはオブジェクトをWebサービスのよう�
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.069.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.069.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>リソース中心、のBEAR.Sundayではこのような一覧表示は自然なことです。 
 メソッドをクリックしたらフォームが表示されそれぞれのテストができるようになる&hellip;のは少しお待ちください。</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.070.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.070.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>アノテーションやDI、これらの言葉はパフォーマンスLoverにとって悪夢に聞こえないでしょうか？</p>
 
@@ -877,7 +861,7 @@ HyperMedia Framework 、それはオブジェクトをWebサービスのよう�
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.071.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.071.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>リソースの指定にはクラス名ではなくてURIを使います。</p>
 
@@ -885,7 +869,7 @@ HyperMedia Framework 、それはオブジェクトをWebサービスのよう�
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.072.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.072.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>プログラムは変わりやすいところと変わりにくいところがあります。
 我々はそれぞれハードスポット、ソフトスポットと呼んでいます。</p>
@@ -896,7 +880,7 @@ HyperMedia Framework 、それはオブジェクトをWebサービスのよう�
 
 <h1>What is BEAR.Sunday ?</h1>
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.073.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.073.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>BEAR.Sundayは接続フレームワークです。
  DIはオブジェクトとオブジェクトを依存性によって接続します。アプリケーションはオブジェクトグラフとして表されます。</p>
@@ -907,13 +891,13 @@ HyperMedia Framework 、それはオブジェクトをWebサービスのよう�
 
 <p>AOPプログラミングに行ったん慣れてしまうと、一体以前はどこにログやトランザクション、認証やバリデーションを置く事ができたのか不思議に思うでしょう。</p>
 
-<p>REST &ndash; Hypermediaは情報と情報、リソースとリソースを接続します。リソースは意味によって繋がれ、そのリンクはサービスサイドで変更可能です。</p>
+<p>REST - Hypermediaは情報と情報、リソースとリソースを接続します。リソースは意味によって繋がれ、そのリンクはサービスサイドで変更可能です。</p>
 
 <p>情報に真の意味での価値を与えるのはその繋がりです。APIをハブに、RESTを中心にしたロングタームのアーキテクチャをするのです。</p>
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.074.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.074.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>BEAR.SUndayはアブストラクションフレームワークです。</p>
 
@@ -929,7 +913,7 @@ HyperMedia Framework 、それはオブジェクトをWebサービスのよう�
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.075.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.075.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>We had a lot of technical talks.</p>
 
@@ -948,7 +932,7 @@ HyperMedia Framework 、それはオブジェクトをWebサービスのよう�
 
 <h2> </h2>
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.076.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.076.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>Now, Look at a Zen garden.</p>
 
@@ -983,7 +967,7 @@ You add more elements and functions until you can’t add anymore, then you will
 
 <hr />
 
-<p>{% img /images/blog/phpnw13-slide/bear-sunday.077.jpg BEAR.Sunday@PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13-slide/bear-sunday.077.jpg" title="BEAR.Sunday@PHPNW13" ></p>
 
 <p>Do-mo, Arigato.</p>
 
@@ -1003,7 +987,7 @@ You add more elements and functions until you can’t add anymore, then you will
 
 <h2>20 June; CFP (Call for Paper)</h2>
 
-<p>{% img /images/blog/phpnw13.30.jpg 800 PHPNW13 %}</p>
+<p><img src="/images/blog/phpnw13.30.jpg" width="800" title="PHPNW13" ></p>
 
 <p>phpnw(PHP North West)カンファレンスはイギリスのマンチェスターで2008年から毎年開催されている欧州でも有数の規模のPHPカンファレンスです。
 スピーカーとして参加する為には<a href="http://conference.phpnw.org.uk/phpnw13/call-papers/">CFP</a>が必要で、単に「自分の興味ある技術的な話をします」ではなく“why we should accept your talk” （なぜ主催者達が自分の応募を採用するのか）という事を伝えなければなりません。
@@ -1039,22 +1023,22 @@ BEAR.Sunday is a REST-centric framework that makes you think totally different a
 <p>どうせ渡英して話すならと地元の<a href="http://leedsphp.org/">leedsphpユーザーグループ</a>のmeetupとリチャードさんが働くBBCでもセッションを持つ事になりました。いわば大舞台のphpnwのカンファレンスの練習です。
 日本の勉強会のようなものですが、流石イギリスというか、雰囲気のある場所です。</p>
 
-<p>{% img /images/blog/phpnw13.11.jpg 800 leedsphp %}
-{% img /images/blog/phpnw13.10.jpg 800 leedsphp %}</p>
+<p><img src="/images/blog/phpnw13.11.jpg" width="800" title="leedsphp" >
+<img src="/images/blog/phpnw13.10.jpg" width="800" title="leedsphp" ></p>
 
 <p>手元の書類が見えにくいぐらい照明を落としたところで最初のスピーチをしました。
 機材トラブルもあり、スピーチそのものできはあまり良くなかったのですがかなりの熱を持って聞いてもらう事ができました。</p>
 
-<p>{% img /images/blog/phpnw13.08.jpg 800 leedsphp %}</p>
+<p><img src="/images/blog/phpnw13.08.jpg" width="800" title="leedsphp" ></p>
 
 <p>通常は（日本と違って）トークが終わると基本すぐに解散らしいのですが、終わった後もみなさんといつまでも色々な事を話ました。「こういう反応は今まで見た事がない」反応だったそうです。
 興味を持って質問を積極的にしてくれた方はSymfonyを使っている人が多くSensio Labsの方もいました。元々Symfonyユーザーは多いのでしょうが、日本のSymfonyユーザー会の人達の縁ある事もありなにか不思議な感じです。</p>
 
 <p>次はBBCです。ここでのセッションが一番緊張しました。</p>
 
-<p>{% img /images/blog/phpnw13.15.jpg 800 BBC %}
-{% img /images/blog/phpnw13.07.jpg 800 BBC %}
-{% img /images/blog/phpnw13.06.jpg 800 BBC %}</p>
+<p><img src="/images/blog/phpnw13.15.jpg" width="800" title="BBC" >
+<img src="/images/blog/phpnw13.07.jpg" width="800" title="BBC" >
+<img src="/images/blog/phpnw13.06.jpg" width="800" title="BBC" ></p>
 
 <p>BBCでの経験は驚きの連続です。世界最高のメディア企業でのWebプロダクト制作、その現場です。
 とにかくかっこよくて、詳しい事が書けないのは残念です。一日始業から終わりまでインターンのように過ごす機会にも恵まれその現場の空気やワークフローの実際に立ち会う事ができました。
@@ -1062,20 +1046,20 @@ BEAR.Sunday is a REST-centric framework that makes you think totally different a
 質問が非常にシャープで的確です。「そのアーキテクチャのポイントを、ノンテクニカルな人に3分で伝えるとしたらどう話す？」等、こちらが試されるような質問の連続です。
 真剣な質問に真剣に答えます。手応えのあるやりとりは満足のできるものでした。</p>
 
-<p>{% img /images/blog/phpnw13.002.jpg 800 BBC %}
-{% img /images/blog/phpnw13.16.jpg 800 BBC %}
-{% img /images/blog/phpnw13.17.jpg 800 BBC %}</p>
+<p><img src="/images/blog/phpnw13.002.jpg" width="800" title="BBC" >
+<img src="/images/blog/phpnw13.16.jpg" width="800" title="BBC" >
+<img src="/images/blog/phpnw13.17.jpg" width="800" title="BBC" ></p>
 
 <p>とても緊張してプレゼンテーションを行いました。イギリスのバーの二階でやったleedsphpユーザーグループの時と違って、就業中に時間をさいて集まってくれたBBCのWebエンジニアの方々はとても真剣です。
 しかし内容を高く評価してもらいphpnwでの発表が少し安心できるものになりました。またアーキテクチャにとても関心が高い事の確信も得られました。
-{% img /images/blog/phpnw13.001.jpg 800 BBC %}
+<img src="/images/blog/phpnw13.001.jpg" width="800" title="BBC" >
 （BBC Future Media SportsのSenior Technical Architectの<a href="http://www.bbc.co.uk/blogs/internet/authors/Matthew_Clark">マシュー・クラーク</a>さんとリチャードさんの三人とBCの食堂でランチ。)</p>
 
 <h2>phpnw13</h2>
 
 <h3>02 Oct; Hackason</h3>
 
-<p>{% img /images/blog/phpnw13.19.jpg 800 phpnw13 hackason %}</p>
+<p><img src="/images/blog/phpnw13.19.jpg" width="800" title="phpnw13 hackason" ></p>
 
 <p>カンファレンスの前日金曜は昼間はチュートリアル、夜はハッカソンがあります。ハッカソンと言っても日本のものと違って何かを個人で制作して発表するとかではありません。
 例えば「PHP-Excel」とか並んでいるテーブルにプレートがあるので、自分の協力したいオープンソースのテーブルに加わりコーディングしたりおしゃべりをしたりするのです。終わる時に特に発表もありません。
@@ -1083,12 +1067,12 @@ BEAR.Sunday is a REST-centric framework that makes you think totally different a
 
 <h3>05 Oct; 発表の日</h3>
 
-<p>{% img /images/blog/phpnw13.31.jpg 800 phpnw13 %}</p>
+<p><img src="/images/blog/phpnw13.31.jpg" width="800" title="phpnw13" ></p>
 
 <p>セッションは土曜日から始まります。オープニングキーノートはLorna MitchellさんとIvo Janschさんの <strong><a href="http://conference.phpnw.org.uk/phpnw13/schedule/lorna-mitchell-ivo-jansch/">0x0F Ways to be a Better Developer</a></strong>
 （より良いディベロッパーになる0x0Fの方法）。</p>
 
-<script async class="speakerdeck-embed" data-id="2a6e79d01160013121333e135808c36d" data-ratio="1.33333333333333" src="http://koriym.github.io//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="2a6e79d01160013121333e135808c36d" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
 
 
 <p>会場は２つに別れていて、二人のスピーカーを映像で繋げそれぞれ交互に変わりながらプレゼンテーションを行うといった凝った仕掛けです。キーノートのテーマがPHPの進化や特定技術ではなくて「より良い開発者になる」というのは印象的でした。

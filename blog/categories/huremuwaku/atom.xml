@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: フレームワーク | BEAR Blog]]></title>
+  <title><![CDATA[Category: フレームワーク | My Octopress Blog]]></title>
   <link href="http://koriym.github.io/blog/categories/huremuwaku/atom.xml" rel="self"/>
   <link href="http://koriym.github.io/"/>
-  <updated>2015-12-04T12:19:01+09:00</updated>
+  <updated>2016-08-04T13:21:14+09:00</updated>
   <id>http://koriym.github.io/</id>
   <author>
-    <name><![CDATA[Akihito Koriyama]]></name>
+    <name><![CDATA[Your Name]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -18,12 +18,19 @@
     <link href="http://koriym.github.io/2013/09/bear-sunday-england-tour-2013/"/>
     <updated>2013-09-26T00:00:00+09:00</updated>
     <id>http://koriym.github.io/2013/09/bear-sunday-english-tour-2013</id>
-    <content type="html"><![CDATA[<p>{% facebook_embedded_post <a href="https://www.facebook.com/permalink.php?id=110116939178462&amp;story_fbid=168349486688540">https://www.facebook.com/permalink.php?id=110116939178462&amp;story_fbid=168349486688540</a> %}</p>
+    <content type="html"><![CDATA[<p><div id='fb-root'></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = '//connect.facebook.net/en_US/all.js#xfbml=1';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class='fb-post' data-href='<a href="https://www.facebook.com/permalink.php?id=110116939178462&amp;story_fbid=168349486688540">https://www.facebook.com/permalink.php?id=110116939178462&amp;story_fbid=168349486688540</a> '></div>
+</p>
 
-<br clear="all" />  
-
-
-<p>無名の個人が作った無名のフレームワークをこれだけの規模のカンファレンスで発表するというのを聞いた事がありません。そもそも「誰も新しいフレームワークに興味が無い」というこで、新しいどころか世界の誰もが知っているフレームワークが200を超えるCfPの中で落選してる事も知りました。</p>
+<p><br clear="all" /><br/>
+無名の個人が作った無名のフレームワークをこれだけの規模のカンファレンスで発表するというのを聞いた事がありません。そもそも「誰も新しいフレームワークに興味が無い」というこで、新しいどころか世界の誰もが知っているフレームワークが200を超えるCfPの中で落選してる事も知りました。</p>
 
 <p>そこでこういう言葉でセッションを始めることにしました。紹介します。</p>
 
@@ -68,52 +75,59 @@ How do we look at the problem.</p>
 <p>最初に作ろうとしたのはこういうものでした。</p>
 
 <p>サービス（呼び出される方）<br/>
-{% codeblock lang:php %}
-class Mock
-{</p>
-
-<pre><code>public function getDouble($a)
-{
-    return $a * 2;
-}
-</code></pre>
-
-<p>}
-{% endcodeblock %}</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Mock</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">getDouble</span><span class="p">(</span><span class="nv">$a</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$a</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>コンシュマー（呼び出す方）<br/>
-{% codeblock lang:php %}
-echo $mock->getDouble(3); //6
-{% endcodeblock %}</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">echo</span> <span class="nv">$mock</span><span class="o">-&gt;</span><span class="na">getDouble</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="c1">//6</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p><strong>これらの呼び出しコード、呼ばれるメソッドを変更をすることなく</strong>帰ってくる値を本来の値の10倍(60)にしすることを考えます。実現するためにはメソッドの実行呼び出しコードと呼ばれるメソッドの間に、「10倍にする」という処理を差し込まなければなりません。</p>
 
-<p>{% codeblock lang:php %}
-class tenTimes implements MethodInterceptor
-{</p>
-
-<pre><code>public function invoke(MethodInvocation $invocation)
-{
-    $result = $invocation-&gt;proceed();
-    return $result * 10;
-}
-</code></pre>
-
-<p>}
-{% endcodeblock %}
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">tenTimes</span> <span class="k">implements</span> <span class="nx">MethodInterceptor</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">invoke</span><span class="p">(</span><span class="nx">MethodInvocation</span> <span class="nv">$invocation</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$invocation</span><span class="o">-&gt;</span><span class="na">proceed</span><span class="p">();</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$result</span> <span class="o">*</span> <span class="mi">10</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 特定のメソッドをコールしたときのコールバックを設定する機能などがあれば簡単なのですが、そういう機能はありません。なのでオブジェクトを作成するときにその「横断的処理」を織り込んだオブジェクトを生成する必要があります。具体的には<strong>getDouble(2)</strong>でコールされたららその結果を10倍にする横断的処理が透過的に呼ばれるようなオブジェクトをつくります。</p>
 
 <p>最初はどうやって記述したらよいかさっぱり分からなかったのですが、AOPアラインスのインターフェイスやメソッドリフレクション、マジックメソッドの組み合わせでなんとか（というよりもしかしたら）出来るのではと考えました。</p>
 
 <p>最初のコミットでのコードはこういうものでした。<br/>
-{% codeblock lang:php %}
-$mock = new Weaver(new Mock, $interceptors);
-{% endcodeblock %}</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$mock</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Weaver</span><span class="p">(</span><span class="k">new</span> <span class="nx">Mock</span><span class="p">,</span> <span class="nv">$interceptors</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>元のオブジェクト(new Mock)に「10倍に」という処理を横断的処理($interceptors)を織り込んたもの（Weaver）を元のオブジェクト同様に扱います<br/>
-{% codeblock lang:php %}
-echo $mock->getDouble(3); //60
-{% endcodeblock %}</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">echo</span> <span class="nv">$mock</span><span class="o">-&gt;</span><span class="na">getDouble</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="c1">//60</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>できました！</p>
 
@@ -122,9 +136,9 @@ echo $mock->getDouble(3); //60
 <h2>失敗</h2>
 
 <p>最初のコミットのRay.Aop、これは大失敗というのがすぐに分かります。<br/>
-{% codeblock lang:php %}
-$mock = new Weaver(new Mock, $interceptors);
-{% endcodeblock %}
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$mock</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Weaver</span><span class="p">(</span><span class="k">new</span> <span class="nx">Mock</span><span class="p">,</span> <span class="nv">$interceptors</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
 このコードではメソッドの指定がなく、Mockが持つ全てのメソッドに「10倍」という横断的処理がくっついて（束縛されて）ました。数字以外を返すメソッドではそもそもエラーになります。これでは使い物になりません。</p>
 
 <h2>可能性</h2>
@@ -467,120 +481,212 @@ Abstraction Instability Chartは横軸にA &#8211; abstraction（抽象化）、
 <p>以下はDBインジェクターのコードです。これはリクエストメソッドの直前にコールされるインターセプターです。<br/>
 AOPについての初歩的なことはマニュアルの<a href="http://code.google.com/p/bearsunday/wiki/my_first_aop">はじめてのアスペクト</a>をご覧下さい。</p>
 
-<p>{% codeblock lang:php %}&lt;?php
-/<strong>
- * This file is part of the BEAR.Sunday package
- *
- * @license <a href="http://opensource.org/licenses/bsd-license.php">http://opensource.org/licenses/bsd-license.php</a> BSD
- */
-namespace BEAR\Package\Interceptor;
-use Doctrine\DBAL\DriverManager;
-use Doctrine\DBAL\Logging\SQLLogger;
-use Ray\Aop\MethodInterceptor;
-use Ray\Aop\MethodInvocation;
-use Doctrine\Common\Annotations\AnnotationReader as Reader;
-use Ray\Di\Di\Inject;
-use Ray\Di\Di\Named;
-/</strong>
- * Cache interceptor
- *
- * @package    BEAR.Sunday
- * @subpackage Intercetor
- */
-final class DbInjector implements MethodInterceptor
-{</p>
-
-<pre><code>/**
- * @var Reader
- */
-private $reader;
-/**
- * DSN for master
- *
- * @var array
- */
-private $masterDb;
-/**
- * DSN for slave
- *
- * @var array
- */
-private $slaveDb;
-/**
- * Set annotation reader
- *
- * @param Reader $reader
- *
- * @return void
- * @Inject
- */
-public function setReader(Reader $reader)
-{
-    $this-&gt;reader = $reader;
-}
-/**
- * Constructor
- *
- * @param  array $masterDb
- * @@param array $slaveDb
- *
- * @Inject
- * @Named("masterDb=master_db,slaveDb=slave_db")
- */
-public function __construct(array $masterDb, array $slaveDb)
-{
-    $this-&gt;masterDb = $masterDb;
-    $this-&gt;slaveDb = $slaveDb;
-}
-/**
- * (non-PHPdoc)
- * @see Ray\Aop.MethodInterceptor::invoke()
- */
-public function invoke(MethodInvocation $invocation)
-{
-    $object = $invocation-&gt;getThis();
-    $method = $invocation-&gt;getMethod();
-    $connectionParams = ($method-&gt;name !== 'onGet') ? $this-&gt;slaveDb : $this-&gt;masterDb;
-    $pagerAnnotation = $this-&gt;reader-&gt;getMethodAnnotation($method, 'BEAR\Sunday\Annotation\DbPager');
-    if ($pagerAnnotation) {
-        $connectionParams['wrapperClass'] = 'BEAR\Package\Module\Database\DoctrineDbalModule\Connection';
-        $db = DriverManager::getConnection($connectionParams);
-        $db-&gt;setMaxPerPage($pagerAnnotation-&gt;limit);
-    } else {
-        $db = DriverManager::getConnection($connectionParams);
-    }
-    /* @var $db \BEAR\Package\Module\Database\DoctrineDbalModule\Connection */
-    $object-&gt;setDb($db);
-    $result = $invocation-&gt;proceed();
-    if ($pagerAnnotation) {
-        $pagerData = $db-&gt;getPager();
-        if ($pagerData) {
-            $object-&gt;headers['pager'] = $pagerData;
-        }
-    }
-    return $result;
-}
-</code></pre>
-
-<p>}
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span><span class="nx">php</span>
+</span><span class='line'><span class="o">/&lt;</span><span class="nx">strong</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="k">This</span> <span class="nb">file</span> <span class="nx">is</span> <span class="nx">part</span> <span class="nx">of</span> <span class="nx">the</span> <span class="nx">BEAR</span><span class="o">.</span><span class="nx">Sunday</span> <span class="nx">package</span>
+</span><span class='line'> <span class="o">*</span>
+</span><span class='line'> <span class="o">*</span> <span class="o">@</span><span class="nx">license</span> <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&quot;http://opensource.org/licenses/bsd-license.php&quot;</span><span class="o">&gt;</span><span class="nx">http</span><span class="o">://</span><span class="nx">opensource</span><span class="o">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">licenses</span><span class="o">/</span><span class="nx">bsd</span><span class="o">-</span><span class="nx">license</span><span class="o">.</span><span class="nx">php</span><span class="o">&lt;/</span><span class="nx">a</span><span class="o">&gt;</span> <span class="nx">BSD</span>
+</span><span class='line'> <span class="o">*/</span>
+</span><span class='line'><span class="k">namespace</span> <span class="nx">BEAR\Package\Interceptor</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Doctrine\DBAL\DriverManager</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Doctrine\DBAL\Logging\SQLLogger</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Ray\Aop\MethodInterceptor</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Ray\Aop\MethodInvocation</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Doctrine\Common\Annotations\AnnotationReader</span> <span class="k">as</span> <span class="nx">Reader</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Ray\Di\Di\Inject</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Ray\Di\Di\Named</span><span class="p">;</span>
+</span><span class='line'><span class="o">/&lt;/</span><span class="nx">strong</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nx">Cache</span> <span class="nx">interceptor</span>
+</span><span class='line'> <span class="o">*</span>
+</span><span class='line'> <span class="o">*</span> <span class="o">@</span><span class="nx">package</span>    <span class="nx">BEAR</span><span class="o">.</span><span class="nx">Sunday</span>
+</span><span class='line'> <span class="o">*</span> <span class="o">@</span><span class="nx">subpackage</span> <span class="nx">Intercetor</span>
+</span><span class='line'> <span class="o">&lt;</span><span class="nx">em</span><span class="o">&gt;/</span>
+</span><span class='line'><span class="k">final</span> <span class="k">class</span> <span class="nc">DbInjector</span> <span class="k">implements</span> <span class="nx">MethodInterceptor</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * @var Reader</span>
+</span><span class='line'><span class="sd">     &lt;/em&gt;/</span>
+</span><span class='line'><span class="sd">    private $reader;</span>
+</span><span class='line'><span class="sd">    /&lt;strong&gt;</span>
+</span><span class='line'><span class="sd">     * DSN for master</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @var array</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">private</span> <span class="nv">$masterDb</span><span class="p">;</span>
+</span><span class='line'>    <span class="o">/&lt;/</span><span class="nx">strong</span><span class="o">&gt;</span>
+</span><span class='line'>     <span class="o">*</span> <span class="nx">DSN</span> <span class="k">for</span> <span class="nx">slave</span>
+</span><span class='line'>     <span class="o">*</span>
+</span><span class='line'>     <span class="o">*</span> <span class="o">@</span><span class="k">var</span> <span class="k">array</span>
+</span><span class='line'>     <span class="o">&lt;</span><span class="nx">em</span><span class="o">&gt;/</span>
+</span><span class='line'>    <span class="k">private</span> <span class="nv">$slaveDb</span><span class="p">;</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * Set annotation reader</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @param Reader $reader</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @return void</span>
+</span><span class='line'><span class="sd">     * @Inject</span>
+</span><span class='line'><span class="sd">     &lt;/em&gt;/</span>
+</span><span class='line'><span class="sd">    public function setReader(Reader $reader)</span>
+</span><span class='line'><span class="sd">    {</span>
+</span><span class='line'><span class="sd">        $this-&gt;reader = $reader;</span>
+</span><span class='line'><span class="sd">    }</span>
+</span><span class='line'><span class="sd">    /&lt;strong&gt;</span>
+</span><span class='line'><span class="sd">     * Constructor</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @param  array $masterDb</span>
+</span><span class='line'><span class="sd">     * @@param array $slaveDb</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @Inject</span>
+</span><span class='line'><span class="sd">     * @Named(&amp;ldquo;masterDb=master_db,slaveDb=slave_db&amp;rdquo;)</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="k">array</span> <span class="nv">$masterDb</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$slaveDb</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">masterDb</span> <span class="o">=</span> <span class="nv">$masterDb</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">slaveDb</span> <span class="o">=</span> <span class="nv">$slaveDb</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="o">/&lt;/</span><span class="nx">strong</span><span class="o">&gt;</span>
+</span><span class='line'>     <span class="o">*</span> <span class="p">(</span><span class="nx">non</span><span class="o">-</span><span class="nx">PHPdoc</span><span class="p">)</span>
+</span><span class='line'>     <span class="o">*</span> <span class="o">@</span><span class="nx">see</span> <span class="nx">Ray\Aop</span><span class="o">.</span><span class="nx">MethodInterceptor</span><span class="o">::</span><span class="na">invoke</span><span class="p">()</span>
+</span><span class='line'>     <span class="o">&lt;</span><span class="nx">em</span><span class="o">&gt;/</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">invoke</span><span class="p">(</span><span class="nx">MethodInvocation</span> <span class="nv">$invocation</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$object</span> <span class="o">=</span> <span class="nv">$invocation</span><span class="o">-&gt;</span><span class="na">getThis</span><span class="p">();</span>
+</span><span class='line'>        <span class="nv">$method</span> <span class="o">=</span> <span class="nv">$invocation</span><span class="o">-&gt;</span><span class="na">getMethod</span><span class="p">();</span>
+</span><span class='line'>        <span class="nv">$connectionParams</span> <span class="o">=</span> <span class="p">(</span><span class="nv">$method</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">!==</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">onGet</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;)</span> <span class="o">?</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">slaveDb</span> <span class="o">:</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">masterDb</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$pagerAnnotation</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">reader</span><span class="o">-&gt;</span><span class="na">getMethodAnnotation</span><span class="p">(</span><span class="nv">$method</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">BEAR\Sunday\Annotation\DbPager</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;);</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nv">$pagerAnnotation</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$connectionParams</span><span class="p">[</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">wrapperClass</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;]</span> <span class="o">=</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">BEAR\Package\Module\Database\DoctrineDbalModule\Connection</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;;</span>
+</span><span class='line'>            <span class="nv">$db</span> <span class="o">=</span> <span class="nx">DriverManager</span><span class="o">::</span><span class="na">getConnection</span><span class="p">(</span><span class="nv">$connectionParams</span><span class="p">);</span>
+</span><span class='line'>            <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">setMaxPerPage</span><span class="p">(</span><span class="nv">$pagerAnnotation</span><span class="o">-&gt;</span><span class="na">limit</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$db</span> <span class="o">=</span> <span class="nx">DriverManager</span><span class="o">::</span><span class="na">getConnection</span><span class="p">(</span><span class="nv">$connectionParams</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="o">/&lt;/</span><span class="nx">em</span><span class="o">&gt;</span> <span class="o">@</span><span class="k">var</span> <span class="nv">$db</span> <span class="nx">\BEAR\Package\Module\Database\DoctrineDbalModule\Connection</span> <span class="o">*/</span>
+</span><span class='line'>        <span class="nv">$object</span><span class="o">-&gt;</span><span class="na">setDb</span><span class="p">(</span><span class="nv">$db</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$invocation</span><span class="o">-&gt;</span><span class="na">proceed</span><span class="p">();</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nv">$pagerAnnotation</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$pagerData</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">getPager</span><span class="p">();</span>
+</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="nv">$pagerData</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                <span class="nv">$object</span><span class="o">-&gt;</span><span class="na">headers</span><span class="p">[</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">pager</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;]</span> <span class="o">=</span> <span class="nv">$pagerData</span><span class="p">;</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$result</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>このDBインジェクターはメソッドに応じてMaster/Slave DBを選択しています。つまりDBオブジェクトを利用するにはクラスに@Dbとマークするだけで、メソッドがコールされた直前のタイミングでマスタースレーブが自動選択されDBオブジェクトがインジェクトされます。</p>
 
-<p>{% codeblock lang:php %}$connectionParams =
- ($method->name !== &lsquo;onGet&rsquo;) ? $this->slaveDb : $this->masterDb;
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$connectionParams</span> <span class="o">=</span>
+</span><span class='line'> <span class="p">(</span><span class="nv">$method</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">!==</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">onGet</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;)</span> <span class="o">?</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">slaveDb</span> <span class="o">:</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">masterDb</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>またもし`@DbPager`とメソッドがアノテートされてるとDBPager用のオブジェクトを作成しています。<br/>
-{% codeblock lang:php %}</p>
-
-<pre><code>    if ($pagerAnnotation) {
-        $connectionParams['wrapperClass'] = 'BEAR\Package\Module\Database\DoctrineDbalModule\Connection';
-        $db = DriverManager::getConnection($connectionParams);
-        $db-&gt;setMaxPerPage($pagerAnnotation-&gt;limit);
-</code></pre>
-
-<p>{% endcodeblock %}</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nv">$pagerAnnotation</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$connectionParams</span><span class="p">[</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">wrapperClass</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;]</span> <span class="o">=</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">BEAR\Package\Module\Database\DoctrineDbalModule\Connection</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;;</span>
+</span><span class='line'>            <span class="nv">$db</span> <span class="o">=</span> <span class="nx">DriverManager</span><span class="o">::</span><span class="na">getConnection</span><span class="p">(</span><span class="nv">$connectionParams</span><span class="p">);</span>
+</span><span class='line'>            <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">setMaxPerPage</span><span class="p">(</span><span class="nv">$pagerAnnotation</span><span class="o">-&gt;</span><span class="na">limit</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <h2>DI/AOP開発プロセス</h2>
 
@@ -589,21 +695,29 @@ public function invoke(MethodInvocation $invocation)
 <h3>セッターメソッド</h3>
 
 <p>DBインジェクターインターセプターでアノテーションリーダーがインジェクトされているようにロガーを受け取るコードを記述します。<br/>
-{% codeblock lang:php %}    /**</p>
-
-<pre><code> * Set SqlLogger
- *
- * @param \Doctrine\DBAL\Logging\SQLLogger $sqlLogger
- *
- * @Inject(optional = true)
- */
-public function setSqlLogger(SQLLogger $sqlLogger)
-{
-    $this-&gt;sqlLogger = $sqlLogger;
-}
-</code></pre>
-
-<p>{% endcodeblock %}</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>    <span class="o">/&lt;</span><span class="nx">em</span><span class="o">&gt;*</span>
+</span><span class='line'>     <span class="o">*</span> <span class="nx">Set</span> <span class="nx">SqlLogger</span>
+</span><span class='line'>     <span class="o">*</span>
+</span><span class='line'>     <span class="o">*</span> <span class="o">@</span><span class="nx">param</span> <span class="nx">\Doctrine\DBAL\Logging\SQLLogger</span> <span class="nv">$sqlLogger</span>
+</span><span class='line'>     <span class="o">*</span>
+</span><span class='line'>     <span class="o">*</span> <span class="o">@</span><span class="nx">Inject</span><span class="p">(</span><span class="nx">optional</span> <span class="o">=</span> <span class="k">true</span><span class="p">)</span>
+</span><span class='line'>     <span class="o">&lt;/</span><span class="nx">em</span><span class="o">&gt;/</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">setSqlLogger</span><span class="p">(</span><span class="nx">SQLLogger</span> <span class="nv">$sqlLogger</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">sqlLogger</span> <span class="o">=</span> <span class="nv">$sqlLogger</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>このインジェクトを必須にしないでオプションにするために<code>@Inject(optional = true)</code>としています。SQLLoggerインターフェイスへの束縛が行われていれば(DI設定がされていれば）インジェクトされるし、なければされません。ログの要不要に応じて、例えば開発かプロダクションでその束縛を変更することができます。</p>
 
@@ -611,8 +725,9 @@ public function setSqlLogger(SQLLogger $sqlLogger)
 
 <p>ここで開発時のみにロガーを利用するこtにします。DevModuleにこの記述を加えます。</p>
 
-<p>{% codeblock lang:php %}$this->bind(&lsquo;Doctrine\DBAL\Logging\SQLLogger&rsquo;)&ndash;>to(&lsquo;Doctrine\DBAL\Logging\EchoSQLLogger&rsquo;);
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bind</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">Doctrine\DBAL\Logging\SQLLogger</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;)</span><span class="o">-&gt;</span><span class="na">to</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">Doctrine\DBAL\Logging\EchoSQLLogger</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;);</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>これでDoctrine\DBAL\Logging\SQLLoggerインターフェイスのオブジェクトを受け取るセッターにDoctrine\DBAL\Logging\EchoSQLLoggerオブジェクトがインジェクトされます。</p>
 
@@ -620,59 +735,85 @@ public function setSqlLogger(SQLLogger $sqlLogger)
 
 <p>DBインジェクターは以下のようなコードでクラスに@Dbとアノテートしていて&#8217;on&#8217;で始まる全てのメソッドに束縛されてます。（このコードはBEAR\Package\Module\Database\DoctrineDbalModuleで見つける事ができます）</p>
 
-<p>{% codeblock lang:php %}    private function installDbInjector()</p>
-
-<pre><code>{
-    $dbInjector = $this-&gt;requestInjection('\BEAR\Package\Interceptor\DbInjector');
-    $this-&gt;bindInterceptor(
-        $this-&gt;matcher-&gt;annotatedWith('BEAR\Sunday\Annotation\Db'),
-        $this-&gt;matcher-&gt;startWith('on'),
-        [$dbInjector]
-    );
-}
-</code></pre>
-
-<p>{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>    <span class="k">private</span> <span class="k">function</span> <span class="nf">installDbInjector</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$dbInjector</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">requestInjection</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">\BEAR\Package\Interceptor\DbInjector</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;);</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bindInterceptor</span><span class="p">(</span>
+</span><span class='line'>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">matcher</span><span class="o">-&gt;</span><span class="na">annotatedWith</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">BEAR\Sunday\Annotation\Db</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;),</span>
+</span><span class='line'>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">matcher</span><span class="o">-&gt;</span><span class="na">startWith</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">on</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;),</span>
+</span><span class='line'>            <span class="p">[</span><span class="nv">$dbInjector</span><span class="p">]</span>
+</span><span class='line'>        <span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <h3>アノテーション</h3>
 
 <p>アノテーションはDoctrine\Commonsのアノテーションライブラリを利用しています。<br/>
 @Dbアノテーションはこのようなクラスです。このアノテーションは@Target(&#8220;CLASS&#8221;)とアノテートされ、クラスのみアノテートすることができます。メソッドには記述できません。<sup><a href="#footnote_1_1192" id="identifier_1_1192" class="footnote-link footnote-identifier-link" title="これらの規則はDoctrineアノテーションによるものです">2</a></sup></p>
 
-<p>{% codeblock lang:php %}&lt;?php
-/<strong>
- * This file is part of the BEAR.Sunday package
- *
- * @package BEAR.Sunday
- * @license <a href="http://opensource.org/licenses/bsd-license.php">http://opensource.org/licenses/bsd-license.php</a> BSD
- */
-namespace BEAR\Sunday\Annotation;
-/</strong>
- * Db
- *
- * @Annotation
- * @Target(&ldquo;CLASS&rdquo;)
- *
- * @package    BEAR.Sunday
- * @subpackage Annotation
- */
-final class Db implements Annotation
-{
-}
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span><span class="nx">php</span>
+</span><span class='line'><span class="o">/&lt;</span><span class="nx">strong</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="k">This</span> <span class="nb">file</span> <span class="nx">is</span> <span class="nx">part</span> <span class="nx">of</span> <span class="nx">the</span> <span class="nx">BEAR</span><span class="o">.</span><span class="nx">Sunday</span> <span class="nx">package</span>
+</span><span class='line'> <span class="o">*</span>
+</span><span class='line'> <span class="o">*</span> <span class="o">@</span><span class="nx">package</span> <span class="nx">BEAR</span><span class="o">.</span><span class="nx">Sunday</span>
+</span><span class='line'> <span class="o">*</span> <span class="o">@</span><span class="nx">license</span> <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&quot;http://opensource.org/licenses/bsd-license.php&quot;</span><span class="o">&gt;</span><span class="nx">http</span><span class="o">://</span><span class="nx">opensource</span><span class="o">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">licenses</span><span class="o">/</span><span class="nx">bsd</span><span class="o">-</span><span class="nx">license</span><span class="o">.</span><span class="nx">php</span><span class="o">&lt;/</span><span class="nx">a</span><span class="o">&gt;</span> <span class="nx">BSD</span>
+</span><span class='line'> <span class="o">*/</span>
+</span><span class='line'><span class="k">namespace</span> <span class="nx">BEAR\Sunday\Annotation</span><span class="p">;</span>
+</span><span class='line'><span class="o">/&lt;/</span><span class="nx">strong</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nx">Db</span>
+</span><span class='line'> <span class="o">*</span>
+</span><span class='line'> <span class="o">*</span> <span class="o">@</span><span class="nx">Annotation</span>
+</span><span class='line'> <span class="o">*</span> <span class="o">@</span><span class="nx">Target</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">ldquo</span><span class="p">;</span><span class="nx">CLASS</span><span class="o">&amp;</span><span class="nx">rdquo</span><span class="p">;)</span>
+</span><span class='line'> <span class="o">*</span>
+</span><span class='line'> <span class="o">*</span> <span class="o">@</span><span class="nx">package</span>    <span class="nx">BEAR</span><span class="o">.</span><span class="nx">Sunday</span>
+</span><span class='line'> <span class="o">*</span> <span class="o">@</span><span class="nx">subpackage</span> <span class="nx">Annotation</span>
+</span><span class='line'> <span class="o">*/</span>
+</span><span class='line'><span class="k">final</span> <span class="k">class</span> <span class="nc">Db</span> <span class="k">implements</span> <span class="nx">Annotation</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <h3>インターセプターで利用</h3>
 
 <p>これでインターセプターのセッターメソッドはロガーを受け取りました。この依存を受け取る方法は<a href="http://www.bear-project.net/blog/2012/05/dip%EF%BC%9Adependency-inversion-principle/">依存逆転原則</a>に従ってインターフェイスに依存しています。モジュールでの束縛を変更しても利用オブジェクトには変更がありません。</p>
 
 <p>利用コードではもしロガーがあればセットするというコードを記述しました。<br/>
-{% codeblock lang:php %}        if ($this->sqlLogger instanceof SQLLogger) {</p>
-
-<pre><code>        $db-&gt;getConfiguration()-&gt;setSQLLogger($this-&gt;sqlLogger);
-    }
-</code></pre>
-
-<p>{% endcodeblock %}</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">sqlLogger</span> <span class="nx">instanceof</span> <span class="nx">SQLLogger</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">getConfiguration</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">setSQLLogger</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">sqlLogger</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <h2>結論</h2>
 

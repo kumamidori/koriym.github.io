@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Advent2012 | BEAR Blog]]></title>
+  <title><![CDATA[Category: advent2012 | My Octopress Blog]]></title>
   <link href="http://koriym.github.io/blog/categories/advent2012/atom.xml" rel="self"/>
   <link href="http://koriym.github.io/"/>
-  <updated>2015-12-04T12:19:01+09:00</updated>
+  <updated>2016-08-04T13:21:14+09:00</updated>
   <id>http://koriym.github.io/</id>
   <author>
-    <name><![CDATA[Akihito Koriyama]]></name>
+    <name><![CDATA[Your Name]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -28,9 +28,9 @@
 <p>BEAR.Sundayは前バージョンからの伝統(?)のデバック出力<strong>p();</strong>があります。<br/>
 表示はxdebugのvar_dump()と同じですが加えて、変数名とp()した場所が表示されます。</p>
 
-<p>{% codeblock lang:php %}
-p($a);
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nx">p</span><span class="p">(</span><span class="nv">$a</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p><strong>webでp()すると</strong><br/>
 <a href="http://www.bear-project.net/blog/adv12/%e3%82%b9%e3%82%af%e3%83%aa%e3%83%bc%e3%83%b3%e3%82%b7%e3%83%a7%e3%83%83%e3%83%88-2012-12-17-23-31-50/" rel="attachment wp-att-1505"><img src="http://www.bear-project.net/blog/wp-content/uploads/2012/12/a0f4eafe84c70f36f0bb364cfbac6e9f.png" alt="スクリーンショット 2012-12-17 23.31.50" class="aligncenter size-full wp-image-1505" /></a></p>
@@ -103,22 +103,29 @@ p($a);
 
 <p>一旦アプリケーション・アーキテクトがまとめ上げた制約は再利用が可能です。BEAR.SundayのDIはオブジェクトを利用するのに最低限の記述しか必要としません。</p>
 
-<p>{% codeblock lang:php %}
-// トレイトで
-use LogInject;
-use TmpDirInject;
-// メソッドで
-/<em>*
- * @Inject
- </em>/
-public function setLog(LogInterface $log)
-{</p>
-
-<pre><code>$this-&gt;log = $log;
-</code></pre>
-
-<p>}
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="c1">// トレイトで</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">LogInject</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">TmpDirInject</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// メソッドで</span>
+</span><span class='line'><span class="o">/&lt;</span><span class="nx">em</span><span class="o">&gt;*</span>
+</span><span class='line'> <span class="o">*</span> <span class="o">@</span><span class="nx">Inject</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nx">em</span><span class="o">&gt;/</span>
+</span><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">setLog</span><span class="p">(</span><span class="nx">LogInterface</span> <span class="nv">$log</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">log</span> <span class="o">=</span> <span class="nv">$log</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>特定の抽象に束縛済みの依存があるなら再利用可能です。同じ依存がある新しいクラスを書くときにコンパイルに関わる記述の必要はありません。use文か、インターフェイスに@Injectアノテーションを打つと依存を受け取ることができます。</p>
 
@@ -176,42 +183,51 @@ SLをアンチパターンとするときに良く言われるのが、「コン
 
 <h2>new, SL and DI</h2>
 
-<p>{% codeblock lang:php %}
-class Conventional
-{</p>
-
-<pre><code>public function __construct()
-{
-    $this-&gt;foo = new Foo;
-}
-</code></pre>
-
-<p>}
-{% endcodeblock %}
-{% codeblock lang:php %}
-class Di
-{</p>
-
-<pre><code>public function __construct(FooInterfeace $foo)
-{
-    $this-&gt;foo = $foo;
-}
-</code></pre>
-
-<p>}
-{% endcodeblock %}
-{% codeblock lang:php %}
-class Sl
-{</p>
-
-<pre><code>public function __construct(Container $container)
-{
-    $this-&gt;foo = $container-&gt;get('foo');
-}
-</code></pre>
-
-<p>}
-{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Conventional</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="err">&lt;</span><span class="nf">strong</span><span class="o">&gt;</span><span class="nx">construct</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">foo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Foo</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Di</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="err">&lt;/</span><span class="nf">strong</span><span class="o">&gt;</span><span class="nx">construct</span><span class="p">(</span><span class="nx">FooInterfeace</span> <span class="nv">$foo</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">foo</span> <span class="o">=</span> <span class="nv">$foo</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Sl</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">Container</span> <span class="nv">$container</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">foo</span> <span class="o">=</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">foo</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>オブジェクトを取得する３つのコードです。</p>
 
@@ -284,8 +300,8 @@ class Sl
 
 <p>生成と使用のタイミングが分離されていないパターン</p>
 
-<p>&lt; -&mdash; boot終了 -&mdash;><br/>
-&lt; -&mdash; runtime開始 -&mdash;><br/>
+<p>&lt; -&ndash; boot終了 -&ndash;><br/>
+&lt; -&ndash; runtime開始 -&ndash;><br/>
 [生成]<br/>
 [使用]<br/>
 [生成]<br/>
@@ -298,8 +314,8 @@ class Sl
 [生成]<br/>
 [生成]<br/>
 [生成]<br/>
-&lt; -&mdash; boot終了 -&mdash;><br/>
-&lt; -&mdash; runtime開始 -&mdash;><br/>
+&lt; -&ndash; boot終了 -&ndash;><br/>
+&lt; -&ndash; runtime開始 -&ndash;><br/>
 [使用]<br/>
 [使用]<br/>
 [使用]<br/>
@@ -339,94 +355,157 @@ class Sl
 composerのcreate-projectでインストールできるようになりました。</p>
 
 <p>composerインストール<br/>
-{% codeblock lang:bash %}$ wget <a href="http://getcomposer.org/composer.phar">http://getcomposer.org/composer.phar</a>{% endcodeblock %}
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>wget &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;http://getcomposer.org/composer.phar&quot;</span>&gt;http://getcomposer.org/composer.phar&lt;/a&gt;
+</span></code></pre></td></tr></table></div></figure>
 または<br/>
-{% codeblock lang:bash %}$ curl -s <a href="https://getcomposer.org/installer">https://getcomposer.org/installer</a> | php{% endcodeblock %}</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -s &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;https://getcomposer.org/installer&quot;</span>&gt;https://getcomposer.org/installer&lt;/a&gt; <span class="p">|</span> php
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>composerでBEAR.Sunday sandboxアプリケーションインストールします。</p>
 
-<p>{% codeblock lang:bash %}$ php composer.phar create-project -s dev bear/package /tmp/mysunday{% endcodeblock %}</p>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>php composer.phar create-project -s dev bear/package /tmp/mysunday
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>BEAR.Packageとその依存のBEAR.Sundayが指定したバージョンでインストールされます。<sup><a href="#footnote_0_1385" id="identifier_0_1385" class="footnote-link footnote-identifier-link" title=" インストールスクリプトはまだ用意できていないのでパーミッションの設定が現在必要です">1</a></sup> その後PHP5.4のbuilt-in web serverを立ち上げます。</p>
 
-<p>{% codeblock lang:bash %}
-$ composer.phar create-project -s dev bear/package /tmp/mysunday
-Installing bear/package (dev-master bbc42caf8ed71e56c4f72f7270db012dc4b40d39)
-  &ndash; Installing bear/package (dev-master master)</p>
-
-<pre><code>Cloning master
-</code></pre>
-
-<p>Created project in /tmp/mysunday
-Loading composer repositories with package information
-Installing dependencies from lock file
-  &ndash; Installing aura/installer-default (1.0.0)
-  &ndash; Installing aura/web (1.0.0)
-  &ndash; Installing aura/signal (1.0.0)
-  &ndash; Installing aura/router (1.0.0)
-  &ndash; Installing aura/di (1.0.1)
-  &ndash; Installing doctrine/common (2.3.x-dev bb0aebb)</p>
-
-<pre><code>Cloning bb0aebbf234db52df476a2b473d434745b34221c
-</code></pre>
-
-<ul>
-<li>Installing ray/aop (dev-master 3edfe6b)
-Cloning 3edfe6ba6b52e8d3190da62c14479ff7cce2377f</li>
-<li>Installing ray/di (dev-master 1.0.0-beta3)
-Cloning 1.0.0-beta3</li>
-<li>Installing zendframework/zend-stdlib (2.0.5)</li>
-<li>Installing zendframework/zend-log (2.0.5)</li>
-<li>Installing nocarrier/hal (dev-master cc46654)
-Cloning cc466546c6ca5df3e806cd91258cdf194518a12f</li>
-<li>Installing twitter/bootstrap (master master)
-Cloning master</li>
-<li>Installing firephp/firephp-core (dev-master c26d972)
-Cloning c26d972dcb28fd483fa193512091df7b3c85e450</li>
-<li>Installing symfony/http-foundation (2.0.x-dev 4de1a1f)
-Cloning 4de1a1f9a81a58bd6f24607894f76fd7017d45e7</li>
-<li>Installing symfony/console (2.0.x-dev v2.0.19)
-Cloning v2.0.19</li>
-<li>Installing smarty/smarty (v3.1.12)
-Checking out /tags/v3.1.12/@4664</li>
-<li>Installing pagerfanta/pagerfanta (dev-master 12f71d9)
-Cloning 12f71d99457b018fb80746f84514dd5b495c5789</li>
-<li>Installing symfony/event-dispatcher (dev-master eb290a4)
-Cloning eb290a447c0af5bea0d3de5d95d498afd8c82f89</li>
-<li>Installing guzzle/guzzle (v2.7.2)</li>
-<li>Installing facebook/xhprof (0.9.2)</li>
-<li>Installing doctrine/dbal (2.3.x-dev f63af19)
-Cloning f63af1948a609a96b8ea1c1302c7cdf2f9f51468</li>
-<li>Installing printo/printo (dev-master abd0d6b)
-Cloning abd0d6b68d00dc98a71124215780b57ec3ede268</li>
-<li>Installing vdump/vdump (0.1.0)</li>
-<li>Installing bear/resource (dev-master 3ca644b)
-Cloning 3ca644bc29de4257ec9165ce1c9745150dc231dd</li>
-<li>Installing bear/sunday (dev-master a9b6fdd)
-Cloning a9b6fdd7cd34b9e7d2075a7c95e066547bcf59ac
-zendframework/zend-stdlib suggests installing pecl-weakref (Implementation of weak references for Stdlib\CallbackHandler)
-zendframework/zend-log suggests installing zendframework/zend-db (Zend\Db component)
-zendframework/zend-log suggests installing zendframework/zend-escaper (Zend\Escaper component, for use in the XML formatter)
-zendframework/zend-log suggests installing zendframework/zend-mail (Zend\Mail component)
-zendframework/zend-log suggests installing zendframework/zend-validator (Zend\Validator component)
-pagerfanta/pagerfanta suggests installing doctrine/orm (2.<em>)
-pagerfanta/pagerfanta suggests installing doctrine/mongodb-odm (2.</em>)
-pagerfanta/pagerfanta suggests installing solarium/solarium (2.<em>)
-symfony/event-dispatcher suggests installing symfony/dependency-injection (2.2.</em>)
-symfony/event-dispatcher suggests installing symfony/http-kernel (2.2.*)
-Generating autoload files
-Do you want to remove the existing VCS (.git, .svn..) history? [Y,n]? Y
-$ chmod -R 777 /tmp/mysunday/apps/Sandbox/data/
-$ chmod -R 777 /tmp/mysunday/apps/Helloworld/data/
-$ cd /tmp/mysunday/apps/Sandbox/public/
-$ php -S localhost:8088 web.php
-PHP 5.4.9 Development Server started at Wed Dec 12 13:11:37 2012
-Listening on <a href="http://localhost:8088">http://localhost:8088</a>
-Document root is /private/tmp/mysunday/apps/Sandbox/public
-Press Ctrl-C to quit.
-{% endcodeblock %}</li>
-</ul>
-
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>composer.phar create-project -s dev bear/package /tmp/mysunday
+</span><span class='line'>Installing bear/package <span class="o">(</span>dev-master bbc42caf8ed71e56c4f72f7270db012dc4b40d39<span class="o">)</span>
+</span><span class='line'>  - Installing bear/package <span class="o">(</span>dev-master master<span class="o">)</span>
+</span><span class='line'>    Cloning master
+</span><span class='line'>Created project in /tmp/mysunday
+</span><span class='line'>Loading composer repositories with package information
+</span><span class='line'>Installing dependencies from lock file
+</span><span class='line'>  - Installing aura/installer-default <span class="o">(</span>1.0.0<span class="o">)</span>
+</span><span class='line'>  - Installing aura/web <span class="o">(</span>1.0.0<span class="o">)</span>
+</span><span class='line'>  - Installing aura/signal <span class="o">(</span>1.0.0<span class="o">)</span>
+</span><span class='line'>  - Installing aura/router <span class="o">(</span>1.0.0<span class="o">)</span>
+</span><span class='line'>  - Installing aura/di <span class="o">(</span>1.0.1<span class="o">)</span>
+</span><span class='line'>  - Installing doctrine/common <span class="o">(</span>2.3.x-dev bb0aebb<span class="o">)</span>
+</span><span class='line'>    Cloning bb0aebbf234db52df476a2b473d434745b34221c
+</span><span class='line'>  - Installing ray/aop <span class="o">(</span>dev-master 3edfe6b<span class="o">)</span>
+</span><span class='line'>    Cloning 3edfe6ba6b52e8d3190da62c14479ff7cce2377f
+</span><span class='line'>  - Installing ray/di <span class="o">(</span>dev-master 1.0.0-beta3<span class="o">)</span>
+</span><span class='line'>    Cloning 1.0.0-beta3
+</span><span class='line'>  - Installing zendframework/zend-stdlib <span class="o">(</span>2.0.5<span class="o">)</span>
+</span><span class='line'>  - Installing zendframework/zend-log <span class="o">(</span>2.0.5<span class="o">)</span>
+</span><span class='line'>  - Installing nocarrier/hal <span class="o">(</span>dev-master cc46654<span class="o">)</span>
+</span><span class='line'>    Cloning cc466546c6ca5df3e806cd91258cdf194518a12f
+</span><span class='line'>  - Installing twitter/bootstrap <span class="o">(</span>master master<span class="o">)</span>
+</span><span class='line'>    Cloning master
+</span><span class='line'>  - Installing firephp/firephp-core <span class="o">(</span>dev-master c26d972<span class="o">)</span>
+</span><span class='line'>    Cloning c26d972dcb28fd483fa193512091df7b3c85e450
+</span><span class='line'>  - Installing symfony/http-foundation <span class="o">(</span>2.0.x-dev 4de1a1f<span class="o">)</span>
+</span><span class='line'>    Cloning 4de1a1f9a81a58bd6f24607894f76fd7017d45e7
+</span><span class='line'>  - Installing symfony/console <span class="o">(</span>2.0.x-dev v2.0.19<span class="o">)</span>
+</span><span class='line'>    Cloning v2.0.19
+</span><span class='line'>  - Installing smarty/smarty <span class="o">(</span>v3.1.12<span class="o">)</span>
+</span><span class='line'>    Checking out /tags/v3.1.12/@4664
+</span><span class='line'>  - Installing pagerfanta/pagerfanta <span class="o">(</span>dev-master 12f71d9<span class="o">)</span>
+</span><span class='line'>    Cloning 12f71d99457b018fb80746f84514dd5b495c5789
+</span><span class='line'>  - Installing symfony/event-dispatcher <span class="o">(</span>dev-master eb290a4<span class="o">)</span>
+</span><span class='line'>    Cloning eb290a447c0af5bea0d3de5d95d498afd8c82f89
+</span><span class='line'>  - Installing guzzle/guzzle <span class="o">(</span>v2.7.2<span class="o">)</span>
+</span><span class='line'>  - Installing facebook/xhprof <span class="o">(</span>0.9.2<span class="o">)</span>
+</span><span class='line'>  - Installing doctrine/dbal <span class="o">(</span>2.3.x-dev f63af19<span class="o">)</span>
+</span><span class='line'>    Cloning f63af1948a609a96b8ea1c1302c7cdf2f9f51468
+</span><span class='line'>  - Installing printo/printo <span class="o">(</span>dev-master abd0d6b<span class="o">)</span>
+</span><span class='line'>    Cloning abd0d6b68d00dc98a71124215780b57ec3ede268
+</span><span class='line'>  - Installing vdump/vdump <span class="o">(</span>0.1.0<span class="o">)</span>
+</span><span class='line'>  - Installing bear/resource <span class="o">(</span>dev-master 3ca644b<span class="o">)</span>
+</span><span class='line'>    Cloning 3ca644bc29de4257ec9165ce1c9745150dc231dd
+</span><span class='line'>  - Installing bear/sunday <span class="o">(</span>dev-master a9b6fdd<span class="o">)</span>
+</span><span class='line'>    Cloning a9b6fdd7cd34b9e7d2075a7c95e066547bcf59ac
+</span><span class='line'>zendframework/zend-stdlib suggests installing pecl-weakref <span class="o">(</span>Implementation of weak references <span class="k">for</span> Stdlib<span class="se">\C</span>allbackHandler<span class="o">)</span>
+</span><span class='line'>zendframework/zend-log suggests installing zendframework/zend-db <span class="o">(</span>Zend<span class="se">\D</span>b component<span class="o">)</span>
+</span><span class='line'>zendframework/zend-log suggests installing zendframework/zend-escaper <span class="o">(</span>Zend<span class="se">\E</span>scaper component, <span class="k">for</span> use in the XML formatter<span class="o">)</span>
+</span><span class='line'>zendframework/zend-log suggests installing zendframework/zend-mail <span class="o">(</span>Zend<span class="se">\M</span>ail component<span class="o">)</span>
+</span><span class='line'>zendframework/zend-log suggests installing zendframework/zend-validator <span class="o">(</span>Zend<span class="se">\V</span>alidator component<span class="o">)</span>
+</span><span class='line'>pagerfanta/pagerfanta suggests installing doctrine/orm <span class="o">(</span>2.&lt;em&gt;<span class="o">)</span>
+</span><span class='line'>pagerfanta/pagerfanta suggests installing doctrine/mongodb-odm <span class="o">(</span>2.&lt;/em&gt;<span class="o">)</span>
+</span><span class='line'>pagerfanta/pagerfanta suggests installing solarium/solarium <span class="o">(</span>2.&lt;em&gt;<span class="o">)</span>
+</span><span class='line'>symfony/event-dispatcher suggests installing symfony/dependency-injection <span class="o">(</span>2.2.&lt;/em&gt;<span class="o">)</span>
+</span><span class='line'>symfony/event-dispatcher suggests installing symfony/http-kernel <span class="o">(</span>2.2.*<span class="o">)</span>
+</span><span class='line'>Generating autoload files
+</span><span class='line'>Do you want to remove the existing VCS <span class="o">(</span>.git, .svn..<span class="o">)</span> <span class="nb">history</span>? <span class="o">[</span>Y,n<span class="o">]</span>? Y
+</span><span class='line'><span class="nv">$ </span>chmod -R <span class="m">777</span> /tmp/mysunday/apps/Sandbox/data/
+</span><span class='line'><span class="nv">$ </span>chmod -R <span class="m">777</span> /tmp/mysunday/apps/Helloworld/data/
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd</span> /tmp/mysunday/apps/Sandbox/public/
+</span><span class='line'><span class="nv">$ </span>php -S localhost:8088 web.php
+</span><span class='line'>PHP 5.4.9 Development Server started at Wed Dec <span class="m">12</span> 13:11:37 2012
+</span><span class='line'>Listening on &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;http://localhost:8088&quot;</span>&gt;http://localhost:8088&lt;/a&gt;
+</span><span class='line'>Document root is /private/tmp/mysunday/apps/Sandbox/public
+</span><span class='line'>Press Ctrl-C to quit.
+</span></code></pre></td></tr></table></div></figure></p>
 
 <ol class="footnotes">
   <li id="footnote_0_1385" class="footnote">
