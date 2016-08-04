@@ -13,11 +13,14 @@ categories:
 <h2>準備</h2>
  1. PHP5.4+で動作します。mysqlで予め<a href="https://github.com/koriym/Ray.Tutorial/blob/master/doc/todo.sql">テーブルを作成</a>しておきます。
  2 フォルダをつくります。
+
 {% codeblock lang:bash %}
 $ mkdir ray.tutorial
 $ cd ray.tutorial
 {% endcodeblock %}
+
 まずは手動でインジェクションするコード<a href="https://github.com/koriym/Ray.Tutorial/blob/develop/src/todo2-manual-injection.php">ソース</a>を入力して実行します。
+
 {% codeblock lang:php %}
 <?php
 class Todo
@@ -49,23 +52,31 @@ $pdo = new PDO('mysql:dbname=test;host=localhost');
 $todo = new Todo($pdo);
 $todo->add('Get laundry');
 {% endcodeblock %}
+
 実行してみます。
+
 {% codeblock lang:php %}
 $ php manual-di.php
 {% endcodeblock %}
+
 データベースにtodoが入力されたか、コンソールかツール等で確認します。<sup><a href="#footnote_0_2143" id="identifier_0_2143" class="footnote-link footnote-identifier-link" title="あるいはSELECTをするメソッドを追加してください！">1</a></sup>
 確認できましたか？OK?
 では、次にcomposerのプロジェクトを作ってこのクラスをDI化してみましょう。
 <h2>composerでRay.Di依存の空プロジェクトを作る</h2>
 まずはcomposerをダウンロードします。
+
 {% codeblock lang:bash %}
 $ curl -sS https://getcomposer.org/installer | php
 {% endcodeblock %}
+
 composerを使ってRay.Diを使うプロジェクトを作ります。
+
 {% codeblock lang:bash %}
 $ php composer.phar init
 {% endcodeblock %}
+
 すると色々質問されるので、ray/diのバージョン* (最新の安定板)をインストールするように答えます。
+
 {% codeblock lang:php %}
   Welcome to the Composer config generator
 This command will guide you through creating your composer.json config.
@@ -111,18 +122,25 @@ Search for a package []:
     ]
 }
 Do you confirm generation [yes]?
-</akihito></name></vendor>{% endcodeblock %}
+</akihito></name></vendor>
+{% endcodeblock %}
+
 入力の必要な質問はこれだけでした。
+
 {% codeblock lang:php %}
 Search for a package []: ray/di
 Enter package # to add, or the complete package name if it is not listed []: 0
 Enter the version constraint to require []: *
 {% endcodeblock %}
+
 すると最後に表示されたcomposer.jsonが出来上がりますが、まだray/diはインストールされていません。installコマンドでインストールします。
+
 {% codeblock lang:php %}
 $ php composer.phar install
 {% endcodeblock %}
+
 initコマンドで作成したcomposer.jsonに従ってRay.Diとその依存ファイルとダウンロードされ、現在の依存の状態が記録されたcomposer.lockファイル、それにautoloaderを含むcomposerのファイル群もインストールされました。
+
 {% codeblock lang:php %}
 $ tree -L 2
 ├── composer.json
@@ -135,8 +153,10 @@ $ tree -L 2
     ├── doctrine
     └── ray
 {% endcodeblock %}
+
 <a href="https://github.com/koriym/Ray.Tutorial/blob/develop/src/todo3-ray-di.php">Ray.Diを使ったコード</a>を入力してsrc/フォルダを作ってその下に配置します。
 src/todo3-ray-di.php
+
 {% codeblock lang:php %}
 <?php
 use Doctrine\Common\Annotations\AnnotationRegistry;
@@ -181,15 +201,19 @@ $todo = $injector->getInstance('Todo');
 /** @var $todo Todo */
 $todo->add('Walking in Ray');
 {% endcodeblock %}
+
 これがRay.Diを使ってDIを行っているコードです。変わった部分をそれぞれ見て行きます。
 <h3>オートローダー</h3>
+
 {% codeblock lang:php %}
 $loader = require dirname(__DIR__) . '/vendor/autoload.php';
 AnnotationRegistry::registerLoader([$loader, 'loadClass']);
 {% endcodeblock %}
+
 composerを使うと依存ファイルのオートローディングの設定が含まれた、vendor/autoload.phpというオートローダーのファイルが自動で生成されます。
 Ray.Diのアノテーションは<a href="http://docs.doctrine-project.org/projects/doctrine-common/en/latest/reference/annotations.html">Doctrineのアノテーション</a>を使っています。アノテーションの読み込みにはオートローダーの登録が必要で、いくつかの方法がありますがここではcomposerのオートローダーをそのまま使っています。
 <h3>アノテーション</h3>
+
 {% codeblock lang:php %}
     /**
      * @Inject
@@ -197,13 +221,17 @@ Ray.Diのアノテーションは<a href="http://docs.doctrine-project.org/proje
     public function __construct(PDO $pdo)
     {
 {% endcodeblock %}
+
 依存を受け取るメソッドには<strong>@Inject</strong>とアノテート（注釈）されています。Ray.Diはこのアノテーションを目印にして依存が必要なメソッドを割り出します。<sup><a href="#footnote_1_2143" id="identifier_1_2143" class="footnote-link footnote-identifier-link" title="コンストラクタ以外でも依存を受け取る事ができます。@Injectとアノテートしてメソッド名は何でもかまいません">2</a></sup>
 アノテーションはクラスで、名前解決のためuse文が必要です。<sup><a href="#footnote_2_2143" id="identifier_2_2143" class="footnote-link footnote-identifier-link" title="Doctrineアノテーションの仕様です">3</a></sup>
+
 {% codeblock lang:php %}
 use Ray\Di\Di\Inject;
 {% endcodeblock %}
+
 <h3>モジュール</h3>
 モジュールでは依存を必要とする場所に依存をどう渡すかを記述します。
+
 {% codeblock lang:php %}
 class Module extends AbstractModule
 {
@@ -214,14 +242,17 @@ class Module extends AbstractModule
     }
 }
 {% endcodeblock %}
+
 AbstractModuleを継承したクラスのconfigure()というメソッド内で、bind()メソッドを使って依存を束縛（バインド＝結びつけます）します。ここではPDOクラスを必要とするインジェクションポイントに作成した$pdoインスタンスを束縛しています。
 これによって<strong>アノテーション</strong>の節で説明したように@injectとアノテートされPDOクラスのタイプヒントを持つ引き数には$pdoインスタンスが渡されるようになります。
 <h3>インジェクター</h3>
 モジュールを使って作成した<strong>インジェクターは、どの依存が求められれば何を渡せばいいかを知っています</strong>。そのインジェクターを使って&#8217;Todo&#8217;クラスを取得するとインジェクターは必要とされる依存をモジュールで決めたルールで渡し、<strong>依存解決</strong>(dependency resolution)が行われます。
+
 {% codeblock lang:php %}
 $injector = Injector::create([new Module]);
 $todo = $injector->getInstance('Todo');
 {% endcodeblock %}
+
 ついに出来ました！！！！
 $todoオブジェクト！！！
 依存の問題を解決（外部の変数を外側から渡す）を自動化するために、様々な事が必要になりました。
