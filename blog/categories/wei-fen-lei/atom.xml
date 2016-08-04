@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: 未分類 | My Octopress Blog]]></title>
+  <title><![CDATA[Category: 未分類 | BEAR Blog]]></title>
   <link href="http://koriym.github.io/blog/categories/wei-fen-lei/atom.xml" rel="self"/>
   <link href="http://koriym.github.io/"/>
-  <updated>2016-08-04T13:21:14+09:00</updated>
+  <updated>2016-08-04T13:28:06+09:00</updated>
   <id>http://koriym.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Akihito Koriyama]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
