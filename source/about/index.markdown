@@ -29,13 +29,13 @@ footer: false
    * BBC Sports [photo](https://goo.gl/photos/1qKMhfD9fxY3HsaV6)
    * leedsphp [photo](https://goo.gl/photos/Bg9YdAcu3zc4fxTm6)
  * 2014 [PHP Conference Osaka Keynote](http://conference.kphpug.jp/2014/) - [slide](http://www.slideshare.net/akihito.koriyama/php2014-gm) / [talk](https://www.youtube.com/watch?v=wMYW-ox3BIg)
- * 2015 [PHP Conference Fukuoka Keynote](http://phpcon.fukuoka.jp/2015/index.html) -[slice](https://speakerdeck.com/koriym/the-power-of-connecting-everything-together)
+ * 2015 [PHP Conference Fukuoka Keynote](http://phpcon.fukuoka.jp/2015/index.html) -[slide](https://speakerdeck.com/koriym/the-power-of-connecting-everything-together)
  * 2016 [PHP Conference Osaka](http://conference.kphpug.jp/2016/)
 
 ## Interview
 
- * [code camp](https://blog.codecamp.jp/akihito_koriyama) (as interviewee)
- * [The father of PHP, Rasmus Lerdorf](http://gihyo.jp/news/report/2015/12/1401) (as interviewer)
+ * [Code camp](https://blog.codecamp.jp/akihito_koriyama) (as an interviewee)
+ * [The father of PHP, Rasmus Lerdorf](http://gihyo.jp/news/report/2015/12/1401) (as an interviewer)
 
 ## TEDxTokyo Conference
 
@@ -67,4 +67,3 @@ footer: false
 
  * akihito.koriyama@gmail.com
  * http://www.kumasystem.com/
-
