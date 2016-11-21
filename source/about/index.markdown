@@ -37,10 +37,11 @@ footer: false
  * [Code camp](https://blog.codecamp.jp/akihito_koriyama) (as an interviewee)
  * [The father of PHP, Rasmus Lerdorf](http://gihyo.jp/news/report/2015/12/1401) (as an interviewer)
 
-## TEDxTokyo Conference
+## Conference / Event
 
- * [2013 Participant](http://koriym.github.io/tedxtokyo2013/)
- * [2014 Participant](http://koriym.github.io/blog/2014/06/10/tedxtokyo-2014/)
+ * [TEDxTokyo 2013 Participant](http://koriym.github.io/tedxtokyo2013/)
+ * [TEDxTokyo 2014 Participant](http://koriym.github.io/blog/2014/06/10/tedxtokyo-2014/)
+ * [HackerX 2016](https://www.eventbrite.com/e/hackerx-tokyo-full-stack-developer-ticket-929-tickets-27494997277)
 
 ## Game Programming
 
@@ -55,8 +56,9 @@ footer: false
 
 ## Travel Photography
 
- * [Western Balkans 2016](https://goo.gl/photos/a3drwHCN4rt8hwfy6)
  * [Central Europe 2015](https://goo.gl/photos/NEtgmRRGgZdsq8Gm6)
+ * [Western Balkans 2016](https://goo.gl/photos/a3drwHCN4rt8hwfy6)
+ * [South Island, NZ 2016](https://goo.gl/photos/pMbVehnNar5HTeFY6)
 
 ## Travel Movie
 
