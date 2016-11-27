@@ -56,7 +56,7 @@ footer: false
 
 ## Travel Photography
 
-* [Cuba 2011-2012](https://goo.gl/photos/47hANRg6TrmNY14q9)
+ * [Cuba 2011-2012](https://goo.gl/photos/8tp5JKNEEroZsG2C6)
  * [Central Europe 2015](https://goo.gl/photos/NEtgmRRGgZdsq8Gm6)
  * [Western Balkans 2016](https://goo.gl/photos/a3drwHCN4rt8hwfy6)
  * [South Island, NZ 2016](https://goo.gl/photos/pMbVehnNar5HTeFY6)
