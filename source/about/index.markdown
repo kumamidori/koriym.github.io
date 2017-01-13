@@ -60,6 +60,7 @@ footer: false
  * [Central Europe 2015](https://goo.gl/photos/NEtgmRRGgZdsq8Gm6)
  * [Western Balkans 2016](https://goo.gl/photos/a3drwHCN4rt8hwfy6)
  * [South Island, NZ 2016](https://goo.gl/photos/pMbVehnNar5HTeFY6)
+ * [Cuba 2016-2017](https://goo.gl/photos/jFq8XuE9z2kqAap38)
 
 ## Travel Movie
 
