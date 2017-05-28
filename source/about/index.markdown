@@ -56,7 +56,14 @@ footer: false
 
 ## Travel Photography
 
+ * [Bali 2005](https://goo.gl/photos/NVqHtKwE1LRXu4AQA)
+ * [Toscany 2007](https://goo.gl/photos/hgy4k8LKL5YkPpbN7)
+ * [Indocina 2008](https://goo.gl/photos/hgy4k8LKL5YkPpbN7)
+ * [Vietnum 2009](https://goo.gl/photos/uB35STv5VFFmDeNk9)
+ * [Belgium, France 2010](https://goo.gl/photos/89T9kJkk3MYej7YXA)
  * [Cuba 2011-2012](https://goo.gl/photos/8tp5JKNEEroZsG2C6)
+ * [Western Europe 2013](https://goo.gl/photos/Nqor2WjnjMFkipcB9)
+ * [Northern England, Scotloand 2014](https://goo.gl/photos/PB3ZZzWaccVMx8va9)
  * [Central Europe 2015](https://goo.gl/photos/NEtgmRRGgZdsq8Gm6)
  * [Western Balkans 2016](https://goo.gl/photos/a3drwHCN4rt8hwfy6)
  * [South Island, NZ 2016](https://goo.gl/photos/pMbVehnNar5HTeFY6)
