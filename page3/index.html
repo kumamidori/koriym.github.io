@@ -9,7 +9,11 @@
   <meta name="author" content="Akihito Koriyama">
 
   
-  <meta name="description" content="Tweet BEAR.SundayでRESTfulなシステム開発 WEB+DB PRESSの大人気連載「巨人の肩からPHP 先人たちに学ぶモダンプログラミング」の連載５回目にBEAR.Sundayをとりあげて頂きました。 RESTやRESTとBEAR.Sundayの関わりに触れてから、 &hellip;">
+  <meta name="description" content="Tweet 簡単にBEAR.Sundayを体験できるチュートリアルを用意しました。それぞれのセクションの目安の時間も記してみました。良かったら手を動かしてお付き合いください。 準備 PHP 5.4がインストールされていればOKです。 1
+2
+3
+$ php -v
+PHP 5.4.11 (cli &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -30,7 +34,11 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   <meta property="og:title" content="BEAR Blog" />
-<meta property="og:description" content="Tweet BEAR.SundayでRESTfulなシステム開発 WEB+DB PRESSの大人気連載「巨人の肩からPHP 先人たちに学ぶモダンプログラミング」の連載５回目にBEAR.Sundayをとりあげて頂きました。 RESTやRESTとBEAR.Sundayの関わりに触れてから、 &hellip;" />
+<meta property="og:description" content="Tweet 簡単にBEAR.Sundayを体験できるチュートリアルを用意しました。それぞれのセクションの目安の時間も記してみました。良かったら手を動かしてお付き合いください。 準備 PHP 5.4がインストールされていればOKです。 1
+2
+3
+$ php -v
+PHP 5.4.11 (cli &hellip;" />
 <meta property="og:url" content="http://koriym.github.io/page3/" />
 <meta property="og:image" content="http://bearsunday.github.io/images/icon/favicon-144.png" />
 <meta property="og:author" content="Akihito Koriyama" />
@@ -88,6 +96,334 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/bear-sunday-quick-tour">BEAR.Sunday Quick Tour</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-04T00:00:00+09:00" pubdate data-updated="true"></time>
+        
+         | <a href="/bear-sunday-quick-tour#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/bear-sunday-quick-tour">Tweet</a>
+</div>
+
+
+<p>簡単にBEAR.Sundayを体験できるチュートリアルを用意しました。それぞれのセクションの目安の時間も記してみました。良かったら手を動かしてお付き合いください。</p>
+
+<h2>準備</h2>
+
+<p>PHP 5.4がインストールされていればOKです。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ php -v
+</span><span class='line'>PHP 5.4.11 (cli) (built: Jan 27 2013 22:00:35)
+</span><span class='line'>Copyright (c) 1997-2013 The PHP Group</span></code></pre></td></tr></table></div></figure>
+
+
+<p>もしPHP5.4がインストールされてなくてもOSXならこれだけでインストールできます。<sup><a href="#footnote_0_1693" id="identifier_0_1693" class="footnote-link footnote-identifier-link" title="詳しくは php-osx.liip.ch を">1</a></sup></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -s http://php-osx.liip.ch/install.sh | bash -s 5.4</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>BEAR.Sundayのインストール</h2>
+
+<p><i class="icon-time"></i> 5-? min</p>
+
+<p>コンソールでインストールします。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -s http://install.bear-project.net/ | sh -s ./bear</span></code></pre></td></tr></table></div></figure>
+
+
+<p>または（curlが無い場合など）</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ php -r "eval('?&gt;'.file_get_contents('https://getcomposer.org/installer'));"
+</span><span class='line'>$ php composer.phar create-project -s dev --dev bear/package ./bear</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>アプリケーションの作成</h2>
+
+<p><i class="icon-time"></i> 1 min</p>
+
+<p>Helloアプリケーションを作成します。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd bear
+</span><span class='line'>$ php bin/new_app.php Hello</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>コンソールでのアプリケーション実行</h2>
+
+<p><i class="icon-time"></i> 3 min</p>
+
+<p>web.phpを使いconsoleでHTMLの出力が確認できます。GETメソッドで/（ルート）をアクセスするには以下のようにタイプします。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd apps/Hello/public
+</span><span class='line'>$ php web.php get /</span></code></pre></td></tr></table></div></figure>
+
+
+<p>三番目の引き数でアプリケーションの実行コンテキスト（モード）を切り替える事ができます。</p>
+
+<p>プロダクション</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>php web.php get / prod</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="mi">200</span> <span class="nx">OK</span>
+</span><span class='line'><span class="nx">cache</span><span class="o">-</span><span class="nx">control</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;no-cache&quot;</span><span class="p">]</span>
+</span><span class='line'><span class="nb">date</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;Mon, 04 Mar 2013 12:29:49 GMT&quot;</span><span class="p">]</span>
+</span><span class='line'><span class="p">[</span><span class="nx">BODY</span><span class="p">]</span>
+</span><span class='line'><span class="o">&lt;</span> <span class="o">!</span><span class="nx">DOCTYPE</span> <span class="nx">html</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">html</span> <span class="nx">lang</span><span class="o">=</span><span class="s2">&quot;ja&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">div</span> <span class="nx">class</span><span class="o">=</span><span class="s2">&quot;container&quot;</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span> <span class="nx">BEAR</span><span class="o">.</span><span class="nx">Sunday</span><span class="o">&lt;/</span><span class="nx">h1</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">div</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">body</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">html</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>API</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>php web.php get / api</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="mi">200</span> <span class="nx">OK</span>
+</span><span class='line'><span class="nx">content</span><span class="o">-</span><span class="nx">type</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;application\/hal+json; charset=UTF-8&quot;</span><span class="p">]</span>
+</span><span class='line'><span class="nx">cache</span><span class="o">-</span><span class="nx">control</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;no-cache&quot;</span><span class="p">]</span>
+</span><span class='line'><span class="nb">date</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;Mon, 04 Mar 2013 12:31:17 GMT&quot;</span><span class="p">]</span>
+</span><span class='line'><span class="p">[</span><span class="nx">BODY</span><span class="p">]</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="s2">&quot;greeting&quot;</span><span class="o">:</span> <span class="s2">&quot;Hello BEAR.Sunday&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;_links&quot;</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>        <span class="s2">&quot;self&quot;</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>            <span class="s2">&quot;href&quot;</span><span class="o">:</span> <span class="s2">&quot;page://self/index&quot;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>利用できないメソッドには405(Method Not Allowed)が返って来ます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>php web.php delete /</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="mi">405</span> <span class="nx">Method</span> <span class="k">Not</span> <span class="nx">Allowed</span>
+</span><span class='line'><span class="nx">x</span><span class="o">-</span><span class="nx">exception</span><span class="o">-</span><span class="nx">class</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;BEAR</span><span class="se">\\</span><span class="s2">Resource</span><span class="se">\\</span><span class="s2">Exception</span><span class="se">\\</span><span class="s2">MethodNotAllowed&quot;</span><span class="p">]</span>
+</span><span class='line'><span class="nx">x</span><span class="o">-</span><span class="nx">exception</span><span class="o">-</span><span class="nx">message</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;Hello</span><span class="se">\\</span><span class="s2">Resource</span><span class="se">\\</span><span class="s2">Page</span><span class="se">\\</span><span class="s2">Index::onDelete()&quot;</span><span class="p">]</span>
+</span><span class='line'><span class="nx">x</span><span class="o">-</span><span class="nx">exception</span><span class="o">-</span><span class="nx">code</span><span class="o">-</span><span class="nb">file</span><span class="o">-</span><span class="nx">line</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;(405) \/Users\/akihito\/work\/bear\/vendor\/bear\/resource\/src\/BEAR\/Resource\/DevInvoker.php:59&quot;</span><span class="p">]</span>
+</span><span class='line'><span class="nx">x</span><span class="o">-</span><span class="nx">exception</span><span class="o">-</span><span class="nx">previous</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;-&quot;</span><span class="p">]</span>
+</span><span class='line'><span class="nx">x</span><span class="o">-</span><span class="nx">exception</span><span class="o">-</span><span class="nx">id</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;e500-b14ad&quot;</span><span class="p">]</span>
+</span><span class='line'><span class="nx">x</span><span class="o">-</span><span class="nx">exception</span><span class="o">-</span><span class="nx">id</span><span class="o">-</span><span class="nb">file</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;\/Users\/akihito\/work\/bear\/apps\/Hello\/data\/log\/e500-b14ad.log&quot;</span><span class="p">]</span>
+</span><span class='line'><span class="nx">cache</span><span class="o">-</span><span class="nx">control</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;no-cache&quot;</span><span class="p">]</span>
+</span><span class='line'><span class="nb">date</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;Mon, 04 Mar 2013 12:47:11 GMT&quot;</span><span class="p">]</span>
+</span><span class='line'><span class="p">[</span><span class="nx">BODY</span><span class="p">]</span>
+</span><span class='line'><span class="nx">The</span> <span class="nx">requested</span> <span class="nx">method</span> <span class="nx">is</span> <span class="k">not</span> <span class="nx">allowed</span> <span class="k">for</span> <span class="k">this</span> <span class="nx">URI</span><span class="o">.</span>
+</span><span class='line'><span class="nx">KumaAir</span><span class="o">:</span><span class="k">public</span> <span class="nx">akihito</span><span class="err">$</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>404も試してみましょう。</p>
+
+<h2>Webでのアプリケーション実行 (5 min)</h2>
+
+<p>同じweb.phpを使ってBuilt-in Web serverを立ち上げます。ポート番号は自由です。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>php -S localhost:8088 web.php</span></code></pre></td></tr></table></div></figure>
+
+
+<p>挨拶が表示されました。devモードではツールバーと共に表示されます。<br/>
+<a href="http://www.bear-project.net/blog/wp-content/uploads/2013/03/1582b4c4f63329511aff544dd1ebef7e.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/03/1582b4c4f63329511aff544dd1ebef7e.png" alt="スクリーンショット 2013-03-04 21.53.49" class="alignleft size-full wp-image-1705" /></a><br clear="all" /></p>
+
+<p>この挨拶には<b class="button">page://self/index</b>という名前(URI)がついています。このURIのついた情報は「リソース」と呼ばれます。</p>
+
+<p>灰色のバックグランドで表示されてるのはこのリソースはキャッシュを利用しないことを表します<sup><a href="#footnote_1_1693" id="identifier_1_1693" class="footnote-link footnote-identifier-link" title="緑/赤=Read/Write">2</a></sup> URIの隣にツールバーが並び、情報の確認やコードの編集ができるようになっています。破線はそのリソースの表示範囲を表します。</p>
+
+<h2>オンライン編集</h2>
+
+<p>リソースのコードとビューテンプレートはwebブラウザ上で編集することができます。<br/>
+<a href="http://www.bear-project.net/blog/wp-content/uploads/2013/03/fcb9351e421ea4a9831bb99e3340bc67.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/03/fcb9351e421ea4a9831bb99e3340bc67.png" alt="スクリーンショット 2013-03-04 22.13.22" class="alignleft size-full wp-image-1714" /></a><br clear="all" /><br/>
+保存にはショートカットキーも使えます。(⌘W / Ctl+W)</p>
+
+<h2>シンタックスエラー</h2>
+
+<p><i class="icon-time"></i> 2 min</p>
+
+<p>ClassのCを誤って消してしまいました。シンタックスエラーになりますがエラーある状態でアプリケーションを実行するとエラーメッセージの表示されたエディターが表示されます。</p>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2013/03/9f9ffde325710fd6e898bf8086c17f37.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/03/9f9ffde325710fd6e898bf8086c17f37.png" alt="スクリーンショット 2013-03-04 22.27.37" class="alignleft size-full wp-image-1716" /></a><br clear="all" /><br/>
+その場で修正して、「保存」「再読み込み」ですぐに復帰します。ケアレスミスによる思考の中断を最小限にします。</p>
+
+<h2>クエリーを読む</h2>
+
+<p><i class="icon-time"></i> 5 min</p>
+
+<p>HTTPのGETメソッドではonGetメソッドがアクセスされます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$name</span> <span class="o">=</span> <span class="s1">&#39;BEAR.Sunday&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>このメソッドは</p>
+
+<pre>$_GET</pre>
+
+
+<p>と同様に機能します。$_GET[&lsquo;name&rsquo;]を$nameとして受け取っています。</p>
+
+<pre>?name=YourName</pre>
+
+
+<p>としてアクセスしてみたり、以下のようにyearクエリーも受け取ってみましょう</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$name</span> <span class="o">=</span> <span class="s1">&#39;BEAR.Sunday&#39;</span><span class="p">,</span> <span class="nv">$year</span><span class="o">=</span><span class="mi">2013</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="p">[</span><span class="s1">&#39;greeting&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Hello &#39;</span> <span class="o">.</span> <span class="nv">$name</span> <span class="o">.</span> <span class="s2">&quot;, It&#39;s </span><span class="si">{</span><span class="nv">$year</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2013/03/271d16f1b59a267b7e7b571c9ee77c84.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/03/271d16f1b59a267b7e7b571c9ee77c84.png" alt="スクリーンショット 2013-03-04 22.43.18" class="alignleft size-full wp-image-1718" /></a><br clear="all" /></p>
+
+<p><em>メソッドは<strong>$_GET</strong>クエリーと同じく名前で指定されるので（名前付き引き数＝named parameter)通常のPHPの引き数のように引き数の順番では変数名で指定されます。（順番は関係ありません）$_GETのクエリーは取得するのではなく、PHPのメソッドと融合して与えられている事にも注目してください。</em></p>
+
+<h2>テンプレート</h2>
+
+<p><i class="icon-time"></i> 1 min</p>
+
+<p>リソースクラスファイルの拡張子をtplあるいはtwigに変えたものがそのリソースの表現に用いられるビューテンプレートになります。</p>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2013/03/7aa52204264f594c4f4a7fdfb5fa4cca.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/03/7aa52204264f594c4f4a7fdfb5fa4cca.png" alt="スクリーンショット 2013-03-04 22.55.42" class="alignleft size-full wp-image-1723" /></a><br clear="all" /></p>
+
+<h2>/dev/ツール</h2>
+
+<p><i class="icon-time"></i> 3 min</p>
+
+<p>URLに/dev/と入力するとデバックツールが表示されます</p>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2013/03/55d203fe83ff32fa33156f66650ac8e1.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/03/55d203fe83ff32fa33156f66650ac8e1.png" alt="スクリーンショット 2013-03-04 22.58.27" class="alignleft size-full wp-image-1724" /></a></p>
+
+<h3>リソース一覧</h3>
+
+<p>/dev/resource/ ではリソースを一覧したり新規のリソースをつくることができます。</p>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2013/03/e4249349b0ca4c6ad94182c21b6b6c69.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/2013/03/e4249349b0ca4c6ad94182c21b6b6c69.png" alt="スクリーンショット 2013-03-04 22.59.31" class="alignleft size-full wp-image-1725" /></a><br clear="all" /></p>
+
+<p>つくったばかりのHelloアプリケーションは<strong>page://self/index</strong>というページリソースが１つ。利用可能なメソッドはGETだけという事が分かります。リソース（モデル）は、アプリケーションの核心です。アプリケーション管理者はそのアプリケーションにいくつ、どんなリソースがあるかをこのリソース画面で知る事ができます。</p>
+
+<h2>What&#8217;s next ?</h2>
+
+<p><i class="icon-time"></i> 1 week</p>
+
+<p><a href="http://www.bear-project.net/blog/WEB-DB-PRESS-Vol73">Web+DB Press記事</a>のリソースを作ってみるのはどうでしょうか。<a href="https://code.google.com/p/bearsunday/wiki/my_first_index">&#8220;はじめて&#8221;シリーズ</a>はソフトウエアやインターネット技術の概念を同時に学ぶ事ができます。<a href="https://code.google.com/p/bearsunday/wiki/blog">ブログチュートリアル</a>は既存のFWとの実装の比較になります。<a href="https://github.com/koriym/BEAR.Package/tree/develop/apps/Sandbox">apps/Sandboxアプリケーション</a>はDB/ページングなど実用的なサンプルも含みます。特にRESTに興味のある方は定番となってる<a href="http://www.infoq.com/articles/webber-rest-workflow">REST Bucks</a>をBEAR.Sundayで実装した<a href="https://github.com/koriym/BEAR.Package/blob/develop/apps/Sandbox/Resource/Page/Restbucks/Index.php">HATEOAS実装</a>もあります。</p>
+
+<ol class="footnotes">
+  <li id="footnote_0_1693" class="footnote">
+    詳しくは php-osx.liip.ch を [<a href="#identifier_0_1693" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_1_1693" class="footnote">
+    緑/赤=Read/Write [<a href="#identifier_1_1693" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1241,102 +1577,6 @@ composerのcreate-projectでインストールできるようになりました�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2012/12/advent-day-6-di-soc/">Advent Day 6: DI SoC</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-12-10T00:00:00+09:00" pubdate data-updated="true"></time>
-        
-         | <a href="/2012/12/advent-day-6-di-soc/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div style="float: right; margin-left: 10px;">
-  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2012/12/advent-day-6-di-soc/">Tweet</a>
-</div>
-
-
-<h2>関心の分離としてのDI</h2>
-
-<blockquote><p>オブジェクトは、他のオブジェクトの生成か、使用のいずれかのみを行い、双方を行ってはならない。<br/>
-&#8212; <a href="http://d.hatena.ne.jp/asakichy/20090331/1238472501#20090331f1">生成・使用分離の原則 &#8211; Strategic Choice</a></p>
-
-<p>Eric Raymondは『Art of UNIX Programming』の中で、UNIX®哲学の幾つかを次のように指摘しています。</p>
-
-<p>モジュラー化の原則: 単純な部分を書き、きれいなインターフェースで接続する<br/>
-分離の原則: ポリシーを機構から分離し、インターフェースをエンジンから分離する<br/>
-表現の原則: ナレッジをデータの中に入れ込むことによって、プログラム・ロジックは愚かで堅牢となるようにする</p>
-
-<p>こうした考え方は古いものですが、私達は、こうした考えをJava™技術で実現するための新しい方法を発見し続けているのです。そして<strong>分離のための技術の最新版</strong>、DI（dependency injection: 依存性注入）は、上記の理想を反映したものです。</p>
-
-<p><a href="https://www.ibm.com/developerworks/jp/opensource/library/os-ag-ioc1/">https://www.ibm.com/developerworks/jp/opensource/library/os-ag-ioc1/</a></p></blockquote>
-
-<h2>生成・使用分離の原則</h2>
-
-<p>生成・使用分離の原則 &#8211; 時々聞くこの原則のそもそものソースは何だろうかと時々調べる事がありますが、それに巡り会えたことがありません。ついに見つけたのが流石Strategic Choiceブログなのですが、記事によると<strong>「<a href="http://d.hatena.ne.jp/asakichy/20090331/1238472501#20090331f1">名前がなかったので勝手につけました</a>」</strong>&#8230;どうりで中々見つからないわけです。</p>
-
-<p>しかし記事は明快です。</p>
-
-<blockquote><p>どうして？</p>
-
-<p>この規則に従えば、作業分担が明確化され、結合度が低下する。</p>
-
-<p>オブジェクトの使用は概念レベルを取り扱う。<br/>
-オブジェクトの生成は具象レベルを取り扱う。<br/>
-これらレベルの違うものを混ぜて設計すべきではない。<br/>
-これらを分けて考えることで、それぞれに集中できる。</p></blockquote>
-
-<p>大変重要です。つまりこれが良く分離されたソースコードでは「概念レベルを取り扱う」ものと「具象レベルを取り扱う」コードが分離されています。</p>
-
-<p>[具象コード]<br/>
-[具象コード]<br/>
-[具象コード]</p>
-
-<p>[概念コード]<br/>
-[概念コード]<br/>
-[概念コード]</p>
-
-<p>良いコード。これが分離されレイヤーになっています。対してその逆では..</p>
-
-<p>[具象コード]<br/>
-[具象コード]<br/>
-[概念コード]<br/>
-[具象コード]<br/>
-[具象コード]<br/>
-[概念コード]</p>
-
-<p>クリアに説明されるとスッキリします。この善し悪しはイメージしやすいのではないでしょうか。ソースの可読性はスコープを狭くして細かく語られることも多いですが、このように大きなスコープでの設計原則が守られてるかという事も大事なのではないかと考えます。</p>
-
-<p>DIの説明を時々料理に例えることがあります。レシピを見て、材料を揃え下ごしらえを済ませてから調理（runtime)に移ります。調理中には途中で材料を選んだり買い物をしなおしたりすることはありません。道具の準備や下ごしらを完了してから調理に移ります。準備と利用は分離され、分業も可能です。</p>
-
-<p>BEAR.Sundayでもruntimeでは原則オブジェクトは用意されたものを利用するだけで、生成に関しての関心は極小化されています。runtimeでオブジェクトの生成方法をアプリケーションワイドなconfigから調べ作成する事は原則ありません。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="4">&larr; Older</a>
@@ -1354,6 +1594,10 @@ composerのcreate-projectでインストールできるようになりました�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2017/05/21/dependency-injector/">Dependency Injector</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/12/04/php7-dot-0-0/">PHP7.0.0</a>
       </li>
     
@@ -1367,10 +1611,6 @@ composerのcreate-projectでインストールできるようになりました�
     
       <li class="post">
         <a href="/blog/2015/05/31/first-bear-sunday-stable-release/">First BEAR.Sunday Stable Release !</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/06/29/phpkansai2014/">基調講演「全てを結ぶ力」</a>
       </li>
     
   </ul>

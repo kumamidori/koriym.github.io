@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://koriym.github.io/blog/2017/05/21/dependency-injector/</loc>
+<lastmod>2017-05-21T03:22:58+09:00</lastmod>
+</url>
+<url>
 <loc>http://koriym.github.io/blog/2015/12/04/php7-dot-0-0/</loc>
 <lastmod>2015-12-04T11:00:00+09:00</lastmod>
 </url>
@@ -276,6 +280,24 @@
 </url>
 <url>
 <loc>http://koriym.github.io/blog/categories/ted/</loc>
+</url>
+<url>
+<loc>http://koriym.github.io/page2/</loc>
+</url>
+<url>
+<loc>http://koriym.github.io/page3/</loc>
+</url>
+<url>
+<loc>http://koriym.github.io/page4/</loc>
+</url>
+<url>
+<loc>http://koriym.github.io/page5/</loc>
+</url>
+<url>
+<loc>http://koriym.github.io/page6/</loc>
+</url>
+<url>
+<loc>http://koriym.github.io/page7/</loc>
 </url>
 <url>
 <loc>http://koriym.github.io/wp-content/uploads/2013/02/view-source-sandbox.sunday.local-dev-resource-graph.php-uriapp-self-first-hypermedia-payment.html</loc>
