@@ -4,7 +4,7 @@
   <title><![CDATA[BEAR Blog]]></title>
   <link href="http://koriym.github.io/atom.xml" rel="self"/>
   <link href="http://koriym.github.io/"/>
-  <updated>2017-07-08T03:53:51+09:00</updated>
+  <updated>2017-07-28T03:17:11+09:00</updated>
   <id>http://koriym.github.io/</id>
   <author>
     <name><![CDATA[Akihito Koriyama]]></name>
@@ -14,11 +14,21 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Dependency Injector]]></title>
-    <link href="http://koriym.github.io/blog/2017/05/21/dependency-injector/"/>
-    <updated>2017-05-21T03:22:58+09:00</updated>
-    <id>http://koriym.github.io/blog/2017/05/21/dependency-injector</id>
-    <content type="html"><![CDATA[<p>Ray.Diが解決してきたもの</p>
+    <title type="html"><![CDATA[An interface as an API]]></title>
+    <link href="http://koriym.github.io/blog/2017/07/28/an-interface-as-an-api/"/>
+    <updated>2017-07-28T02:59:49+09:00</updated>
+    <id>http://koriym.github.io/blog/2017/07/28/an-interface-as-an-api</id>
+    <content type="html"><![CDATA[<p>For extensions, I encourage you to copy entire class and modify it. Does this sound too wild ? Here are my thoughts.</p>
+
+<p>Suppose we make a <code>protected</code> method for future modification. Is this a symptom of violating SRP? If we separate the “extensible concern” and “core concern”, why not separate them as extensible dependency objects in order to conserve SRP?</p>
+
+<p>Yes we loose the some convenience. But a true DI system give us more flexibility with ease. Inherited modification needs hard coded relationships. The modifications and the original class become tightly coupled.  In other words, modification of dependency object injection can be done by context and we can then draw the object graph more freely.</p>
+
+<p>Just conform to DIP, seriously….</p>
+
+<p>An ‘unchangeable public methods and no protected method policy’ encourage us to use the <em>final</em> keyword. This helps makes the class stable and closed. The @api annotation may then be needed less.</p>
+
+<p>&ndash; moved from <a href="http://koriym.tumblr.com/post/66663678471/an-interface-as-an-api">http://koriym.tumblr.com/post/66663678471/an-interface-as-an-api</a> (11 Nov 2013)</p>
 ]]></content>
   </entry>
   

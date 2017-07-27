@@ -9,8 +9,7 @@
   <meta name="author" content="Akihito Koriyama">
 
   
-  <meta name="description" content="Ray.Diが解決してきたもの
-">
+  <meta name="description" content="For extensions, I encourage you to copy entire class and modify it. Does this sound too wild ? Here are my thoughts. Suppose we make a protected &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -31,8 +30,7 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   <meta property="og:title" content="BEAR Blog" />
-<meta property="og:description" content="Ray.Diが解決してきたもの
-" />
+<meta property="og:description" content="For extensions, I encourage you to copy entire class and modify it. Does this sound too wild ? Here are my thoughts. Suppose we make a protected &hellip;" />
 <meta property="og:url" content="http://koriym.github.io/" />
 <meta property="og:image" content="http://bearsunday.github.io/images/icon/favicon-144.png" />
 <meta property="og:author" content="Akihito Koriyama" />
@@ -96,7 +94,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2017/05/21/dependency-injector/">Dependency Injector</a></h1>
+      <h1 class="entry-title"><a href="/blog/2017/07/28/an-interface-as-an-api/">An Interface as an API</a></h1>
     
     
       <p class="meta">
@@ -112,16 +110,26 @@
   
 
 
-<time datetime="2017-05-21T03:22:58+09:00" pubdate data-updated="true"></time>
+<time datetime="2017-07-28T02:59:49+09:00" pubdate data-updated="true"></time>
         
-         | <a href="/blog/2017/05/21/dependency-injector/#disqus_thread">Comments</a>
+         | <a href="/blog/2017/07/28/an-interface-as-an-api/#disqus_thread">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Ray.Diが解決してきたもの</p>
+  <div class="entry-content"><p>For extensions, I encourage you to copy entire class and modify it. Does this sound too wild ? Here are my thoughts.</p>
+
+<p>Suppose we make a <code>protected</code> method for future modification. Is this a symptom of violating SRP? If we separate the “extensible concern” and “core concern”, why not separate them as extensible dependency objects in order to conserve SRP?</p>
+
+<p>Yes we loose the some convenience. But a true DI system give us more flexibility with ease. Inherited modification needs hard coded relationships. The modifications and the original class become tightly coupled.  In other words, modification of dependency object injection can be done by context and we can then draw the object graph more freely.</p>
+
+<p>Just conform to DIP, seriously….</p>
+
+<p>An ‘unchangeable public methods and no protected method policy’ encourage us to use the <em>final</em> keyword. This helps makes the class stable and closed. The @api annotation may then be needed less.</p>
+
+<p>&ndash; moved from <a href="http://koriym.tumblr.com/post/66663678471/an-interface-as-an-api">http://koriym.tumblr.com/post/66663678471/an-interface-as-an-api</a> (11 Nov 2013)</p>
 </div>
   
   
@@ -1803,7 +1811,7 @@ You add more elements and functions until you can’t add anymore, then you will
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2017/05/21/dependency-injector/">Dependency Injector</a>
+        <a href="/blog/2017/07/28/an-interface-as-an-api/">An interface as an API</a>
       </li>
     
       <li class="post">
