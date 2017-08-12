@@ -9,11 +9,8 @@
   <meta name="author" content="Akihito Koriyama">
 
   
-  <meta name="description" content="Tweet 簡単にBEAR.Sundayを体験できるチュートリアルを用意しました。それぞれのセクションの目安の時間も記してみました。良かったら手を動かしてお付き合いください。 準備 PHP 5.4がインストールされていればOKです。 1
-2
-3
-$ php -v
-PHP 5.4.11 (cli &hellip;">
+  <meta name="description" content=" Tweet &#8220;have the courage to follow and show others how to follow.&#8221; ソーシャルコーディングもそうではないかと考えました。
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -34,11 +31,8 @@ PHP 5.4.11 (cli &hellip;">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   <meta property="og:title" content="BEAR Blog" />
-<meta property="og:description" content="Tweet 簡単にBEAR.Sundayを体験できるチュートリアルを用意しました。それぞれのセクションの目安の時間も記してみました。良かったら手を動かしてお付き合いください。 準備 PHP 5.4がインストールされていればOKです。 1
-2
-3
-$ php -v
-PHP 5.4.11 (cli &hellip;" />
+<meta property="og:description" content=" Tweet &#8220;have the courage to follow and show others how to follow.&#8221; ソーシャルコーディングもそうではないかと考えました。
+" />
 <meta property="og:url" content="http://koriym.github.io/page3/" />
 <meta property="og:image" content="http://bearsunday.github.io/images/icon/favicon-144.png" />
 <meta property="og:author" content="Akihito Koriyama" />
@@ -96,6 +90,60 @@ PHP 5.4.11 (cli &hellip;" />
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2013/03/be-the-first-one/">Be the First One</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-29T00:00:00+09:00" pubdate data-updated="true"></time>
+        
+         | <a href="/2013/03/be-the-first-one/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2013/03/be-the-first-one/">Tweet</a>
+</div>
+
+
+
+
+<iframe src="http://embed.ted.com/talks/lang/ja/derek_sivers_how_to_start_a_movement.html" width="560" height="315" frameborder="0" scrolling="no" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+
+
+<p>&#8220;have the courage to follow and show others how to follow.&#8221;</p>
+
+<div style="height:30px;">
+</div>
+
+
+<p>ソーシャルコーディングもそうではないかと考えました。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1493,83 +1541,6 @@ composerのcreate-projectでインストールできるようになりました�
   </li>
 </ol>
 
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/adv7">Advent Day 7: Ver. 0.Go.Go</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-12-11T00:00:00+09:00" pubdate data-updated="true"></time>
-        
-         | <a href="/adv7#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div style="float: right; margin-left: 10px;">
-  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/adv7">Tweet</a>
-</div>
-
-
-<h2>Day 7</h2>
-
-<p>Day 7、７日目の休息ということでDI記事お休みして <a href="https://travis-ci.org/koriym/BEAR.Package/builds/3592222" target="_blank">BEAR.Sudnayの0.5.5リリース</a>の案内です。</p>
-
-<h2>BEAR.Sunday version 0.5.5</h2>
-
-<p>現在のBEAR.Sundayアプリケーションは三層の構造になっています。</p>
-
-<ul>
-<li>Application アプリケーション</li>
-<li>BEAR.Package アプリケーションパッケージ</li>
-<li>BEAR.Sunday リソースフレームワーク</li>
-</ul>
-
-
-<h4>BEAR.Sunday</h4>
-
-<p>Ray.Di/Aopという生成と振る舞いに制約と機能をもたらすオブジェクトフレームワークに、リソース制約を加えリソースフレームワークとしたものです。</p>
-
-<h4>BEAR.Package</h4>
-
-<p>必要なテンプレートエンジンやDBライブラリ等の実装選択等の実装選択と、フレームワークが持つ抽象の束縛の集合です。BEAR.Sundayは（コンポーネントの一貫性のプライオリティを下げてでも）多様なライブラリ選択を好みます。アプリケーションアーキテクトはスタッフやプロジェクトを勘案して、アプリケーションパッケージの構成を柔軟に構成することができます。複数のアプリケーションが共有する、チームのソフトウエア基盤です。アプリケーションのコンパイルタイムで必要な処理の多くはこのレイヤーが担当します。</p>
-
-<h4>Application アプリケーション</h4>
-
-<p>アプリケーションのランタイムコードの記述が中心になります。例えばDBオブジェクトがどのように生成されたかに関与はありません。セットされたDBを使って本質的関心事ではあるビジネスロジックを実現するコードを記述することが中心になります。</p>
-
-<p>ここ最近の作業の中心はBEAR.Packageの分離とBEAR.Packageでのアプリケーションのより良い構成を持つ事でした。</p>
-
-<h2>1.0.0 ?</h2>
-
-<p>BEAR.Package以外の更新を最小化と、アプリケーション作成を通じてBEAR.Packageを熟成させ1.0.0リリースに繋げたいと思います。<br/>
-当初予定してた今年中のリリースは難しいですが、来年明けの早い段階でと考えてます。</p>
-
-<p>次の<a href="http://atnd.org/events/34068">Symfony勉強会 #7 (BEAR.Sundayワークショップ＆忘年会) 2012/12/15(Sun)</a>ではこの0.5.5を使います。よろしく御願いします。</p>
 </div>
   
   
