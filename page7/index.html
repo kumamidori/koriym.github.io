@@ -9,7 +9,7 @@
   <meta name="author" content="Akihito Koriyama">
 
   
-  <meta name="description" content="Tweet Hello Worldベンチマーク Performance of YiiというページでPHP主要フレームワークの&#8221;hello worldべンチマーク&#8221;を比較しています。phpmarkというGoogle Code &hellip;">
+  <meta name="description" content="Tweet MVCにはあまりにも多くの派生パターンがあるので、「あなたが言っているMVCは私のMVCと違うね」みたいなことが頻発する。いっその事、MVCは NGワードにしたほうがいいんじゃなかろうか、とは俺も思う。 matarillo: UIパターン 現在のSmalltalkの世界では、すでに &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -30,7 +30,7 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   <meta property="og:title" content="BEAR Blog" />
-<meta property="og:description" content="Tweet Hello Worldベンチマーク Performance of YiiというページでPHP主要フレームワークの&#8221;hello worldべンチマーク&#8221;を比較しています。phpmarkというGoogle Code &hellip;" />
+<meta property="og:description" content="Tweet MVCにはあまりにも多くの派生パターンがあるので、「あなたが言っているMVCは私のMVCと違うね」みたいなことが頻発する。いっその事、MVCは NGワードにしたほうがいいんじゃなかろうか、とは俺も思う。 matarillo: UIパターン 現在のSmalltalkの世界では、すでに &hellip;" />
 <meta property="og:url" content="http://koriym.github.io/page7/" />
 <meta property="og:image" content="http://bearsunday.github.io/images/icon/favicon-144.png" />
 <meta property="og:author" content="Akihito Koriyama" />
@@ -88,187 +88,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/04/hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%95/">Hello Worldコールグラフ</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-08T00:00:00+09:00" pubdate data-updated="true"></time>
-        
-         | <a href="/2010/04/hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%95/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div style="float: right; margin-left: 10px;">
-  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2010/04/hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%95/">Tweet</a>
-</div>
-
-
-<h3>Hello Worldベンチマーク</h3>
-
-<p><a href="http://www.yiiframework.com/performance/">Performance of Yii</a>というページでPHP主要フレームワークの&#8221;hello worldべンチマーク&#8221;を比較しています。phpmarkというGoogle Code Projectでホストされてる各フレームワークでHello Worldを出力するアプリケーションでベンチをとっているようです。Hello Worldベンチは最小のオーバーヘッド測定のためとされますが、そのコールグラフがどうなるかに興味を持ちました。</p>
-
-<p>※なぜHello Wolrdなのか？どういう意味があるのか？などについては<a href="http://www.yiiframework.com/performance/">Performance of Yii</a>や<a href="http://paul-m-jones.com/archives/238">Paul M. Jones » Blog Archive » New Year’s Benchmarks</a>などを参照してください。</p>
-
-<h3>コールグラフとは？</h3>
-
-<blockquote><p>コールグラフ (マルチグラフとも呼ばれる) とは、コンピュータプログラムのサブルーチン同士の呼び出し関係を表現した有向グラフである。</p></blockquote>
-
-<p><a href="http://ja.wikipedia.org/wiki/%E3%82%B3%E3%83%BC%E3%83%AB%E3%82%B0%E3%83%A9%E3%83%95">コールグラフ &#8211; Wikipedia</a></p>
-
-<p>コールグラフ描画にはfacebookの開発した<a href="http://pecl.php.net/package/xhprof">xhprof</a>が描画する<a href="http://www.graphviz.org/">graphviz</a>を用いました。web上で描画されたものです。以下、コールするファンクションの少ない順に並べています。</p>
-
-<h3>Yii1.0.3Lite</h3>
-
-<p>ファンクションコール数:119</p>
-
-<blockquote><p>PHP APC extension が有効である場合、 yii.phpを yiilite.php で置き換えることがで、さらにパフォーマンスを改善できます。<br/>
-yiilite.phpはすべてのYiiリリースに含まれています。その内容はYiiの基本クラスをひとつにまとめたものです。コメントとトレース命令はすべて取り除かれています。したがって、yiilite.php を使うことで、インクルードされるファイルの数と、トレース命令の実行を減らすことになります。</p></blockquote>
-
-<p>というものだそうで、アプローチの仕方はちょっと違うようですがKohanaにも<a href="http://dev.kohanaphp.com/projects/kohana-lite/wiki">Kohana-lite</a>というものがあります。<sup><a href="#footnote_0_44" id="identifier_0_44" class="footnote-link footnote-identifier-link" title="アクティブじゃないみたいですが">1</a></sup></p>
-
-<p>そのたっぷりつまったyiilite.phpの読み込みに最も時間がかかっています。</p>
-
-<div class="wp-caption alignnone" style="width: 249px">
-  <a href="http://www.bear-project.net/bimage/Yii1.0.3Lite.png"><img src="http://www.bear-project.net/bimage/s.Yii1.0.3Lite.png" alt="Yii 1.0.3 Lite" title="Yii 1.0.3 Lite" width="239" height="199" /></a><p class="wp-caption-text">
-    Yii 1.0.3 Lite
-
-</div>
-
-
-<h3>Yii 1.0.3</h3>
-
-<h4>ファンクションコール数:161</h4>
-
-<p>YiiはHello Worldベンチの性能が良い原因を「他の遅いフレームワークは必要が無いかもしれないモジュールを初期化しているが、Yiiはレイジーロードを積極的に採用しているため」と説明してますがこのグラフを見る限り最低限のものしか呼び込まれていないすっきりした印象を受けます。</p>
-
-<div class="wp-caption alignnone" style="width: 617px">
-  <a href="http://www.bear-project.net/bimage/Yii1.0.3.png"><img src="http://www.bear-project.net/bimage/s.Yii1.0.3.png" alt="Yii 1.0.3" title="Yii 1.0.3" width="607" height="489" /></a><p class="wp-caption-text">
-    Yii 1.0.3
-
-</div>
-
-
-<h3>CodeIgniter 1.7.2</h3>
-
-<h4>ファンクションコール数:﻿﻿377</h4>
-
-<p>Yiiの次にファンクションコール数が少ないのがCodeIgniterです。他のフレームワークと違うのはフレームワークの関数のものがあることでしょうか。最もコールされてるのがload_classの17回、get_config, log_messageと続きます。どれも関数です。</p>
-
-<div class="wp-caption alignnone" style="width: 433px">
-  <a href="http://www.bear-project.net/bimage/CI1.7.2.png"><img src="http://www.bear-project.net/bimage/s.CI1.7.2.png" alt="CodeIgniter 1.7.2" title="CodeIgniter 1.7.2" width="423" height="367" /></a><p class="wp-caption-text">
-    CodeIgniter 1.7.2
-
-</div>
-
-
-<h3>Zend Framework 1.7.3</h3>
-
-<h4>ファンクションコール数:725</h4>
-
-<p>Yii, CIに続くのがZend Frameworkです。今回のフレームワークの中で唯一、クラス/メソッドの命名規則がPEARと同じで僕は一番分かりやすく感じました。最もコールされたのはZend_Loader_PluginLoader::_formatNameで17回、時間がかかったのはZend_Controller_Action_Helper_ViewRenderer::getInflectorで全体の5.1%です。</p>
-
-<div class="wp-caption alignnone" style="width: 915px">
-  <a href="http://www.bear-project.net/bimage/Zend1.7.3.png"><img src="http://www.bear-project.net/bimage/s.Zend1.7.3.png" alt="Zend Framework 1.7.3" title="Zend Framework 1.7.3" width="905" height="487" /></a><p class="wp-caption-text">
-    Zend Framework 1.7.3
-
-</div>
-
-
-<h3>symfony 1.2.2</h3>
-
-<h4>ファンクションコール数:1878</h4>
-
-<p>もっともカオスなコールグラフになったのがこのsymfonyで7489 x 5683ピクセルの巨大グラフになりました。sfConfig::get()が147回呼ばれ最も時間のかかったメソッドになっています。</p>
-
-<div class="wp-caption alignnone" style="width: 759px">
-  <a href="http://www.bear-project.net/bimage/symfony1.2.2.png"><img src="http://www.bear-project.net/bimage/s.symfony1.2.2.png" alt="symfony 1.2.2" title="symfony 1.2.2" width="749" height="568" /></a><p class="wp-caption-text">
-    symfony 1.2.2
-
-</div>
-
-
-<h3>CakePHP 1.2.1</h3>
-
-<h4>ファンクションコール数:﻿﻿12,166</h4>
-
-<p>コール数が桁違いに多いので何かの間違いではないかと思いましたがMASA-Pさんの<a href="http://blog.ecworks.jp/archives/467">【CakePHP】xhprofでCakePHPのパフォーマンスを丸裸にする | ECWorks Blog</a>という記事でも13,000を超えるコール数になっているのでこれで間違いではないと思います。特にFolder::系のコールが多いようです。<br/>
-グラフのサイズはややsymfonyより小さいですがほぼ同等です。</p>
-
-<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2010/04/7b0efb14770317be60daea04521eeab5.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/7b0efb14770317be60daea04521eeab5-300x267.png" alt="CakePHP上位コールファンクション" title="CakePHP上位コールファンクション" width="300" height="267" class="alignnone size-medium wp-image-76" /></a> <div class="wp-caption alignnone" style="width: 531px">
-  <a href="http://www.bear-project.net/bimage/CakePHP1.2.1.png"><img src="http://www.bear-project.net/bimage/s.CakePHP1.2.1.png" title="CakePHP 1.2.1" width="521" height="738" /></a><p class="wp-caption-text">
-    CakePHP 1.2.1</p>
-
-<p></div></p>
-
-<h3>Disclaimer</h3>
-
-<p>phpmarkのサイトにもあるのですが、このエントリーでも同じです。</p>
-
-<ul>
-<li>特定のフレームワークを応援したり攻撃する意図はありません。</li>
-<li>ミニマムオーバーヘッドが低いというのはフレームワーク評価基準のごく一部です。フレームワーク選定で重視しすぎるべきではないでしょう。</li>
-</ul>
-
-
-<h3>関連リンク</h3>
-
-<ul>
-<li><a href="http://www.yiiframework.com/performance/">Yii PHP Framework &#8211; Performance Comparison</a></li>
-<li><a href="http://code.google.com/p/phpmark/">phpmark &#8211; Project Hosting on Google Code</a></li>
-<li><a href="http://paul-m-jones.com/archives/197">Paul M. Jones » Blog Archive » Differences Between Solar and Zend Framework</a></li>
-<li><a href="http://code.google.com/p/web-framework-benchmarks/">web-framework-benchmarks &#8211; Project Hosting on Google Code</a></li>
-<li><a href="http://www.doophp.com/benchmark">DooPHP &#8211; Benchmark, the fastest PHP framework</a></li>
-<li><a href="http://talks.php.net/show/froscon08/">Simple is Hard</a><sup><a href="#footnote_1_44" id="identifier_1_44" class="footnote-link footnote-identifier-link" title=" 上記の他にPrado, Solar, Agavi, Drupalのベンチとコールグラフがあります ">2</a></sup></li>
-<li><p><a href="http://symfony-reloaded.org/fast">Symfony Reloaded &#8211; 2.0 Preview Release</a>
-<sup><a href="#footnote_2_44" id="identifier_2_44" class="footnote-link footnote-identifier-link" title=" 下のリンクの記事Entertaining But ~と合わせてどうぞ ">3</a></sup></p></li>
-<li><p><a href="http://blog.astrumfutura.com/archives/421-PHP-Framework-Benchmarks-Entertaining-But-Ultimately-Useless.html">PHP Framework Benchmarks: Entertaining But Ultimately Useless</a><sup><a href="#footnote_3_44" id="identifier_3_44" class="footnote-link footnote-identifier-link" title="ということでこのエントリーも&hellip;">4</a></sup></p></li>
-</ul>
-
-
-<ol class="footnotes">
-  <li id="footnote_0_44" class="footnote">
-    アクティブじゃないみたいですが [<a href="#identifier_0_44" class="footnote-link footnote-back-link">&#8617;</a>]
-  </li>
-  <li id="footnote_1_44" class="footnote">
-    上記の他にPrado, Solar, Agavi, Drupalのベンチとコールグラフがあります [<a href="#identifier_1_44" class="footnote-link footnote-back-link">&#8617;</a>]
-  </li>
-  <li id="footnote_2_44" class="footnote">
-    下のリンクの記事Entertaining But ~と合わせてどうぞ [<a href="#identifier_2_44" class="footnote-link footnote-back-link">&#8617;</a>]
-  </li>
-  <li id="footnote_3_44" class="footnote">
-    ということでこのエントリーも&#8230; [<a href="#identifier_3_44" class="footnote-link footnote-back-link">&#8617;</a>]
-  </li>
-</ol>
-
-
-
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
