@@ -31,6 +31,9 @@ footer: false
  * 2014 [PHP Conference Osaka Keynote](http://conference.kphpug.jp/2014/) - [slide](http://www.slideshare.net/akihito.koriyama/php2014-gm) / [talk](https://www.youtube.com/watch?v=wMYW-ox3BIg)
  * 2015 [PHP Conference Fukuoka Keynote](http://phpcon.fukuoka.jp/2015/index.html) -[slide](https://speakerdeck.com/koriym/the-power-of-connecting-everything-together)
  * 2016 [PHP Conference Osaka](http://conference.kphpug.jp/2016/)
+ * 2017 [Creating rich universal React apps powered by RESTful PHP](https://speakerdeck.com/koriym/creating-rich-universal-react-apps-powered-by-restful-php)
+   * Sky Sports [photo](https://photos.app.goo.gl/HWNlxg82HrsVi3Jg1)
+   * PHPNW unconf [photo](https://goo.gl/photos/BnwWuBtJYo6b77158)
 
 ## Interview
 
