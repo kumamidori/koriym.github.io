@@ -25,14 +25,14 @@ footer: false
 
  * 2012 [phpmatsuri](http://www.phpmatsuri.net/2012/session.html) - PHP: DIS IS IT [slide](http://www.slideshare.net/akihito.koriyama/php-dis-is-it-10628706)
  * 2013  A resource orientated framework using the DI/AOP/REST Triangle
-   * PHPNW13 [program](http://conference.phpnw.org.uk/phpnw13/schedule/akihito-koriyama-richard-mcintyre/) / [photo](https://goo.gl/photos/BnwWuBtJYo6b77158) / [review](https://joind.in/event/phpnw-2013/a-resource-orientated-framework-using-the-diaoprest-triangle)
+   * PHPNW13 [photo](https://goo.gl/photos/BnwWuBtJYo6b77158) / [program](http://conference.phpnw.org.uk/phpnw13/schedule/akihito-koriyama-richard-mcintyre/) / [review](https://joind.in/event/phpnw-2013/a-resource-orientated-framework-using-the-diaoprest-triangle)
    * BBC Sports [photo](https://goo.gl/photos/1qKMhfD9fxY3HsaV6)
    * leedsphp [photo](https://goo.gl/photos/Bg9YdAcu3zc4fxTm6)
  * 2014 [PHP Conference Osaka Keynote](http://conference.kphpug.jp/2014/) - [slide](http://www.slideshare.net/akihito.koriyama/php2014-gm) / [talk](https://www.youtube.com/watch?v=wMYW-ox3BIg)
  * 2015 [PHP Conference Fukuoka Keynote](http://phpcon.fukuoka.jp/2015/index.html) -[slide](https://speakerdeck.com/koriym/the-power-of-connecting-everything-together)
  * 2016 [PHP Conference Osaka](http://conference.kphpug.jp/2016/)
  * 2017 Creating rich universal React apps powered by RESTful PHP [slide](https://speakerdeck.com/koriym/creating-rich-universal-react-apps-powered-by-restful-php)
-   * Sky Sports [photo](https://photos.app.goo.gl/HWNlxg82HrsVi3Jg1)
+   * Sky Sports [photo](https://photos.app.goo.gl/HWNlxg82HrsVi3Jg1) / [program](https://www.linkedin.com/pulse/akihito-koriyama-visits-sky-talk-react-apps-powered-restful-bell/)
    * PHPNW17 unconf [photo](https://photos.app.goo.gl/FNkJXa14ZcCd5hoH2) / [review](https://joind.in/event/phpnw17/creating-rich-universal-react-apps-powered-by-restful-php)
 
 ## Interview
