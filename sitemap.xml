@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://koriym.github.io/blog/2017/11/10/re-code-reading/</loc>
+<lastmod>2017-11-10T11:30:28+09:00</lastmod>
+</url>
+<url>
+<loc>http://koriym.github.io/blog/2017/11/01/self-code-review/</loc>
+<lastmod>2017-11-01T17:26:28+09:00</lastmod>
+</url>
+<url>
 <loc>http://koriym.github.io/blog/2017/07/28/an-interface-as-an-api/</loc>
 <lastmod>2017-07-28T02:59:49+09:00</lastmod>
 </url>
@@ -282,25 +290,7 @@
 <loc>http://koriym.github.io/blog/categories/ted/</loc>
 </url>
 <url>
-<loc>http://koriym.github.io/page2/</loc>
-</url>
-<url>
-<loc>http://koriym.github.io/page3/</loc>
-</url>
-<url>
-<loc>http://koriym.github.io/page4/</loc>
-</url>
-<url>
-<loc>http://koriym.github.io/page5/</loc>
-</url>
-<url>
-<loc>http://koriym.github.io/page6/</loc>
-</url>
-<url>
-<loc>http://koriym.github.io/page7/</loc>
-</url>
-<url>
 <loc>http://koriym.github.io/wp-content/uploads/2013/02/view-source-sandbox.sunday.local-dev-resource-graph.php-uriapp-self-first-hypermedia-payment.html</loc>
-<lastmod>2017-10-23T10:58:22+09:00</lastmod>
+<lastmod>2017-11-09T12:44:52+09:00</lastmod>
 </url>
 </urlset>

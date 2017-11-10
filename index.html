@@ -9,7 +9,8 @@
   <meta name="author" content="Akihito Koriyama">
 
   
-  <meta name="description" content="For extensions, I encourage you to copy entire class and modify it. Does this sound too wild ? Here are my thoughts. Suppose we make a protected &hellip;">
+  <meta name="description" content="このエントリーは
+OTOBANK Engineering BlogのBEAR.Sundayをコードリーディングしたのでメモ程度にアウトプットするのReplyエントリーで、コードリーディングを補間する内容です。(@kaliboraさん、ブログ記事ありがとうございます。) &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,23 +22,14 @@
   <link rel="canonical" href="http://koriym.github.io/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="BEAR Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  <meta property="og:title" content="BEAR Blog" />
-<meta property="og:description" content="For extensions, I encourage you to copy entire class and modify it. Does this sound too wild ? Here are my thoughts. Suppose we make a protected &hellip;" />
-<meta property="og:url" content="http://koriym.github.io/" />
-<meta property="og:image" content="http://bearsunday.github.io/images/icon/favicon-144.png" />
-<meta property="og:author" content="Akihito Koriyama" />
-<meta property="og:site_name" content="BEAR Blog" />
-<meta property="og:locale" content="ja_JP" />
-<meta property="og:type" content="blog" />
-<meta property="fb:app_id" content="516362398477090" />
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
   <script type="text/javascript">
@@ -63,7 +55,6 @@
   
 </hgroup>
 
-<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
 </header>
   <nav role="navigation"><ul class="subscription" data-subscription="rss">
   <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
@@ -72,7 +63,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:koriym.github.io" />
+    <input type="hidden" name="sitesearch" value="koriym.github.io">
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -94,6 +85,615 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2017/11/10/re-code-reading/">Re: BEAR.Sundayをコードリーディングしたのでメモ程度にアウトプットする</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2017-11-10T11:30:28+09:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>11:30 am</span></time>
+        
+           | <a href="/blog/2017/11/10/re-code-reading/#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/blog/2017/11/10/re-code-reading/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>このエントリーは
+OTOBANK Engineering Blogの<a href="http://engineering.otobank.co.jp/entry/2017/10/20/120729">BEAR.Sundayをコードリーディングしたのでメモ程度にアウトプットする</a>のReplyエントリーで、コードリーディングを補間する内容です。(<a href="https://twitter.com/kalibora">@kalibora</a>さん、ブログ記事ありがとうございます。)</p>
+
+<p>元記事と合わせてお読みください。</p>
+
+<blockquote><p>3つのエントリポイント</p>
+
+<p>何はともあれ開始地点であるエントリポイントを見てみます。 webからのアクセス用と、CLI用とで3つありました。
+それぞれの違いは単純にコンテキストを変えているだけ。 そして bootstrap.php を呼んでいるのみ。</p></blockquote>
+
+<p>エントリポイントではコンテキスト(<code>$context</code>)を指定して<code>bootstrap.php</code>ファイルを読み込みます。</p>
+
+<p>３つのファイルは単に例としてあるだけなので、使用してないファイルは削除しても構いません。同様に新しいコンテキストファイルを追加するのも自由です。</p>
+
+<p>条件を指定することもできます。例えばURIが<code>/api/</code>で始まるパスの時にはAPIとしてJSONを返し、その他はHTMLで返すサービスの時はこのようにします。</p>
+
+<figure class='code'><figcaption><span>Webコンテキストによるアプリケーションコンテキストの変更</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$context</span> <span class="o">=</span> <span class="nb">strpos</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;REQUEST_URI&#39;</span><span class="p">],</span> <span class="s1">&#39;/api/&#39;</span><span class="p">)</span> <span class="o">!==</span> <span class="k">false</span> <span class="o">?</span> <span class="s1">&#39;hal-api-app&#39;</span> <span class="o">:</span> <span class="s1">&#39;html-app&#39;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>bootstrap.phpでは何をしているのか？
+このように非常に短いスクリプトで全体の流れを記述しているのみ。</p></blockquote>
+
+<p>解説されてるようにスクリプト全体を記述しています。さらに短く記述するとこのようになります。</p>
+
+<figure class='code'><figcaption><span>bootstrap.php</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$context</span> <span class="o">=</span> <span class="nx">PHP_SAPI</span> <span class="o">===</span> <span class="s1">&#39;cli&#39;</span> <span class="o">?</span> <span class="s1">&#39;cli-hal-app&#39;</span> <span class="o">:</span> <span class="s1">&#39;hal-app&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$app</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">Bootstrap</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getApp</span><span class="p">(</span><span class="s1">&#39;MyVendor\MyApp&#39;</span><span class="p">,</span> <span class="nv">$context</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$request</span> <span class="o">=</span> <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">router</span><span class="o">-&gt;</span><span class="na">match</span><span class="p">(</span><span class="nv">$GLOBALS</span><span class="p">,</span> <span class="nv">$_SERVER</span><span class="p">);</span>
+</span><span class='line'><span class="k">try</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$page</span> <span class="o">=</span> <span class="nv">$app</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">resource</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="p">{</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">method</span><span class="p">}</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">path</span><span class="p">)(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">)</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">transfer</span><span class="p">(</span><span class="nv">$app</span><span class="o">-&gt;</span><span class="na">responder</span><span class="p">,</span> <span class="nv">$_SERVER</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">\Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">error</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="nv">$e</span><span class="p">,</span> <span class="nv">$request</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">transfer</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>バッチ処理ならルーターも不要なのでこのようになります。</p>
+
+<figure class='code'><figcaption><span>ミニマムなブートストラップコード</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">try</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">(</span><span class="k">new</span> <span class="nx">Bootstrap</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getApp</span><span class="p">(</span><span class="s1">&#39;MyVendor\MyApp&#39;</span><span class="p">,</span> <span class="s1">&#39;prod-cli&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">resource</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">post</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;/path/to/command&#39;</span><span class="p">)()</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">transfer</span><span class="p">(</span><span class="nv">$app</span><span class="o">-&gt;</span><span class="na">responder</span><span class="p">,</span> <span class="nv">$_SERVER</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">\Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">error</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="nv">$e</span><span class="p">,</span> <span class="nv">$request</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">transfer</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>さらに短く。単にコンソールでechoする出力で例外処理も不要なら一行になります。</p>
+
+<figure class='code'><figcaption><span>一行ブートストラップコード</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">echo</span> <span class="p">(</span><span class="k">new</span> <span class="nx">Bootstrap</span><span class="p">)</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">getApp</span><span class="p">(</span><span class="s1">&#39;MyVendor\MyApp&#39;</span><span class="p">,</span> <span class="s1">&#39;prod-cli&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">resource</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">post</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;/path/to/command&#39;</span><span class="p">)();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>複数のアプリを組み合わせた出力を得たい場合には以下のようにできます。</p>
+
+<figure class='code'><figcaption><span>複数アプリを統合</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$name</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">Bootstrap</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getApp</span><span class="p">(</span><span class="s1">&#39;MyVendor\MyApp1&#39;</span><span class="p">,</span> <span class="s1">&#39;prod-cli&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">resource</span><span class="o">-&gt;</span><span class="na">get</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;/user&#39;</span><span class="p">)(</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bear&#39;</span><span class="p">)[</span><span class="s1">&#39;name&#39;</span><span class="p">];</span>
+</span><span class='line'><span class="nv">$role</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">Bootstrap</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getApp</span><span class="p">(</span><span class="s1">&#39;MyVendor\MyApp2&#39;</span><span class="p">,</span> <span class="s1">&#39;prod-cli&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">resource</span><span class="o">-&gt;</span><span class="na">get</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;/role&#39;</span><span class="p">)(</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bear&#39;</span><span class="p">)[</span><span class="s1">&#39;role&#39;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">echo</span> <span class="nb">json_encode</span><span class="p">([</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">,</span> <span class="s1">&#39;role&#39;</span> <span class="o">=&gt;</span> <span class="nv">$role</span><span class="p">]);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>アプリケーション全体を実行するスクリプトがフレームワーク本体にではなく、アプリケーションにあるので自由にカスタマイズできます。</p>
+
+<blockquote><p>$app とは何者なのか？</p></blockquote>
+
+<p><code>$app</code>は<strong>オブジェクトグラフ</strong>のルートオブジェクトです。</p>
+
+<p>オブジェクトグラフとは何でしょうか？</p>
+
+<blockquote><p>オブジェクト指向のアプリケーションは相互に関係のある複雑なオブジェクト網を含んでいます。オブジェクトはあるオブジェクトから所有されているか、他のオブジェクト（またはそのリファレンス）を含んでいるか、そのどちらかでお互いに接続されています。このオブジェクト網をオブジェクトグラフと呼びます。</p></blockquote>
+
+<p>DIのベストプラクティスとしてGoogleのGuiceでは以下の方法を勧めています。</p>
+
+<blockquote><p>Your code should deal directly with the Injector as little as possible. Instead, you want to bootstrap your application by injecting one root object. The container can further inject dependencies into the root object&rsquo;s dependencies, and so on recursively. In the end, your application should ideally have one class (if that many) which knows about the Injector, and every other class should expect to have dependencies injected.</p>
+
+<p>開発者のコードは、可能な限りInjectorを直接使うのを避けなければなりません。代わりに、1つのルートオブジェクトを注入してアプリケーションをブートストラップします。このルートオブジェクトのクラスは、依存する他のオブジェクト(<code>$app-&gt;router</code>や<code>$app-&gt;resourece</code>)を取得するためのDIする必要がり、依存するオブジェクトのクラスも同様に依存するオブジェクトのためのDIが必要です。
+その代わりにルートの一つのオブジェクトに注入します。コンテナは、依存関係をルートオブジェクトの依存関係に注入を再帰的に行うことができます。
+あなたのアプリケーションはInjectorについて知っている1つのクラスだけを持つのが理想です。その他のすべてのクラスは依存関係を注入することを期待するべきです。</p></blockquote>
+
+<p>オブジェクト網の一番最初のルートのオブジェクトが<code>$app</code>です。</p>
+
+<p>可能な限りインジェクターをユーザーが直接使うことを避けるべきです。ライブラリにおいてもインジェクターを知るクラスを原則無しにします。ユーザーがコンテナを直接操作するのはDIではなく、アンチパターンのサービスロケーターです。(オブジェクトは他のオブジェクトの依存になっているのでで、通常のサービスクラスはユーザーがコンテナを触らずともDIで取得できるはずです。)</p>
+
+<p>BEAR.Sundayでは基本２箇所だけ。ルートオブジェクトを生成する<code>Bootstrap</code>とリソースを生成するためのファクトリークラスです。</p>
+
+<p><code>bootstrap.php</code>ではその<code>$app</code>のプロパティだけを使ってアプリケーションを実行します。</p>
+
+<p>リソースオブジェクトリクエスを埋め込む<code>@Embed</code>の機能は実質リソースオブジェクト(ResourceObject)のDIです。<code>@Embed</code>や<code>@Link</code>を使うとリソースファクトリーのコードを使うことなくルートの<code>$app</code>の取得の時のみインジェクターが利用されます。ResourceObject内では<code>$this-&gt;resource-&gt;uri()</code>でリソースオブジェクトを生成するより、<code>@Embed</code>でインジェクトすることを考慮してみましょう。</p>
+
+<blockquote><p>AppInjector？
+AppInjector::getInstance() メソッドでは、指定したinterfaceに束縛されたインスタンスを、依存解決済みで返してくれる。</p></blockquote>
+
+<p>アプリケーションの<code>名前</code>と<code>コンテキスト</code>とインターフェイス（また抽象クラス）指定すると、インスタンスを取得することができるのがAppInjector（アプリケーションディペンデンシーインジェクター）です。
+BEAR.Sundayでは複数のアプリケーションがそれぞれ名前空間を持ち同時に存在できます。</p>
+
+<p><code>AppInjector</code>はプロダクションコードでは（Gooogle Guiceのベストプラクティスの通り）Bootstrapで一度使われるだけですが、テストに有用です。</p>
+
+<p>無名クラスを使って以下のように、モックやスタブを束縛することができます。</p>
+
+<figure class='code'><figcaption><span>無名クラスで上書き束縛</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">testAnonymousClassBinding</span><span class="p">()</span>
+</span><span class='line'>    <span class="nv">$injector</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppInjector</span><span class="p">(</span><span class="s1">&#39;FakeVendor\HelloWorld&#39;</span><span class="p">,</span> <span class="s1">&#39;hal-app&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nv">$module</span> <span class="o">=</span> <span class="k">new</span> <span class="k">class</span> <span class="nc">extends</span> <span class="nx">AbstractModule</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">protected</span> <span class="k">function</span> <span class="nf">configure</span><span class="p">()</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bind</span><span class="p">(</span><span class="nx">FooInterface</span><span class="o">::</span><span class="na">class</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">to</span><span class="p">(</span><span class="nx">Foo</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'><span class="nx">app</span><span class="s1">&#39;);</span>
+</span><span class='line'><span class="s1">    $index = $injector-&gt;getOverrideInstance($module, Index::class);</span>
+</span><span class='line'><span class="s1">    $name = $index([&#39;</span><span class="nx">id</span><span class="s1">&#39; =&gt; 1])-&gt;body[&#39;</span><span class="nx">name</span><span class="s1">&#39;];</span>
+</span><span class='line'><span class="s1">    $this-&gt;assertSame(&#39;</span><span class="nx">BEAR</span><span class="err">&#39;</span><span class="p">,</span> <span class="nv">$name</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="http://bearsunday.github.io/manuals/1.0/ja/test.html">http://bearsunday.github.io/manuals/1.0/ja/test.html</a></p>
+
+<blockquote><p>（最初の1回目の場合は、依存解決したものをすべてフラットなPHPファイルとしてダンプする。これをコンパイル処理と呼んでいるみたい）</p></blockquote>
+
+<p>全ての依存ファイルのファクトリーコードは生のPHPファイルとしてダンプされます。インターフェイスだけで作られたシステムは、実際にどのオブジェクトがどのように生成されるか明らかにするのが難しい場合がありますがファクトリークラスを見れば明らかです。シングルトンかプロトタイプかも確認できます。詳細は<a href="http://bearsunday.github.io/manuals/1.0/ja/di.html">DI</a>のデバックをご覧ください。</p>
+
+<blockquote><p>$contexts = cli-hal-api-app であれば<code>MyVendor\MyPackage\Module\AppModule</code>&hellip;の順番で読み込まれる。しかし優先順位はその逆である。</p></blockquote>
+
+<p>これはGoFのデコレーターパターンです。最初に<code>AppModule</code>で束縛されたDIとAOPの設定を外側で"デコレート" 変更しています。</p>
+
+<p>モードで振る舞いを変更するのではなく、後読み優先のモジュールで束縛したクラスを変更して振る舞いを変えています。
+<code>cli-hal-api-app</code>であれば<code>AppModule</code>でされている束縛はその後の<code>ApiModule</code>や<code>CliModule</code>で変更することができます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">foo</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nv">$isDebug</span> <span class="o">=</span> <span class="nx">Config</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;app.debug&#39;</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nv">$isDebug</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">logger</span><span class="o">-&gt;</span><span class="na">log</span><span class="p">(</span><span class="nv">$text</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>などとメソッド内でモードを判定して、振る舞いを変えるのではなく</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">LoggerInterface</span> <span class="nv">$logger</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">logger</span> <span class="o">=</span> <span class="nv">$logger</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">foo</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">logger</span><span class="o">-&gt;</span><span class="na">log</span><span class="p">(</span><span class="nv">$text</span><span class="p">);</span> <span class="c1">// 開発以外は何もしないNullLoggerが束縛されている</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上記のように<code>LoggerInterface</code>に対する束縛をモジュールで変更します。条件や状態を少なくすることは、コード品質の向上に役立ちます。</p>
+
+<blockquote><p>$requestとは？
+HTTPリクエストから、BEARで扱う形式への変換、マッピングというのがこの処理の肝なのではないだろうか。</p></blockquote>
+
+<p>その通りです。WebリクエストをPHPリクエストに変える（ディスパッチ）のためのルーターの結果の値オブジェクト <a href="https://github.com/bearsunday/BEAR.Sunday/blob/1.x/src/Extension/Router/RouterMatch.php">RouterMatch</a>です。</p>
+
+<p><code>$request</code>には<code>$method</code>、<code>$path</code>、<code>$query</code>の値が保存されています。<code>$path</code>がリソースクラスに、$methodがリソースクラスのメソッドに、
+名前付き引数（named parameters)の$queryがPHPの（順序）引数(oredered parameters)に変換されます。</p>
+
+<p>リソースクラスではWebコンテキスト($_SERVERなどの値)がどのようになってるかを調べ回るようなコードは避けるべきで、リソースクラスの外側でWebコンテキストの値を全て単なるPHPの値に変換しておきます。そうすることコンソールとWebのどちらでも実行が可能でテストが容易なコードになります。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$page</span> <span class="o">=</span> <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">resource</span><span class="o">-&gt;</span><span class="p">{</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">method</span><span class="p">}</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">path</span><span class="p">)(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>$pageとは？</p></blockquote>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&gt;</span> <span class="nv">$page</span> <span class="o">=</span> <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">resource</span><span class="o">-&gt;</span><span class="p">{</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">method</span><span class="p">}</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">path</span><span class="p">)(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>元記事で順番に辿ってる通りです。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&gt;</span> <span class="nv">$resource</span> <span class="o">=</span> <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">resource</span><span class="p">;</span> <span class="c1">// BEAR\Resource\Resource</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>リソースクラアイントが取得され</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$resource</span> <span class="o">=</span> <span class="nv">$resource</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">;</span> <span class="c1">// BEAR\Resource\Resource</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>get</code>リクエストをプロパティとして保存します</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$request</span> <span class="o">=</span> <span class="nv">$resource</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;app://self/path/to&#39;</span><span class="p">);</span> <span class="c1">// BEAR\Resource\Request</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>uri()</code>はリクエストオブジェクトののファクトリーメソッドです。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$page</span> <span class="o">=</span> <span class="nv">$request</span><span class="p">(</span><span class="s1">&#39;key&#39;</span><span class="o">=&gt;</span> <span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="s1">&#39;hoge&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;fuga&#39;</span><span class="p">]);</span> <span class="c1">// BEAR\Resource\ResourceObject</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>リクエストオブジェクトは<code>__invoke</code>を実装しているので関数のように直接実行できます。<code>__toString</code>メソッドも実装しているので文字列評価すると文字列になります。この時の文字がはリソースの状態の表現(representational resource state)です。</p>
+
+<blockquote><p>今回のまとめ
+$app が面白いですね。全部そこにまとまっているっていうのが。</p></blockquote>
+
+<p>$appはアプリケーションはシリアライズ可能でプロダクションではキャッシュされて実行されます。
+１つのオブジェクト網なのでビジュアライゼーションも可能です。</p>
+
+<p><img src="/images/blog/app.png" alt="$app" />(<a href="http://koriym.github.io/print_o/v1/libs/bear.sunday.html">http://koriym.github.io/print_o/v1/libs/bear.sunday.html</a>)</p>
+
+<p><a href="http://koriym.github.io/print_o/v1/libs/bear.sunday.html">$appのビジュアライゼーション</a></p>
+
+<p>var_dump()などでは表現できないシングルトンオブジェクトなども表現できていることに気づかれるでしょう。重大なエラーが発生した時にバックトレースばかりでなく、<code>/var/log/</code>フォヅダにあるログで<code>$app</code>がどのように生成されているかを確認することもできます。</p>
+
+<p>アノテーションやDI、codegenを用いたAOPコード作成など膨大な本来は膨大な初期化コストがかかりますが、<code>$app</code>を１つのオブジェクトとして保存することにより<a href="https://github.com/kenjis/php-framework-benchmark">パフォーマンスの問題を解決</a>しています。ResourceObjectも全てが最初にコンパイル（ファクトリーコードの生成）されるので、依存解決の問題がプログラムの途中で発生することがないと言うメリットもあります。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2017/11/01/self-code-review/">Self Code Review</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2017-11-01T17:26:28+09:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2017</span></span> <span class='time'>5:26 pm</span></time>
+        
+           | <a href="/blog/2017/11/01/self-code-review/#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/blog/2017/11/01/self-code-review/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><blockquote><p>3つのエントリポイント</p>
+
+<p>何はともあれ開始地点であるエントリポイントを見てみます。 webからのアクセス用と、CLI用とで3つありました。
+それぞれの違いは単純にコンテキストを変えているだけ。 そして bootstrap.php を呼んでいるのみ。</p></blockquote>
+
+<p>エントリポイントではコンテキスト(<code>$context</code>)を指定して<code>bootstrap.php</code>ファイルを読み込みます。</p>
+
+<p>３つのファイルは単に例としてあるだけなので不使用なファイルは削除しても構いません。同様に新しいコンテキストファイルを追加するのも自由です。</p>
+
+<p>要件によって条件を指定したファイルを使うこともできます。
+例えば<code>/api/</code>で始まるパスの時にはAPIとしてJSONを返し、その他はHTMLで返すサービスの時はこのようにします。</p>
+
+<figure class='code'><figcaption><span>Webコンテキストによるアプリケーションコンテキストの変更</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$context</span> <span class="o">=</span> <span class="nb">strpos</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;REQUEST_URI&#39;</span><span class="p">],</span> <span class="s1">&#39;/api/&#39;</span><span class="p">)</span> <span class="o">!==</span> <span class="k">false</span> <span class="o">?</span> <span class="s1">&#39;hal-api-app&#39;</span> <span class="o">:</span> <span class="s1">&#39;html-app&#39;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>bootstrap.phpでは何をしているのか？
+このように非常に短いスクリプトで全体の流れを記述しているのみ。</p></blockquote>
+
+<p>bootstrapはブートの部分でもありますが、解説されてるようにスクリプト全体を記述しています。
+さらに短く記述するとこのようになります。</p>
+
+<figure class='code'><figcaption><span>bootstrap.php</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$context</span> <span class="o">=</span> <span class="nx">PHP_SAPI</span> <span class="o">===</span> <span class="s1">&#39;cli&#39;</span> <span class="o">?</span> <span class="s1">&#39;cli-hal-app&#39;</span> <span class="o">:</span> <span class="s1">&#39;hal-app&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$app</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">Bootstrap</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getApp</span><span class="p">(</span><span class="s1">&#39;MyVendor\MyApp&#39;</span><span class="p">,</span> <span class="nv">$context</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$request</span> <span class="o">=</span> <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">router</span><span class="o">-&gt;</span><span class="na">match</span><span class="p">(</span><span class="nv">$GLOBALS</span><span class="p">,</span> <span class="nv">$_SERVER</span><span class="p">);</span>
+</span><span class='line'><span class="k">try</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$page</span> <span class="o">=</span> <span class="nv">$app</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">resource</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="p">{</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">method</span><span class="p">}</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">path</span><span class="p">)(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">)</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">transfer</span><span class="p">(</span><span class="nv">$app</span><span class="o">-&gt;</span><span class="na">responder</span><span class="p">,</span> <span class="nv">$_SERVER</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">\Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">error</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="nv">$e</span><span class="p">,</span> <span class="nv">$request</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">transfer</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>バッチ処理など特定のリソースが呼び出されるならルーターも不要なのでこのようになります。</p>
+
+<figure class='code'><figcaption><span>ミニマムなブートストラップコード</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">try</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">(</span><span class="k">new</span> <span class="nx">Bootstrap</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getApp</span><span class="p">(</span><span class="s1">&#39;MyVendor\MyApp&#39;</span><span class="p">,</span> <span class="s1">&#39;prod-cli&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">resource</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">post</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;/path/to/command&#39;</span><span class="p">)()</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">transfer</span><span class="p">(</span><span class="nv">$app</span><span class="o">-&gt;</span><span class="na">responder</span><span class="p">,</span> <span class="nv">$_SERVER</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">\Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">error</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="nv">$e</span><span class="p">,</span> <span class="nv">$request</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">transfer</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>さらに単にコンソールでechoする出力で例外処理も不要ならこのように一行になります。</p>
+
+<figure class='code'><figcaption><span>一行ブートストラップコード</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">echo</span> <span class="p">(</span><span class="k">new</span> <span class="nx">Bootstrap</span><span class="p">)</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">getApp</span><span class="p">(</span><span class="s1">&#39;MyVendor\MyApp&#39;</span><span class="p">,</span> <span class="s1">&#39;prod-cli&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">resource</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">post</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;/path/to/command&#39;</span><span class="p">)();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>複数のアプリを組み合わせた出力を得たい場合には以下のようにできます。</p>
+
+<figure class='code'><figcaption><span>複数アプリを統合</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$name</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">Bootstrap</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getApp</span><span class="p">(</span><span class="s1">&#39;MyVendor\MyApp1&#39;</span><span class="p">,</span> <span class="s1">&#39;prod-cli&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">resource</span><span class="o">-&gt;</span><span class="na">get</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;/user&#39;</span><span class="p">)(</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bear&#39;</span><span class="p">)[</span><span class="s1">&#39;name&#39;</span><span class="p">];</span>
+</span><span class='line'><span class="nv">$role</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">Bootstrap</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getApp</span><span class="p">(</span><span class="s1">&#39;MyVendor\MyApp2&#39;</span><span class="p">,</span> <span class="s1">&#39;prod-cli&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">resource</span><span class="o">-&gt;</span><span class="na">get</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;/role&#39;</span><span class="p">)(</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bear&#39;</span><span class="p">)[</span><span class="s1">&#39;role&#39;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">echo</span> <span class="nb">json_encode</span><span class="p">([</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">,</span> <span class="s1">&#39;role&#39;</span> <span class="o">=&gt;</span> <span class="nv">$role</span><span class="p">]);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>アプリケーション全体を実行するスクリプトがフレームワーク本体にではなく、アプリケーションにあるので自由にカスタマイズできます。</p>
+
+<blockquote><p>$app とは何者なのか？</p></blockquote>
+
+<p>DIのベストプラクティスとしてGoogleのGuiceでは以下の方法を勧めています。</p>
+
+<blockquote><p>Your code should deal directly with the Injector as little as possible. Instead, you want to bootstrap your application by injecting one root object. The container can further inject dependencies into the root object&rsquo;s dependencies, and so on recursively. In the end, your application should ideally have one class (if that many) which knows about the Injector, and every other class should expect to have dependencies injected.</p>
+
+<p>開発者のコードは、可能な限りInjectorを直接使うのを避けなければなりません。代わりに、1つのルートオブジェクトを注入してアプリケーションをブートストラップします。このルートオブジェクトのクラスは、依存する他のオブジェクト(<code>$app-&gt;router</code>や<code>$app-&gt;resourece</code>)を取得するためのDIする必要がり、依存するオブジェクトのクラスも同様に依存するオブジェクトのためのDIが必要です。
+その代わりにルートの一つのオブジェクトに注入します。コンテナは、依存関係をルートオブジェクトの依存関係に注入を再帰的に行うことができます。
+あなたのアプリケーションはInjectorについて知っている1つのクラスだけを持つのが理想です。その他のすべてのクラスは依存関係を注入することを期待するべきです。</p></blockquote>
+
+<p>可能な限りインジェクターをユーザーが直接使うことを避けるべきです。コントローラーがコンテナを直接操作するのはDIではなく、アンチパターンのサービスロケーターです。</p>
+
+<p>インジェクターを知るクラスを可能な限り最小にします。BEAR.Sundayでは基本２箇所だけ。ルートオブジェクトを生成する<code>Bootstrap</code>とリソースを生成するためのファクトリークラスです。
+オブジェクトは他のオブジェクトの依存になっている訳で、通常のサービスクラスはユーザーがコンテナを触らずともDIで取得できるはずです。</p>
+
+<p>その一番ルートのオブジェクトが<code>$app</code>です。<code>bootstrap.php</code>ではその<code>$app</code>のプロパティだけを使ってアプリケーションを実行します。</p>
+
+<p>リソースオブジェクトリクエスを埋め込む<code>@Embed</code>の機能は実質リソースオブジェクトのDIです。
+<code>@Embed</code>や<code>@Link</code>を使うとリソースファクトリーのコードを使うことなくルートの<code>$app</code>の取得の時のみインジェクターが利用されます。これは１つのオブジェクトグラフだけで全ての処理が完結する理想的なオブジェクトです。</p>
+
+<blockquote><p>AppInjector？</p></blockquote>
+
+<p>アプリケーションの<code>名前</code>と<code>コンテキスト</code>とインターフェイス（また抽象クラス）指定すると、インスタンスを取得することができるのがAppInjector（アプリケーション・ディペンデンシー・インジェクター）です。
+BEAR.Sundayでは複数のアプリケーションがそれぞれ名前空間を持ち同時に存在できます。</p>
+
+<p><code>AppInjector</code>はプロダクションコードでは（Gooogle Guiceのベストプラクティスの通り）Bootstrapで一度使われるだけですが、テストに有用です。</p>
+
+<p>無名クラスを使って以下のように、モックやスタブを束縛することができます。</p>
+
+<figure class='code'><figcaption><span>無名クラスで上書き束縛</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">testAnonymousClassBinding</span><span class="p">()</span>
+</span><span class='line'>    <span class="nv">$injector</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppInjector</span><span class="p">(</span><span class="s1">&#39;FakeVendor\HelloWorld&#39;</span><span class="p">,</span> <span class="s1">&#39;hal-app&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nv">$module</span> <span class="o">=</span> <span class="k">new</span> <span class="k">class</span> <span class="nc">extends</span> <span class="nx">AbstractModule</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">protected</span> <span class="k">function</span> <span class="nf">configure</span><span class="p">()</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bind</span><span class="p">(</span><span class="nx">FooInterface</span><span class="o">::</span><span class="na">class</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">to</span><span class="p">(</span><span class="nx">Foo</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'><span class="nx">app</span><span class="s1">&#39;);</span>
+</span><span class='line'><span class="s1">    $index = $injector-&gt;getOverrideInstance($module, Index::class);</span>
+</span><span class='line'><span class="s1">    $name = $index([&#39;</span><span class="nx">id</span><span class="s1">&#39; =&gt; 1])-&gt;body[&#39;</span><span class="nx">name</span><span class="s1">&#39;];</span>
+</span><span class='line'><span class="s1">    $this-&gt;assertSame(&#39;</span><span class="nx">BEAR</span><span class="err">&#39;</span><span class="p">,</span> <span class="nv">$name</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="http://bearsunday.github.io/manuals/1.0/ja/test.html">http://bearsunday.github.io/manuals/1.0/ja/test.html</a></p>
+
+<blockquote><p>$contexts = cli-hal-api-app であれば<code>MyVendor\MyPackage\Module\AppModule</code>&hellip;の順番で読み込まれる。しかし優先順位はその逆である。</p></blockquote>
+
+<p>これはGoFのデコレーターパターンです。最初に<code>AppModule</code>で束縛されたDIとAOPの設定を外側で"デコレート" 変更しています。</p>
+
+<p>モードで振る舞いを変更するのではなく、後読み優先のモジュールで束縛したクラスを変更して振る舞いを変えています。
+<code>cli-hal-api-app</code>であれば<code>AppModule</code>でされている束縛はその後の<code>ApiModule</code>や<code>CliModule</code>で変更することができます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">foo</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nv">$isDebug</span> <span class="o">=</span> <span class="nx">Config</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;app.debug&#39;</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nv">$isDebug</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">logger</span><span class="o">-&gt;</span><span class="na">log</span><span class="p">(</span><span class="nv">$text</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>などとメソッド内でモードを判定して、振る舞いを変えるのではなく</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">LoggerInterface</span> <span class="nv">$logger</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">logger</span> <span class="o">=</span> <span class="nv">$logger</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">foo</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">logger</span><span class="o">-&gt;</span><span class="na">log</span><span class="p">(</span><span class="nv">$text</span><span class="p">);</span> <span class="c1">// 開発以外は何もしないNullLoggerが束縛されている</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>として<code>LoggerInterface</code>に対する束縛をモジュールで変更します。</p>
+
+<blockquote><p>$requestとは？
+HTTPリクエストから、BEARで扱う形式への変換、マッピングというのがこの処理の肝なのではないだろうか。</p></blockquote>
+
+<p>その通りです。</p>
+
+<p>ルーターの結果の値オブジェクト <a href="https://github.com/bearsunday/BEAR.Sunday/blob/1.x/src/Extension/Router/RouterMatch.php">RouterMatch</a>です。
+<code>$method</code>、<code>$path</code>、<code>$query</code>の値を保存します。<code>$path</code>がリソースクラスに、$methodがリソースクラスのメソッドに、
+名前付き引数（named parameters)の$queryがPHPの（順序）引数(oredered parameters)に変換されます。</p>
+
+<p>リソースクラスではWebコンテキストがどのような値を持っているのかを調べ回るようなコードは避けるべきで、Webコンテキストの値はクラスの外側で全て単なるPHPの値に変換しておくことが重要です。
+リソースオブジェクトはWebコンテキストの値に関して無知にします。そうすることコンソールとWebのどちらでも実行が可能でテストが容易なコードになります。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$page</span> <span class="o">=</span> <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">resource</span><span class="o">-&gt;</span><span class="p">{</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">method</span><span class="p">}</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">path</span><span class="p">)(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>$pageとは？</p>
+
+<p>$page = $app->resource->{$request->method}->uri($request->path)($request->query);</p></blockquote>
+
+<p>パスで指定されたPHPのリソースオブジェクトクラスは、PSR7などでも採用されているイミュータブルオブジェクトとして扱われます。ユーザーは<code>$this</code>でオブジェクトのcode/headers/bodyの状態を変更します。</p>
+
+<p>Webコンテキスト（<code>$_SERVER</code>の値など外部環境の値）を関数呼び出し</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2017/07/28/an-interface-as-an-api/">An Interface as an API</a></h1>
     
     
@@ -103,16 +703,10 @@
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2017-07-28T02:59:49+09:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2017-07-28T02:59:49+09:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>28</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>2:59 am</span></time>
         
-         | <a href="/blog/2017/07/28/an-interface-as-an-api/#disqus_thread">Comments</a>
+           | <a href="/blog/2017/07/28/an-interface-as-an-api/#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/blog/2017/07/28/an-interface-as-an-api/">Comments</a>
         
       </p>
     
@@ -151,16 +745,10 @@
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2015-12-04T11:00:00+09:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2015-12-04T11:00:00+09:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:00 am</span></time>
         
-         | <a href="/blog/2015/12/04/php7-dot-0-0/#disqus_thread">Comments</a>
+           | <a href="/blog/2015/12/04/php7-dot-0-0/#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/blog/2015/12/04/php7-dot-0-0/">Comments</a>
         
       </p>
     
@@ -236,16 +824,10 @@ composerの登場もありました。言語もPHPコミュニティもエコシ
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2015-07-01T00:44:00+09:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2015-07-01T00:44:00+09:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>12:44 am</span></time>
         
-         | <a href="/blog/2015/07/01/phpconfuk2015/#disqus_thread">Comments</a>
+           | <a href="/blog/2015/07/01/phpconfuk2015/#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/blog/2015/07/01/phpconfuk2015/">Comments</a>
         
       </p>
     
@@ -302,16 +884,10 @@ PHPの生まれた1995年を懐かしいという人もいたし、PHPと自分�
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2015-06-08T19:03:00+09:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2015-06-08T19:03:00+09:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>7:03 pm</span></time>
         
-         | <a href="/blog/2015/06/08/haphpy-birthday/#disqus_thread">Comments</a>
+           | <a href="/blog/2015/06/08/haphpy-birthday/#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/blog/2015/06/08/haphpy-birthday/">Comments</a>
         
       </p>
     
@@ -359,16 +935,10 @@ PHPの生まれた1995年を懐かしいという人もいたし、PHPと自分�
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2015-05-31T18:50:00+09:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2015-05-31T18:50:00+09:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>31</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>6:50 pm</span></time>
         
-         | <a href="/blog/2015/05/31/first-bear-sunday-stable-release/#disqus_thread">Comments</a>
+           | <a href="/blog/2015/05/31/first-bear-sunday-stable-release/#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/blog/2015/05/31/first-bear-sunday-stable-release/">Comments</a>
         
       </p>
     
@@ -470,16 +1040,10 @@ BEAR.Saturdayの時からずっとBEARのファンでいてくれる <a href="ht
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2014-06-29T08:59:00+09:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2014-06-29T08:59:00+09:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>8:59 am</span></time>
         
-         | <a href="/blog/2014/06/29/phpkansai2014/#disqus_thread">Comments</a>
+           | <a href="/blog/2014/06/29/phpkansai2014/#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/blog/2014/06/29/phpkansai2014/">Comments</a>
         
       </p>
     
@@ -614,16 +1178,10 @@ BEAR.Saturdayの時からずっとBEARのファンでいてくれる <a href="ht
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2014-06-22T11:14:00+09:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2014-06-22T11:14:00+09:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2014</span></span> <span class='time'>11:14 am</span></time>
         
-         | <a href="/blog/2014/06/22/phpnw2013-3-feedback/#disqus_thread">Comments</a>
+           | <a href="/blog/2014/06/22/phpnw2013-3-feedback/#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/blog/2014/06/22/phpnw2013-3-feedback/">Comments</a>
         
       </p>
     
@@ -803,16 +1361,10 @@ phpnwは参加者同士が交流できる多くの時間が用意されていま
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2014-06-10T02:34:00+09:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2014-06-10T02:34:00+09:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>2:34 am</span></time>
         
-         | <a href="/blog/2014/06/10/tedxtokyo-2014/#disqus_thread">Comments</a>
+           | <a href="/blog/2014/06/10/tedxtokyo-2014/#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/blog/2014/06/10/tedxtokyo-2014/">Comments</a>
         
       </p>
     
@@ -917,888 +1469,9 @@ TEDxTokyoはその精神を引き継いだ米国以外では初めてのTEDxイ�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/06/08/action-domain-responder/">Action-Domain-Responder</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-08T09:50:00+09:00" pubdate data-updated="true"></time>
-        
-         | <a href="/blog/2014/06/08/action-domain-responder/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img class="left" src="https://raw.githubusercontent.com/pmjones/mvc-refinement/master/adr.png">
-<br clear=all>
-<a href="https://github.com/pmjones/mvc-refinement">https://github.com/pmjones/mvc-refinement</a></p>
-
-<p>Here is my random thought about <a href="https://github.com/pmjones/mvc-refinement">ADR</a>.</p>
-
-<p>It seems the each component seems to have their own each distinct and meaningful role. Devs will follow a more natural workflow with it. Domains become first class citizens compared to a “data provider” to their GOD controller in some MVC framework.</p>
-
-<p> I like the fact that an action returns a responder (not actually invoking the action). Data can then be retrieved and tested. Actions can call other actions creating a hierarchical information structure  for which MVC stuggles to provide a solution. Testing and gaining 100% code coverage also seems much easier without using a web driver.</p>
-
-<p>I don’t see any particular problem in having  “More classes in the application”. I think it can gain more benefit by having a smaller amount of LOC per class. It seems people can move from MVC to ADR with ease and gain the benefits instantly.</p>
-
-<p>I would like to add a few personal slightly biased comments, (Just casual remarks - feel free to dismiss.)</p>
-
-<p>In most MVC application frameworks, the existing system (architecture) is mapped to the web. CRUD and OOP paradigms are mapped to HTTP methods and resources. But the opposite is not true. ADR seems to have the same limitation. I would like to echo @nateabele’s tweet “resources aren&rsquo;t like controllers, in that they&rsquo;re intended to be more cohesive”.</p>
-
-<p>I also wonder if I can inject arguments, not “retain incoming data” to an Action, actions can then be an easier to utilize by another Action?</p>
-
-<p>A few questions about the Responder ? “the Action would grab a Domain and represent it through a Responder.” Instead of an Action interacting with the Responder, how about have the Responder look at the Action’s data and use that ? In doing this Action is completely ignorant of the Responder?  Or am I misunderstanding something ?</p>
-
-<p>Conclusion:</p>
-
-<p>To discover the next generation web application framework, grasping a new application architecture seems to be crucial, rather than just a gradual improvement of the MVC pattern. I think it is exciting that an influential person like Paul M. Jones (my PHP hero) is pushing these boundaries somewhat. ADR can be a good replacement of MVC pattern, especially for those who have used an MVC framework but also looks forward a little what might be next. I like it.</p>
-
-<p>English proofreading: <a href="https://twitter.com/mackstar">Richard McIntyre</a></p>
-
-<p>(Arigato as always :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/10/phpnw2013-part2/">PHPNW 2013(2) - Presentation</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-10T19:53:00+09:00" pubdate data-updated="true"></time>
-        
-         | <a href="/blog/2014/01/10/phpnw2013-part2/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><em>※ <a href="/blog/2014/01/04/phpnw2013/">PHPNW 2013(1)</a> からの続きです</em></p>
-
-<p>&ldquo;何のためにイギリスまで行って話をするのか&rdquo;-この問いに対して高い目標を持っていました。</p>
-
-<p>「世界レベルのプロのエンジニア/アーキテクトの人達をインスパイアさせたい」</p>
-
-<p>単に自分のソフトウェアの紹介や、便利な使い方を紹介するだけで終わるつもりはありませんでした。
-持ち時間は50分。終わりにQ&amp;Aを考えると40分前後が実質のプレゼンテーションの時間です。自己紹介、DIは自分で、AOPをリチャードさん、そしてRESTを通訳、最後にまとめを自分がするというハイブリッドなプレゼンテーションにしました。</p>
-
-<p>無名のフレームワークの話をどれだけの人が聞きに来るか、想像も付きませんでしたが立ち見は出ないまでもほぼ満席です。知った顔も見えます。（leedsphpでのセッションの人達がまた聞きに来てくれてました。）
-多くのボランティアスタッフがphpnwカンファレンスの運営を支えてますが、撮影スタッフはプロです。会場の一番奥にいる2人組の撮影クルーのとなりの壁掛けデジタル時計が15:00:00を指したらプレゼンテーションスタートです。</p>
-
-<p>撮影されたビデオはいまだに公開されていないので、発表ノートと共に全てのスライド77枚を紹介します。</p>
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.002.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<h2>Introduction</h2>
-
-<p>(after self introduction)</p>
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.005.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>I was really surprised when BEAR.Sunday was chosen for this great conference session.</p>
-
-<p>I am very happy be here as a speaker.</p>
-
-<p>But, some of you guys may wonder (or may have doubts) about an unknown person talking about an unknown framework.
- But I’m not here to teach you how to use my framework. No.
- I’m here to share a new way of thinking, a new way of solving web problems.</p>
-
-<p>How do we look at these problems. Yes, It’s about outlook.</p>
-
-<p>Ok let’s start.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.006.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>BEAR.Sunday offers no libraries of its own.</p>
-
-<p>PHP namespaces, PSR, a new coding github culture, unit testing, a new trend of library oriented frameworks&hellip; these have all happened recently and push us to a more library oriented way of thinking.</p>
-
-<p>So BEAR.Sunday chooses not to have it’s own components, It uses others from aura, symfony and zend etc.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.007.jpg" title="BEAR.Sunday@PHPNW13" >
-No libraries, instead, BEAR.Sunday offers three object frameworks.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.008.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>What is the framework, by the way ?</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.009.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>My friend told me like that.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.013.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>Dependency Injection framework,
-Aspect Oriented Framework,
-and Hypermedia framework for object as a service.
-&hellip; these technology are centered but also widely used in BEAR.Sunday framework.</p>
-
-<p>Let’s take a look one by one.  So which one attracts you ?
-let’s start DI.</p>
-
-<h1>DI Framework</h1>
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.014.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>DI &hellip; in many case, People said DI is good tool for testing.
-Well, it is true&hellip;but  Is it really core value for DI pattern ? 
-We will see some another benefit, mainly these two. </p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.015.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>DIP, Dependency Inversion Principle.</p>
-
-<p>&ldquo;How many of you know this principle ?&rdquo;</p>
-
-<p>(around 70%)</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.016.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>Robert C. Martin says the following.</p>
-
-<p>So I decided that we should take this seriously.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.017.jpg" title="BEAR.Sunday@PHPNW13" >
-Let’s take look at the code.</p>
-
-<p>BEAR.Sunday uses Ray.Di which is a subset of Google Guice for PHP.</p>
-
-<p>It uses a binding DSL in PHP.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.018.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>This class needs renderer as a dependency,
-We annotate it with an injection point. 
-You can also annotate setter methods with @Inject.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.019.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>You then bind the interface to an instance provider.
-Concrete class, factory or an instance.</p>
-
-<p>This is binding an abstraction to a concretion.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.020.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>Now the module knows about all of the bindings.</p>
-
-<p>With this module, You can create an injector.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.021.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>Then, We can pull an instance with bound dependencies using an interface.<em>
-We do this with the injector that knows all bindings in the application.</em></p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.022.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>You can change an object graph depending on context.</p>
-
-<p>Its not uncommon to see the code like the above.
-The state is passed in the application logic.
- Then the behavior of the application is changed by the state.
-Even though we use objects, this is more like procedural programing.</p>
-
-<p>Also concrete class names have been used. to have instantiate objects that are needed.  For better flexibility and simplicity. The code can be changed like below. This code does not need to changed even if we use another renderer.</p>
-
-<p>We should code a structure, not as a procedure.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.023.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>In BEAR.Sunday there is a clear distinction between compilation and runtime.</p>
-
-<p>Concrete class names should only appear at compile time.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.024.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>Then at runtime it looks like this.</p>
-
-<p>Never use concrete class names.
-Instead use an “Abstraction” or “Plug Consent” that I mentioned earlier.
-Which is an interface or an abstract class.</p>
-
-<p>When type hinting a concrete class name should never be used.</p>
-
-<p>This is <em>not</em> just for the sake of assertion or error checking,
-it is here to describe the <strong>applications design</strong>.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.025.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>Best practice says you should have only one root object in your bootstrap.</p>
-
-<p>This seems very different what we see in other PHP DI containers ?</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.026.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>It might sound crazy,
-but we follow this practice.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.027.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>The role of application object in BEAR.Sunday is very simple.
-It holds the services that we use in the application script. That’s all.</p>
-
-<p>This application class has no functionality or behavior.
-Also you will notice that the application holds no mode or any context.
-There is no global state like for example a globally defined DEBUG or ENVIRONMENT constant.</p>
-
-<p>The context is used how to bind dependencies, not a how to behave in runtime as we saw.
-That kind of state information has permanently disappeared after injection. We don’t need it.</p>
-
-<p>The dependencies have already been injected.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.028.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>Let’s take a look at a BEAR.Sunday application object graph.</p>
-
-<p>You can access it via the development tools.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.029.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>The AppModule knows all of bindings and their abstractions.
-The injection is then made to get the root object using these binding rules.
-The injector now can grab the application object.</p>
-
-<p>Lets see how dependencies are resolved.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.030.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>A Router, web response, resource client and dependency injector.</p>
-
-<p>These are all the dependencies that are needed by the application object.</p>
-
-<p>In the application script, we can configure the application with these services.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.031.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>The Application script is a simple script which shows its own structure.</p>
-
-<p>Don’t be surprised for goto statement or global variable.
-This is pre-”separation of concerns”
- It is a meeting point between the http web world and with PHP object oriented world.  This script tells whole top level application sequence</p>
-
-<p>Feel free to edit it as you like.   Ok let’s get back to application graph building&hellip; </p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.032.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>The services in the application script may also need dependencies recursively. </p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.033.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>Finally we can get one single object graph. Which is huge. Even my 27 monitor can’t show all the objects at once.</p>
-
-<p>That is why I made this graph visualizer. </p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.034.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>This also another principle of BEAR.Sunday.</p>
-
-<p>It has a unique Runtime DRY*. Don’t repeat the same procedure again and again.</p>
-
-<p>the whole application object graph can be serialized and stored in memory. It is not recreated on each request. All dependency are injected and initialized. *  Super fast.</p>
-
-<p>By this I mean that the whole application object graph can be serialized and stored in memory. It is not recreated on each request.</p>
-
-<p>We can serialize whole application which all dependency are injected and initialized.  This means a huge boost in performance.
-Super fast.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.035.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>Have you got it ?  BEAR.Sunday’s application object is build in the correct way, with DI best practices and performance.
- DI is not only a convenient tool for testability*. That is just one part of the power of DI.  By following DIP completely it can lead us to proper application architecture.
- DI is not a magic wand which automatically upgrades our code.</p>
-
-<p>But if you want to follow OOP principles and write clean code with ease, Its definitely worth it.</p>
-
-<p>Runtime code can be simpler, faster, more flexibility and easy to read.  That is the 1st framework. let’s go to the 2nd !</p>
-
-<h1>AOP Framework</h1>
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.036.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.037.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>Who of you know about AOP?</p>
-
-<p>Have used it?</p>
-
-<p>This is a definition&hellip;.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.038.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<ul>
-<li><p>Have you seen code like in RED? Mixture of business &amp; app logic?</p></li>
-<li><p>It runs fine but&hellip;.</p></li>
-<li><p>Not good separation of concerns</p></li>
-<li><p>Problems with testing, readability and refactoring.</p></li>
-<li><p>Notice how clean this could be in green&hellip;</p></li>
-</ul>
-
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.039.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>The Aspect Orientated Framework that BEAR.Sunday uses,
-implements AOP using what is called method interception.</p>
-
-<p>Let’s look at a simple example.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.040.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<ul>
-<li><p>Consumer and method stay exactly the same</p></li>
-<li><p>We don’t need to change them</p></li>
-<li><p>There is no base class</p></li>
-<li><p>There is no special way of writing these classes or calling them</p></li>
-</ul>
-
-
-<p>The magic I will show you later.</p>
-
-<p>Upon execution the interceptor does not need to be registered.
-The interception is registered upon binding.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.041.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<ul>
-<li><p>Lets Break up the concerns</p></li>
-<li><p>Pull out the logging etc - this is not business logic, they are app logic</p></li>
-</ul>
-
-
-<p>An aspect</p>
-
-<ul>
-<li>cross-cuts a method</li>
-<li>is readable</li>
-<li>testable</li>
-<li>completely re-usable and can be re-applied.</li>
-</ul>
-
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.042.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>Imagine a Rock Concert</p>
-
-<ul>
-<li>Band - single concern - business logic</li>
-<li>Security barrier and guards are an aspect</li>
-</ul>
-
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.043.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>This is how we use the interceptor in BEAR.Sunday. The interceptor is simple.</p>
-
-<ul>
-<li>We invoke the source method as defined</li>
-<li>Then we retrieve the source object</li>
-<li>And arguments as needed.</li>
-</ul>
-
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.044.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>Here is an example of how to use a transaction in AOP.</p>
-
-<p>As you can see the invocation object has been injected using DI.</p>
-
-<p>We can then act upon that wrapping it in a transaction, which rolls back when needed.</p>
-
-<p>Note the $invocation->proceed() method.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.045.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>A Simple cache interceptor.</p>
-
-<ul>
-<li>You can add fancy rules too - this is simple</li>
-<li>Is the cache there - yes? Just return it, no? Use invocation->proceed</li>
-</ul>
-
-
-<p>Get the result and warm cache</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.046.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>Create bindings with annotations</p>
-
-<ul>
-<li>This shows @db annotation binding</li>
-<li>@api  annotation - JSON would be this implementation.</li>
-</ul>
-
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.047.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<ul>
-<li>Is MVC enough?</li>
-<li>Sometimes stuck where to put things?</li>
-</ul>
-
-
-<p>Much WEB FRAMEWORK functionality is CROSS CUTTING concerns.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.048.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>An API will often need to change its processing order.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.049.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>For example:</p>
-
-<ul>
-<li>Need AUTHENTICATION when being accessed REMOTELY</li>
-<li><p>NOT through the LOCAL app.</p></li>
-<li><p>Some API’s might need Validation or LOGGING.</p></li>
-<li><p>IMAGINE boss asks you to log each DELETE? EASY?</p></li>
-</ul>
-
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.050.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>In BEAR these cross-cutting concerns can be registered using</p>
-
-<p>ANNOTATIONS,
-URI
-method names.</p>
-
-<p>CROSS-CUTTING CONCERNS
-attached + detached DEPENDING on context.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.051.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<ul>
-<li><p>Model interacted with differently depending on CONTEXT</p></li>
-<li><p>Example FORMS</p></li>
-<li><p>BEAR Sunday Forms are an ASPECTS</p></li>
-<li><p>Can decouple validation</p></li>
-</ul>
-
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.052.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>This is the magic</p>
-
-<ul>
-<li>It is ugly</li>
-<li>It is created for you</li>
-<li>NOT weaver model, AOP Compiler model</li>
-<li>For Type Safety - For Dependency Injection - Super fast!</li>
-</ul>
-
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.053.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>INJECTION BY ASPECT</p>
-
-<ul>
-<li>MASTER/SLAVE DB</li>
-<li>master on WRITE</li>
-<li>slave on READ</li>
-</ul>
-
-
-<p>The CORE CONCERN is it uses a DB.</p>
-
-<p>The CROSS CUTTING concern is the LOGIC that decides what  DB.</p>
-
-<ul>
-<li>Extremely testable.</li>
-<li>Because CORE CONCERN LOGIC does not change.</li>
-</ul>
-
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.054.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>To wrap UP</p>
-
-<p>The AOP spec in BEAR.Sunday follows the AOP ALLIANCE standard which is common in the JAVA world.</p>
-
-<p>LAYERING of aspects can be freely adjusted DEPENDING on the CONTEXT and environment.</p>
-
-<p>It is TYPE SAFE meaning full dependency injection and seem-less integration with the BEAR compiling step. This is by no means slow!</p>
-
-<p>At runtime necessary components can injected based on look up methods and arguments.</p>
-
-<h1>Hypermedia Framework</h1>
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.055.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.056.jpg" title="BEAR.Sunday@PHPNW13" >
-HyperMedia Framework 、それはオブジェクトをWebサービスのように扱うという試みです。</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.057.jpg" title="BEAR.Sunday@PHPNW13" >
-これがリソースオブジェクトです。URIがクラスにマップされます。</p>
-
-<p>publicプロパティとリクエストインターフェイスがあり、リクエストはステートレスに行われます</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.058.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>リクエストには専用のクライアントが必要です。リクエストを受け取ったリソースは自分の値を決定します。</p>
-
-<p>リソースはまた、他のリソースを必要とするかもしれません。</p>
-
-<p>値がビューコンポーネントに渡され、レンダリングが行われるのではなく</p>
-
-<p>ビューはそれぞれのリソースにインジェクトされ、__toStringメソッドとコンテキストによって出力されます。</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.059.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>HATEOASという言葉を聞いた事あるでしょうか。</p>
-
-<p>アプリケーションのステートをハイパーメディアでドライブします。</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.060.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>@LinkアノテーションとURIテンプレートを使って、リソースをリンクします。</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.061.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>ハイパーメディアAPIはAPIとAPIを繋げ、本当の意味のRESTにします。</p>
-
-<p>Webのように、リソース間の関係をクライアントではなくサービスが持つのです。</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.062.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>world wide webが成功した理由。</p>
-
-<p>それをアプリケーションアーキテクチャの中心にします。</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.063.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>REST、つまりAPI開発を開発の中心にしているです。</p>
-
-<p>かつてはDBはエンタープライズのコアバリューでした。FWや言語が変わってもDBがあれば良かったのです。</p>
-
-<p>今APIがコアバリューです。</p>
-
-<p>APIはハブです。複数のクライアントとストレージ、あるいは他のサービスと接続します。</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.064.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>アンクルBobのClean Architecture、この図を見た事あるでしょう。</p>
-
-<p>(around 50%)</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.065.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>BEAR.Sundayのリソースは同じようにレイヤリングされています。RESTのネイチャーです。</p>
-
-<p>アプリケーションスクリプトがページリソースにリクエストし、ページリソースはアプリケーションリソースをリクエストします。</p>
-
-<p>webページの後ろに何が有るのが露出(expose)していないように、背後のリソースが隠れるのです。</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.066.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>実際のリソースをみてみましょう。</p>
-
-<p>緑のラインがページリソース、それは赤いラインのアプリケーションリソースで構成されています。</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.067.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>開発画面ではURIとそのバウンダリー、そして開発ツールが表示されています。</p>
-
-<p>リソースのロジックとビューはオンラインで編集可能です。</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.068.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>ページリソースはwebページの役割をし、HTTPのメソッドに対応したリクエストメソッドを持ちます。</p>
-
-<p>パラメーターを見て下さい。フォームとPHPのメソッドは統合され同じパラメーターをもっています。   手続きではなくて契約を表しているのです。</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.069.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>リソース中心、のBEAR.Sundayではこのような一覧表示は自然なことです。 
-メソッドをクリックしたらフォームが表示されそれぞれのテストができるようになる&hellip;のは少しお待ちください。</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.070.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>アノテーションやDI、これらの言葉はパフォーマンスLoverにとって悪夢に聞こえないでしょうか？</p>
-
-<p>実際は構成済み(configured by context)のオブジェクトが再利用されるので、これらのコストは０になるのです。</p>
-
-<p>フレームワークとしての最大限の柔軟性を持ちながら、パフォーマンスは非常に良好です。</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.071.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>リソースの指定にはクラス名ではなくてURIを使います。</p>
-
-<p>Facebookが開発したThriftを使えば、高速なJavaプログラムを同じURIでコールする事ができます。</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.072.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>プログラムは変わりやすいところと変わりにくいところがあります。
-我々はそれぞれハードスポット、ソフトスポットと呼んでいます。</p>
-
-<p>システム毎に決まる変更点はハードスポット、一旦構成されればリクエストの度には変わりません。 例えばDBのIDや利用するテンプレートエンジンの種類です。</p>
-
-<p>アスペクトはソフトスポットを取り扱います。例えばメソッドによって接続DBを変えます。</p>
-
-<h1>What is BEAR.Sunday ?</h1>
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.073.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>BEAR.Sundayは接続フレームワークです。
- DIはオブジェクトとオブジェクトを依存性によって接続します。アプリケーションはオブジェクトグラフとして表されます。</p>
-
-<p>同じインターフェイスしかし違う実装でオブジェクトを繋ぐ事で、HTML表現の普通のアプリなのか、それともモバイルアプリケーションのためのAPIアプリケーションなのかを決定するのです。</p>
-
-<p>AOPはドメインロジックとアプリケーションロジックをつなぎます。メソッドインターセプションは驚くべき簡単な仕組みで、本質的関心と横断的関心を繋ぎます。</p>
-
-<p>AOPプログラミングに行ったん慣れてしまうと、一体以前はどこにログやトランザクション、認証やバリデーションを置く事ができたのか不思議に思うでしょう。</p>
-
-<p>REST - Hypermediaは情報と情報、リソースとリソースを接続します。リソースは意味によって繋がれ、そのリンクはサービスサイドで変更可能です。</p>
-
-<p>情報に真の意味での価値を与えるのはその繋がりです。APIをハブに、RESTを中心にしたロングタームのアーキテクチャをするのです。</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.074.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>BEAR.SUndayはアブストラクションフレームワークです。</p>
-
-<p>抽象化のためのテクノロジーを最大限使用しています。</p>
-
-<p>実装を直接表すのではなく、抽象化された意図(intention)を表します。</p>
-
-<p>アノテーションでアプリケーションロジックを、ハイパーリンクでリソースとリソースの関係を表すのです。手続きではなく、関係性を記述するのです。</p>
-
-<p>コンテキストと束縛によって、その意図に実装(implementation)が与えられます。</p>
-
-<p>@Transactionalとアノテートしたメソッドにはトランザクションコードがラップされ、URIには全く別の言語の別のメソッドをマップする事が原理的に可能なのです。</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.075.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>We had a lot of technical talks.</p>
-
-<p>3 frameworks in one session ?  You must be tired.</p>
-
-<p>Lets take a break with this beautiful English garden.</p>
-
-<p>It is full of flowers, trees, fountains. It seems to offer everything.
- Each garden has its own style but fundamentally has a similar design.</p>
-
-<p>They certainly seem joyful and certainly contain many great features and are welcoming.</p>
-
-<p>Visitors can enjoy the garden as the gardener intended them to. </p>
-
-<p>For me, many frameworks look like this English garden.</p>
-
-<h2> </h2>
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.076.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>Now, Look at a Zen garden.</p>
-
-<p>No water, No trees or flowers.</p>
-
-<p>There is nothing here that&rsquo;s common in western gardens.</p>
-
-<p>But you will notice after some time,
-it offers nothing but <strong>perfect harmony</strong>.</p>
-
-<p>This garden has only abstraction. Your imagination and your mind can reflect on this garden (when it&rsquo;s ready.)</p>
-
-<p>Minimalism. Look at this garden, what can I remove? Nothing, it&rsquo;s impossible! 
-The opposite way of thinking is more common.
-You add more elements and functions until you can’t add anymore, then you will think. “oh now it is complete.”
- When I built this framework, I thought:
- ‘How can I reduce the rules or code base? without loosing any functionality by design’</p>
-
-<p>To provide the best tools, I decided not to try and develop them myself. It&rsquo;s impossible. A lot smarter people can make better tools.</p>
-
-<p>Instead, I decided to provide the maximum freedom you can then choose the best tools with proper constraints.</p>
-
-<p>Freedom doesn’t meant,  You can chose anything for any part. You can’t wear jeans under a kimono. </p>
-
-<p>You need harmony, you need good constraints.</p>
-
-<p>BEAR.Sunday wants to be your zen garden, zen framework.</p>
-
-<p>I hope your imagination, your creativity can be maximized through this connecting framework, a harmony framework.</p>
-
-<p>Lastly, don’t put &rsquo;d' after &lsquo;n&rsquo;, That’s another framework. Thank you very much.</p>
-
-<hr />
-
-<p><img src="/images/blog/phpnw13-slide/bear-sunday.077.jpg" title="BEAR.Sunday@PHPNW13" ></p>
-
-<p>Do-mo, Arigato.</p>
-
-<p>力を尽くし臨んだプレゼンテーションは、次の人が「ちょっとやりにくい」と言ってくれたぐらい大きな拍手で終了しました。</p>
-
-<p>（続く）</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
-      <a class="prev" href="2">&larr; Older</a>
+      <a class="prev" href="/page2">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -1811,7 +1484,15 @@ You add more elements and functions until you can’t add anymore, then you will
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2017/07/28/an-interface-as-an-api/">An interface as an API</a>
+        <a href="/blog/2017/11/10/re-code-reading/">Re: BEAR.Sundayをコードリーディングしたのでメモ程度にアウトプットする</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/11/01/self-code-review/">Self Code Review</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/07/28/an-interface-as-an-api/">An Interface as an API</a>
       </li>
     
       <li class="post">
@@ -1820,14 +1501,6 @@ You add more elements and functions until you can’t add anymore, then you will
     
       <li class="post">
         <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/06/08/haphpy-birthday/">HaPHPy Birthday PHP</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/05/31/first-bear-sunday-stable-release/">First BEAR.Sunday Stable Release !</a>
       </li>
     
   </ul>
@@ -1842,7 +1515,7 @@ You add more elements and functions until you can’t add anymore, then you will
   <a href="https://github.com/koriym">@koriym</a> on GitHub
   
   <script type="text/javascript">
-    $.domReady(function(){
+    $(document).ready(function(){
         if (!window.jXHR){
             var jxhr = document.createElement('script');
             jxhr.type = 'text/javascript';
@@ -1882,7 +1555,7 @@ You add more elements and functions until you can’t add anymore, then you will
   </div>
   <footer role="contentinfo"><p>
   Copyright &copy; 2017 - Akihito Koriyama -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.</span>
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
 </footer>
@@ -1896,21 +1569,20 @@ You add more elements and functions until you can’t add anymore, then you will
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
 
 
 
-
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/ja_JP/all.js#appId=516362398477090&xfbml=1";
-    fjs.parentNode.insertBefore(js, fjs);
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
 
@@ -1930,7 +1602,7 @@ You add more elements and functions until you can’t add anymore, then you will
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

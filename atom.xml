@@ -4,7 +4,7 @@
   <title><![CDATA[BEAR Blog]]></title>
   <link href="http://koriym.github.io/atom.xml" rel="self"/>
   <link href="http://koriym.github.io/"/>
-  <updated>2017-10-23T11:16:30+09:00</updated>
+  <updated>2017-11-10T11:46:23+09:00</updated>
   <id>http://koriym.github.io/</id>
   <author>
     <name><![CDATA[Akihito Koriyama]]></name>
@@ -14,7 +14,570 @@
 
   
   <entry>
-    <title type="html"><![CDATA[An interface as an API]]></title>
+    <title type="html"><![CDATA[Re: BEAR.Sundayをコードリーディングしたのでメモ程度にアウトプットする]]></title>
+    <link href="http://koriym.github.io/blog/2017/11/10/re-code-reading/"/>
+    <updated>2017-11-10T11:30:28+09:00</updated>
+    <id>http://koriym.github.io/blog/2017/11/10/re-code-reading</id>
+    <content type="html"><![CDATA[<p>このエントリーは
+OTOBANK Engineering Blogの<a href="http://engineering.otobank.co.jp/entry/2017/10/20/120729">BEAR.Sundayをコードリーディングしたのでメモ程度にアウトプットする</a>のReplyエントリーで、コードリーディングを補間する内容です。(<a href="https://twitter.com/kalibora">@kalibora</a>さん、ブログ記事ありがとうございます。)</p>
+
+<p>元記事と合わせてお読みください。</p>
+
+<blockquote><p>3つのエントリポイント</p>
+
+<p>何はともあれ開始地点であるエントリポイントを見てみます。 webからのアクセス用と、CLI用とで3つありました。
+それぞれの違いは単純にコンテキストを変えているだけ。 そして bootstrap.php を呼んでいるのみ。</p></blockquote>
+
+<p>エントリポイントではコンテキスト(<code>$context</code>)を指定して<code>bootstrap.php</code>ファイルを読み込みます。</p>
+
+<p>３つのファイルは単に例としてあるだけなので、使用してないファイルは削除しても構いません。同様に新しいコンテキストファイルを追加するのも自由です。</p>
+
+<p>条件を指定することもできます。例えばURIが<code>/api/</code>で始まるパスの時にはAPIとしてJSONを返し、その他はHTMLで返すサービスの時はこのようにします。</p>
+
+<figure class='code'><figcaption><span>Webコンテキストによるアプリケーションコンテキストの変更</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$context</span> <span class="o">=</span> <span class="nb">strpos</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;REQUEST_URI&#39;</span><span class="p">],</span> <span class="s1">&#39;/api/&#39;</span><span class="p">)</span> <span class="o">!==</span> <span class="k">false</span> <span class="o">?</span> <span class="s1">&#39;hal-api-app&#39;</span> <span class="o">:</span> <span class="s1">&#39;html-app&#39;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>bootstrap.phpでは何をしているのか？
+このように非常に短いスクリプトで全体の流れを記述しているのみ。</p></blockquote>
+
+<p>解説されてるようにスクリプト全体を記述しています。さらに短く記述するとこのようになります。</p>
+
+<figure class='code'><figcaption><span>bootstrap.php</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$context</span> <span class="o">=</span> <span class="nx">PHP_SAPI</span> <span class="o">===</span> <span class="s1">&#39;cli&#39;</span> <span class="o">?</span> <span class="s1">&#39;cli-hal-app&#39;</span> <span class="o">:</span> <span class="s1">&#39;hal-app&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$app</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">Bootstrap</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getApp</span><span class="p">(</span><span class="s1">&#39;MyVendor\MyApp&#39;</span><span class="p">,</span> <span class="nv">$context</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$request</span> <span class="o">=</span> <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">router</span><span class="o">-&gt;</span><span class="na">match</span><span class="p">(</span><span class="nv">$GLOBALS</span><span class="p">,</span> <span class="nv">$_SERVER</span><span class="p">);</span>
+</span><span class='line'><span class="k">try</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$page</span> <span class="o">=</span> <span class="nv">$app</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">resource</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="p">{</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">method</span><span class="p">}</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">path</span><span class="p">)(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">)</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">transfer</span><span class="p">(</span><span class="nv">$app</span><span class="o">-&gt;</span><span class="na">responder</span><span class="p">,</span> <span class="nv">$_SERVER</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">\Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">error</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="nv">$e</span><span class="p">,</span> <span class="nv">$request</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">transfer</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>バッチ処理ならルーターも不要なのでこのようになります。</p>
+
+<figure class='code'><figcaption><span>ミニマムなブートストラップコード</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">try</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">(</span><span class="k">new</span> <span class="nx">Bootstrap</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getApp</span><span class="p">(</span><span class="s1">&#39;MyVendor\MyApp&#39;</span><span class="p">,</span> <span class="s1">&#39;prod-cli&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">resource</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">post</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;/path/to/command&#39;</span><span class="p">)()</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">transfer</span><span class="p">(</span><span class="nv">$app</span><span class="o">-&gt;</span><span class="na">responder</span><span class="p">,</span> <span class="nv">$_SERVER</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">\Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">error</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="nv">$e</span><span class="p">,</span> <span class="nv">$request</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">transfer</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>さらに短く。単にコンソールでechoする出力で例外処理も不要なら一行になります。</p>
+
+<figure class='code'><figcaption><span>一行ブートストラップコード</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">echo</span> <span class="p">(</span><span class="k">new</span> <span class="nx">Bootstrap</span><span class="p">)</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">getApp</span><span class="p">(</span><span class="s1">&#39;MyVendor\MyApp&#39;</span><span class="p">,</span> <span class="s1">&#39;prod-cli&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">resource</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">post</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;/path/to/command&#39;</span><span class="p">)();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>複数のアプリを組み合わせた出力を得たい場合には以下のようにできます。</p>
+
+<figure class='code'><figcaption><span>複数アプリを統合</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$name</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">Bootstrap</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getApp</span><span class="p">(</span><span class="s1">&#39;MyVendor\MyApp1&#39;</span><span class="p">,</span> <span class="s1">&#39;prod-cli&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">resource</span><span class="o">-&gt;</span><span class="na">get</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;/user&#39;</span><span class="p">)(</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bear&#39;</span><span class="p">)[</span><span class="s1">&#39;name&#39;</span><span class="p">];</span>
+</span><span class='line'><span class="nv">$role</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">Bootstrap</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getApp</span><span class="p">(</span><span class="s1">&#39;MyVendor\MyApp2&#39;</span><span class="p">,</span> <span class="s1">&#39;prod-cli&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">resource</span><span class="o">-&gt;</span><span class="na">get</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;/role&#39;</span><span class="p">)(</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bear&#39;</span><span class="p">)[</span><span class="s1">&#39;role&#39;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">echo</span> <span class="nb">json_encode</span><span class="p">([</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">,</span> <span class="s1">&#39;role&#39;</span> <span class="o">=&gt;</span> <span class="nv">$role</span><span class="p">]);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>アプリケーション全体を実行するスクリプトがフレームワーク本体にではなく、アプリケーションにあるので自由にカスタマイズできます。</p>
+
+<blockquote><p>$app とは何者なのか？</p></blockquote>
+
+<p><code>$app</code>は<strong>オブジェクトグラフ</strong>のルートオブジェクトです。</p>
+
+<p>オブジェクトグラフとは何でしょうか？</p>
+
+<blockquote><p>オブジェクト指向のアプリケーションは相互に関係のある複雑なオブジェクト網を含んでいます。オブジェクトはあるオブジェクトから所有されているか、他のオブジェクト（またはそのリファレンス）を含んでいるか、そのどちらかでお互いに接続されています。このオブジェクト網をオブジェクトグラフと呼びます。</p></blockquote>
+
+<p>DIのベストプラクティスとしてGoogleのGuiceでは以下の方法を勧めています。</p>
+
+<blockquote><p>Your code should deal directly with the Injector as little as possible. Instead, you want to bootstrap your application by injecting one root object. The container can further inject dependencies into the root object&rsquo;s dependencies, and so on recursively. In the end, your application should ideally have one class (if that many) which knows about the Injector, and every other class should expect to have dependencies injected.</p>
+
+<p>開発者のコードは、可能な限りInjectorを直接使うのを避けなければなりません。代わりに、1つのルートオブジェクトを注入してアプリケーションをブートストラップします。このルートオブジェクトのクラスは、依存する他のオブジェクト(<code>$app-&gt;router</code>や<code>$app-&gt;resourece</code>)を取得するためのDIする必要がり、依存するオブジェクトのクラスも同様に依存するオブジェクトのためのDIが必要です。
+その代わりにルートの一つのオブジェクトに注入します。コンテナは、依存関係をルートオブジェクトの依存関係に注入を再帰的に行うことができます。
+あなたのアプリケーションはInjectorについて知っている1つのクラスだけを持つのが理想です。その他のすべてのクラスは依存関係を注入することを期待するべきです。</p></blockquote>
+
+<p>オブジェクト網の一番最初のルートのオブジェクトが<code>$app</code>です。</p>
+
+<p>可能な限りインジェクターをユーザーが直接使うことを避けるべきです。ライブラリにおいてもインジェクターを知るクラスを原則無しにします。ユーザーがコンテナを直接操作するのはDIではなく、アンチパターンのサービスロケーターです。(オブジェクトは他のオブジェクトの依存になっているのでで、通常のサービスクラスはユーザーがコンテナを触らずともDIで取得できるはずです。)</p>
+
+<p>BEAR.Sundayでは基本２箇所だけ。ルートオブジェクトを生成する<code>Bootstrap</code>とリソースを生成するためのファクトリークラスです。</p>
+
+<p><code>bootstrap.php</code>ではその<code>$app</code>のプロパティだけを使ってアプリケーションを実行します。</p>
+
+<p>リソースオブジェクトリクエスを埋め込む<code>@Embed</code>の機能は実質リソースオブジェクト(ResourceObject)のDIです。<code>@Embed</code>や<code>@Link</code>を使うとリソースファクトリーのコードを使うことなくルートの<code>$app</code>の取得の時のみインジェクターが利用されます。ResourceObject内では<code>$this-&gt;resource-&gt;uri()</code>でリソースオブジェクトを生成するより、<code>@Embed</code>でインジェクトすることを考慮してみましょう。</p>
+
+<blockquote><p>AppInjector？
+AppInjector::getInstance() メソッドでは、指定したinterfaceに束縛されたインスタンスを、依存解決済みで返してくれる。</p></blockquote>
+
+<p>アプリケーションの<code>名前</code>と<code>コンテキスト</code>とインターフェイス（また抽象クラス）指定すると、インスタンスを取得することができるのがAppInjector（アプリケーションディペンデンシーインジェクター）です。
+BEAR.Sundayでは複数のアプリケーションがそれぞれ名前空間を持ち同時に存在できます。</p>
+
+<p><code>AppInjector</code>はプロダクションコードでは（Gooogle Guiceのベストプラクティスの通り）Bootstrapで一度使われるだけですが、テストに有用です。</p>
+
+<p>無名クラスを使って以下のように、モックやスタブを束縛することができます。</p>
+
+<figure class='code'><figcaption><span>無名クラスで上書き束縛</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">testAnonymousClassBinding</span><span class="p">()</span>
+</span><span class='line'>    <span class="nv">$injector</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppInjector</span><span class="p">(</span><span class="s1">&#39;FakeVendor\HelloWorld&#39;</span><span class="p">,</span> <span class="s1">&#39;hal-app&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nv">$module</span> <span class="o">=</span> <span class="k">new</span> <span class="k">class</span> <span class="nc">extends</span> <span class="nx">AbstractModule</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">protected</span> <span class="k">function</span> <span class="nf">configure</span><span class="p">()</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bind</span><span class="p">(</span><span class="nx">FooInterface</span><span class="o">::</span><span class="na">class</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">to</span><span class="p">(</span><span class="nx">Foo</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'><span class="nx">app</span><span class="s1">&#39;);</span>
+</span><span class='line'><span class="s1">    $index = $injector-&gt;getOverrideInstance($module, Index::class);</span>
+</span><span class='line'><span class="s1">    $name = $index([&#39;</span><span class="nx">id</span><span class="s1">&#39; =&gt; 1])-&gt;body[&#39;</span><span class="nx">name</span><span class="s1">&#39;];</span>
+</span><span class='line'><span class="s1">    $this-&gt;assertSame(&#39;</span><span class="nx">BEAR</span><span class="err">&#39;</span><span class="p">,</span> <span class="nv">$name</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="http://bearsunday.github.io/manuals/1.0/ja/test.html">http://bearsunday.github.io/manuals/1.0/ja/test.html</a></p>
+
+<blockquote><p>（最初の1回目の場合は、依存解決したものをすべてフラットなPHPファイルとしてダンプする。これをコンパイル処理と呼んでいるみたい）</p></blockquote>
+
+<p>全ての依存ファイルのファクトリーコードは生のPHPファイルとしてダンプされます。インターフェイスだけで作られたシステムは、実際にどのオブジェクトがどのように生成されるか明らかにするのが難しい場合がありますがファクトリークラスを見れば明らかです。シングルトンかプロトタイプかも確認できます。詳細は<a href="http://bearsunday.github.io/manuals/1.0/ja/di.html">DI</a>のデバックをご覧ください。</p>
+
+<blockquote><p>$contexts = cli-hal-api-app であれば<code>MyVendor\MyPackage\Module\AppModule</code>&hellip;の順番で読み込まれる。しかし優先順位はその逆である。</p></blockquote>
+
+<p>これはGoFのデコレーターパターンです。最初に<code>AppModule</code>で束縛されたDIとAOPの設定を外側で"デコレート" 変更しています。</p>
+
+<p>モードで振る舞いを変更するのではなく、後読み優先のモジュールで束縛したクラスを変更して振る舞いを変えています。
+<code>cli-hal-api-app</code>であれば<code>AppModule</code>でされている束縛はその後の<code>ApiModule</code>や<code>CliModule</code>で変更することができます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">foo</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nv">$isDebug</span> <span class="o">=</span> <span class="nx">Config</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;app.debug&#39;</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nv">$isDebug</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">logger</span><span class="o">-&gt;</span><span class="na">log</span><span class="p">(</span><span class="nv">$text</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>などとメソッド内でモードを判定して、振る舞いを変えるのではなく</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">LoggerInterface</span> <span class="nv">$logger</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">logger</span> <span class="o">=</span> <span class="nv">$logger</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">foo</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">logger</span><span class="o">-&gt;</span><span class="na">log</span><span class="p">(</span><span class="nv">$text</span><span class="p">);</span> <span class="c1">// 開発以外は何もしないNullLoggerが束縛されている</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上記のように<code>LoggerInterface</code>に対する束縛をモジュールで変更します。条件や状態を少なくすることは、コード品質の向上に役立ちます。</p>
+
+<blockquote><p>$requestとは？
+HTTPリクエストから、BEARで扱う形式への変換、マッピングというのがこの処理の肝なのではないだろうか。</p></blockquote>
+
+<p>その通りです。WebリクエストをPHPリクエストに変える（ディスパッチ）のためのルーターの結果の値オブジェクト <a href="https://github.com/bearsunday/BEAR.Sunday/blob/1.x/src/Extension/Router/RouterMatch.php">RouterMatch</a>です。</p>
+
+<p><code>$request</code>には<code>$method</code>、<code>$path</code>、<code>$query</code>の値が保存されています。<code>$path</code>がリソースクラスに、$methodがリソースクラスのメソッドに、
+名前付き引数（named parameters)の$queryがPHPの（順序）引数(oredered parameters)に変換されます。</p>
+
+<p>リソースクラスではWebコンテキスト($_SERVERなどの値)がどのようになってるかを調べ回るようなコードは避けるべきで、リソースクラスの外側でWebコンテキストの値を全て単なるPHPの値に変換しておきます。そうすることコンソールとWebのどちらでも実行が可能でテストが容易なコードになります。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$page</span> <span class="o">=</span> <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">resource</span><span class="o">-&gt;</span><span class="p">{</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">method</span><span class="p">}</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">path</span><span class="p">)(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>$pageとは？</p></blockquote>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&gt;</span> <span class="nv">$page</span> <span class="o">=</span> <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">resource</span><span class="o">-&gt;</span><span class="p">{</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">method</span><span class="p">}</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">path</span><span class="p">)(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>元記事で順番に辿ってる通りです。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&gt;</span> <span class="nv">$resource</span> <span class="o">=</span> <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">resource</span><span class="p">;</span> <span class="c1">// BEAR\Resource\Resource</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>リソースクラアイントが取得され</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$resource</span> <span class="o">=</span> <span class="nv">$resource</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">;</span> <span class="c1">// BEAR\Resource\Resource</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>get</code>リクエストをプロパティとして保存します</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$request</span> <span class="o">=</span> <span class="nv">$resource</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;app://self/path/to&#39;</span><span class="p">);</span> <span class="c1">// BEAR\Resource\Request</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>uri()</code>はリクエストオブジェクトののファクトリーメソッドです。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$page</span> <span class="o">=</span> <span class="nv">$request</span><span class="p">(</span><span class="s1">&#39;key&#39;</span><span class="o">=&gt;</span> <span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="s1">&#39;hoge&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;fuga&#39;</span><span class="p">]);</span> <span class="c1">// BEAR\Resource\ResourceObject</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>リクエストオブジェクトは<code>__invoke</code>を実装しているので関数のように直接実行できます。<code>__toString</code>メソッドも実装しているので文字列評価すると文字列になります。この時の文字がはリソースの状態の表現(representational resource state)です。</p>
+
+<blockquote><p>今回のまとめ
+$app が面白いですね。全部そこにまとまっているっていうのが。</p></blockquote>
+
+<p>$appはアプリケーションはシリアライズ可能でプロダクションではキャッシュされて実行されます。
+１つのオブジェクト網なのでビジュアライゼーションも可能です。</p>
+
+<p><img src="http://koriym.github.io/images/blog/app.png" alt="$app" />(<a href="http://koriym.github.io/print_o/v1/libs/bear.sunday.html">http://koriym.github.io/print_o/v1/libs/bear.sunday.html</a>)</p>
+
+<p><a href="http://koriym.github.io/print_o/v1/libs/bear.sunday.html">$appのビジュアライゼーション</a></p>
+
+<p>var_dump()などでは表現できないシングルトンオブジェクトなども表現できていることに気づかれるでしょう。重大なエラーが発生した時にバックトレースばかりでなく、<code>/var/log/</code>フォヅダにあるログで<code>$app</code>がどのように生成されているかを確認することもできます。</p>
+
+<p>アノテーションやDI、codegenを用いたAOPコード作成など膨大な本来は膨大な初期化コストがかかりますが、<code>$app</code>を１つのオブジェクトとして保存することにより<a href="https://github.com/kenjis/php-framework-benchmark">パフォーマンスの問題を解決</a>しています。ResourceObjectも全てが最初にコンパイル（ファクトリーコードの生成）されるので、依存解決の問題がプログラムの途中で発生することがないと言うメリットもあります。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Self Code Review]]></title>
+    <link href="http://koriym.github.io/blog/2017/11/01/self-code-review/"/>
+    <updated>2017-11-01T17:26:28+09:00</updated>
+    <id>http://koriym.github.io/blog/2017/11/01/self-code-review</id>
+    <content type="html"><![CDATA[<blockquote><p>3つのエントリポイント</p>
+
+<p>何はともあれ開始地点であるエントリポイントを見てみます。 webからのアクセス用と、CLI用とで3つありました。
+それぞれの違いは単純にコンテキストを変えているだけ。 そして bootstrap.php を呼んでいるのみ。</p></blockquote>
+
+<p>エントリポイントではコンテキスト(<code>$context</code>)を指定して<code>bootstrap.php</code>ファイルを読み込みます。</p>
+
+<p>３つのファイルは単に例としてあるだけなので不使用なファイルは削除しても構いません。同様に新しいコンテキストファイルを追加するのも自由です。</p>
+
+<p>要件によって条件を指定したファイルを使うこともできます。
+例えば<code>/api/</code>で始まるパスの時にはAPIとしてJSONを返し、その他はHTMLで返すサービスの時はこのようにします。</p>
+
+<figure class='code'><figcaption><span>Webコンテキストによるアプリケーションコンテキストの変更</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$context</span> <span class="o">=</span> <span class="nb">strpos</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;REQUEST_URI&#39;</span><span class="p">],</span> <span class="s1">&#39;/api/&#39;</span><span class="p">)</span> <span class="o">!==</span> <span class="k">false</span> <span class="o">?</span> <span class="s1">&#39;hal-api-app&#39;</span> <span class="o">:</span> <span class="s1">&#39;html-app&#39;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>bootstrap.phpでは何をしているのか？
+このように非常に短いスクリプトで全体の流れを記述しているのみ。</p></blockquote>
+
+<p>bootstrapはブートの部分でもありますが、解説されてるようにスクリプト全体を記述しています。
+さらに短く記述するとこのようになります。</p>
+
+<figure class='code'><figcaption><span>bootstrap.php</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$context</span> <span class="o">=</span> <span class="nx">PHP_SAPI</span> <span class="o">===</span> <span class="s1">&#39;cli&#39;</span> <span class="o">?</span> <span class="s1">&#39;cli-hal-app&#39;</span> <span class="o">:</span> <span class="s1">&#39;hal-app&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$app</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">Bootstrap</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getApp</span><span class="p">(</span><span class="s1">&#39;MyVendor\MyApp&#39;</span><span class="p">,</span> <span class="nv">$context</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$request</span> <span class="o">=</span> <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">router</span><span class="o">-&gt;</span><span class="na">match</span><span class="p">(</span><span class="nv">$GLOBALS</span><span class="p">,</span> <span class="nv">$_SERVER</span><span class="p">);</span>
+</span><span class='line'><span class="k">try</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$page</span> <span class="o">=</span> <span class="nv">$app</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">resource</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="p">{</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">method</span><span class="p">}</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">path</span><span class="p">)(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">)</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">transfer</span><span class="p">(</span><span class="nv">$app</span><span class="o">-&gt;</span><span class="na">responder</span><span class="p">,</span> <span class="nv">$_SERVER</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">\Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">error</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="nv">$e</span><span class="p">,</span> <span class="nv">$request</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">transfer</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>バッチ処理など特定のリソースが呼び出されるならルーターも不要なのでこのようになります。</p>
+
+<figure class='code'><figcaption><span>ミニマムなブートストラップコード</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">try</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">(</span><span class="k">new</span> <span class="nx">Bootstrap</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getApp</span><span class="p">(</span><span class="s1">&#39;MyVendor\MyApp&#39;</span><span class="p">,</span> <span class="s1">&#39;prod-cli&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">resource</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">post</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;/path/to/command&#39;</span><span class="p">)()</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">transfer</span><span class="p">(</span><span class="nv">$app</span><span class="o">-&gt;</span><span class="na">responder</span><span class="p">,</span> <span class="nv">$_SERVER</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">\Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">error</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="nv">$e</span><span class="p">,</span> <span class="nv">$request</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">transfer</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>さらに単にコンソールでechoする出力で例外処理も不要ならこのように一行になります。</p>
+
+<figure class='code'><figcaption><span>一行ブートストラップコード</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">echo</span> <span class="p">(</span><span class="k">new</span> <span class="nx">Bootstrap</span><span class="p">)</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">getApp</span><span class="p">(</span><span class="s1">&#39;MyVendor\MyApp&#39;</span><span class="p">,</span> <span class="s1">&#39;prod-cli&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">resource</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">post</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;/path/to/command&#39;</span><span class="p">)();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>複数のアプリを組み合わせた出力を得たい場合には以下のようにできます。</p>
+
+<figure class='code'><figcaption><span>複数アプリを統合</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$name</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">Bootstrap</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getApp</span><span class="p">(</span><span class="s1">&#39;MyVendor\MyApp1&#39;</span><span class="p">,</span> <span class="s1">&#39;prod-cli&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">resource</span><span class="o">-&gt;</span><span class="na">get</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;/user&#39;</span><span class="p">)(</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bear&#39;</span><span class="p">)[</span><span class="s1">&#39;name&#39;</span><span class="p">];</span>
+</span><span class='line'><span class="nv">$role</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">Bootstrap</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getApp</span><span class="p">(</span><span class="s1">&#39;MyVendor\MyApp2&#39;</span><span class="p">,</span> <span class="s1">&#39;prod-cli&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">resource</span><span class="o">-&gt;</span><span class="na">get</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;/role&#39;</span><span class="p">)(</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bear&#39;</span><span class="p">)[</span><span class="s1">&#39;role&#39;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">echo</span> <span class="nb">json_encode</span><span class="p">([</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">,</span> <span class="s1">&#39;role&#39;</span> <span class="o">=&gt;</span> <span class="nv">$role</span><span class="p">]);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>アプリケーション全体を実行するスクリプトがフレームワーク本体にではなく、アプリケーションにあるので自由にカスタマイズできます。</p>
+
+<blockquote><p>$app とは何者なのか？</p></blockquote>
+
+<p>DIのベストプラクティスとしてGoogleのGuiceでは以下の方法を勧めています。</p>
+
+<blockquote><p>Your code should deal directly with the Injector as little as possible. Instead, you want to bootstrap your application by injecting one root object. The container can further inject dependencies into the root object&rsquo;s dependencies, and so on recursively. In the end, your application should ideally have one class (if that many) which knows about the Injector, and every other class should expect to have dependencies injected.</p>
+
+<p>開発者のコードは、可能な限りInjectorを直接使うのを避けなければなりません。代わりに、1つのルートオブジェクトを注入してアプリケーションをブートストラップします。このルートオブジェクトのクラスは、依存する他のオブジェクト(<code>$app-&gt;router</code>や<code>$app-&gt;resourece</code>)を取得するためのDIする必要がり、依存するオブジェクトのクラスも同様に依存するオブジェクトのためのDIが必要です。
+その代わりにルートの一つのオブジェクトに注入します。コンテナは、依存関係をルートオブジェクトの依存関係に注入を再帰的に行うことができます。
+あなたのアプリケーションはInjectorについて知っている1つのクラスだけを持つのが理想です。その他のすべてのクラスは依存関係を注入することを期待するべきです。</p></blockquote>
+
+<p>可能な限りインジェクターをユーザーが直接使うことを避けるべきです。コントローラーがコンテナを直接操作するのはDIではなく、アンチパターンのサービスロケーターです。</p>
+
+<p>インジェクターを知るクラスを可能な限り最小にします。BEAR.Sundayでは基本２箇所だけ。ルートオブジェクトを生成する<code>Bootstrap</code>とリソースを生成するためのファクトリークラスです。
+オブジェクトは他のオブジェクトの依存になっている訳で、通常のサービスクラスはユーザーがコンテナを触らずともDIで取得できるはずです。</p>
+
+<p>その一番ルートのオブジェクトが<code>$app</code>です。<code>bootstrap.php</code>ではその<code>$app</code>のプロパティだけを使ってアプリケーションを実行します。</p>
+
+<p>リソースオブジェクトリクエスを埋め込む<code>@Embed</code>の機能は実質リソースオブジェクトのDIです。
+<code>@Embed</code>や<code>@Link</code>を使うとリソースファクトリーのコードを使うことなくルートの<code>$app</code>の取得の時のみインジェクターが利用されます。これは１つのオブジェクトグラフだけで全ての処理が完結する理想的なオブジェクトです。</p>
+
+<blockquote><p>AppInjector？</p></blockquote>
+
+<p>アプリケーションの<code>名前</code>と<code>コンテキスト</code>とインターフェイス（また抽象クラス）指定すると、インスタンスを取得することができるのがAppInjector（アプリケーション・ディペンデンシー・インジェクター）です。
+BEAR.Sundayでは複数のアプリケーションがそれぞれ名前空間を持ち同時に存在できます。</p>
+
+<p><code>AppInjector</code>はプロダクションコードでは（Gooogle Guiceのベストプラクティスの通り）Bootstrapで一度使われるだけですが、テストに有用です。</p>
+
+<p>無名クラスを使って以下のように、モックやスタブを束縛することができます。</p>
+
+<figure class='code'><figcaption><span>無名クラスで上書き束縛</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">testAnonymousClassBinding</span><span class="p">()</span>
+</span><span class='line'>    <span class="nv">$injector</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppInjector</span><span class="p">(</span><span class="s1">&#39;FakeVendor\HelloWorld&#39;</span><span class="p">,</span> <span class="s1">&#39;hal-app&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nv">$module</span> <span class="o">=</span> <span class="k">new</span> <span class="k">class</span> <span class="nc">extends</span> <span class="nx">AbstractModule</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">protected</span> <span class="k">function</span> <span class="nf">configure</span><span class="p">()</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bind</span><span class="p">(</span><span class="nx">FooInterface</span><span class="o">::</span><span class="na">class</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">to</span><span class="p">(</span><span class="nx">Foo</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'><span class="nx">app</span><span class="s1">&#39;);</span>
+</span><span class='line'><span class="s1">    $index = $injector-&gt;getOverrideInstance($module, Index::class);</span>
+</span><span class='line'><span class="s1">    $name = $index([&#39;</span><span class="nx">id</span><span class="s1">&#39; =&gt; 1])-&gt;body[&#39;</span><span class="nx">name</span><span class="s1">&#39;];</span>
+</span><span class='line'><span class="s1">    $this-&gt;assertSame(&#39;</span><span class="nx">BEAR</span><span class="err">&#39;</span><span class="p">,</span> <span class="nv">$name</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="http://bearsunday.github.io/manuals/1.0/ja/test.html">http://bearsunday.github.io/manuals/1.0/ja/test.html</a></p>
+
+<blockquote><p>$contexts = cli-hal-api-app であれば<code>MyVendor\MyPackage\Module\AppModule</code>&hellip;の順番で読み込まれる。しかし優先順位はその逆である。</p></blockquote>
+
+<p>これはGoFのデコレーターパターンです。最初に<code>AppModule</code>で束縛されたDIとAOPの設定を外側で"デコレート" 変更しています。</p>
+
+<p>モードで振る舞いを変更するのではなく、後読み優先のモジュールで束縛したクラスを変更して振る舞いを変えています。
+<code>cli-hal-api-app</code>であれば<code>AppModule</code>でされている束縛はその後の<code>ApiModule</code>や<code>CliModule</code>で変更することができます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">foo</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nv">$isDebug</span> <span class="o">=</span> <span class="nx">Config</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;app.debug&#39;</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nv">$isDebug</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">logger</span><span class="o">-&gt;</span><span class="na">log</span><span class="p">(</span><span class="nv">$text</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>などとメソッド内でモードを判定して、振る舞いを変えるのではなく</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">LoggerInterface</span> <span class="nv">$logger</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">logger</span> <span class="o">=</span> <span class="nv">$logger</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">foo</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">logger</span><span class="o">-&gt;</span><span class="na">log</span><span class="p">(</span><span class="nv">$text</span><span class="p">);</span> <span class="c1">// 開発以外は何もしないNullLoggerが束縛されている</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>として<code>LoggerInterface</code>に対する束縛をモジュールで変更します。</p>
+
+<blockquote><p>$requestとは？
+HTTPリクエストから、BEARで扱う形式への変換、マッピングというのがこの処理の肝なのではないだろうか。</p></blockquote>
+
+<p>その通りです。</p>
+
+<p>ルーターの結果の値オブジェクト <a href="https://github.com/bearsunday/BEAR.Sunday/blob/1.x/src/Extension/Router/RouterMatch.php">RouterMatch</a>です。
+<code>$method</code>、<code>$path</code>、<code>$query</code>の値を保存します。<code>$path</code>がリソースクラスに、$methodがリソースクラスのメソッドに、
+名前付き引数（named parameters)の$queryがPHPの（順序）引数(oredered parameters)に変換されます。</p>
+
+<p>リソースクラスではWebコンテキストがどのような値を持っているのかを調べ回るようなコードは避けるべきで、Webコンテキストの値はクラスの外側で全て単なるPHPの値に変換しておくことが重要です。
+リソースオブジェクトはWebコンテキストの値に関して無知にします。そうすることコンソールとWebのどちらでも実行が可能でテストが容易なコードになります。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$page</span> <span class="o">=</span> <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">resource</span><span class="o">-&gt;</span><span class="p">{</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">method</span><span class="p">}</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">path</span><span class="p">)(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>$pageとは？</p>
+
+<p>$page = $app->resource->{$request->method}->uri($request->path)($request->query);</p></blockquote>
+
+<p>パスで指定されたPHPのリソースオブジェクトクラスは、PSR7などでも採用されているイミュータブルオブジェクトとして扱われます。ユーザーは<code>$this</code>でオブジェクトのcode/headers/bodyの状態を変更します。</p>
+
+<p>Webコンテキスト（<code>$_SERVER</code>の値など外部環境の値）を関数呼び出し</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[An Interface as an API]]></title>
     <link href="http://koriym.github.io/blog/2017/07/28/an-interface-as-an-api/"/>
     <updated>2017-07-28T02:59:49+09:00</updated>
     <id>http://koriym.github.io/blog/2017/07/28/an-interface-as-an-api</id>
@@ -1677,7 +2240,7 @@ How do we look at the problem.</p>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Ray.Tutorial &#8211; First DI framework]]></title>
+    <title type="html"><![CDATA[Ray.Tutorial &#8211; First DI Framework]]></title>
     <link href="http://koriym.github.io/first-di-framework"/>
     <updated>2013-08-17T00:00:00+09:00</updated>
     <id>http://koriym.github.io/ray-tutorial-first-di-framework</id>
@@ -2126,7 +2689,7 @@ DIフレームワークの使用がオーバーエンジアリングか、クラ
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Ray.Tutorial &#8211; introduction]]></title>
+    <title type="html"><![CDATA[Ray.Tutorial &#8211; Introduction]]></title>
     <link href="http://koriym.github.io/ray-tutorial-introduction"/>
     <updated>2013-08-16T00:00:00+09:00</updated>
     <id>http://koriym.github.io/ray-tutorial1-introduction</id>
@@ -2444,7 +3007,7 @@ Dependency injection means giving an object its instance variables. Really. That
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[BEAR.Sunday meetup #2]]></title>
+    <title type="html"><![CDATA[BEAR.Sunday Meetup #2]]></title>
     <link href="http://koriym.github.io/bearsunday_meetup2"/>
     <updated>2013-07-30T00:00:00+09:00</updated>
     <id>http://koriym.github.io/bear-sunday-meetup-2</id>
@@ -2641,7 +3204,7 @@ Dependency injection means giving an object its instance variables. Really. That
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[timeアノテーション]]></title>
+    <title type="html"><![CDATA[Timeアノテーション]]></title>
     <link href="http://koriym.github.io/2013/04/time_annotation/"/>
     <updated>2013-04-04T00:00:00+09:00</updated>
     <id>http://koriym.github.io/2013/04/time_annotation</id>
@@ -2757,169 +3320,6 @@ Dependency injection means giving an object its instance variables. Really. That
 
 
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Ray 1.0.0]]></title>
-    <link href="http://koriym.github.io/2013/04/ray-1-0-0/"/>
-    <updated>2013-04-01T00:00:00+09:00</updated>
-    <id>http://koriym.github.io/2013/04/ray-1-0-0</id>
-    <content type="html"><![CDATA[<div style="float: right; margin-left: 10px;">
-  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2013/04/ray-1-0-0/">Tweet</a>
-</div>
-
-
-<h2>1.0.0</h2>
-
-<p>Ray.Di / Ray.Aopのバージョン1.0.0をリリースしました。</p>
-
-<p>これまでも何度か紹介しましたがRay.Diはオブジェクトとオブジェクトの関係の問題を解決するDIフレームワーク、Ray.Aopはアスペクト指向プログラミングフレームワークでGoogleのDIフレームワーク<a href="http://ja.wikipedia.org/wiki/Google_Guice">Guice</a>のPHPクローンです。</p>
-
-<h2>first commit</h2>
-
-<p>最初に作り始めたのはRay.Aopです。これが最初のコミットです。まだPHP5.4はなく、PHP5.3でコードしていました。<br/>
-<a href="https://github.com/koriym/Ray.Aop/tree/2ab2dff8204622fdfaeae0bd608e88010b98b99f">https://github.com/koriym/Ray.Aop/tree/2ab2dff8204622fdfaeae0bd608e88010b98b99f</a></p>
-
-<p>最初に作ろうとしたのはこういうものでした。</p>
-
-<p>サービス（呼び出される方）</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Mock</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">getDouble</span><span class="p">(</span><span class="nv">$a</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="nv">$a</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>コンシュマー（呼び出す方）</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">echo</span> <span class="nv">$mock</span><span class="o">-&gt;</span><span class="na">getDouble</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="c1">//6</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>これらの呼び出しコード、呼ばれるメソッドを変更をすることなく</strong>帰ってくる値を本来の値の10倍(60)にしすることを考えます。実現するためにはメソッドの実行呼び出しコードと呼ばれるメソッドの間に、「10倍にする」という処理を差し込まなければなりません。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">tenTimes</span> <span class="k">implements</span> <span class="nx">MethodInterceptor</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">invoke</span><span class="p">(</span><span class="nx">MethodInvocation</span> <span class="nv">$invocation</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$invocation</span><span class="o">-&gt;</span><span class="na">proceed</span><span class="p">();</span>
-</span><span class='line'>        <span class="k">return</span> <span class="nv">$result</span> <span class="o">*</span> <span class="mi">10</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>特定のメソッドをコールしたときのコールバックを設定する機能などがあれば簡単なのですが、そういう機能はありません。なのでオブジェクトを作成するときにその「横断的処理」を織り込んだオブジェクトを生成する必要があります。具体的には<strong>getDouble(2)</strong>でコールされたららその結果を10倍にする横断的処理が透過的に呼ばれるようなオブジェクトをつくります。</p>
-
-<p>最初はどうやって記述したらよいかさっぱり分からなかったのですが、AOPアラインスのインターフェイスやメソッドリフレクション、マジックメソッドの組み合わせでなんとか（というよりもしかしたら）出来るのではと考えました。</p>
-
-<p>最初のコミットでのコードはこういうものでした。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$mock</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Weaver</span><span class="p">(</span><span class="k">new</span> <span class="nx">Mock</span><span class="p">,</span> <span class="nv">$interceptors</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>元のオブジェクト(new Mock)に「10倍に」という処理を横断的処理($interceptors)を織り込んたもの（Weaver）を元のオブジェクト同様に扱います</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">echo</span> <span class="nv">$mock</span><span class="o">-&gt;</span><span class="na">getDouble</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="c1">//60</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>できました！</p>
-
-<p>オブジェクトに横断的処理を&#8221;織り込む&#8221;事により、呼び出し側も呼び出される側も無変更で振る舞いを変更することができました。webフレームワークの機能の多くはこれらの横断的処理です。呼ぶ側も呼ばれる側にも無変更で、動的に横断的処理を着脱できると事に大きな可能性を感じました。</p>
-
-<h2>失敗</h2>
-
-<p>最初のコミットのRay.Aop、これは大失敗というのがすぐに分かります。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$mock</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Weaver</span><span class="p">(</span><span class="k">new</span> <span class="nx">Mock</span><span class="p">,</span> <span class="nv">$interceptors</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>このコードではメソッドの指定がなく、Mockが持つ全てのメソッドに「10倍」という横断的処理がくっついて（束縛されて）ました。数字以外を返すメソッドではそもそもエラーになります。これでは使い物になりません。</p>
-
-<h2>可能性</h2>
-
-<p>しかし同時に、この失敗でやっとAOPの本当の力に気がつくことができました。つまり無指定で全てのメソッドに横断的処理が束縛されるということは、指定した特定メソッドに同時に横断的処理を束縛できるということです。delete*で始まるメソッドには全てログを、admin/で始まるパスでは認証チェックを、などといった横断的処理の束縛がアプリケーション実行コンテキストによって指定条件を決めることができます。<sup><a href="#footnote_0_1800" id="identifier_0_1800" class="footnote-link footnote-identifier-link" title="現在BEAR.Sundayのsandoxアプリでは、&rdquo;テスト&rdquo;ではスタブデータを、&rdquo;開発&rdquo;では全てのin/outを記録するようになっています。">1</a></sup></p>
-
-<h2>Ray.Di</h2>
-
-<p>AOPがメソッドの呼び出しと呼ばれるメソッドとの関係を規定するものだとすれば、DIはオブエクトとオブジェクトの関係を規定するものです。BEAR.Saturdayの開発／運用経験を通じてオブジェクト間の関係性をオブジェクト自身が解決しないことの有用性は大きく認識してたので、DIフレームワークの導入というのは最優先事項でした。BEAR.SaturdayのDIで多いに参考にしてたのは<a href="http://solarphp.com/">Solar</a>だったのですが<sup><a href="#footnote_1_1800" id="identifier_1_1800" class="footnote-link footnote-identifier-link" title="他のPHPフレームワークではほとんどDIが使われていませんでした">2</a></sup> 今回最も良い設計/実装と思えたのはGoogleのDIフレームワーク<a href="http://ja.wikipedia.org/wiki/Google_Guice">Guice</a>でした。それを普通に移植するのではなく、Solarの後継のAura、そのAura.Diをforkして、拡張することにしました。</p>
-
-<p>こんなものが移植できるのか<sup><a href="#footnote_2_1800" id="identifier_2_1800" class="footnote-link footnote-identifier-link" title="当時とても大きいものだと誤解してました">3</a></sup> 甚だ疑問で難しいのではないかと思ったのですが、AOPと共に機能するアノテーションベースで依存ポイントを指定し抽象と具象の接続指定でオブジェクトを構成するその設計と指向は、チャレンジに充分すぎるほどのものではないかと感じながら移植を開始しました。</p>
-
-<p>実装、パフォーマンス、デバック等困難な事も多かったのですが、現在のBEAR.Sundayでかなりヘビーに使えていて今回1.0として長くつけてたbetaを外しました。これでcomposer.jsonで@devや@beta指定する必要がなくなります。</p>
-
-<h2>Thx</h2>
-
-<p><a href="https://github.com/madapaja">@madapaja</a> さん<a href="https://github.com/akkie"> @akkie</a> さんには有用なアドバイスをもらい、GitHubもPRもしてもらいました。特に@madapaja さんはブログ記事かいてもらったり、スライドで発表してもらったりしました。また<a href="https://github.com/jingu">@jingu</a>君にはRoboGuiceとの比較を教えてもらって、Guiceを使った事もない自分には大変助かりました。<a href="https://github.com/hidenorigoto">@hidenorigoto</a>さんにはWeb+DBで「たとえばSymfonyのDIコンポーネントと比較すると、DIの構成と利用の分離の点で一歩進んでます」との賛辞で紹介していただきました。<a href="https://github.com/vectorxenon">@vectorxenon</a>さんにはCakePHPでの利用してもらいました。</p>
-
-<p>みなさん、ありがとうございます。これからもよろしくお願いします。</p>
-
-<ol class="footnotes">
-  <li id="footnote_0_1800" class="footnote">
-    現在BEAR.Sundayのsandoxアプリでは、&#8221;テスト&#8221;ではスタブデータを、&#8221;開発&#8221;では全てのin/outを記録するようになっています。 [<a href="#identifier_0_1800" class="footnote-link footnote-back-link">&#8617;</a>]
-  </li>
-  <li id="footnote_1_1800" class="footnote">
-    他のPHPフレームワークではほとんどDIが使われていませんでした [<a href="#identifier_1_1800" class="footnote-link footnote-back-link">&#8617;</a>]
-  </li>
-  <li id="footnote_2_1800" class="footnote">
-    当時とても大きいものだと誤解してました [<a href="#identifier_2_1800" class="footnote-link footnote-back-link">&#8617;</a>]
-  </li>
-</ol>
-
-
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Be the first one]]></title>
-    <link href="http://koriym.github.io/2013/03/be-the-first-one/"/>
-    <updated>2013-03-29T00:00:00+09:00</updated>
-    <id>http://koriym.github.io/2013/03/be-the-first-one</id>
-    <content type="html"><![CDATA[<div style="float: right; margin-left: 10px;">
-  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2013/03/be-the-first-one/">Tweet</a>
-</div>
-
-
-
-
-<iframe src="http://embed.ted.com/talks/lang/ja/derek_sivers_how_to_start_a_movement.html" width="560" height="315" frameborder="0" scrolling="no" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-
-
-<p>&#8220;have the courage to follow and show others how to follow.&#8221;</p>
-
-<div style="height:30px;">
-</div>
-
-
-<p>ソーシャルコーディングもそうではないかと考えました。</p>
 ]]></content>
   </entry>
   

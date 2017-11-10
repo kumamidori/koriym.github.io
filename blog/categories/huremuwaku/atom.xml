@@ -4,7 +4,7 @@
   <title><![CDATA[Category: フレームワーク | BEAR Blog]]></title>
   <link href="http://koriym.github.io/blog/categories/huremuwaku/atom.xml" rel="self"/>
   <link href="http://koriym.github.io/"/>
-  <updated>2017-10-23T11:16:30+09:00</updated>
+  <updated>2017-11-10T11:46:23+09:00</updated>
   <id>http://koriym.github.io/</id>
   <author>
     <name><![CDATA[Akihito Koriyama]]></name>
@@ -388,7 +388,7 @@ Abstraction Instability Chartは横軸にA &#8211; abstraction（抽象化）、
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Advent Day 7: ver. 0.Go.Go]]></title>
+    <title type="html"><![CDATA[Advent Day 7: Ver. 0.Go.Go]]></title>
     <link href="http://koriym.github.io/adv7"/>
     <updated>2012-12-11T00:00:00+09:00</updated>
     <id>http://koriym.github.io/advent-day-7-ver-0-go-go</id>

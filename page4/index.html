@@ -9,8 +9,9 @@
   <meta name="author" content="Akihito Koriyama">
 
   
-  <meta name="description" content="Tweet 関心の分離としてのDI オブジェクトは、他のオブジェクトの生成か、使用のいずれかのみを行い、双方を行ってはならない。
-&#8212; 生成・使用分離の原則 &#8211; Strategic Choice Eric Raymondは『Art of UNIX Programming』 &hellip;">
+  <meta name="description" content="Tweet Packagist登録 BEAR.PackageをPackagistに登録しました。
+composerのcreate-projectでインストールできるようになりました。 composerインストール 1
+$ wget http://getcomposer.org/composer. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -22,24 +23,14 @@
   <link rel="canonical" href="http://koriym.github.io/page4/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="BEAR Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  <meta property="og:title" content="BEAR Blog" />
-<meta property="og:description" content="Tweet 関心の分離としてのDI オブジェクトは、他のオブジェクトの生成か、使用のいずれかのみを行い、双方を行ってはならない。
-&#8212; 生成・使用分離の原則 &#8211; Strategic Choice Eric Raymondは『Art of UNIX Programming』 &hellip;" />
-<meta property="og:url" content="http://koriym.github.io/page4/" />
-<meta property="og:image" content="http://bearsunday.github.io/images/icon/favicon-144.png" />
-<meta property="og:author" content="Akihito Koriyama" />
-<meta property="og:site_name" content="BEAR Blog" />
-<meta property="og:locale" content="ja_JP" />
-<meta property="og:type" content="blog" />
-<meta property="fb:app_id" content="516362398477090" />
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
   <script type="text/javascript">
@@ -65,7 +56,6 @@
   
 </hgroup>
 
-<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
 </header>
   <nav role="navigation"><ul class="subscription" data-subscription="rss">
   <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
@@ -74,7 +64,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:koriym.github.io" />
+    <input type="hidden" name="sitesearch" value="koriym.github.io">
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -96,6 +86,286 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/adv8">Advent Day 8: Packagist</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2012-12-12T00:00:00+09:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>12:00 am</span></time>
+        
+           | <a href="/adv8#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/adv8">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/adv8">Tweet</a>
+</div>
+
+
+<h2>Packagist登録</h2>
+
+<p>BEAR.PackageをPackagistに登録しました。<br/>
+composerのcreate-projectでインストールできるようになりました。</p>
+
+<p>composerインストール</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>wget http://getcomposer.org/composer.phar
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>または</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -s https://getcomposer.org/installer <span class="p">|</span> php
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>composerでBEAR.Sunday sandboxアプリケーションインストールします。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>php composer.phar create-project -s dev bear/package /tmp/mysunday
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>BEAR.Packageとその依存のBEAR.Sundayが指定したバージョンでインストールされます。<sup><a href="#footnote_0_1385" id="identifier_0_1385" class="footnote-link footnote-identifier-link" title=" インストールスクリプトはまだ用意できていないのでパーミッションの設定が現在必要です">1</a></sup> その後PHP5.4のbuilt-in web serverを立ち上げます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>composer.phar create-project -s dev bear/package /tmp/mysunday
+</span><span class='line'>Installing bear/package <span class="o">(</span>dev-master bbc42caf8ed71e56c4f72f7270db012dc4b40d39<span class="o">)</span>
+</span><span class='line'>  - Installing bear/package <span class="o">(</span>dev-master master<span class="o">)</span>
+</span><span class='line'>    Cloning master
+</span><span class='line'>Created project in /tmp/mysunday
+</span><span class='line'>Loading composer repositories with package information
+</span><span class='line'>Installing dependencies from lock file
+</span><span class='line'>  - Installing aura/installer-default <span class="o">(</span>1.0.0<span class="o">)</span>
+</span><span class='line'>  - Installing aura/web <span class="o">(</span>1.0.0<span class="o">)</span>
+</span><span class='line'>  - Installing aura/signal <span class="o">(</span>1.0.0<span class="o">)</span>
+</span><span class='line'>  - Installing aura/router <span class="o">(</span>1.0.0<span class="o">)</span>
+</span><span class='line'>  - Installing aura/di <span class="o">(</span>1.0.1<span class="o">)</span>
+</span><span class='line'>  - Installing doctrine/common <span class="o">(</span>2.3.x-dev bb0aebb<span class="o">)</span>
+</span><span class='line'>    Cloning bb0aebbf234db52df476a2b473d434745b34221c
+</span><span class='line'>  - Installing ray/aop <span class="o">(</span>dev-master 3edfe6b<span class="o">)</span>
+</span><span class='line'>    Cloning 3edfe6ba6b52e8d3190da62c14479ff7cce2377f
+</span><span class='line'>  - Installing ray/di <span class="o">(</span>dev-master 1.0.0-beta3<span class="o">)</span>
+</span><span class='line'>    Cloning 1.0.0-beta3
+</span><span class='line'>  - Installing zendframework/zend-stdlib <span class="o">(</span>2.0.5<span class="o">)</span>
+</span><span class='line'>  - Installing zendframework/zend-log <span class="o">(</span>2.0.5<span class="o">)</span>
+</span><span class='line'>  - Installing nocarrier/hal <span class="o">(</span>dev-master cc46654<span class="o">)</span>
+</span><span class='line'>    Cloning cc466546c6ca5df3e806cd91258cdf194518a12f
+</span><span class='line'>  - Installing twitter/bootstrap <span class="o">(</span>master master<span class="o">)</span>
+</span><span class='line'>    Cloning master
+</span><span class='line'>  - Installing firephp/firephp-core <span class="o">(</span>dev-master c26d972<span class="o">)</span>
+</span><span class='line'>    Cloning c26d972dcb28fd483fa193512091df7b3c85e450
+</span><span class='line'>  - Installing symfony/http-foundation <span class="o">(</span>2.0.x-dev 4de1a1f<span class="o">)</span>
+</span><span class='line'>    Cloning 4de1a1f9a81a58bd6f24607894f76fd7017d45e7
+</span><span class='line'>  - Installing symfony/console <span class="o">(</span>2.0.x-dev v2.0.19<span class="o">)</span>
+</span><span class='line'>    Cloning v2.0.19
+</span><span class='line'>  - Installing smarty/smarty <span class="o">(</span>v3.1.12<span class="o">)</span>
+</span><span class='line'>    Checking out /tags/v3.1.12/@4664
+</span><span class='line'>  - Installing pagerfanta/pagerfanta <span class="o">(</span>dev-master 12f71d9<span class="o">)</span>
+</span><span class='line'>    Cloning 12f71d99457b018fb80746f84514dd5b495c5789
+</span><span class='line'>  - Installing symfony/event-dispatcher <span class="o">(</span>dev-master eb290a4<span class="o">)</span>
+</span><span class='line'>    Cloning eb290a447c0af5bea0d3de5d95d498afd8c82f89
+</span><span class='line'>  - Installing guzzle/guzzle <span class="o">(</span>v2.7.2<span class="o">)</span>
+</span><span class='line'>  - Installing facebook/xhprof <span class="o">(</span>0.9.2<span class="o">)</span>
+</span><span class='line'>  - Installing doctrine/dbal <span class="o">(</span>2.3.x-dev f63af19<span class="o">)</span>
+</span><span class='line'>    Cloning f63af1948a609a96b8ea1c1302c7cdf2f9f51468
+</span><span class='line'>  - Installing printo/printo <span class="o">(</span>dev-master abd0d6b<span class="o">)</span>
+</span><span class='line'>    Cloning abd0d6b68d00dc98a71124215780b57ec3ede268
+</span><span class='line'>  - Installing vdump/vdump <span class="o">(</span>0.1.0<span class="o">)</span>
+</span><span class='line'>  - Installing bear/resource <span class="o">(</span>dev-master 3ca644b<span class="o">)</span>
+</span><span class='line'>    Cloning 3ca644bc29de4257ec9165ce1c9745150dc231dd
+</span><span class='line'>  - Installing bear/sunday <span class="o">(</span>dev-master a9b6fdd<span class="o">)</span>
+</span><span class='line'>    Cloning a9b6fdd7cd34b9e7d2075a7c95e066547bcf59ac
+</span><span class='line'>zendframework/zend-stdlib suggests installing pecl-weakref <span class="o">(</span>Implementation of weak references <span class="k">for</span> Stdlib<span class="se">\C</span>allbackHandler<span class="o">)</span>
+</span><span class='line'>zendframework/zend-log suggests installing zendframework/zend-db <span class="o">(</span>Zend<span class="se">\D</span>b component<span class="o">)</span>
+</span><span class='line'>zendframework/zend-log suggests installing zendframework/zend-escaper <span class="o">(</span>Zend<span class="se">\E</span>scaper component, <span class="k">for</span> use in the XML formatter<span class="o">)</span>
+</span><span class='line'>zendframework/zend-log suggests installing zendframework/zend-mail <span class="o">(</span>Zend<span class="se">\M</span>ail component<span class="o">)</span>
+</span><span class='line'>zendframework/zend-log suggests installing zendframework/zend-validator <span class="o">(</span>Zend<span class="se">\V</span>alidator component<span class="o">)</span>
+</span><span class='line'>pagerfanta/pagerfanta suggests installing doctrine/orm <span class="o">(</span>2.*<span class="o">)</span>
+</span><span class='line'>pagerfanta/pagerfanta suggests installing doctrine/mongodb-odm <span class="o">(</span>2.*<span class="o">)</span>
+</span><span class='line'>pagerfanta/pagerfanta suggests installing solarium/solarium <span class="o">(</span>2.*<span class="o">)</span>
+</span><span class='line'>symfony/event-dispatcher suggests installing symfony/dependency-injection <span class="o">(</span>2.2.*<span class="o">)</span>
+</span><span class='line'>symfony/event-dispatcher suggests installing symfony/http-kernel <span class="o">(</span>2.2.*<span class="o">)</span>
+</span><span class='line'>Generating autoload files
+</span><span class='line'>Do you want to remove the existing VCS <span class="o">(</span>.git, .svn..<span class="o">)</span> <span class="nb">history</span>? <span class="o">[</span>Y,n<span class="o">]</span>? Y
+</span><span class='line'><span class="nv">$ </span>chmod -R <span class="m">777</span> /tmp/mysunday/apps/Sandbox/data/
+</span><span class='line'><span class="nv">$ </span>chmod -R <span class="m">777</span> /tmp/mysunday/apps/Helloworld/data/
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd</span> /tmp/mysunday/apps/Sandbox/public/
+</span><span class='line'><span class="nv">$ </span>php -S localhost:8088 web.php
+</span><span class='line'>PHP 5.4.9 Development Server started at Wed Dec <span class="m">12</span> 13:11:37 2012
+</span><span class='line'>Listening on http://localhost:8088
+</span><span class='line'>Document root is /private/tmp/mysunday/apps/Sandbox/public
+</span><span class='line'>Press Ctrl-C to quit.
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<ol class="footnotes">
+  <li id="footnote_0_1385" class="footnote">
+    インストールスクリプトはまだ用意できていないのでパーミッションの設定が現在必要です [<a href="#identifier_0_1385" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/adv7">Advent Day 7: Ver. 0.Go.Go</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2012-12-11T00:00:00+09:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>12:00 am</span></time>
+        
+           | <a href="/adv7#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/adv7">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/adv7">Tweet</a>
+</div>
+
+
+<h2>Day 7</h2>
+
+<p>Day 7、７日目の休息ということでDI記事お休みして <a href="https://travis-ci.org/koriym/BEAR.Package/builds/3592222" target="_blank">BEAR.Sudnayの0.5.5リリース</a>の案内です。</p>
+
+<h2>BEAR.Sunday version 0.5.5</h2>
+
+<p>現在のBEAR.Sundayアプリケーションは三層の構造になっています。</p>
+
+<ul>
+<li>Application アプリケーション</li>
+<li>BEAR.Package アプリケーションパッケージ</li>
+<li>BEAR.Sunday リソースフレームワーク</li>
+</ul>
+
+
+<h4>BEAR.Sunday</h4>
+
+<p>Ray.Di/Aopという生成と振る舞いに制約と機能をもたらすオブジェクトフレームワークに、リソース制約を加えリソースフレームワークとしたものです。</p>
+
+<h4>BEAR.Package</h4>
+
+<p>必要なテンプレートエンジンやDBライブラリ等の実装選択等の実装選択と、フレームワークが持つ抽象の束縛の集合です。BEAR.Sundayは（コンポーネントの一貫性のプライオリティを下げてでも）多様なライブラリ選択を好みます。アプリケーションアーキテクトはスタッフやプロジェクトを勘案して、アプリケーションパッケージの構成を柔軟に構成することができます。複数のアプリケーションが共有する、チームのソフトウエア基盤です。アプリケーションのコンパイルタイムで必要な処理の多くはこのレイヤーが担当します。</p>
+
+<h4>Application アプリケーション</h4>
+
+<p>アプリケーションのランタイムコードの記述が中心になります。例えばDBオブジェクトがどのように生成されたかに関与はありません。セットされたDBを使って本質的関心事ではあるビジネスロジックを実現するコードを記述することが中心になります。</p>
+
+<p>ここ最近の作業の中心はBEAR.Packageの分離とBEAR.Packageでのアプリケーションのより良い構成を持つ事でした。</p>
+
+<h2>1.0.0 ?</h2>
+
+<p>BEAR.Package以外の更新を最小化と、アプリケーション作成を通じてBEAR.Packageを熟成させ1.0.0リリースに繋げたいと思います。<br/>
+当初予定してた今年中のリリースは難しいですが、来年明けの早い段階でと考えてます。</p>
+
+<p>次の<a href="http://atnd.org/events/34068">Symfony勉強会 #7 (BEAR.Sundayワークショップ＆忘年会) 2012/12/15(Sun)</a>ではこの0.5.5を使います。よろしく御願いします。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/2012/12/advent-day-6-di-soc/">Advent Day 6: DI SoC</a></h1>
     
     
@@ -105,16 +375,10 @@
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2012-12-10T00:00:00+09:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2012-12-10T00:00:00+09:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>12:00 am</span></time>
         
-         | <a href="/2012/12/advent-day-6-di-soc/#disqus_thread">Comments</a>
+           | <a href="/2012/12/advent-day-6-di-soc/#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/2012/12/advent-day-6-di-soc/">Comments</a>
         
       </p>
     
@@ -201,16 +465,10 @@
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2012-12-06T00:00:00+09:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2012-12-06T00:00:00+09:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>12:00 am</span></time>
         
-         | <a href="/adv5#disqus_thread">Comments</a>
+           | <a href="/adv5#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/adv5">Comments</a>
         
       </p>
     
@@ -353,16 +611,10 @@ with a Test Double</li>
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2012-12-04T00:00:00+09:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2012-12-04T00:00:00+09:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>12:00 am</span></time>
         
-         | <a href="/adv4#disqus_thread">Comments</a>
+           | <a href="/adv4#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/adv4">Comments</a>
         
       </p>
     
@@ -547,16 +799,10 @@ with a Test Double</li>
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2012-12-03T00:00:00+09:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2012-12-03T00:00:00+09:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2012</span></span> <span class='time'>12:00 am</span></time>
         
-         | <a href="/adv1#disqus_thread">Comments</a>
+           | <a href="/adv1#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/adv1">Comments</a>
         
       </p>
     
@@ -630,16 +876,10 @@ with a Test Double</li>
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2012-12-03T00:00:00+09:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2012-12-03T00:00:00+09:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2012</span></span> <span class='time'>12:00 am</span></time>
         
-         | <a href="/adv3#disqus_thread">Comments</a>
+           | <a href="/adv3#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/adv3">Comments</a>
         
       </p>
     
@@ -687,16 +927,10 @@ with a Test Double</li>
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2012-12-03T00:00:00+09:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2012-12-03T00:00:00+09:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2012</span></span> <span class='time'>12:00 am</span></time>
         
-         | <a href="/adv2#disqus_thread">Comments</a>
+           | <a href="/adv2#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/adv2">Comments</a>
         
       </p>
     
@@ -835,16 +1069,10 @@ with a Test Double</li>
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2012-11-17T00:00:00+09:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2012-11-17T00:00:00+09:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>12:00 am</span></time>
         
-         | <a href="/binding#disqus_thread">Comments</a>
+           | <a href="/binding#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/binding">Comments</a>
         
       </p>
     
@@ -1279,16 +1507,10 @@ AOPについての初歩的なことはマニュアルの<a href="http://code.go
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2012-11-10T00:00:00+09:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2012-11-10T00:00:00+09:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>12:00 am</span></time>
         
-         | <a href="/phpmatsuri2012#disqus_thread">Comments</a>
+           | <a href="/phpmatsuri2012#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/phpmatsuri2012">Comments</a>
         
       </p>
     
@@ -1327,579 +1549,13 @@ AOPについての初歩的なことはマニュアルの<a href="http://code.go
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2012/10/codeasdocumentation/">CodeAsDocumentation</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-28T00:00:00+09:00" pubdate data-updated="true"></time>
-        
-         | <a href="/2012/10/codeasdocumentation/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div style="float: right; margin-left: 10px;">
-  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2012/10/codeasdocumentation/">Tweet</a>
-</div>
-
-
-<h2>コードがドキュメントだ</h2>
-
-<blockquote><p>なぜコードが重要なドキュメントなのかというと、 詳細かつ正確なドキュメントはコードしかないからだ &#8212; Martin Fowler</p></blockquote>
-
-<h2>アプリケーションシーケンス</h2>
-
-<p>どのようなシーケンス<sup><a href="#footnote_0_1035" id="identifier_0_1035" class="footnote-link footnote-identifier-link" title="あらかじめ定められた順序または手続きに従って制御の各段階を逐次進めていく制御">1</a></sup><sup><a href="#footnote_1_1035" id="identifier_1_1035" class="footnote-link footnote-identifier-link" title="http://ja.wikipedia.org/wiki/%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E5%88%B6%E5%BE%A1">2</a></sup> によりフレームワーク／アプリケーションが実行されるかはフレームワークの設計思想を強く反映していて、柔軟度にも違いがあります。ほぼ固定的なものから、イベントシステムで柔軟性を持たせたもの、それらはアプリケーションテンプレートのようなWebフレームワークと、ライブラリ指向のフルスタックフレームワークで異なってきます。</p>
-
-<p>しかし、しばしばこのシーケンスは分かりにくいものです。</p>
-
-<p>BEAR.Sundayではこのシーケンスをアプリケーションの構成だと考え、完全にアプリケーションドメインのものにならないかと考えました。基本シークエンスをスクリプトにより簡潔に表現し可読性を高め、自由に編集できるようにします。特定の処理を追加したり、割込ませるためにはそのスクリプトを直接編集します。<sup><a href="#footnote_2_1035" id="identifier_2_1035" class="footnote-link footnote-identifier-link" title="CakePHP のシーケンス図を作ってみたという記事を読みました。CakePHP2のアプリケーション／フレームワークのシーケンスが分かるという記事なのですが、面白いと思ったと同時に現在のフレームワークのシーケンスの分かりにくさを表している事でもないかと考えました。
-">3</a></sup></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/** @global $mode application configuration mode */</span>
-</span><span class='line'><span class="c1">// Clear</span>
-</span><span class='line'><span class="k">require</span> <span class="nb">dirname</span><span class="p">(</span><span class="nx">__DIR__</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;/scripts/clear.php&#39;</span><span class="p">;</span>
-</span><span class='line'><span class="c1">// Application instance with loader</span>
-</span><span class='line'><span class="nv">$mode</span> <span class="o">=</span> <span class="s1">&#39;Prod&#39;</span><span class="p">;</span>
-</span><span class='line'><span class="nv">$app</span> <span class="o">=</span> <span class="k">require</span> <span class="nb">dirname</span><span class="p">(</span><span class="nx">__DIR__</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;/scripts/instance.php&#39;</span><span class="p">;</span>
-</span><span class='line'><span class="c1">// Dispatch</span>
-</span><span class='line'><span class="k">list</span><span class="p">(</span><span class="nv">$method</span><span class="p">,</span> <span class="nv">$pagePath</span><span class="p">,</span> <span class="nv">$query</span><span class="p">)</span> <span class="o">=</span> <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">router</span><span class="o">-&gt;</span><span class="na">match</span><span class="p">(</span><span class="nv">$GLOBALS</span><span class="p">);</span>
-</span><span class='line'><span class="c1">// Request</span>
-</span><span class='line'><span class="k">try</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nv">$page</span> <span class="o">=</span> <span class="nv">$app</span>
-</span><span class='line'>    <span class="o">-&gt;</span><span class="na">resource</span>
-</span><span class='line'>    <span class="o">-&gt;</span><span class="nv">$method</span>
-</span><span class='line'>    <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;page://self/&#39;</span> <span class="o">.</span> <span class="nv">$pagePath</span><span class="p">)</span>
-</span><span class='line'>    <span class="o">-&gt;</span><span class="na">withQuery</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span>
-</span><span class='line'>    <span class="o">-&gt;</span><span class="na">eager</span>
-</span><span class='line'>    <span class="o">-&gt;</span><span class="na">request</span><span class="p">();</span>
-</span><span class='line'><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">NotFound</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nv">$code</span> <span class="o">=</span> <span class="mi">404</span><span class="p">;</span>
-</span><span class='line'>    <span class="nx">goto</span> <span class="nx">ERROR</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">BadRequest</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nv">$code</span> <span class="o">=</span> <span class="mi">400</span><span class="p">;</span>
-</span><span class='line'>    <span class="nx">goto</span> <span class="nx">ERROR</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nv">$code</span> <span class="o">=</span> <span class="mi">503</span><span class="p">;</span>
-</span><span class='line'>    <span class="nb">error_log</span><span class="p">((</span><span class="nx">string</span><span class="p">)</span><span class="nv">$e</span><span class="p">);</span>
-</span><span class='line'>    <span class="nx">goto</span> <span class="nx">ERROR</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="c1">// Transfer</span>
-</span><span class='line'><span class="nx">OK</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">response</span><span class="o">-&gt;</span><span class="na">setResource</span><span class="p">(</span><span class="nv">$page</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">send</span><span class="p">();</span>
-</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nx">ERROR</span><span class="o">:</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nb">http_response_code</span><span class="p">(</span><span class="nv">$code</span><span class="p">);</span>
-</span><span class='line'>    <span class="k">require</span> <span class="nb">dirname</span><span class="p">(</span><span class="nx">__DIR__</span><span class="p">)</span> <span class="o">.</span> <span class="s2">&quot;/http/</span><span class="si">{</span><span class="nv">$code</span><span class="si">}</span><span class="s2">.php&quot;</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>これがアプリケーションスクリプトです。通常のOOPを使ったオブジェクトの世界ではなく、シェルスクリプトのように処理手順が記述してあるスクリプトの世界です。</p>
-
-<p>アプリケーションオブジェクトはアプリケーションスクリプトが使う全てのサービス（オブジェクト）を保持したオブジェクトです。スクリプトで取得して１つの$appという変数に代入しています。アプリケーションスクリプトでそのサービスを使って全体のフローを簡潔に構成します。</p>
-
-<h3>ページリソースで構成の意図を</h3>
-
-<p>アプリケーションスクリプトではページリソースのURIを組み立て、ページリソースリクエストを行いその結果を出力しています。</p>
-
-<p>ページリソースは自らをページとして構成するのが役割ですが、<strong>その構成意図はコードで表されます。</strong></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Posts</span> <span class="k">extends</span> <span class="nx">Page</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">use</span> <span class="nx">ResourceInject</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">public</span> <span class="nv">$body</span> <span class="o">=</span> <span class="p">[</span>
-</span><span class='line'>        <span class="s1">&#39;posts&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span>
-</span><span class='line'>    <span class="p">];</span>
-</span><span class='line'>    <span class="sd">/**</span>
-</span><span class='line'><span class="sd">     * @Cache</span>
-</span><span class='line'><span class="sd">     */</span>
-</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="nv">$this</span><span class="p">[</span><span class="s1">&#39;posts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">resource</span>
-</span><span class='line'>            <span class="o">-&gt;</span><span class="na">get</span>
-</span><span class='line'>            <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;app://self/blog/posts&#39;</span><span class="p">)</span>
-</span><span class='line'>            <span class="o">-&gt;</span><span class="na">withQuery</span><span class="p">([</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">])</span>
-</span><span class='line'>            <span class="o">-&gt;</span><span class="na">request</span><span class="p">();</span>
-</span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>セットすべきコンテンツ</h3>
-
-<p>$bodyプロパティはこのページでコンテンツ&#8217;posts&#8217;を用意する必要があるのを表しています。</p>
-
-<h3>指定可能なGETクエリー</h3>
-
-<p>GETリクエストにはidクエリーの指定が必須であることも表されています。</p>
-
-<h3>コンテンツとリソースをリンク</h3>
-
-<p>メソッド内では、コンテンツ<strong>posts</strong>を<strong>app://self/blog/posts?id=$id</strong>リソースにするという意図が示されてます。</p>
-
-<p>app://self/blog/postsが何を示すのかはこのコードには現れてないのに注意してください。これが特定のPHPクラスを指すのか、特定ファイルの内容なのか、あるいはリモートアクセスの結果なのか、ここでは指定されていません。<strong>app://self/blog/postsというURIで表されるリソースを自身のpostsコンテンツにするという意図</strong>が表されているだけです。<sup><a href="#footnote_3_1035" id="identifier_3_1035" class="footnote-link footnote-identifier-link" title="もしかしたらThriftで繋がれたC++モジュールが何かの実行を行ってくれるのかもしれません">4</a></sup></p>
-
-<p>このメソッドには@Cacheというアノテーションがありますが、<strong>キャッシュを行うという意図</strong>が表されてるだけです。実際にどのようなキャッシュアダプターがどのようにキャッシュを行うかはこのコードには現れません。</p>
-
-<p>これは単に設定ファイルをアノテーションにしただけではないのに注意してください。アプリケーションはbootstrap時にこの意図をみて、このメソッドとキャッシュの実装アスペクトを織り込みます。</p>
-
-<h3>フォームの仕様</h3>
-
-<p>以下はPOSTメソッドはフォームからPOSTサブミットのリクエストインターフェイスです。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onPost</span><span class="p">(</span>
-</span><span class='line'>        <span class="nv">$name</span><span class="p">,</span>
-</span><span class='line'>        <span class="nv">$gender</span><span class="p">,</span>
-</span><span class='line'>        <span class="nv">$age</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span>
-</span><span class='line'>        <span class="nv">$hobby</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span>
-</span><span class='line'>        <span class="nv">$lang</span> <span class="o">=</span> <span class="s1">&#39;PHP&#39;</span>
-</span><span class='line'>    <span class="p">)</span> <span class="p">{</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>ここではPOSTメソッドでサブミットされるフォームに対してのリクエストインターフェイスがメソッドシグネチャーで表されています。$nameと$genderは入力必須、その他はオプションで$langを入力しなければ&#8221;PHP&#8221;になります。</p>
-
-<p>リクエストサービスオブジェクトから値を取り出す方法と比べて、PHPのメソッドとHTTPリクエストがシームレスに統合され、<strong>コードがPOSTフォームのドキュメンテーションになっています。</strong><sup><a href="#footnote_4_1035" id="identifier_4_1035" class="footnote-link footnote-identifier-link" title="webに&rdquo;型&rdquo;がないようにweb言語であるPHPにスカラータイプヒントがありません">5</a></sup></p>
-
-<h3>リソースのリンク</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'>    <span class="k">public</span> <span class="nv">$links</span> <span class="o">=</span> <span class="p">[</span>
-</span><span class='line'>        <span class="s1">&#39;payment&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-</span><span class='line'>            <span class="nx">Link</span><span class="o">::</span><span class="na">HREF</span> <span class="o">=&gt;</span> <span class="s1">&#39;app://self/restbucks/payment{?id}&#39;</span><span class="p">,</span>
-</span><span class='line'>            <span class="nx">Link</span><span class="o">::</span><span class="na">TEMPLATED</span> <span class="o">=&gt;</span> <span class="k">true</span>
-</span><span class='line'>        <span class="p">],</span>
-</span><span class='line'>    <span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>リソースの関係はAPIドキュメント内だけにあるのではなく、コードにも存在しています。この例では注文IDと支払URIの関係がリンクで表されています。</p>
-
-<h3>アプリケーションリソース</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'>    <span class="sd">/**</span>
-</span><span class='line'><span class="sd">     * @Time</span>
-</span><span class='line'><span class="sd">     * @Transactional</span>
-</span><span class='line'><span class="sd">     * @CacheUpdate</span>
-</span><span class='line'><span class="sd">     */</span>
-</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onPost</span><span class="p">(</span><span class="nv">$title</span><span class="p">,</span> <span class="nv">$body</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="nv">$values</span> <span class="o">=</span> <span class="p">[</span>
-</span><span class='line'>            <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$title</span><span class="p">,</span>
-</span><span class='line'>            <span class="s1">&#39;body&#39;</span> <span class="o">=&gt;</span> <span class="nv">$body</span><span class="p">,</span>
-</span><span class='line'>            <span class="s1">&#39;created&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">time</span>
-</span><span class='line'>        <span class="p">];</span>
-</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">,</span> <span class="nv">$values</span><span class="p">);</span>
-</span><span class='line'>        <span class="c1">//</span>
-</span><span class='line'>        <span class="nv">$lastId</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">lastInsertId</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
-</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">code</span> <span class="o">=</span> <span class="nx">Code</span><span class="o">::</span><span class="na">CREATED</span><span class="p">;</span>
-</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">links</span><span class="p">[</span><span class="s1">&#39;new_post&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">Link</span><span class="o">::</span><span class="na">HREF</span> <span class="o">=&gt;</span> <span class="s2">&quot;app://self/posts/post?id=</span><span class="si">{</span><span class="nv">$lastId</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">];</span>
-</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">links</span><span class="p">[</span><span class="s1">&#39;page_new_post&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">Link</span><span class="o">::</span><span class="na">HREF</span> <span class="o">=&gt;</span> <span class="s2">&quot;page://self/blog/posts/post?id=</span><span class="si">{</span><span class="nv">$lastId</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">];</span>
-</span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>このアプリケーションリソースメソッドではデータベースオブジェクトを利用してSQLを発行しますが、ここではアノテーションが実装意図を表すドキュメンテーションになっています。</p>
-
-<p>@Transactionalとアノテートするとこのメソッド内のクエリーはトランザクションとして扱われますが、@Cacheと同様、アノテーションそのものがトランザクションの機能をもっているわけではありません。@Transactionalというアノテート（注記）が（意図を表すドキュメンテーションとして扱われ）アプリケーションでトランザクションインターセプターと合成されています。</p>
-
-<h2>構造、意図、実装</h2>
-
-<p>アプリケーションの構造がアプリケーションスクリプトで表され、アプリケーションを構成するページリソースでは構成の意図が表されています。そのページリソースを構成するためのアプリケーションリソースでは、その構成のための実装が行われますが横断的実装はアスペクトで表され可能な限り下位のレイヤーで実装を行おうとします。</p>
-
-<p>上位のレイヤーでは構成意図を、下位のレイヤーでその実装を行うことでアプリケーションに解決空間の構成と実装のレイヤリングをフレームワークとして与えようとします。</p>
-
-<h3>アプリケーションオブジェクト</h3>
-
-<p>アプリケーションスクリプトからデーターベース操作を行う下位レイヤーまで、レイヤーを上から下に見て来ましたが、最期にそのトップのアプリケーションオブジェクトをみてみましょう。</p>
-
-<p>アプリケーションという<a href="http://en.wikipedia.org/wiki/Object_graph">オブジェクトグラフ</a>の頂点になるこのインスタンスはアプリケーションスクリプトが使う全てのサービス（オブジェクト）を保持するのがその最大責務です。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">final</span> <span class="k">class</span> <span class="nc">App</span> <span class="k">implements</span> <span class="nx">Context</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="sd">/** application dir path @var string */</span>
-</span><span class='line'>    <span class="k">const</span> <span class="no">DIR</span> <span class="o">=</span> <span class="nx">__DIR__</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">public</span> <span class="nv">$injector</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">public</span> <span class="nv">$resource</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">public</span> <span class="nv">$logger</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">public</span> <span class="nv">$response</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">public</span> <span class="nv">$exceptionHandler</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">public</span> <span class="nv">$router</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">public</span> <span class="nv">$globals</span><span class="p">;</span>
-</span><span class='line'>    <span class="sd">/**</span>
-</span><span class='line'><span class="sd">     * Constructor</span>
-</span><span class='line'><span class="sd">     *</span>
-</span><span class='line'><span class="sd">     * @param \Ray\Di\InjectorInterface                        $injector         Dependency Injector</span>
-</span><span class='line'><span class="sd">     * @param \BEAR\Resource\ResourceInterface                 $resource         Resource client</span>
-</span><span class='line'><span class="sd">     * @param \BEAR\Sunday\Exception\ExceptionHandlerInterface $exceptionHandler Exception handler</span>
-</span><span class='line'><span class="sd">     * @param \BEAR\Sunday\Application\Logger                  $logger           Application logger</span>
-</span><span class='line'><span class="sd">     * @param \BEAR\Sunday\Web\ResponseInterface               $response         Web / Console response</span>
-</span><span class='line'><span class="sd">     * @param \BEAR\Sunday\Web\RouterInterface                 $router           Resource cache adapter</span>
-</span><span class='line'><span class="sd">     * @param \BEAR\Sunday\Web\GlobalsInterface                $globals          GLOBALS value</span>
-</span><span class='line'><span class="sd">     *</span>
-</span><span class='line'><span class="sd">     * @Inject</span>
-</span><span class='line'><span class="sd">     */</span>
-</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span>
-</span><span class='line'>        <span class="nx">InjectorInterface</span> <span class="nv">$injector</span><span class="p">,</span>
-</span><span class='line'>        <span class="nx">ResourceInterface</span> <span class="nv">$resource</span><span class="p">,</span>
-</span><span class='line'>        <span class="nx">ExceptionHandlerInterface</span> <span class="nv">$exceptionHandler</span><span class="p">,</span>
-</span><span class='line'>        <span class="nx">ApplicationLogger</span> <span class="nv">$logger</span><span class="p">,</span>
-</span><span class='line'>        <span class="nx">ResponseInterface</span> <span class="nv">$response</span><span class="p">,</span>
-</span><span class='line'>        <span class="nx">RouterInterface</span> <span class="nv">$router</span><span class="p">,</span>
-</span><span class='line'>        <span class="nx">GlobalsInterface</span> <span class="nv">$globals</span>
-</span><span class='line'>    <span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">injector</span> <span class="o">=</span> <span class="nv">$injector</span><span class="p">;</span>
-</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">resource</span> <span class="o">=</span> <span class="nv">$resource</span><span class="p">;</span>
-</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span> <span class="o">=</span> <span class="nv">$response</span><span class="p">;</span>
-</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">exceptionHandler</span> <span class="o">=</span> <span class="nv">$exceptionHandler</span><span class="p">;</span>
-</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">logger</span> <span class="o">=</span> <span class="nv">$logger</span><span class="p">;</span>
-</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">router</span> <span class="o">=</span> <span class="nv">$router</span><span class="p">;</span>
-</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">globals</span> <span class="o">=</span> <span class="nv">$globals</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>オブジェクトの生成と実行が完全に分離されたDIシステムを持つBEAR.Sundayでは、アプリケーションスクリプトが利用するサービスの全ては、このアプリケーションのコードで表されます。</p>
-
-<p>アプリケーションの構成に必要な全てのサービスがここに記述されているはずで、要不要が生じればこのコードに反映されることになります。</p>
-
-<h2>Readability, Simplicity and Self-documenting</h2>
-
-<p><strong>簡潔で、可読性が高く、<a href="http://en.wikipedia.org/wiki/Self-documenting">自己記述的</a>であること</strong> &#8211; これはBEAR.Sundayが開発当初から一貫して指向してきたことです。</p>
-
-<p>これは単に表記の問題ではありません。解決しようとする問題の本質を明らかにして、本質的関心だけを浮かび上がる、そういう記述を指向しているということです。そのためにはスコープを適切に持ち、関心を分離し付随的な関心を削ぎ落とす事が必要でこれには多くの前提が必要です。</p>
-
-<p>生成と利用を完全に分離したDIや、横断的関心事を注記<sup><a href="#footnote_5_1035" id="identifier_5_1035" class="footnote-link footnote-identifier-link" title="アノテーション">6</a></sup>に応じて織り込むAOP、アプリケーションプロトコル/プラットフォームであるHTTPとフレームワークとの融合を即するRESTオブジェクト、これらのその前提です。これらDI/AOP/RESTを道具として指向するのではなく、簡潔で可読性が高く自己記述的なアプリケーションコーディングの前提、オブジェクトフレームワークとして機能させようとしています。</p>
-
-<p>これまでの開発で最も多くのスクラップ＆ビルドを繰り返しよりよい解を求めて試行錯誤を繰り返し注力したたのはフレームワークの機能ではなく、アプリケーション記述のあり方です。<sup><a href="#footnote_6_1035" id="identifier_6_1035" class="footnote-link footnote-identifier-link" title="これはアプリケーションドメインなのでアプリケーションアーキテクトが責任を持ちますが、そのスタンダードを示す事が大切だと考えより注力しました。">7</a></sup> 完成が近づくにつれ、その点の関して完成度が高まったと考え、マーティンファウラーの<a href="http://capsctrl.que.jp/kdmsnr/wiki/bliki/?CodeAsDocumentation">CodeAsDocumentation</a>というタイトルで記事にしました。</p>
-
-<p>次の11/03 22:00から<a href="http://www.phpmatsuri.net/2012/">PHP Matsuri2012</a>というイベントでBEAR.Sunday初のワークショップを行う事になりました。当日は簡単なリソース作成を通じて、今回の記事のようなことやDI/AOP、それにOOPや設計の話が出来ればと思ってます。よろしくお願いします。</p>
-
-<ol class="footnotes">
-  <li id="footnote_0_1035" class="footnote">
-    あらかじめ定められた順序または手続きに従って制御の各段階を逐次進めていく制御 [<a href="#identifier_0_1035" class="footnote-link footnote-back-link">&#8617;</a>]
-  </li>
-  <li id="footnote_1_1035" class="footnote">
-    http://ja.wikipedia.org/wiki/%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E5%88%B6%E5%BE%A1 [<a href="#identifier_1_1035" class="footnote-link footnote-back-link">&#8617;</a>]
-  </li>
-  <li id="footnote_2_1035" class="footnote">
-    <a href="http://blog.xao.jp/blog/cakephp/sequence-diagram-of-a-part-of-cakephp-for-my-studying/">CakePHP のシーケンス図を作ってみた</a>という記事を読みました。CakePHP2のアプリケーション／フレームワークのシーケンスが分かるという記事なのですが、面白いと思ったと同時に現在のフレームワークのシーケンスの分かりにくさを表している事でもないかと考えました。 [<a href="#identifier_2_1035" class="footnote-link footnote-back-link">&#8617;</a>]
-  </li>
-  <li id="footnote_3_1035" class="footnote">
-    もしかしたらThriftで繋がれたC++モジュールが何かの実行を行ってくれるのかもしれません [<a href="#identifier_3_1035" class="footnote-link footnote-back-link">&#8617;</a>]
-  </li>
-  <li id="footnote_4_1035" class="footnote">
-    webに&#8221;型&#8221;がないようにweb言語であるPHPにスカラータイプヒントがありません [<a href="#identifier_4_1035" class="footnote-link footnote-back-link">&#8617;</a>]
-  </li>
-  <li id="footnote_5_1035" class="footnote">
-    アノテーション [<a href="#identifier_5_1035" class="footnote-link footnote-back-link">&#8617;</a>]
-  </li>
-  <li id="footnote_6_1035" class="footnote">
-    これはアプリケーションドメインなのでアプリケーションアーキテクトが責任を持ちますが、そのスタンダードを示す事が大切だと考えより注力しました。 [<a href="#identifier_6_1035" class="footnote-link footnote-back-link">&#8617;</a>]
-  </li>
-</ol>
-
-
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2012/05/dip-dependency-inversion-principle/">DIP Dependency Inversion Principle</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-05-17T00:00:00+09:00" pubdate data-updated="true"></time>
-        
-         | <a href="/2012/05/dip-dependency-inversion-principle/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div style="float: right; margin-left: 10px;">
-  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2012/05/dip%EF%BC%9Adependency-inversion-principle/">Tweet</a>
-</div>
-
-
-<p>Robert C. Martin氏による有名なオブジェクト指向設計（OOD）の原則<strong>Principles of OOD</strong>があります。そのうちDIP:依存逆転原則はクラス同士の結合度をいかに減らすか、またはどちらに依存すべきかを判定する原則です。</p>
-
-<blockquote><ul>
-<li>上位モジュールは下位モジュールに依存してはならない。両者は抽象に依存すべきである。</li>
-<li>抽象は詳細（抽象の実装クラス）に依存してはならない。詳細は抽象に依存すべきである。</li>
-</ul>
-</blockquote>
-
-<ul>
-<li>オリジナル Robert C. Martin氏の<a href="http://www.objectmentor.com/resources/articles/dip.pdf">Dependency Inversion Principle (DIP) (PDF)</a></li>
-<li><a href="http://www2.ocn.ne.jp/~yamagu/">山口大輔</a>さんによる<a href="http://www2.ocn.ne.jp/~yamagu/object/DIP-J.pdf">和訳版(PDF)</a></li>
-<li><a href="http://d.hatena.ne.jp/asakichy/20090128/1233144989"> [オブジェクト指向設計原則]依存関係逆転の原則（DIP）: Strategic Choice: </a></li>
-<li><a href="http://www.syboos.jp/sysdesign/doc/20080609145612887.html">Dependency Inversion Principle (DIP) – OO設計のDIP依存逆転原則: オブジェクト指向設計</a></li>
-</ul>
-
-
-<p>以下はオリジナルの論文の結びの言葉です。</p>
-
-<blockquote><p>依存性逆転の原則は、<strong>オブジェクト指向技術で得られると言われる数多くの利益のうち、もっとも根幹にあたる部分に位置付けられます。</strong>この原則を適切に適用することは、再利 用可能なフレームワークを構築する上では不可欠なのです。また、変更に際して回復の早い(弾力的な)コードを書く上では決定的な重要性を持ちます。抽象とこまごまとしたものはそれぞれが分離さるので、コードはとてもメンテナンスしやすいものになります。</p></blockquote>
-
-<p>BEAR.SundayではこのDIPを最大限に重要と考え、コード全域に渡って適用しています。<sup><a href="#footnote_0_1528" id="identifier_0_1528" class="footnote-link footnote-identifier-link" title="実際にフレームワーク開発の前に着手したのがこの実現のためのDI systemのRay.Diです">1</a></sup></p>
-
-<h2>実装ではなく抽象に依存する</h2>
-
-<p>解説してる文章で最も短く簡潔なのが<a href="http://d.hatena.ne.jp/asakichy/20090128/1233144989">Strategic Choice</a>ブログの説明です。</p>
-
-<blockquote><p>DIPを一言で説明すると「抽象に依存せよ」という経験則。<br/>
-プログラムは具体的なクラスに依存してはいけない。<br/>
-プログラム内の関係はすべて、抽象クラスかインターフェースで終結すべきである</p></blockquote>
-
-<p>BEAR.Sundayのクラスでは、以下のように依存は原則全て注入してもらう事を期待します。</p>
-
-<div class="codecolorer-container php blackboard" style="overflow:auto;white-space:nowrap;width:100%;">
-  <div class="php codecolorer">
-    &nbsp; &nbsp; <span class="co4">/** &nbsp; &nbsp; &nbsp;* @Inject &nbsp; &nbsp; &nbsp;*/</span> &nbsp; &nbsp; <span class="kw2">public</span> <span class="kw2">function</span> setPrinter<span class="br0">(</span>OutputDevice <span class="re0">$printer</span><span class="br0">)</span> &nbsp; &nbsp; <span class="br0">{</span> &nbsp; &nbsp; &nbsp; &nbsp; <span class="re0">$this</span><span class="sy0">-></span><span class="me1">printer</span> <span class="sy0">=</span> <span class="re0">$printer</span><span class="sy0">;</span> &nbsp; &nbsp; <span class="br0">}</span>
-  </div>
-</div>
-
-
-<p>ここで大事なのはタイプヒンティング（この場合OutputDevice）を<strong>抽象</strong>、つまりインターフェイスかまたは抽象クラスにして具象クラスを<a href="http://php.net/manual/ja/language.oop5.typehinting.php">タイプヒント</a>にしないことです。タイプヒンティングを<strong>エラーチェックのためのアサーションとだけ捉えず、DIPに従った設計のための実装</strong>として考えます。</p>
-
-<ul>
-<li><a href="http://drupal.org/node/608152">Object-oriented code : Drupal</a></li>
-</ul>
-
-
-<h2>アンチパターン考察</h2>
-
-<h3>直接生成する</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$service</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyService</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>$serviceがMyServiceのインスタンスであると<a href="http://ja.wikipedia.org/wiki/%E6%9D%9F%E7%B8%9B_%28%E6%83%85%E5%A0%B1%E5%B7%A5%E5%AD%A6%29">静的束縛</a>されています。</p>
-
-<h3>スタティックコール</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nx">MyService</span><span class="o">::</span><span class="na">doSomething</span><span class="p">();</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>これも実装に依存しています。</p>
-
-<h3>コンテナに依存する</h3>
-
-<div class="codecolorer-container php blackboard" style="overflow:auto;white-space:nowrap;width:100%;">
-  <div class="php codecolorer">
-    <span class="re0">$id</span> <span class="sy0">=</span> <span class="re0">$this</span><span class="sy0">-></span><span class="me1">container</span><span class="br0">(</span><span class="st_h">&#8216;serviceA&#8217;</span><span class="br0">)</span><span class="sy0">-></span><span class="me1">getB</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">-></span><span class="me1">getC</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">-></span><span class="me1">getId</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-  </div>
-</div>
-
-
-<ul>
-<li>このコードでは抽象への依存はなくコンテナに入った<strong>実装に依存</strong>しています(DIP違反）</li>
-<li>メソッドチェーンで繋がれた<strong>依存の依存が持っている知識を前提</strong>としていています(<a href="http://ja.wikipedia.org/wiki/%E3%83%87%E3%83%A1%E3%83%86%E3%83%AB%E3%81%AE%E6%B3%95%E5%89%87" title="LoD">デメテルの法則違反</a>）</li>
-<li>getterを使う事でidという<strong>オブジェクトの構成要素の暴露</strong>がされています。(<a href="http://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%97%E3%82%BB%E3%83%AB%E5%8C%96">カプセル化</a>)</li>
-</ul>
-
-
-<p>実装に依存してオブジェクトを探しまわるようなコードから、インターフェイスを通じて依存を受け取るコードに変更します。</p>
-
-<h2>Conclusion</h2>
-
-<p>Robert C. Martin氏が「オブジェクト指向技術で得られると言われる数多くの利益のうちもっとも根幹にあたる部分」というこのDIPですが、「抽象のタイプヒントを指定しましょう」というのはただの一例で、「抽象に依存せよ」というの適用範囲の大変広いソフトウエア品質に寄与する大原則だと思います。メソッドのアクセス権 (visibility) と同じく実装での機能というより<strong>設計指向の実装</strong>として、設計者をよりよい設計にガイドする制約だと考えます。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
-      <a class="prev" href="5">&larr; Older</a>
+      <a class="prev" href="/page5">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
-    <a class="next" href="3">Newer &rarr;</a>
+    <a class="next" href="/page3">Newer &rarr;</a>
     
   </div>
 </div>
@@ -1910,7 +1566,15 @@ AOPについての初歩的なことはマニュアルの<a href="http://code.go
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2017/07/28/an-interface-as-an-api/">An interface as an API</a>
+        <a href="/blog/2017/11/10/re-code-reading/">Re: BEAR.Sundayをコードリーディングしたのでメモ程度にアウトプットする</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/11/01/self-code-review/">Self Code Review</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/07/28/an-interface-as-an-api/">An Interface as an API</a>
       </li>
     
       <li class="post">
@@ -1919,14 +1583,6 @@ AOPについての初歩的なことはマニュアルの<a href="http://code.go
     
       <li class="post">
         <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/06/08/haphpy-birthday/">HaPHPy Birthday PHP</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/05/31/first-bear-sunday-stable-release/">First BEAR.Sunday Stable Release !</a>
       </li>
     
   </ul>
@@ -1941,7 +1597,7 @@ AOPについての初歩的なことはマニュアルの<a href="http://code.go
   <a href="https://github.com/koriym">@koriym</a> on GitHub
   
   <script type="text/javascript">
-    $.domReady(function(){
+    $(document).ready(function(){
         if (!window.jXHR){
             var jxhr = document.createElement('script');
             jxhr.type = 'text/javascript';
@@ -1981,7 +1637,7 @@ AOPについての初歩的なことはマニュアルの<a href="http://code.go
   </div>
   <footer role="contentinfo"><p>
   Copyright &copy; 2017 - Akihito Koriyama -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.</span>
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
 </footer>
@@ -1995,21 +1651,20 @@ AOPについての初歩的なことはマニュアルの<a href="http://code.go
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
 
 
 
-
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/ja_JP/all.js#appId=516362398477090&xfbml=1";
-    fjs.parentNode.insertBefore(js, fjs);
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
 
@@ -2029,7 +1684,7 @@ AOPについての初歩的なことはマニュアルの<a href="http://code.go
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

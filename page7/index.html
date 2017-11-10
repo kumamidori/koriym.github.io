@@ -9,7 +9,7 @@
   <meta name="author" content="Akihito Koriyama">
 
   
-  <meta name="description" content="Tweet MVCにはあまりにも多くの派生パターンがあるので、「あなたが言っているMVCは私のMVCと違うね」みたいなことが頻発する。いっその事、MVCは NGワードにしたほうがいいんじゃなかろうか、とは俺も思う。 matarillo: UIパターン 現在のSmalltalkの世界では、すでに &hellip;">
+  <meta name="description" content="Tweet BEAR 0.8.x 現在のBEARは0.8.Xで、コアな機能は大分実装されてきてました。ここで機能追加を一旦fix、BEAR0.9は確認、テスト、パフォーマンスの向上など安定性の向上のためのバージョンにしてBEAR1.0に繋げようかと考えてます。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,23 +21,14 @@
   <link rel="canonical" href="http://koriym.github.io/page7/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="BEAR Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  <meta property="og:title" content="BEAR Blog" />
-<meta property="og:description" content="Tweet MVCにはあまりにも多くの派生パターンがあるので、「あなたが言っているMVCは私のMVCと違うね」みたいなことが頻発する。いっその事、MVCは NGワードにしたほうがいいんじゃなかろうか、とは俺も思う。 matarillo: UIパターン 現在のSmalltalkの世界では、すでに &hellip;" />
-<meta property="og:url" content="http://koriym.github.io/page7/" />
-<meta property="og:image" content="http://bearsunday.github.io/images/icon/favicon-144.png" />
-<meta property="og:author" content="Akihito Koriyama" />
-<meta property="og:site_name" content="BEAR Blog" />
-<meta property="og:locale" content="ja_JP" />
-<meta property="og:type" content="blog" />
-<meta property="fb:app_id" content="516362398477090" />
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
   <script type="text/javascript">
@@ -63,7 +54,6 @@
   
 </hgroup>
 
-<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
 </header>
   <nav role="navigation"><ul class="subscription" data-subscription="rss">
   <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
@@ -72,7 +62,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:koriym.github.io" />
+    <input type="hidden" name="sitesearch" value="koriym.github.io">
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -94,6 +84,246 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/2010/05/resource_cache/">リソースキャッシュ</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2010-05-20T00:00:00+09:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2010</span></span> <span class='time'>12:00 am</span></time>
+        
+           | <a href="/2010/05/resource_cache/#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/2010/05/resource_cache/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2010/05/resource_cache/">Tweet</a>
+</div>
+
+
+<h3>BEAR 0.8.x</h3>
+
+<p>現在のBEARは0.8.Xで、コアな機能は大分実装されてきてました。ここで機能追加を一旦fix、BEAR0.9は確認、テスト、パフォーマンスの向上など安定性の向上のためのバージョンにしてBEAR1.0に繋げようかと考えてます。実装前にその後の機能追加や方向性など単なるアイデアでまとまってないのも含めてかいてみようと思います。</p>
+
+<h3>リソースキャッシュ</h3>
+
+<p>Webフレームワークのキャッシュで最も一般的なのはビューキャッシュでしょうか。ビュー部分をページまるごと、あるいは表示の一部分をキャッシュし、その取得ロジックやDBアクセスのコストをセーブします。Smartyでも簡単に使えます。モデルをキャッシュしようとするとコントローラでモデル（オブジェクト）を直接アクセスするフレームワークでは、コントローラでキャッシュを利用するか、モデル側（ビヘイビアなどで）でキャッシュ対応するのが一般的だとおもいます。</p>
+
+<p>BEARではページはリソースを直接扱わず、ページにインジェクトされたリソースブラウザサービスがリソースアクセスを行います。キャッシュ機構はページが使用するリクエストサービスが実装しています。（WebアクセスでWebブラウザがキャッシュ機構をもっているようなものです）</p>
+
+<h3>NoSQLキャッシュ</h3>
+
+<p>ROAの「ステートレス」と「統一インターフェイス」で、リソースへリクエストをメソッド、URI、バリュー（引数）それにオプションが決まれば事前準備なしに行う事ができます。そのリクエストはURIとバリューの値をシリアライズすれば１つのキーにすることが可能です。そのシリアライズされたリクエスト&rdquo;キー&rdquo;でリソース状態をバリューにキャッシュとしてNoSQLを使えばどうかと考えてます。キャッシュというより参照用RDBの代わりです。</p>
+
+<h3>キャッシュ更新を時間切れでなくメソッドで</h3>
+
+<p>キャッシュ破棄のタイミングは時間指定でなくメソッドを用いるのはどうかと考えてます。つまり、特定バリューのリソースアクセスにバージョンを持っておき、&rdquo;サイドエフェクトがある操作"（update, delete)を行うとバージョン番号があがるというものです。</p>
+
+<p>IDしか引き数を持たないリソースがあったとして、バージョン番号1,ID=3というキー"1:ID=3"でread()を何時間してもキャッシュに変化がなくオリジナルデータソース（RDB）にアクセスはありません。ですがID=3でのupdateやdeleteが発生するとリソースバージョンが1から2になりキャッシュキーは（2:ID=3）になります。キーが代わりキャッシュヒットしないので新しいキャッシュデータがストアされます。（古いキャッシュを明示的に破棄しないでGCにまかせます）</p>
+
+<h3>閉じたリソースと開いたリソース</h3>
+
+<p>以上の事はリソースが他のリソースに依存していないことを前提としています。（join先のテーブルが別リソースに使われてて更新されていたら機能しない）。それを解決するためにリソースにそのリソースの依存性がないというアノテーションを用意したり（@cache closedとか？）リソースキャッシュの依存性を示すようなアノテーション（@cache dependency profile, followerとか？）を用意すればいいのかなとか考えてます（まだ自信がありません）</p>
+
+<h3>ビューキャッシュ</h3>
+
+<p>リソース状態だけでなく、リソーステンプレートを（しかもUA別に）ストアしてやればビューキャッシュになります。キャッシュはレイヤーを持つのでリソース状態キャッシュはリソースクライアントで利用する事ができます。それにリソーステンプレートが適用されたキャッシュはビューキャッシュとなります。※その場合のキャッシュキーはURI + バリュー + バージョン + UA + テンプレート</p>
+
+<p>こういう風にうまくRDBのデータをマスターとしてNoSQLのキャッシュにうまく乗せ、RDBの使いやすさとNoSQLのスケールアウト性がうまく合成できれば理想的なんじゃないかと。RDBのリクエストを最小化することができれば使用するDBライブラリ(MDB2, PDO, Zend_Db）等の性能差をあまり考えなくてよくなるメリットもあります。揮発性のあるキャッシュというより、参照用DB（スレーブDB）の代替になれば理想的です。容量や実装の問題もあるかもしれませんが高い可能性を感じています。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%95/">Hello Worldコールグラフ</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2010-04-08T00:00:00+09:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2010</span></span> <span class='time'>12:00 am</span></time>
+        
+           | <a href="/2010/04/hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%95/#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/2010/04/hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%95/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2010/04/hello-world%e3%82%b3%e3%83%bc%e3%83%ab%e3%82%b0%e3%83%a9%e3%83%95/">Tweet</a>
+</div>
+
+
+<h3>Hello Worldベンチマーク</h3>
+
+<p><a href="http://www.yiiframework.com/performance/">Performance of Yii</a>というページでPHP主要フレームワークの&#8221;hello worldべンチマーク&#8221;を比較しています。phpmarkというGoogle Code Projectでホストされてる各フレームワークでHello Worldを出力するアプリケーションでベンチをとっているようです。Hello Worldベンチは最小のオーバーヘッド測定のためとされますが、そのコールグラフがどうなるかに興味を持ちました。</p>
+
+<p>※なぜHello Wolrdなのか？どういう意味があるのか？などについては<a href="http://www.yiiframework.com/performance/">Performance of Yii</a>や<a href="http://paul-m-jones.com/archives/238">Paul M. Jones » Blog Archive » New Year’s Benchmarks</a>などを参照してください。</p>
+
+<h3>コールグラフとは？</h3>
+
+<blockquote><p>コールグラフ (マルチグラフとも呼ばれる) とは、コンピュータプログラムのサブルーチン同士の呼び出し関係を表現した有向グラフである。</p></blockquote>
+
+<p><a href="http://ja.wikipedia.org/wiki/%E3%82%B3%E3%83%BC%E3%83%AB%E3%82%B0%E3%83%A9%E3%83%95">コールグラフ &#8211; Wikipedia</a></p>
+
+<p>コールグラフ描画にはfacebookの開発した<a href="http://pecl.php.net/package/xhprof">xhprof</a>が描画する<a href="http://www.graphviz.org/">graphviz</a>を用いました。web上で描画されたものです。以下、コールするファンクションの少ない順に並べています。</p>
+
+<h3>Yii1.0.3Lite</h3>
+
+<p>ファンクションコール数:119</p>
+
+<blockquote><p>PHP APC extension が有効である場合、 yii.phpを yiilite.php で置き換えることがで、さらにパフォーマンスを改善できます。<br/>
+yiilite.phpはすべてのYiiリリースに含まれています。その内容はYiiの基本クラスをひとつにまとめたものです。コメントとトレース命令はすべて取り除かれています。したがって、yiilite.php を使うことで、インクルードされるファイルの数と、トレース命令の実行を減らすことになります。</p></blockquote>
+
+<p>というものだそうで、アプローチの仕方はちょっと違うようですがKohanaにも<a href="http://dev.kohanaphp.com/projects/kohana-lite/wiki">Kohana-lite</a>というものがあります。<sup><a href="#footnote_0_44" id="identifier_0_44" class="footnote-link footnote-identifier-link" title="アクティブじゃないみたいですが">1</a></sup></p>
+
+<p>そのたっぷりつまったyiilite.phpの読み込みに最も時間がかかっています。</p>
+
+<div class="wp-caption alignnone" style="width: 249px">
+  <a href="http://www.bear-project.net/bimage/Yii1.0.3Lite.png"><img src="http://www.bear-project.net/bimage/s.Yii1.0.3Lite.png" alt="Yii 1.0.3 Lite" title="Yii 1.0.3 Lite" width="239" height="199" /></a><p class="wp-caption-text">
+    Yii 1.0.3 Lite
+
+</div>
+
+
+<h3>Yii 1.0.3</h3>
+
+<h4>ファンクションコール数:161</h4>
+
+<p>YiiはHello Worldベンチの性能が良い原因を「他の遅いフレームワークは必要が無いかもしれないモジュールを初期化しているが、Yiiはレイジーロードを積極的に採用しているため」と説明してますがこのグラフを見る限り最低限のものしか呼び込まれていないすっきりした印象を受けます。</p>
+
+<div class="wp-caption alignnone" style="width: 617px">
+  <a href="http://www.bear-project.net/bimage/Yii1.0.3.png"><img src="http://www.bear-project.net/bimage/s.Yii1.0.3.png" alt="Yii 1.0.3" title="Yii 1.0.3" width="607" height="489" /></a><p class="wp-caption-text">
+    Yii 1.0.3
+
+</div>
+
+
+<h3>CodeIgniter 1.7.2</h3>
+
+<h4>ファンクションコール数:﻿﻿377</h4>
+
+<p>Yiiの次にファンクションコール数が少ないのがCodeIgniterです。他のフレームワークと違うのはフレームワークの関数のものがあることでしょうか。最もコールされてるのがload_classの17回、get_config, log_messageと続きます。どれも関数です。</p>
+
+<div class="wp-caption alignnone" style="width: 433px">
+  <a href="http://www.bear-project.net/bimage/CI1.7.2.png"><img src="http://www.bear-project.net/bimage/s.CI1.7.2.png" alt="CodeIgniter 1.7.2" title="CodeIgniter 1.7.2" width="423" height="367" /></a><p class="wp-caption-text">
+    CodeIgniter 1.7.2
+
+</div>
+
+
+<h3>Zend Framework 1.7.3</h3>
+
+<h4>ファンクションコール数:725</h4>
+
+<p>Yii, CIに続くのがZend Frameworkです。今回のフレームワークの中で唯一、クラス/メソッドの命名規則がPEARと同じで僕は一番分かりやすく感じました。最もコールされたのはZend_Loader_PluginLoader::_formatNameで17回、時間がかかったのはZend_Controller_Action_Helper_ViewRenderer::getInflectorで全体の5.1%です。</p>
+
+<div class="wp-caption alignnone" style="width: 915px">
+  <a href="http://www.bear-project.net/bimage/Zend1.7.3.png"><img src="http://www.bear-project.net/bimage/s.Zend1.7.3.png" alt="Zend Framework 1.7.3" title="Zend Framework 1.7.3" width="905" height="487" /></a><p class="wp-caption-text">
+    Zend Framework 1.7.3
+
+</div>
+
+
+<h3>symfony 1.2.2</h3>
+
+<h4>ファンクションコール数:1878</h4>
+
+<p>もっともカオスなコールグラフになったのがこのsymfonyで7489 x 5683ピクセルの巨大グラフになりました。sfConfig::get()が147回呼ばれ最も時間のかかったメソッドになっています。</p>
+
+<div class="wp-caption alignnone" style="width: 759px">
+  <a href="http://www.bear-project.net/bimage/symfony1.2.2.png"><img src="http://www.bear-project.net/bimage/s.symfony1.2.2.png" alt="symfony 1.2.2" title="symfony 1.2.2" width="749" height="568" /></a><p class="wp-caption-text">
+    symfony 1.2.2
+
+</div>
+
+
+<h3>CakePHP 1.2.1</h3>
+
+<h4>ファンクションコール数:﻿﻿12,166</h4>
+
+<p>コール数が桁違いに多いので何かの間違いではないかと思いましたがMASA-Pさんの<a href="http://blog.ecworks.jp/archives/467">【CakePHP】xhprofでCakePHPのパフォーマンスを丸裸にする | ECWorks Blog</a>という記事でも13,000を超えるコール数になっているのでこれで間違いではないと思います。特にFolder::系のコールが多いようです。<br/>
+グラフのサイズはややsymfonyより小さいですがほぼ同等です。</p>
+
+<p><a href="http://www.bear-project.net/blog/wp-content/uploads/2010/04/7b0efb14770317be60daea04521eeab5.png"><img src="http://www.bear-project.net/blog/wp-content/uploads/7b0efb14770317be60daea04521eeab5-300x267.png" alt="CakePHP上位コールファンクション" title="CakePHP上位コールファンクション" width="300" height="267" class="alignnone size-medium wp-image-76" /></a> <div class="wp-caption alignnone" style="width: 531px">
+  <a href="http://www.bear-project.net/bimage/CakePHP1.2.1.png"><img src="http://www.bear-project.net/bimage/s.CakePHP1.2.1.png" title="CakePHP 1.2.1" width="521" height="738" /></a><p class="wp-caption-text">
+    CakePHP 1.2.1</p>
+
+<p></div></p>
+
+<h3>Disclaimer</h3>
+
+<p>phpmarkのサイトにもあるのですが、このエントリーでも同じです。</p>
+
+<ul>
+<li>特定のフレームワークを応援したり攻撃する意図はありません。</li>
+<li>ミニマムオーバーヘッドが低いというのはフレームワーク評価基準のごく一部です。フレームワーク選定で重視しすぎるべきではないでしょう。</li>
+</ul>
+
+
+<h3>関連リンク</h3>
+
+<ul>
+<li><a href="http://www.yiiframework.com/performance/">Yii PHP Framework &#8211; Performance Comparison</a></li>
+<li><a href="http://code.google.com/p/phpmark/">phpmark &#8211; Project Hosting on Google Code</a></li>
+<li><a href="http://paul-m-jones.com/archives/197">Paul M. Jones » Blog Archive » Differences Between Solar and Zend Framework</a></li>
+<li><a href="http://code.google.com/p/web-framework-benchmarks/">web-framework-benchmarks &#8211; Project Hosting on Google Code</a></li>
+<li><a href="http://www.doophp.com/benchmark">DooPHP &#8211; Benchmark, the fastest PHP framework</a></li>
+<li><a href="http://talks.php.net/show/froscon08/">Simple is Hard</a><sup><a href="#footnote_1_44" id="identifier_1_44" class="footnote-link footnote-identifier-link" title=" 上記の他にPrado, Solar, Agavi, Drupalのベンチとコールグラフがあります ">2</a></sup></li>
+<li><p><a href="http://symfony-reloaded.org/fast">Symfony Reloaded &#8211; 2.0 Preview Release</a>
+<sup><a href="#footnote_2_44" id="identifier_2_44" class="footnote-link footnote-identifier-link" title=" 下のリンクの記事Entertaining But ~と合わせてどうぞ ">3</a></sup></p></li>
+<li><p><a href="http://blog.astrumfutura.com/archives/421-PHP-Framework-Benchmarks-Entertaining-But-Ultimately-Useless.html">PHP Framework Benchmarks: Entertaining But Ultimately Useless</a><sup><a href="#footnote_3_44" id="identifier_3_44" class="footnote-link footnote-identifier-link" title="ということでこのエントリーも&hellip;">4</a></sup></p></li>
+</ul>
+
+
+<ol class="footnotes">
+  <li id="footnote_0_44" class="footnote">
+    アクティブじゃないみたいですが [<a href="#identifier_0_44" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_1_44" class="footnote">
+    上記の他にPrado, Solar, Agavi, Drupalのベンチとコールグラフがあります [<a href="#identifier_1_44" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_2_44" class="footnote">
+    下のリンクの記事Entertaining But ~と合わせてどうぞ [<a href="#identifier_2_44" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_3_44" class="footnote">
+    ということでこのエントリーも&#8230; [<a href="#identifier_3_44" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/2010/04/bear/">BEAR</a></h1>
     
     
@@ -103,16 +333,10 @@
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2010-04-03T00:00:00+09:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2010-04-03T00:00:00+09:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2010</span></span> <span class='time'>12:00 am</span></time>
         
-         | <a href="/2010/04/bear/#disqus_thread">Comments</a>
+           | <a href="/2010/04/bear/#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/2010/04/bear/">Comments</a>
         
       </p>
     
@@ -208,16 +432,10 @@
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2010-04-02T00:00:00+09:00" pubdate data-updated="true"></time>
+<time class='entry-date' datetime='2010-04-02T00:00:00+09:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2010</span></span> <span class='time'>12:00 am</span></time>
         
-         | <a href="/2010/04/startin-somethin/#disqus_thread">Comments</a>
+           | <a href="/2010/04/startin-somethin/#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/2010/04/startin-somethin/">Comments</a>
         
       </p>
     
@@ -243,7 +461,7 @@
     
     <a href="/blog/archives">Blog Archives</a>
     
-    <a class="next" href="6">Newer &rarr;</a>
+    <a class="next" href="/page6">Newer &rarr;</a>
     
   </div>
 </div>
@@ -254,7 +472,15 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2017/07/28/an-interface-as-an-api/">An interface as an API</a>
+        <a href="/blog/2017/11/10/re-code-reading/">Re: BEAR.Sundayをコードリーディングしたのでメモ程度にアウトプットする</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/11/01/self-code-review/">Self Code Review</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/07/28/an-interface-as-an-api/">An Interface as an API</a>
       </li>
     
       <li class="post">
@@ -263,14 +489,6 @@
     
       <li class="post">
         <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/06/08/haphpy-birthday/">HaPHPy Birthday PHP</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/05/31/first-bear-sunday-stable-release/">First BEAR.Sunday Stable Release !</a>
       </li>
     
   </ul>
@@ -285,7 +503,7 @@
   <a href="https://github.com/koriym">@koriym</a> on GitHub
   
   <script type="text/javascript">
-    $.domReady(function(){
+    $(document).ready(function(){
         if (!window.jXHR){
             var jxhr = document.createElement('script');
             jxhr.type = 'text/javascript';
@@ -325,7 +543,7 @@
   </div>
   <footer role="contentinfo"><p>
   Copyright &copy; 2017 - Akihito Koriyama -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a>.</span>
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
 </footer>
@@ -339,21 +557,20 @@
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
 
 
 
-
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/ja_JP/all.js#appId=516362398477090&xfbml=1";
-    fjs.parentNode.insertBefore(js, fjs);
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
 
@@ -373,7 +590,7 @@
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

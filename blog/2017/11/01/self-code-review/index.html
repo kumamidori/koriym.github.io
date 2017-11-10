@@ -1,0 +1,558 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Self Code Review - BEAR Blog</title>
+  <meta name="author" content="Akihito Koriyama">
+
+  
+  <meta name="description" content="3つのエントリポイント 何はともあれ開始地点であるエントリポイントを見てみます。 webからのアクセス用と、CLI用とで3つありました。
+それぞれの違いは単純にコンテキストを変えているだけ。 そして bootstrap.php を呼んでいるのみ。 エントリポイントではコンテキスト($context &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://koriym.github.io/blog/2017/11/01/self-code-review/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="BEAR Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-6074569-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">BEAR Blog</a></h1>
+  
+    <h2>Because everything is a resource.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="koriym.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Self Code Review</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2017-11-01T17:26:28+09:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2017</span></span> <span class='time'>5:26 pm</span></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><blockquote><p>3つのエントリポイント</p>
+
+<p>何はともあれ開始地点であるエントリポイントを見てみます。 webからのアクセス用と、CLI用とで3つありました。
+それぞれの違いは単純にコンテキストを変えているだけ。 そして bootstrap.php を呼んでいるのみ。</p></blockquote>
+
+<p>エントリポイントではコンテキスト(<code>$context</code>)を指定して<code>bootstrap.php</code>ファイルを読み込みます。</p>
+
+<p>３つのファイルは単に例としてあるだけなので不使用なファイルは削除しても構いません。同様に新しいコンテキストファイルを追加するのも自由です。</p>
+
+<p>要件によって条件を指定したファイルを使うこともできます。
+例えば<code>/api/</code>で始まるパスの時にはAPIとしてJSONを返し、その他はHTMLで返すサービスの時はこのようにします。</p>
+
+<figure class='code'><figcaption><span>Webコンテキストによるアプリケーションコンテキストの変更</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$context</span> <span class="o">=</span> <span class="nb">strpos</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;REQUEST_URI&#39;</span><span class="p">],</span> <span class="s1">&#39;/api/&#39;</span><span class="p">)</span> <span class="o">!==</span> <span class="k">false</span> <span class="o">?</span> <span class="s1">&#39;hal-api-app&#39;</span> <span class="o">:</span> <span class="s1">&#39;html-app&#39;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>bootstrap.phpでは何をしているのか？
+このように非常に短いスクリプトで全体の流れを記述しているのみ。</p></blockquote>
+
+<p>bootstrapはブートの部分でもありますが、解説されてるようにスクリプト全体を記述しています。
+さらに短く記述するとこのようになります。</p>
+
+<figure class='code'><figcaption><span>bootstrap.php</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$context</span> <span class="o">=</span> <span class="nx">PHP_SAPI</span> <span class="o">===</span> <span class="s1">&#39;cli&#39;</span> <span class="o">?</span> <span class="s1">&#39;cli-hal-app&#39;</span> <span class="o">:</span> <span class="s1">&#39;hal-app&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$app</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">Bootstrap</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getApp</span><span class="p">(</span><span class="s1">&#39;MyVendor\MyApp&#39;</span><span class="p">,</span> <span class="nv">$context</span><span class="p">);</span>
+</span><span class='line'><span class="nv">$request</span> <span class="o">=</span> <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">router</span><span class="o">-&gt;</span><span class="na">match</span><span class="p">(</span><span class="nv">$GLOBALS</span><span class="p">,</span> <span class="nv">$_SERVER</span><span class="p">);</span>
+</span><span class='line'><span class="k">try</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$page</span> <span class="o">=</span> <span class="nv">$app</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">resource</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="p">{</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">method</span><span class="p">}</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">path</span><span class="p">)(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">)</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">transfer</span><span class="p">(</span><span class="nv">$app</span><span class="o">-&gt;</span><span class="na">responder</span><span class="p">,</span> <span class="nv">$_SERVER</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">\Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">error</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="nv">$e</span><span class="p">,</span> <span class="nv">$request</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">transfer</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>バッチ処理など特定のリソースが呼び出されるならルーターも不要なのでこのようになります。</p>
+
+<figure class='code'><figcaption><span>ミニマムなブートストラップコード</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">try</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">(</span><span class="k">new</span> <span class="nx">Bootstrap</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getApp</span><span class="p">(</span><span class="s1">&#39;MyVendor\MyApp&#39;</span><span class="p">,</span> <span class="s1">&#39;prod-cli&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">resource</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">post</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;/path/to/command&#39;</span><span class="p">)()</span>
+</span><span class='line'>        <span class="o">-&gt;</span><span class="na">transfer</span><span class="p">(</span><span class="nv">$app</span><span class="o">-&gt;</span><span class="na">responder</span><span class="p">,</span> <span class="nv">$_SERVER</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">\Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">error</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="nv">$e</span><span class="p">,</span> <span class="nv">$request</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">transfer</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>さらに単にコンソールでechoする出力で例外処理も不要ならこのように一行になります。</p>
+
+<figure class='code'><figcaption><span>一行ブートストラップコード</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">echo</span> <span class="p">(</span><span class="k">new</span> <span class="nx">Bootstrap</span><span class="p">)</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">getApp</span><span class="p">(</span><span class="s1">&#39;MyVendor\MyApp&#39;</span><span class="p">,</span> <span class="s1">&#39;prod-cli&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">resource</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">post</span>
+</span><span class='line'><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;/path/to/command&#39;</span><span class="p">)();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>複数のアプリを組み合わせた出力を得たい場合には以下のようにできます。</p>
+
+<figure class='code'><figcaption><span>複数アプリを統合</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$name</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">Bootstrap</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getApp</span><span class="p">(</span><span class="s1">&#39;MyVendor\MyApp1&#39;</span><span class="p">,</span> <span class="s1">&#39;prod-cli&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">resource</span><span class="o">-&gt;</span><span class="na">get</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;/user&#39;</span><span class="p">)(</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bear&#39;</span><span class="p">)[</span><span class="s1">&#39;name&#39;</span><span class="p">];</span>
+</span><span class='line'><span class="nv">$role</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">Bootstrap</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getApp</span><span class="p">(</span><span class="s1">&#39;MyVendor\MyApp2&#39;</span><span class="p">,</span> <span class="s1">&#39;prod-cli&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">resource</span><span class="o">-&gt;</span><span class="na">get</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;/role&#39;</span><span class="p">)(</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bear&#39;</span><span class="p">)[</span><span class="s1">&#39;role&#39;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">echo</span> <span class="nb">json_encode</span><span class="p">([</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">,</span> <span class="s1">&#39;role&#39;</span> <span class="o">=&gt;</span> <span class="nv">$role</span><span class="p">]);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>アプリケーション全体を実行するスクリプトがフレームワーク本体にではなく、アプリケーションにあるので自由にカスタマイズできます。</p>
+
+<blockquote><p>$app とは何者なのか？</p></blockquote>
+
+<p>DIのベストプラクティスとしてGoogleのGuiceでは以下の方法を勧めています。</p>
+
+<blockquote><p>Your code should deal directly with the Injector as little as possible. Instead, you want to bootstrap your application by injecting one root object. The container can further inject dependencies into the root object&rsquo;s dependencies, and so on recursively. In the end, your application should ideally have one class (if that many) which knows about the Injector, and every other class should expect to have dependencies injected.</p>
+
+<p>開発者のコードは、可能な限りInjectorを直接使うのを避けなければなりません。代わりに、1つのルートオブジェクトを注入してアプリケーションをブートストラップします。このルートオブジェクトのクラスは、依存する他のオブジェクト(<code>$app-&gt;router</code>や<code>$app-&gt;resourece</code>)を取得するためのDIする必要がり、依存するオブジェクトのクラスも同様に依存するオブジェクトのためのDIが必要です。
+その代わりにルートの一つのオブジェクトに注入します。コンテナは、依存関係をルートオブジェクトの依存関係に注入を再帰的に行うことができます。
+あなたのアプリケーションはInjectorについて知っている1つのクラスだけを持つのが理想です。その他のすべてのクラスは依存関係を注入することを期待するべきです。</p></blockquote>
+
+<p>可能な限りインジェクターをユーザーが直接使うことを避けるべきです。コントローラーがコンテナを直接操作するのはDIではなく、アンチパターンのサービスロケーターです。</p>
+
+<p>インジェクターを知るクラスを可能な限り最小にします。BEAR.Sundayでは基本２箇所だけ。ルートオブジェクトを生成する<code>Bootstrap</code>とリソースを生成するためのファクトリークラスです。
+オブジェクトは他のオブジェクトの依存になっている訳で、通常のサービスクラスはユーザーがコンテナを触らずともDIで取得できるはずです。</p>
+
+<p>その一番ルートのオブジェクトが<code>$app</code>です。<code>bootstrap.php</code>ではその<code>$app</code>のプロパティだけを使ってアプリケーションを実行します。</p>
+
+<p>リソースオブジェクトリクエスを埋め込む<code>@Embed</code>の機能は実質リソースオブジェクトのDIです。
+<code>@Embed</code>や<code>@Link</code>を使うとリソースファクトリーのコードを使うことなくルートの<code>$app</code>の取得の時のみインジェクターが利用されます。これは１つのオブジェクトグラフだけで全ての処理が完結する理想的なオブジェクトです。</p>
+
+<blockquote><p>AppInjector？</p></blockquote>
+
+<p>アプリケーションの<code>名前</code>と<code>コンテキスト</code>とインターフェイス（また抽象クラス）指定すると、インスタンスを取得することができるのがAppInjector（アプリケーション・ディペンデンシー・インジェクター）です。
+BEAR.Sundayでは複数のアプリケーションがそれぞれ名前空間を持ち同時に存在できます。</p>
+
+<p><code>AppInjector</code>はプロダクションコードでは（Gooogle Guiceのベストプラクティスの通り）Bootstrapで一度使われるだけですが、テストに有用です。</p>
+
+<p>無名クラスを使って以下のように、モックやスタブを束縛することができます。</p>
+
+<figure class='code'><figcaption><span>無名クラスで上書き束縛</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">testAnonymousClassBinding</span><span class="p">()</span>
+</span><span class='line'>    <span class="nv">$injector</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppInjector</span><span class="p">(</span><span class="s1">&#39;FakeVendor\HelloWorld&#39;</span><span class="p">,</span> <span class="s1">&#39;hal-app&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nv">$module</span> <span class="o">=</span> <span class="k">new</span> <span class="k">class</span> <span class="nc">extends</span> <span class="nx">AbstractModule</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">protected</span> <span class="k">function</span> <span class="nf">configure</span><span class="p">()</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bind</span><span class="p">(</span><span class="nx">FooInterface</span><span class="o">::</span><span class="na">class</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">to</span><span class="p">(</span><span class="nx">Foo</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'><span class="nx">app</span><span class="s1">&#39;);</span>
+</span><span class='line'><span class="s1">    $index = $injector-&gt;getOverrideInstance($module, Index::class);</span>
+</span><span class='line'><span class="s1">    $name = $index([&#39;</span><span class="nx">id</span><span class="s1">&#39; =&gt; 1])-&gt;body[&#39;</span><span class="nx">name</span><span class="s1">&#39;];</span>
+</span><span class='line'><span class="s1">    $this-&gt;assertSame(&#39;</span><span class="nx">BEAR</span><span class="err">&#39;</span><span class="p">,</span> <span class="nv">$name</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="http://bearsunday.github.io/manuals/1.0/ja/test.html">http://bearsunday.github.io/manuals/1.0/ja/test.html</a></p>
+
+<blockquote><p>$contexts = cli-hal-api-app であれば<code>MyVendor\MyPackage\Module\AppModule</code>&hellip;の順番で読み込まれる。しかし優先順位はその逆である。</p></blockquote>
+
+<p>これはGoFのデコレーターパターンです。最初に<code>AppModule</code>で束縛されたDIとAOPの設定を外側で"デコレート" 変更しています。</p>
+
+<p>モードで振る舞いを変更するのではなく、後読み優先のモジュールで束縛したクラスを変更して振る舞いを変えています。
+<code>cli-hal-api-app</code>であれば<code>AppModule</code>でされている束縛はその後の<code>ApiModule</code>や<code>CliModule</code>で変更することができます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">foo</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nv">$isDebug</span> <span class="o">=</span> <span class="nx">Config</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;app.debug&#39;</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nv">$isDebug</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">logger</span><span class="o">-&gt;</span><span class="na">log</span><span class="p">(</span><span class="nv">$text</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>などとメソッド内でモードを判定して、振る舞いを変えるのではなく</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">LoggerInterface</span> <span class="nv">$logger</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">logger</span> <span class="o">=</span> <span class="nv">$logger</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">foo</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">logger</span><span class="o">-&gt;</span><span class="na">log</span><span class="p">(</span><span class="nv">$text</span><span class="p">);</span> <span class="c1">// 開発以外は何もしないNullLoggerが束縛されている</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>として<code>LoggerInterface</code>に対する束縛をモジュールで変更します。</p>
+
+<blockquote><p>$requestとは？
+HTTPリクエストから、BEARで扱う形式への変換、マッピングというのがこの処理の肝なのではないだろうか。</p></blockquote>
+
+<p>その通りです。</p>
+
+<p>ルーターの結果の値オブジェクト <a href="https://github.com/bearsunday/BEAR.Sunday/blob/1.x/src/Extension/Router/RouterMatch.php">RouterMatch</a>です。
+<code>$method</code>、<code>$path</code>、<code>$query</code>の値を保存します。<code>$path</code>がリソースクラスに、$methodがリソースクラスのメソッドに、
+名前付き引数（named parameters)の$queryがPHPの（順序）引数(oredered parameters)に変換されます。</p>
+
+<p>リソースクラスではWebコンテキストがどのような値を持っているのかを調べ回るようなコードは避けるべきで、Webコンテキストの値はクラスの外側で全て単なるPHPの値に変換しておくことが重要です。
+リソースオブジェクトはWebコンテキストの値に関して無知にします。そうすることコンソールとWebのどちらでも実行が可能でテストが容易なコードになります。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$page</span> <span class="o">=</span> <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">resource</span><span class="o">-&gt;</span><span class="p">{</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">method</span><span class="p">}</span><span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">path</span><span class="p">)(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>$pageとは？</p>
+
+<p>$page = $app->resource->{$request->method}->uri($request->path)($request->query);</p></blockquote>
+
+<p>パスで指定されたPHPのリソースオブジェクトクラスは、PSR7などでも採用されているイミュータブルオブジェクトとして扱われます。ユーザーは<code>$this</code>でオブジェクトのcode/headers/bodyの状態を変更します。</p>
+
+<p>Webコンテキスト（<code>$_SERVER</code>の値など外部環境の値）を関数呼び出し</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Akihito Koriyama</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2017-11-01T17:26:28+09:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2017</span></span> <span class='time'>5:26 pm</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://koriym.github.io/blog/2017/11/01/self-code-review/" data-via="koriym" data-counturl="http://koriym.github.io/blog/2017/11/01/self-code-review/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+  
+  <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button"
+     data-hatena-bookmark-layout="standard"
+     data-hatena-bookmark-url="http://koriym.github.io/blog/2017/11/01/self-code-review/">
+    <img src="http://b.st-hatena.com/images/entry-button/button-only.gif"
+         alt="このエントリーをはてなブックマークに追加" width="20" height="20"
+         style="border: none">
+  </a>
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2017/07/28/an-interface-as-an-api/" title="Previous Post: An interface as an API">&laquo; An interface as an API</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2017/11/10/re-code-reading/" title="Next Post: Re: BEAR.Sundayをコードリーディングしたのでメモ程度にアウトプットする">Re: BEAR.Sundayをコードリーディングしたのでメモ程度にアウトプットする &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2017/11/10/re-code-reading/">Re: BEAR.Sundayをコードリーディングしたのでメモ程度にアウトプットする</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/11/01/self-code-review/">Self Code Review</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/07/28/an-interface-as-an-api/">An Interface as an API</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/12/04/php7-dot-0-0/">PHP7.0.0</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/koriym">@koriym</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'koriym',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+<section class="googleplus googleplus-hidden">
+  <h1>
+    <a href="https://plus.google.com/102811656239290261200?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2017 - Akihito Koriyama -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'koriym';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://koriym.github.io/blog/2017/11/01/self-code-review/';
+        var disqus_url = 'http://koriym.github.io/blog/2017/11/01/self-code-review/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+<script>
+    (function(w,d){
+        var c,e=d.createDocumentFragment(),f=d.getElementsByTagName("script")[0],
+                a=function(a,b){if(!d.getElementById(b)){c=d.createElement("script");
+                    c.src=a;c.id=b||null;c.async=true;e.appendChild(c);}};
+                a("//b.st-hatena.com/js/bookmark_button_wo_al.js");
+                f.parentNode.insertBefore(e,f);
+            })(this,document);
+</script>
+
+
+</body>
+</html>

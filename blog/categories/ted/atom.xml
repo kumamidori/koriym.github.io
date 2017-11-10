@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: ted | BEAR Blog]]></title>
+  <title><![CDATA[Category: Ted | BEAR Blog]]></title>
   <link href="http://koriym.github.io/blog/categories/ted/atom.xml" rel="self"/>
   <link href="http://koriym.github.io/"/>
-  <updated>2017-10-23T11:16:30+09:00</updated>
+  <updated>2017-11-10T11:46:23+09:00</updated>
   <id>http://koriym.github.io/</id>
   <author>
     <name><![CDATA[Akihito Koriyama]]></name>
@@ -163,7 +163,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Be the first one]]></title>
+    <title type="html"><![CDATA[Be the First One]]></title>
     <link href="http://koriym.github.io/2013/03/be-the-first-one/"/>
     <updated>2013-03-29T00:00:00+09:00</updated>
     <id>http://koriym.github.io/2013/03/be-the-first-one</id>
