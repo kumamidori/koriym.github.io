@@ -4,7 +4,7 @@
   <title><![CDATA[BEAR Blog]]></title>
   <link href="http://koriym.github.io/atom.xml" rel="self"/>
   <link href="http://koriym.github.io/"/>
-  <updated>2017-11-11T01:30:32+09:00</updated>
+  <updated>2017-11-11T01:34:14+09:00</updated>
   <id>http://koriym.github.io/</id>
   <author>
     <name><![CDATA[Akihito Koriyama]]></name>
@@ -297,7 +297,7 @@ HTTPリクエストから、BEARで扱う形式への変換、マッピングと
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><code>uri()</code>はリクエストオブジェクトののファクトリーメソッドです。</p>
+<p><code>uri()</code>はリクエストオブジェクトのファクトリーメソッドです。</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$page</span> <span class="o">=</span> <span class="nv">$request</span><span class="p">(</span><span class="s1">&#39;key&#39;</span><span class="o">=&gt;</span> <span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="s1">&#39;hoge&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;fuga&#39;</span><span class="p">]);</span> <span class="c1">// BEAR\Resource\ResourceObject</span>
@@ -312,7 +312,7 @@ $app が面白いですね。全部そこにまとまっているっていうの
 <p>$appはアプリケーションはシリアライズ可能でプロダクションではキャッシュされて実行されます。
 １つのオブジェクト網なのでビジュアライゼーションも可能です。</p>
 
-<p><img src="http://koriym.github.io/images/blog/app.png" alt="$app" />(<a href="http://koriym.github.io/print_o/v1/libs/bear.sunday.html">http://koriym.github.io/print_o/v1/libs/bear.sunday.html</a>)</p>
+<p><img src="http://koriym.github.io/images/blog/app.png" alt="$app" /></p>
 
 <p><a href="http://koriym.github.io/print_o/v1/libs/bear.sunday.html">$appのビジュアライゼーション</a></p>
 
