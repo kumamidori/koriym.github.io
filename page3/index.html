@@ -9,7 +9,8 @@
   <meta name="author" content="Akihito Koriyama">
 
   
-  <meta name="description" content="Tweet 1.0.0 Ray.Di / Ray.Aopのバージョン1.0.0をリリースしました。 これまでも何度か紹介しましたがRay.Diはオブジェクトとオブジェクトの関係の問題を解決するDIフレームワーク、Ray. &hellip;">
+  <meta name="description" content=" Tweet &#8220;have the courage to follow and show others how to follow.&#8221; ソーシャルコーディングもそうではないかと考えました。
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,167 +79,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2013/04/ray-1-0-0/">Ray 1.0.0</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2013-04-01T00:00:00+09:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2013</span></span> <span class='time'>12:00 am</span></time>
-        
-           | <a href="/2013/04/ray-1-0-0/#disqus_thread"
-             data-disqus-identifier="http://koriym.github.io/2013/04/ray-1-0-0/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div style="float: right; margin-left: 10px;">
-  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2013/04/ray-1-0-0/">Tweet</a>
-</div>
-
-
-<h2>1.0.0</h2>
-
-<p>Ray.Di / Ray.Aopのバージョン1.0.0をリリースしました。</p>
-
-<p>これまでも何度か紹介しましたがRay.Diはオブジェクトとオブジェクトの関係の問題を解決するDIフレームワーク、Ray.Aopはアスペクト指向プログラミングフレームワークでGoogleのDIフレームワーク<a href="http://ja.wikipedia.org/wiki/Google_Guice">Guice</a>のPHPクローンです。</p>
-
-<h2>first commit</h2>
-
-<p>最初に作り始めたのはRay.Aopです。これが最初のコミットです。まだPHP5.4はなく、PHP5.3でコードしていました。<br/>
-<a href="https://github.com/koriym/Ray.Aop/tree/2ab2dff8204622fdfaeae0bd608e88010b98b99f">https://github.com/koriym/Ray.Aop/tree/2ab2dff8204622fdfaeae0bd608e88010b98b99f</a></p>
-
-<p>最初に作ろうとしたのはこういうものでした。</p>
-
-<p>サービス（呼び出される方）</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Mock</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">getDouble</span><span class="p">(</span><span class="nv">$a</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="nv">$a</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>コンシュマー（呼び出す方）</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">echo</span> <span class="nv">$mock</span><span class="o">-&gt;</span><span class="na">getDouble</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="c1">//6</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>これらの呼び出しコード、呼ばれるメソッドを変更をすることなく</strong>帰ってくる値を本来の値の10倍(60)にしすることを考えます。実現するためにはメソッドの実行呼び出しコードと呼ばれるメソッドの間に、「10倍にする」という処理を差し込まなければなりません。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">tenTimes</span> <span class="k">implements</span> <span class="nx">MethodInterceptor</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">invoke</span><span class="p">(</span><span class="nx">MethodInvocation</span> <span class="nv">$invocation</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$invocation</span><span class="o">-&gt;</span><span class="na">proceed</span><span class="p">();</span>
-</span><span class='line'>        <span class="k">return</span> <span class="nv">$result</span> <span class="o">*</span> <span class="mi">10</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>特定のメソッドをコールしたときのコールバックを設定する機能などがあれば簡単なのですが、そういう機能はありません。なのでオブジェクトを作成するときにその「横断的処理」を織り込んだオブジェクトを生成する必要があります。具体的には<strong>getDouble(2)</strong>でコールされたららその結果を10倍にする横断的処理が透過的に呼ばれるようなオブジェクトをつくります。</p>
-
-<p>最初はどうやって記述したらよいかさっぱり分からなかったのですが、AOPアラインスのインターフェイスやメソッドリフレクション、マジックメソッドの組み合わせでなんとか（というよりもしかしたら）出来るのではと考えました。</p>
-
-<p>最初のコミットでのコードはこういうものでした。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$mock</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Weaver</span><span class="p">(</span><span class="k">new</span> <span class="nx">Mock</span><span class="p">,</span> <span class="nv">$interceptors</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>元のオブジェクト(new Mock)に「10倍に」という処理を横断的処理($interceptors)を織り込んたもの（Weaver）を元のオブジェクト同様に扱います</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">echo</span> <span class="nv">$mock</span><span class="o">-&gt;</span><span class="na">getDouble</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="c1">//60</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>できました！</p>
-
-<p>オブジェクトに横断的処理を&#8221;織り込む&#8221;事により、呼び出し側も呼び出される側も無変更で振る舞いを変更することができました。webフレームワークの機能の多くはこれらの横断的処理です。呼ぶ側も呼ばれる側にも無変更で、動的に横断的処理を着脱できると事に大きな可能性を感じました。</p>
-
-<h2>失敗</h2>
-
-<p>最初のコミットのRay.Aop、これは大失敗というのがすぐに分かります。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$mock</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Weaver</span><span class="p">(</span><span class="k">new</span> <span class="nx">Mock</span><span class="p">,</span> <span class="nv">$interceptors</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>このコードではメソッドの指定がなく、Mockが持つ全てのメソッドに「10倍」という横断的処理がくっついて（束縛されて）ました。数字以外を返すメソッドではそもそもエラーになります。これでは使い物になりません。</p>
-
-<h2>可能性</h2>
-
-<p>しかし同時に、この失敗でやっとAOPの本当の力に気がつくことができました。つまり無指定で全てのメソッドに横断的処理が束縛されるということは、指定した特定メソッドに同時に横断的処理を束縛できるということです。delete*で始まるメソッドには全てログを、admin/で始まるパスでは認証チェックを、などといった横断的処理の束縛がアプリケーション実行コンテキストによって指定条件を決めることができます。<sup><a href="#footnote_0_1800" id="identifier_0_1800" class="footnote-link footnote-identifier-link" title="現在BEAR.Sundayのsandoxアプリでは、&rdquo;テスト&rdquo;ではスタブデータを、&rdquo;開発&rdquo;では全てのin/outを記録するようになっています。">1</a></sup></p>
-
-<h2>Ray.Di</h2>
-
-<p>AOPがメソッドの呼び出しと呼ばれるメソッドとの関係を規定するものだとすれば、DIはオブエクトとオブジェクトの関係を規定するものです。BEAR.Saturdayの開発／運用経験を通じてオブジェクト間の関係性をオブジェクト自身が解決しないことの有用性は大きく認識してたので、DIフレームワークの導入というのは最優先事項でした。BEAR.SaturdayのDIで多いに参考にしてたのは<a href="http://solarphp.com/">Solar</a>だったのですが<sup><a href="#footnote_1_1800" id="identifier_1_1800" class="footnote-link footnote-identifier-link" title="他のPHPフレームワークではほとんどDIが使われていませんでした">2</a></sup> 今回最も良い設計/実装と思えたのはGoogleのDIフレームワーク<a href="http://ja.wikipedia.org/wiki/Google_Guice">Guice</a>でした。それを普通に移植するのではなく、Solarの後継のAura、そのAura.Diをforkして、拡張することにしました。</p>
-
-<p>こんなものが移植できるのか<sup><a href="#footnote_2_1800" id="identifier_2_1800" class="footnote-link footnote-identifier-link" title="当時とても大きいものだと誤解してました">3</a></sup> 甚だ疑問で難しいのではないかと思ったのですが、AOPと共に機能するアノテーションベースで依存ポイントを指定し抽象と具象の接続指定でオブジェクトを構成するその設計と指向は、チャレンジに充分すぎるほどのものではないかと感じながら移植を開始しました。</p>
-
-<p>実装、パフォーマンス、デバック等困難な事も多かったのですが、現在のBEAR.Sundayでかなりヘビーに使えていて今回1.0として長くつけてたbetaを外しました。これでcomposer.jsonで@devや@beta指定する必要がなくなります。</p>
-
-<h2>Thx</h2>
-
-<p><a href="https://github.com/madapaja">@madapaja</a> さん<a href="https://github.com/akkie"> @akkie</a> さんには有用なアドバイスをもらい、GitHubもPRもしてもらいました。特に@madapaja さんはブログ記事かいてもらったり、スライドで発表してもらったりしました。また<a href="https://github.com/jingu">@jingu</a>君にはRoboGuiceとの比較を教えてもらって、Guiceを使った事もない自分には大変助かりました。<a href="https://github.com/hidenorigoto">@hidenorigoto</a>さんにはWeb+DBで「たとえばSymfonyのDIコンポーネントと比較すると、DIの構成と利用の分離の点で一歩進んでます」との賛辞で紹介していただきました。<a href="https://github.com/vectorxenon">@vectorxenon</a>さんにはCakePHPでの利用してもらいました。</p>
-
-<p>みなさん、ありがとうございます。これからもよろしくお願いします。</p>
-
-<ol class="footnotes">
-  <li id="footnote_0_1800" class="footnote">
-    現在BEAR.Sundayのsandoxアプリでは、&#8221;テスト&#8221;ではスタブデータを、&#8221;開発&#8221;では全てのin/outを記録するようになっています。 [<a href="#identifier_0_1800" class="footnote-link footnote-back-link">&#8617;</a>]
-  </li>
-  <li id="footnote_1_1800" class="footnote">
-    他のPHPフレームワークではほとんどDIが使われていませんでした [<a href="#identifier_1_1800" class="footnote-link footnote-back-link">&#8617;</a>]
-  </li>
-  <li id="footnote_2_1800" class="footnote">
-    当時とても大きいものだと誤解してました [<a href="#identifier_2_1800" class="footnote-link footnote-back-link">&#8617;</a>]
-  </li>
-</ol>
-
-
-
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -1428,6 +1268,215 @@ SLをアンチパターンとするときに良く言われるのが、「コン
 
     </article>
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/adv8">Advent Day 8: Packagist</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2012-12-12T00:00:00+09:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>12:00 am</span></time>
+        
+           | <a href="/adv8#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/adv8">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/adv8">Tweet</a>
+</div>
+
+
+<h2>Packagist登録</h2>
+
+<p>BEAR.PackageをPackagistに登録しました。<br/>
+composerのcreate-projectでインストールできるようになりました。</p>
+
+<p>composerインストール</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>wget http://getcomposer.org/composer.phar
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>または</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -s https://getcomposer.org/installer <span class="p">|</span> php
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>composerでBEAR.Sunday sandboxアプリケーションインストールします。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>php composer.phar create-project -s dev bear/package /tmp/mysunday
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>BEAR.Packageとその依存のBEAR.Sundayが指定したバージョンでインストールされます。<sup><a href="#footnote_0_1385" id="identifier_0_1385" class="footnote-link footnote-identifier-link" title=" インストールスクリプトはまだ用意できていないのでパーミッションの設定が現在必要です">1</a></sup> その後PHP5.4のbuilt-in web serverを立ち上げます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>composer.phar create-project -s dev bear/package /tmp/mysunday
+</span><span class='line'>Installing bear/package <span class="o">(</span>dev-master bbc42caf8ed71e56c4f72f7270db012dc4b40d39<span class="o">)</span>
+</span><span class='line'>  - Installing bear/package <span class="o">(</span>dev-master master<span class="o">)</span>
+</span><span class='line'>    Cloning master
+</span><span class='line'>Created project in /tmp/mysunday
+</span><span class='line'>Loading composer repositories with package information
+</span><span class='line'>Installing dependencies from lock file
+</span><span class='line'>  - Installing aura/installer-default <span class="o">(</span>1.0.0<span class="o">)</span>
+</span><span class='line'>  - Installing aura/web <span class="o">(</span>1.0.0<span class="o">)</span>
+</span><span class='line'>  - Installing aura/signal <span class="o">(</span>1.0.0<span class="o">)</span>
+</span><span class='line'>  - Installing aura/router <span class="o">(</span>1.0.0<span class="o">)</span>
+</span><span class='line'>  - Installing aura/di <span class="o">(</span>1.0.1<span class="o">)</span>
+</span><span class='line'>  - Installing doctrine/common <span class="o">(</span>2.3.x-dev bb0aebb<span class="o">)</span>
+</span><span class='line'>    Cloning bb0aebbf234db52df476a2b473d434745b34221c
+</span><span class='line'>  - Installing ray/aop <span class="o">(</span>dev-master 3edfe6b<span class="o">)</span>
+</span><span class='line'>    Cloning 3edfe6ba6b52e8d3190da62c14479ff7cce2377f
+</span><span class='line'>  - Installing ray/di <span class="o">(</span>dev-master 1.0.0-beta3<span class="o">)</span>
+</span><span class='line'>    Cloning 1.0.0-beta3
+</span><span class='line'>  - Installing zendframework/zend-stdlib <span class="o">(</span>2.0.5<span class="o">)</span>
+</span><span class='line'>  - Installing zendframework/zend-log <span class="o">(</span>2.0.5<span class="o">)</span>
+</span><span class='line'>  - Installing nocarrier/hal <span class="o">(</span>dev-master cc46654<span class="o">)</span>
+</span><span class='line'>    Cloning cc466546c6ca5df3e806cd91258cdf194518a12f
+</span><span class='line'>  - Installing twitter/bootstrap <span class="o">(</span>master master<span class="o">)</span>
+</span><span class='line'>    Cloning master
+</span><span class='line'>  - Installing firephp/firephp-core <span class="o">(</span>dev-master c26d972<span class="o">)</span>
+</span><span class='line'>    Cloning c26d972dcb28fd483fa193512091df7b3c85e450
+</span><span class='line'>  - Installing symfony/http-foundation <span class="o">(</span>2.0.x-dev 4de1a1f<span class="o">)</span>
+</span><span class='line'>    Cloning 4de1a1f9a81a58bd6f24607894f76fd7017d45e7
+</span><span class='line'>  - Installing symfony/console <span class="o">(</span>2.0.x-dev v2.0.19<span class="o">)</span>
+</span><span class='line'>    Cloning v2.0.19
+</span><span class='line'>  - Installing smarty/smarty <span class="o">(</span>v3.1.12<span class="o">)</span>
+</span><span class='line'>    Checking out /tags/v3.1.12/@4664
+</span><span class='line'>  - Installing pagerfanta/pagerfanta <span class="o">(</span>dev-master 12f71d9<span class="o">)</span>
+</span><span class='line'>    Cloning 12f71d99457b018fb80746f84514dd5b495c5789
+</span><span class='line'>  - Installing symfony/event-dispatcher <span class="o">(</span>dev-master eb290a4<span class="o">)</span>
+</span><span class='line'>    Cloning eb290a447c0af5bea0d3de5d95d498afd8c82f89
+</span><span class='line'>  - Installing guzzle/guzzle <span class="o">(</span>v2.7.2<span class="o">)</span>
+</span><span class='line'>  - Installing facebook/xhprof <span class="o">(</span>0.9.2<span class="o">)</span>
+</span><span class='line'>  - Installing doctrine/dbal <span class="o">(</span>2.3.x-dev f63af19<span class="o">)</span>
+</span><span class='line'>    Cloning f63af1948a609a96b8ea1c1302c7cdf2f9f51468
+</span><span class='line'>  - Installing printo/printo <span class="o">(</span>dev-master abd0d6b<span class="o">)</span>
+</span><span class='line'>    Cloning abd0d6b68d00dc98a71124215780b57ec3ede268
+</span><span class='line'>  - Installing vdump/vdump <span class="o">(</span>0.1.0<span class="o">)</span>
+</span><span class='line'>  - Installing bear/resource <span class="o">(</span>dev-master 3ca644b<span class="o">)</span>
+</span><span class='line'>    Cloning 3ca644bc29de4257ec9165ce1c9745150dc231dd
+</span><span class='line'>  - Installing bear/sunday <span class="o">(</span>dev-master a9b6fdd<span class="o">)</span>
+</span><span class='line'>    Cloning a9b6fdd7cd34b9e7d2075a7c95e066547bcf59ac
+</span><span class='line'>zendframework/zend-stdlib suggests installing pecl-weakref <span class="o">(</span>Implementation of weak references <span class="k">for</span> Stdlib<span class="se">\C</span>allbackHandler<span class="o">)</span>
+</span><span class='line'>zendframework/zend-log suggests installing zendframework/zend-db <span class="o">(</span>Zend<span class="se">\D</span>b component<span class="o">)</span>
+</span><span class='line'>zendframework/zend-log suggests installing zendframework/zend-escaper <span class="o">(</span>Zend<span class="se">\E</span>scaper component, <span class="k">for</span> use in the XML formatter<span class="o">)</span>
+</span><span class='line'>zendframework/zend-log suggests installing zendframework/zend-mail <span class="o">(</span>Zend<span class="se">\M</span>ail component<span class="o">)</span>
+</span><span class='line'>zendframework/zend-log suggests installing zendframework/zend-validator <span class="o">(</span>Zend<span class="se">\V</span>alidator component<span class="o">)</span>
+</span><span class='line'>pagerfanta/pagerfanta suggests installing doctrine/orm <span class="o">(</span>2.*<span class="o">)</span>
+</span><span class='line'>pagerfanta/pagerfanta suggests installing doctrine/mongodb-odm <span class="o">(</span>2.*<span class="o">)</span>
+</span><span class='line'>pagerfanta/pagerfanta suggests installing solarium/solarium <span class="o">(</span>2.*<span class="o">)</span>
+</span><span class='line'>symfony/event-dispatcher suggests installing symfony/dependency-injection <span class="o">(</span>2.2.*<span class="o">)</span>
+</span><span class='line'>symfony/event-dispatcher suggests installing symfony/http-kernel <span class="o">(</span>2.2.*<span class="o">)</span>
+</span><span class='line'>Generating autoload files
+</span><span class='line'>Do you want to remove the existing VCS <span class="o">(</span>.git, .svn..<span class="o">)</span> <span class="nb">history</span>? <span class="o">[</span>Y,n<span class="o">]</span>? Y
+</span><span class='line'><span class="nv">$ </span>chmod -R <span class="m">777</span> /tmp/mysunday/apps/Sandbox/data/
+</span><span class='line'><span class="nv">$ </span>chmod -R <span class="m">777</span> /tmp/mysunday/apps/Helloworld/data/
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd</span> /tmp/mysunday/apps/Sandbox/public/
+</span><span class='line'><span class="nv">$ </span>php -S localhost:8088 web.php
+</span><span class='line'>PHP 5.4.9 Development Server started at Wed Dec <span class="m">12</span> 13:11:37 2012
+</span><span class='line'>Listening on http://localhost:8088
+</span><span class='line'>Document root is /private/tmp/mysunday/apps/Sandbox/public
+</span><span class='line'>Press Ctrl-C to quit.
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<ol class="footnotes">
+  <li id="footnote_0_1385" class="footnote">
+    インストールスクリプトはまだ用意できていないのでパーミッションの設定が現在必要です [<a href="#identifier_0_1385" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
     
       <a class="prev" href="/page4">&larr; Older</a>
@@ -1449,10 +1498,6 @@ SLをアンチパターンとするときに良く言われるのが、「コン
       </li>
     
       <li class="post">
-        <a href="/blog/2017/11/01/self-code-review/">Self Code Review</a>
-      </li>
-    
-      <li class="post">
         <a href="/blog/2017/07/28/an-interface-as-an-api/">An Interface as an API</a>
       </li>
     
@@ -1462,6 +1507,10 @@ SLをアンチパターンとするときに良く言われるのが、「コン
     
       <li class="post">
         <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/06/08/haphpy-birthday/">HaPHPy Birthday PHP</a>
       </li>
     
   </ul>
