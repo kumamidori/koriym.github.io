@@ -1,0 +1,36 @@
+---
+layout: post
+title: "phpnw17"
+date: 2017-12-16 12:00:54 +0900
+comments: true
+categories:
+---
+
+# phpnw
+
+初めてカンファレンスで登壇したのがイギリスのマンチェスターで開かれたphpnw14でした。phpnw(php north west)は2008年に始まり、第１０回目の今年の2017年phpnw17で幕を閉じました。
+http://conference.phpnw.org.uk/phpnw17/extras/previous-conferences/
+
+そのうち、登壇したphpnw2014、「アンカンファレンス」参加した2015、2017年と3回参加しました。時間が経ってしまいましたが、今年の秋にイギリスのリーズとマンチェスターで登壇したした事を記事にします。
+
+イベントは通常三日間行われます。一日目はカンファレンスの前日の「チュートリアルデー・セッション」午前またはごごに様々なセッションが用意されていて、カンファレンス料金とは別の代金が必要です。
+
+ * Let your tests drive your development Michelangelo van Dam
+ * Writing console applications in PHP Matt Brunt
+ * Terraform and Ansible for developers - A dive into the DevOps world Patrik Karisch
+ * Building a scalable distributed websocket architecture with PHP James Mallison
+ * Event Storming for fun and profit! Jeroen v.d. Gulik
+ * Getting started with PHP Codesniffer Juliette Reinders Folmer
+ * What can Doctrine do for me? Michael Simonson
+ * End-to-end testing with Behat
+
+
+チュートリアルデーの夜は Hackathon です。 
+
+# Sky Sports
+
+Sky Sportsというイギリスの衛星放送事業者でPrincipal Software Engineerの職につかれている[Richard McIntyre](https://www.linkedin.com/in/mackstar/)氏の招きで、Skyで登壇する機会をいただきました。（Friday 1.30PM @ Sky 2 Tower Hall 2017 Oct)
+<img src="/images/phpnw17/at_sky_sports.jpg">
+エンジニアの
+
+https://photos.google.com/share/AF1QipNCkT5ddXqOHKwY1tjUcuSl7frI_s8fnLsBjUktalTj7k7JTITYVfjrWtPBT9Y-xQ?key=ajM5Y2c1ckdBckUtVXphS1NzM1RmdWY5TkxGeFJB
