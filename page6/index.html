@@ -9,10 +9,7 @@
   <meta name="author" content="Akihito Koriyama">
 
   
-  <meta name="description" content="Tweet 詳細はhttp://php-osx.liip.ch/を参照。以下元記事の間違い 1を訂正したまとめです。 PHPのインストール /usr/local/php5/にインストールされます。 1
-2
-3
-curl -s -o /tmp/packager.tgz http://php-osx &hellip;">
+  <meta name="description" content="Tweet The new era of PHP web development. View more presentations from BEAR-project カンファレンスの基調講演かよというような大げさなタイトルですが、参加したPHP勉強会@関東で空き時間があって、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +78,56 @@ curl -s -o /tmp/packager.tgz http://php-osx &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/10/the-new-era-of-php-web-development/">The New Era of PHP Web Development</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2011-10-02T00:00:00+09:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
+        
+           | <a href="/2011/10/the-new-era-of-php-web-development/#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/2011/10/the-new-era-of-php-web-development/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2011/10/the-new-era-of-php-web-development/">Tweet</a>
+</div>
+
+
+
+
+<div style="width:595px" id="__ss_9506430">
+  <strong style="display:block;margin:12px 0 4px"><a href="http://www.slideshare.net/akihito.koriyama/the-new-era-of-php-web-development" title="The new era of PHP web development." target="_blank">The new era of PHP web development.</a></strong> <div style="padding:5px 0 12px">
+    View more <a href="http://www.slideshare.net/" target="_blank">presentations</a> from <a href="http://www.slideshare.net/akihito.koriyama" target="_blank">BEAR-project</a>
+  </div>
+</div>
+
+
+<p>カンファレンスの基調講演かよというような大げさなタイトルですが、参加したPHP勉強会@関東で空き時間があって、持っていったMacBook Airに入っていた以前つくった資料の断片がありその場で飛び入りを決め発表させてもらいました。</p>
+
+<p>元々は自分が5.3+専用のフレームワークをつくるときに、何故作るのか、今求められるものとは何か、現在のweb開発、PHP、フレームワークの潮流とはどういうものなのか、等と自分のフレームワーク制作用に調べた時につくった資料の断片で公開の予定のないものでした。</p>
+
+<p>自分なりに客観性を持って考察したのですが、やはりこういう観察や考察は多分に主観的なところとかあると思います。これと別スライドの<a href="http://www.bear-project.net/blog/2011/07/bear-sunday/">CQRSパターン</a>とMozilla laboのCANVASを使った<a href="http://panda.bear-project.net/panda_sample/">Aceエディター</a>が前のbespineから大分進化してて充分実用レベルです、デザイナーや開発者どうしでのコラボレーションに充分使えます。GitHubで使われてますが、開発で使うと使い勝手いいですよいう話、以上３つの話をいたしました。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -4532,71 +4579,6 @@ Score:135/147 Point:135 Game:300/300 Stacked Game:100
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/05/resource_cache/">リソースキャッシュ</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2010-05-20T00:00:00+09:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2010</span></span> <span class='time'>12:00 am</span></time>
-        
-           | <a href="/2010/05/resource_cache/#disqus_thread"
-             data-disqus-identifier="http://koriym.github.io/2010/05/resource_cache/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div style="float: right; margin-left: 10px;">
-  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2010/05/resource_cache/">Tweet</a>
-</div>
-
-
-<h3>BEAR 0.8.x</h3>
-
-<p>現在のBEARは0.8.Xで、コアな機能は大分実装されてきてました。ここで機能追加を一旦fix、BEAR0.9は確認、テスト、パフォーマンスの向上など安定性の向上のためのバージョンにしてBEAR1.0に繋げようかと考えてます。実装前にその後の機能追加や方向性など単なるアイデアでまとまってないのも含めてかいてみようと思います。</p>
-
-<h3>リソースキャッシュ</h3>
-
-<p>Webフレームワークのキャッシュで最も一般的なのはビューキャッシュでしょうか。ビュー部分をページまるごと、あるいは表示の一部分をキャッシュし、その取得ロジックやDBアクセスのコストをセーブします。Smartyでも簡単に使えます。モデルをキャッシュしようとするとコントローラでモデル（オブジェクト）を直接アクセスするフレームワークでは、コントローラでキャッシュを利用するか、モデル側（ビヘイビアなどで）でキャッシュ対応するのが一般的だとおもいます。</p>
-
-<p>BEARではページはリソースを直接扱わず、ページにインジェクトされたリソースブラウザサービスがリソースアクセスを行います。キャッシュ機構はページが使用するリクエストサービスが実装しています。（WebアクセスでWebブラウザがキャッシュ機構をもっているようなものです）</p>
-
-<h3>NoSQLキャッシュ</h3>
-
-<p>ROAの「ステートレス」と「統一インターフェイス」で、リソースへリクエストをメソッド、URI、バリュー（引数）それにオプションが決まれば事前準備なしに行う事ができます。そのリクエストはURIとバリューの値をシリアライズすれば１つのキーにすることが可能です。そのシリアライズされたリクエスト&rdquo;キー&rdquo;でリソース状態をバリューにキャッシュとしてNoSQLを使えばどうかと考えてます。キャッシュというより参照用RDBの代わりです。</p>
-
-<h3>キャッシュ更新を時間切れでなくメソッドで</h3>
-
-<p>キャッシュ破棄のタイミングは時間指定でなくメソッドを用いるのはどうかと考えてます。つまり、特定バリューのリソースアクセスにバージョンを持っておき、&rdquo;サイドエフェクトがある操作"（update, delete)を行うとバージョン番号があがるというものです。</p>
-
-<p>IDしか引き数を持たないリソースがあったとして、バージョン番号1,ID=3というキー"1:ID=3"でread()を何時間してもキャッシュに変化がなくオリジナルデータソース（RDB）にアクセスはありません。ですがID=3でのupdateやdeleteが発生するとリソースバージョンが1から2になりキャッシュキーは（2:ID=3）になります。キーが代わりキャッシュヒットしないので新しいキャッシュデータがストアされます。（古いキャッシュを明示的に破棄しないでGCにまかせます）</p>
-
-<h3>閉じたリソースと開いたリソース</h3>
-
-<p>以上の事はリソースが他のリソースに依存していないことを前提としています。（join先のテーブルが別リソースに使われてて更新されていたら機能しない）。それを解決するためにリソースにそのリソースの依存性がないというアノテーションを用意したり（@cache closedとか？）リソースキャッシュの依存性を示すようなアノテーション（@cache dependency profile, followerとか？）を用意すればいいのかなとか考えてます（まだ自信がありません）</p>
-
-<h3>ビューキャッシュ</h3>
-
-<p>リソース状態だけでなく、リソーステンプレートを（しかもUA別に）ストアしてやればビューキャッシュになります。キャッシュはレイヤーを持つのでリソース状態キャッシュはリソースクライアントで利用する事ができます。それにリソーステンプレートが適用されたキャッシュはビューキャッシュとなります。※その場合のキャッシュキーはURI + バリュー + バージョン + UA + テンプレート</p>
-
-<p>こういう風にうまくRDBのデータをマスターとしてNoSQLのキャッシュにうまく乗せ、RDBの使いやすさとNoSQLのスケールアウト性がうまく合成できれば理想的なんじゃないかと。RDBのリクエストを最小化することができれば使用するDBライブラリ(MDB2, PDO, Zend_Db）等の性能差をあまり考えなくてよくなるメリットもあります。揮発性のあるキャッシュというより、参照用DB（スレーブDB）の代替になれば理想的です。容量や実装の問題もあるかもしれませんが高い可能性を感じています。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/page7">&larr; Older</a>
@@ -4614,6 +4596,10 @@ Score:135/147 Point:135 Game:300/300 Stacked Game:100
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2017/12/16/phpnw/">Phpnw17</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2017/11/10/re-code-reading/">Re: BEAR.Sundayをコードリーディングしたのでメモ程度にアウトプットする</a>
       </li>
     
@@ -4627,10 +4613,6 @@ Score:135/147 Point:135 Game:300/300 Stacked Game:100
     
       <li class="post">
         <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/06/08/haphpy-birthday/">HaPHPy Birthday PHP</a>
       </li>
     
   </ul>
@@ -4684,7 +4666,7 @@ Score:135/147 Point:135 Game:300/300 Stacked Game:100
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2017 - Akihito Koriyama -
+  Copyright &copy; 2018 - Akihito Koriyama -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

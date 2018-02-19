@@ -4,7 +4,7 @@
   <title><![CDATA[BEAR Blog]]></title>
   <link href="http://koriym.github.io/atom.xml" rel="self"/>
   <link href="http://koriym.github.io/"/>
-  <updated>2017-11-11T01:34:14+09:00</updated>
+  <updated>2018-02-19T12:33:15+09:00</updated>
   <id>http://koriym.github.io/</id>
   <author>
     <name><![CDATA[Akihito Koriyama]]></name>
@@ -12,6 +12,44 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Phpnw17]]></title>
+    <link href="http://koriym.github.io/blog/2017/12/16/phpnw/"/>
+    <updated>2017-12-16T12:00:54+09:00</updated>
+    <id>http://koriym.github.io/blog/2017/12/16/phpnw</id>
+    <content type="html"><![CDATA[<h1>phpnw</h1>
+
+<p>初めてカンファレンスで登壇したのがイギリスのマンチェスターで開かれたphpnw14でした。phpnw(php north west)は2008年に始まり、第１０回目の今年の2017年phpnw17で幕を閉じました。
+<a href="http://conference.phpnw.org.uk/phpnw17/extras/previous-conferences/">http://conference.phpnw.org.uk/phpnw17/extras/previous-conferences/</a></p>
+
+<p>そのうち、登壇したphpnw2014、「アンカンファレンス」参加した2015、2017年と3回参加しました。時間が経ってしまいましたが、今年の秋にイギリスのリーズとマンチェスターで登壇したした事を記事にします。</p>
+
+<p>イベントは通常三日間行われます。一日目はカンファレンスの前日の「チュートリアルデー・セッション」午前またはごごに様々なセッションが用意されていて、カンファレンス料金とは別の代金が必要です。</p>
+
+<ul>
+<li>Let your tests drive your development Michelangelo van Dam</li>
+<li>Writing console applications in PHP Matt Brunt</li>
+<li>Terraform and Ansible for developers - A dive into the DevOps world Patrik Karisch</li>
+<li>Building a scalable distributed websocket architecture with PHP James Mallison</li>
+<li>Event Storming for fun and profit! Jeroen v.d. Gulik</li>
+<li>Getting started with PHP Codesniffer Juliette Reinders Folmer</li>
+<li>What can Doctrine do for me? Michael Simonson</li>
+<li>End-to-end testing with Behat</li>
+</ul>
+
+
+<p>チュートリアルデーの夜は Hackathon です。</p>
+
+<h1>Sky Sports</h1>
+
+<p>Sky Sportsというイギリスの衛星放送事業者でPrincipal Software Engineerの職につかれている<a href="https://www.linkedin.com/in/mackstar/">Richard McIntyre</a>氏の招きで、Skyで登壇する機会をいただきました。（Friday 1.30PM @ Sky 2 Tower Hall 2017 Oct)
+<img src="http://koriym.github.io/images/phpnw17/at_sky_sports.jpg">
+エンジニアの</p>
+
+<p><a href="https://photos.google.com/share/AF1QipNCkT5ddXqOHKwY1tjUcuSl7frI_s8fnLsBjUktalTj7k7JTITYVfjrWtPBT9Y-xQ?key=ajM5Y2c1ckdBckUtVXphS1NzM1RmdWY5TkxGeFJB">https://photos.google.com/share/AF1QipNCkT5ddXqOHKwY1tjUcuSl7frI_s8fnLsBjUktalTj7k7JTITYVfjrWtPBT9Y-xQ?key=ajM5Y2c1ckdBckUtVXphS1NzM1RmdWY5TkxGeFJB</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Re: BEAR.Sundayをコードリーディングしたのでメモ程度にアウトプットする]]></title>
@@ -297,7 +335,7 @@ HTTPリクエストから、BEARで扱う形式への変換、マッピングと
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><code>uri()</code>はリクエストオブジェクトのファクトリーメソッドです。</p>
+<p><code>uri()</code>はリクエストオブジェクトののファクトリーメソッドです。</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$page</span> <span class="o">=</span> <span class="nv">$request</span><span class="p">(</span><span class="s1">&#39;key&#39;</span><span class="o">=&gt;</span> <span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="s1">&#39;hoge&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;fuga&#39;</span><span class="p">]);</span> <span class="c1">// BEAR\Resource\ResourceObject</span>
@@ -312,7 +350,7 @@ $app が面白いですね。全部そこにまとまっているっていうの
 <p>$appはアプリケーションはシリアライズ可能でプロダクションではキャッシュされて実行されます。
 １つのオブジェクト網なのでビジュアライゼーションも可能です。</p>
 
-<p><img src="http://koriym.github.io/images/blog/app.png" alt="$app" /></p>
+<p><img src="http://koriym.github.io/images/blog/app.png" alt="$app" />(<a href="http://koriym.github.io/print_o/v1/libs/bear.sunday.html">http://koriym.github.io/print_o/v1/libs/bear.sunday.html</a>)</p>
 
 <p><a href="http://koriym.github.io/print_o/v1/libs/bear.sunday.html">$appのビジュアライゼーション</a></p>
 
@@ -3061,144 +3099,6 @@ Dependency injection means giving an object its instance variables. Really. That
   </li>
   <li id="footnote_1_1834" class="footnote">
     Ray.Diではプロパティ・インジェクションをサポートしていません [<a href="#identifier_1_1834" class="footnote-link footnote-back-link">&#8617;</a>]
-  </li>
-</ol>
-
-
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Ray 1.0.0]]></title>
-    <link href="http://koriym.github.io/2013/04/ray-1-0-0/"/>
-    <updated>2013-04-01T00:00:00+09:00</updated>
-    <id>http://koriym.github.io/2013/04/ray-1-0-0</id>
-    <content type="html"><![CDATA[<div style="float: right; margin-left: 10px;">
-  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2013/04/ray-1-0-0/">Tweet</a>
-</div>
-
-
-<h2>1.0.0</h2>
-
-<p>Ray.Di / Ray.Aopのバージョン1.0.0をリリースしました。</p>
-
-<p>これまでも何度か紹介しましたがRay.Diはオブジェクトとオブジェクトの関係の問題を解決するDIフレームワーク、Ray.Aopはアスペクト指向プログラミングフレームワークでGoogleのDIフレームワーク<a href="http://ja.wikipedia.org/wiki/Google_Guice">Guice</a>のPHPクローンです。</p>
-
-<h2>first commit</h2>
-
-<p>最初に作り始めたのはRay.Aopです。これが最初のコミットです。まだPHP5.4はなく、PHP5.3でコードしていました。<br/>
-<a href="https://github.com/koriym/Ray.Aop/tree/2ab2dff8204622fdfaeae0bd608e88010b98b99f">https://github.com/koriym/Ray.Aop/tree/2ab2dff8204622fdfaeae0bd608e88010b98b99f</a></p>
-
-<p>最初に作ろうとしたのはこういうものでした。</p>
-
-<p>サービス（呼び出される方）</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Mock</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">getDouble</span><span class="p">(</span><span class="nv">$a</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="nv">$a</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>コンシュマー（呼び出す方）</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">echo</span> <span class="nv">$mock</span><span class="o">-&gt;</span><span class="na">getDouble</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="c1">//6</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><strong>これらの呼び出しコード、呼ばれるメソッドを変更をすることなく</strong>帰ってくる値を本来の値の10倍(60)にしすることを考えます。実現するためにはメソッドの実行呼び出しコードと呼ばれるメソッドの間に、「10倍にする」という処理を差し込まなければなりません。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">tenTimes</span> <span class="k">implements</span> <span class="nx">MethodInterceptor</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">invoke</span><span class="p">(</span><span class="nx">MethodInvocation</span> <span class="nv">$invocation</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$invocation</span><span class="o">-&gt;</span><span class="na">proceed</span><span class="p">();</span>
-</span><span class='line'>        <span class="k">return</span> <span class="nv">$result</span> <span class="o">*</span> <span class="mi">10</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>特定のメソッドをコールしたときのコールバックを設定する機能などがあれば簡単なのですが、そういう機能はありません。なのでオブジェクトを作成するときにその「横断的処理」を織り込んだオブジェクトを生成する必要があります。具体的には<strong>getDouble(2)</strong>でコールされたららその結果を10倍にする横断的処理が透過的に呼ばれるようなオブジェクトをつくります。</p>
-
-<p>最初はどうやって記述したらよいかさっぱり分からなかったのですが、AOPアラインスのインターフェイスやメソッドリフレクション、マジックメソッドの組み合わせでなんとか（というよりもしかしたら）出来るのではと考えました。</p>
-
-<p>最初のコミットでのコードはこういうものでした。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$mock</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Weaver</span><span class="p">(</span><span class="k">new</span> <span class="nx">Mock</span><span class="p">,</span> <span class="nv">$interceptors</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>元のオブジェクト(new Mock)に「10倍に」という処理を横断的処理($interceptors)を織り込んたもの（Weaver）を元のオブジェクト同様に扱います</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">echo</span> <span class="nv">$mock</span><span class="o">-&gt;</span><span class="na">getDouble</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="c1">//60</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>できました！</p>
-
-<p>オブジェクトに横断的処理を&#8221;織り込む&#8221;事により、呼び出し側も呼び出される側も無変更で振る舞いを変更することができました。webフレームワークの機能の多くはこれらの横断的処理です。呼ぶ側も呼ばれる側にも無変更で、動的に横断的処理を着脱できると事に大きな可能性を感じました。</p>
-
-<h2>失敗</h2>
-
-<p>最初のコミットのRay.Aop、これは大失敗というのがすぐに分かります。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$mock</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Weaver</span><span class="p">(</span><span class="k">new</span> <span class="nx">Mock</span><span class="p">,</span> <span class="nv">$interceptors</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>このコードではメソッドの指定がなく、Mockが持つ全てのメソッドに「10倍」という横断的処理がくっついて（束縛されて）ました。数字以外を返すメソッドではそもそもエラーになります。これでは使い物になりません。</p>
-
-<h2>可能性</h2>
-
-<p>しかし同時に、この失敗でやっとAOPの本当の力に気がつくことができました。つまり無指定で全てのメソッドに横断的処理が束縛されるということは、指定した特定メソッドに同時に横断的処理を束縛できるということです。delete*で始まるメソッドには全てログを、admin/で始まるパスでは認証チェックを、などといった横断的処理の束縛がアプリケーション実行コンテキストによって指定条件を決めることができます。<sup><a href="#footnote_0_1800" id="identifier_0_1800" class="footnote-link footnote-identifier-link" title="現在BEAR.Sundayのsandoxアプリでは、&rdquo;テスト&rdquo;ではスタブデータを、&rdquo;開発&rdquo;では全てのin/outを記録するようになっています。">1</a></sup></p>
-
-<h2>Ray.Di</h2>
-
-<p>AOPがメソッドの呼び出しと呼ばれるメソッドとの関係を規定するものだとすれば、DIはオブエクトとオブジェクトの関係を規定するものです。BEAR.Saturdayの開発／運用経験を通じてオブジェクト間の関係性をオブジェクト自身が解決しないことの有用性は大きく認識してたので、DIフレームワークの導入というのは最優先事項でした。BEAR.SaturdayのDIで多いに参考にしてたのは<a href="http://solarphp.com/">Solar</a>だったのですが<sup><a href="#footnote_1_1800" id="identifier_1_1800" class="footnote-link footnote-identifier-link" title="他のPHPフレームワークではほとんどDIが使われていませんでした">2</a></sup> 今回最も良い設計/実装と思えたのはGoogleのDIフレームワーク<a href="http://ja.wikipedia.org/wiki/Google_Guice">Guice</a>でした。それを普通に移植するのではなく、Solarの後継のAura、そのAura.Diをforkして、拡張することにしました。</p>
-
-<p>こんなものが移植できるのか<sup><a href="#footnote_2_1800" id="identifier_2_1800" class="footnote-link footnote-identifier-link" title="当時とても大きいものだと誤解してました">3</a></sup> 甚だ疑問で難しいのではないかと思ったのですが、AOPと共に機能するアノテーションベースで依存ポイントを指定し抽象と具象の接続指定でオブジェクトを構成するその設計と指向は、チャレンジに充分すぎるほどのものではないかと感じながら移植を開始しました。</p>
-
-<p>実装、パフォーマンス、デバック等困難な事も多かったのですが、現在のBEAR.Sundayでかなりヘビーに使えていて今回1.0として長くつけてたbetaを外しました。これでcomposer.jsonで@devや@beta指定する必要がなくなります。</p>
-
-<h2>Thx</h2>
-
-<p><a href="https://github.com/madapaja">@madapaja</a> さん<a href="https://github.com/akkie"> @akkie</a> さんには有用なアドバイスをもらい、GitHubもPRもしてもらいました。特に@madapaja さんはブログ記事かいてもらったり、スライドで発表してもらったりしました。また<a href="https://github.com/jingu">@jingu</a>君にはRoboGuiceとの比較を教えてもらって、Guiceを使った事もない自分には大変助かりました。<a href="https://github.com/hidenorigoto">@hidenorigoto</a>さんにはWeb+DBで「たとえばSymfonyのDIコンポーネントと比較すると、DIの構成と利用の分離の点で一歩進んでます」との賛辞で紹介していただきました。<a href="https://github.com/vectorxenon">@vectorxenon</a>さんにはCakePHPでの利用してもらいました。</p>
-
-<p>みなさん、ありがとうございます。これからもよろしくお願いします。</p>
-
-<ol class="footnotes">
-  <li id="footnote_0_1800" class="footnote">
-    現在BEAR.Sundayのsandoxアプリでは、&#8221;テスト&#8221;ではスタブデータを、&#8221;開発&#8221;では全てのin/outを記録するようになっています。 [<a href="#identifier_0_1800" class="footnote-link footnote-back-link">&#8617;</a>]
-  </li>
-  <li id="footnote_1_1800" class="footnote">
-    他のPHPフレームワークではほとんどDIが使われていませんでした [<a href="#identifier_1_1800" class="footnote-link footnote-back-link">&#8617;</a>]
-  </li>
-  <li id="footnote_2_1800" class="footnote">
-    当時とても大きいものだと誤解してました [<a href="#identifier_2_1800" class="footnote-link footnote-back-link">&#8617;</a>]
   </li>
 </ol>
 

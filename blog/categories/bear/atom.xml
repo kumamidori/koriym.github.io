@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Bear | BEAR Blog]]></title>
   <link href="http://koriym.github.io/blog/categories/bear/atom.xml" rel="self"/>
   <link href="http://koriym.github.io/"/>
-  <updated>2017-11-11T01:34:14+09:00</updated>
+  <updated>2018-02-19T12:33:15+09:00</updated>
   <id>http://koriym.github.io/</id>
   <author>
     <name><![CDATA[Akihito Koriyama]]></name>
@@ -214,7 +214,7 @@ HTTPリクエストから、BEARで扱う形式への変換、マッピングと
 <pre><code class="php">$request = $resource-&gt;uri('app://self/path/to'); // BEAR\Resource\Request
 </code></pre>
 
-<p><code>uri()</code>はリクエストオブジェクトのファクトリーメソッドです。</p>
+<p><code>uri()</code>はリクエストオブジェクトののファクトリーメソッドです。</p>
 
 <pre><code class="php">$page = $request('key'=&gt; 'value', 'hoge' =&gt; 'fuga']); // BEAR\Resource\ResourceObject
 </code></pre>
@@ -227,7 +227,7 @@ $app が面白いですね。全部そこにまとまっているっていうの
 <p>$appはアプリケーションはシリアライズ可能でプロダクションではキャッシュされて実行されます。
 １つのオブジェクト網なのでビジュアライゼーションも可能です。</p>
 
-<p><img src="/images/blog/app.png" alt="$app" /></p>
+<p><img src="/images/blog/app.png" alt="$app" />(<a href="http://koriym.github.io/print_o/v1/libs/bear.sunday.html">http://koriym.github.io/print_o/v1/libs/bear.sunday.html</a>)</p>
 
 <p><a href="http://koriym.github.io/print_o/v1/libs/bear.sunday.html">$appのビジュアライゼーション</a></p>
 

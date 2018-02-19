@@ -9,8 +9,8 @@
   <meta name="author" content="Akihito Koriyama">
 
   
-  <meta name="description" content="このエントリーは
-OTOBANK Engineering BlogのBEAR.Sundayをコードリーディングしたのでメモ程度にアウトプットするのReplyエントリーで、コードリーディングを補間する内容です。(@kaliboraさん、ブログ記事ありがとうございます。) &hellip;">
+  <meta name="description" content="phpnw 初めてカンファレンスで登壇したのがイギリスのマンチェスターで開かれたphpnw14でした。phpnw(php north west)は2008年に始まり、第１０回目の今年の2017年phpnw17で幕を閉じました。
+http://conference.phpnw.org.uk/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +79,67 @@ OTOBANK Engineering BlogのBEAR.Sundayをコードリーディングしたので
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2017/12/16/phpnw/">Phpnw17</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2017-12-16T12:00:54+09:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>12:00 pm</span></time>
+        
+           | <a href="/blog/2017/12/16/phpnw/#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/blog/2017/12/16/phpnw/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>phpnw</h1>
+
+<p>初めてカンファレンスで登壇したのがイギリスのマンチェスターで開かれたphpnw14でした。phpnw(php north west)は2008年に始まり、第１０回目の今年の2017年phpnw17で幕を閉じました。
+<a href="http://conference.phpnw.org.uk/phpnw17/extras/previous-conferences/">http://conference.phpnw.org.uk/phpnw17/extras/previous-conferences/</a></p>
+
+<p>そのうち、登壇したphpnw2014、「アンカンファレンス」参加した2015、2017年と3回参加しました。時間が経ってしまいましたが、今年の秋にイギリスのリーズとマンチェスターで登壇したした事を記事にします。</p>
+
+<p>イベントは通常三日間行われます。一日目はカンファレンスの前日の「チュートリアルデー・セッション」午前またはごごに様々なセッションが用意されていて、カンファレンス料金とは別の代金が必要です。</p>
+
+<ul>
+<li>Let your tests drive your development Michelangelo van Dam</li>
+<li>Writing console applications in PHP Matt Brunt</li>
+<li>Terraform and Ansible for developers - A dive into the DevOps world Patrik Karisch</li>
+<li>Building a scalable distributed websocket architecture with PHP James Mallison</li>
+<li>Event Storming for fun and profit! Jeroen v.d. Gulik</li>
+<li>Getting started with PHP Codesniffer Juliette Reinders Folmer</li>
+<li>What can Doctrine do for me? Michael Simonson</li>
+<li>End-to-end testing with Behat</li>
+</ul>
+
+
+<p>チュートリアルデーの夜は Hackathon です。</p>
+
+<h1>Sky Sports</h1>
+
+<p>Sky Sportsというイギリスの衛星放送事業者でPrincipal Software Engineerの職につかれている<a href="https://www.linkedin.com/in/mackstar/">Richard McIntyre</a>氏の招きで、Skyで登壇する機会をいただきました。（Friday 1.30PM @ Sky 2 Tower Hall 2017 Oct)
+<img src="/images/phpnw17/at_sky_sports.jpg">
+エンジニアの</p>
+
+<p><a href="https://photos.google.com/share/AF1QipNCkT5ddXqOHKwY1tjUcuSl7frI_s8fnLsBjUktalTj7k7JTITYVfjrWtPBT9Y-xQ?key=ajM5Y2c1ckdBckUtVXphS1NzM1RmdWY5TkxGeFJB">https://photos.google.com/share/AF1QipNCkT5ddXqOHKwY1tjUcuSl7frI_s8fnLsBjUktalTj7k7JTITYVfjrWtPBT9Y-xQ?key=ajM5Y2c1ckdBckUtVXphS1NzM1RmdWY5TkxGeFJB</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -383,7 +444,7 @@ HTTPリクエストから、BEARで扱う形式への変換、マッピングと
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><code>uri()</code>はリクエストオブジェクトのファクトリーメソッドです。</p>
+<p><code>uri()</code>はリクエストオブジェクトののファクトリーメソッドです。</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$page</span> <span class="o">=</span> <span class="nv">$request</span><span class="p">(</span><span class="s1">&#39;key&#39;</span><span class="o">=&gt;</span> <span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="s1">&#39;hoge&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;fuga&#39;</span><span class="p">]);</span> <span class="c1">// BEAR\Resource\ResourceObject</span>
@@ -398,7 +459,7 @@ $app が面白いですね。全部そこにまとまっているっていうの
 <p>$appはアプリケーションはシリアライズ可能でプロダクションではキャッシュされて実行されます。
 １つのオブジェクト網なのでビジュアライゼーションも可能です。</p>
 
-<p><img src="/images/blog/app.png" alt="$app" /></p>
+<p><img src="/images/blog/app.png" alt="$app" />(<a href="http://koriym.github.io/print_o/v1/libs/bear.sunday.html">http://koriym.github.io/print_o/v1/libs/bear.sunday.html</a>)</p>
 
 <p><a href="http://koriym.github.io/print_o/v1/libs/bear.sunday.html">$appのビジュアライゼーション</a></p>
 
@@ -1192,64 +1253,6 @@ TEDxTokyoはその精神を引き継いだ米国以外では初めてのTEDxイ�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/06/08/action-domain-responder/">Action-Domain-Responder</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-06-08T09:50:00+09:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>9:50 am</span></time>
-        
-           | <a href="/blog/2014/06/08/action-domain-responder/#disqus_thread"
-             data-disqus-identifier="http://koriym.github.io/blog/2014/06/08/action-domain-responder/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img class="left" src="https://raw.githubusercontent.com/pmjones/mvc-refinement/master/adr.png">
-<br clear=all>
-<a href="https://github.com/pmjones/mvc-refinement">https://github.com/pmjones/mvc-refinement</a></p>
-
-<p>Here is my random thought about <a href="https://github.com/pmjones/mvc-refinement">ADR</a>.</p>
-
-<p>It seems the each component seems to have their own each distinct and meaningful role. Devs will follow a more natural workflow with it. Domains become first class citizens compared to a “data provider” to their GOD controller in some MVC framework.</p>
-
-<p> I like the fact that an action returns a responder (not actually invoking the action). Data can then be retrieved and tested. Actions can call other actions creating a hierarchical information structure  for which MVC stuggles to provide a solution. Testing and gaining 100% code coverage also seems much easier without using a web driver.</p>
-
-<p>I don’t see any particular problem in having  “More classes in the application”. I think it can gain more benefit by having a smaller amount of LOC per class. It seems people can move from MVC to ADR with ease and gain the benefits instantly.</p>
-
-<p>I would like to add a few personal slightly biased comments, (Just casual remarks - feel free to dismiss.)</p>
-
-<p>In most MVC application frameworks, the existing system (architecture) is mapped to the web. CRUD and OOP paradigms are mapped to HTTP methods and resources. But the opposite is not true. ADR seems to have the same limitation. I would like to echo @nateabele’s tweet “resources aren&rsquo;t like controllers, in that they&rsquo;re intended to be more cohesive”.</p>
-
-<p>I also wonder if I can inject arguments, not “retain incoming data” to an Action, actions can then be an easier to utilize by another Action?</p>
-
-<p>A few questions about the Responder ? “the Action would grab a Domain and represent it through a Responder.” Instead of an Action interacting with the Responder, how about have the Responder look at the Action’s data and use that ? In doing this Action is completely ignorant of the Responder?  Or am I misunderstanding something ?</p>
-
-<p>Conclusion:</p>
-
-<p>To discover the next generation web application framework, grasping a new application architecture seems to be crucial, rather than just a gradual improvement of the MVC pattern. I think it is exciting that an influential person like Paul M. Jones (my PHP hero) is pushing these boundaries somewhat. ADR can be a good replacement of MVC pattern, especially for those who have used an MVC framework but also looks forward a little what might be next. I like it.</p>
-
-<p>English proofreading: <a href="https://twitter.com/mackstar">Richard McIntyre</a></p>
-
-<p>(Arigato as always :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/page2">&larr; Older</a>
@@ -1265,6 +1268,10 @@ TEDxTokyoはその精神を引き継いだ米国以外では初めてのTEDxイ�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2017/12/16/phpnw/">Phpnw17</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2017/11/10/re-code-reading/">Re: BEAR.Sundayをコードリーディングしたのでメモ程度にアウトプットする</a>
       </li>
     
@@ -1278,10 +1285,6 @@ TEDxTokyoはその精神を引き継いだ米国以外では初めてのTEDxイ�
     
       <li class="post">
         <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/06/08/haphpy-birthday/">HaPHPy Birthday PHP</a>
       </li>
     
   </ul>
@@ -1335,7 +1338,7 @@ TEDxTokyoはその精神を引き継いだ米国以外では初めてのTEDxイ�
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2017 - Akihito Koriyama -
+  Copyright &copy; 2018 - Akihito Koriyama -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

@@ -9,7 +9,7 @@
   <meta name="author" content="Akihito Koriyama">
 
   
-  <meta name="description" content="Tweet Robert C. Martin氏による有名なオブジェクト指向設計（OOD）の原則Principles of OODがあります。そのうちDIP:依存逆転原則はクラス同士の結合度をいかに減らすか、またはどちらに依存すべきかを判定する原則です。 &hellip;">
+  <meta name="description" content="Tweet コードがドキュメントだ なぜコードが重要なドキュメントなのかというと、 詳細かつ正確なドキュメントはコードしかないからだ &#8212; Martin Fowler アプリケーションシーケンス どのようなシーケンス12 によりフレームワーク／ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,437 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/10/codeasdocumentation/">CodeAsDocumentation</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2012-10-28T00:00:00+09:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>28</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>12:00 am</span></time>
+        
+           | <a href="/2012/10/codeasdocumentation/#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/2012/10/codeasdocumentation/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2012/10/codeasdocumentation/">Tweet</a>
+</div>
+
+
+<h2>コードがドキュメントだ</h2>
+
+<blockquote><p>なぜコードが重要なドキュメントなのかというと、 詳細かつ正確なドキュメントはコードしかないからだ &#8212; Martin Fowler</p></blockquote>
+
+<h2>アプリケーションシーケンス</h2>
+
+<p>どのようなシーケンス<sup><a href="#footnote_0_1035" id="identifier_0_1035" class="footnote-link footnote-identifier-link" title="あらかじめ定められた順序または手続きに従って制御の各段階を逐次進めていく制御">1</a></sup><sup><a href="#footnote_1_1035" id="identifier_1_1035" class="footnote-link footnote-identifier-link" title="http://ja.wikipedia.org/wiki/%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E5%88%B6%E5%BE%A1">2</a></sup> によりフレームワーク／アプリケーションが実行されるかはフレームワークの設計思想を強く反映していて、柔軟度にも違いがあります。ほぼ固定的なものから、イベントシステムで柔軟性を持たせたもの、それらはアプリケーションテンプレートのようなWebフレームワークと、ライブラリ指向のフルスタックフレームワークで異なってきます。</p>
+
+<p>しかし、しばしばこのシーケンスは分かりにくいものです。</p>
+
+<p>BEAR.Sundayではこのシーケンスをアプリケーションの構成だと考え、完全にアプリケーションドメインのものにならないかと考えました。基本シークエンスをスクリプトにより簡潔に表現し可読性を高め、自由に編集できるようにします。特定の処理を追加したり、割込ませるためにはそのスクリプトを直接編集します。<sup><a href="#footnote_2_1035" id="identifier_2_1035" class="footnote-link footnote-identifier-link" title="CakePHP のシーケンス図を作ってみたという記事を読みました。CakePHP2のアプリケーション／フレームワークのシーケンスが分かるという記事なのですが、面白いと思ったと同時に現在のフレームワークのシーケンスの分かりにくさを表している事でもないかと考えました。
+">3</a></sup></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/** @global $mode application configuration mode */</span>
+</span><span class='line'><span class="c1">// Clear</span>
+</span><span class='line'><span class="k">require</span> <span class="nb">dirname</span><span class="p">(</span><span class="nx">__DIR__</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;/scripts/clear.php&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// Application instance with loader</span>
+</span><span class='line'><span class="nv">$mode</span> <span class="o">=</span> <span class="s1">&#39;Prod&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="nv">$app</span> <span class="o">=</span> <span class="k">require</span> <span class="nb">dirname</span><span class="p">(</span><span class="nx">__DIR__</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;/scripts/instance.php&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// Dispatch</span>
+</span><span class='line'><span class="k">list</span><span class="p">(</span><span class="nv">$method</span><span class="p">,</span> <span class="nv">$pagePath</span><span class="p">,</span> <span class="nv">$query</span><span class="p">)</span> <span class="o">=</span> <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">router</span><span class="o">-&gt;</span><span class="na">match</span><span class="p">(</span><span class="nv">$GLOBALS</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// Request</span>
+</span><span class='line'><span class="k">try</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$page</span> <span class="o">=</span> <span class="nv">$app</span>
+</span><span class='line'>    <span class="o">-&gt;</span><span class="na">resource</span>
+</span><span class='line'>    <span class="o">-&gt;</span><span class="nv">$method</span>
+</span><span class='line'>    <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;page://self/&#39;</span> <span class="o">.</span> <span class="nv">$pagePath</span><span class="p">)</span>
+</span><span class='line'>    <span class="o">-&gt;</span><span class="na">withQuery</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span>
+</span><span class='line'>    <span class="o">-&gt;</span><span class="na">eager</span>
+</span><span class='line'>    <span class="o">-&gt;</span><span class="na">request</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">NotFound</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$code</span> <span class="o">=</span> <span class="mi">404</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">goto</span> <span class="nx">ERROR</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">BadRequest</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$code</span> <span class="o">=</span> <span class="mi">400</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">goto</span> <span class="nx">ERROR</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$code</span> <span class="o">=</span> <span class="mi">503</span><span class="p">;</span>
+</span><span class='line'>    <span class="nb">error_log</span><span class="p">((</span><span class="nx">string</span><span class="p">)</span><span class="nv">$e</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">goto</span> <span class="nx">ERROR</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="c1">// Transfer</span>
+</span><span class='line'><span class="nx">OK</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$app</span><span class="o">-&gt;</span><span class="na">response</span><span class="o">-&gt;</span><span class="na">setResource</span><span class="p">(</span><span class="nv">$page</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">send</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nx">ERROR</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nb">http_response_code</span><span class="p">(</span><span class="nv">$code</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">require</span> <span class="nb">dirname</span><span class="p">(</span><span class="nx">__DIR__</span><span class="p">)</span> <span class="o">.</span> <span class="s2">&quot;/http/</span><span class="si">{</span><span class="nv">$code</span><span class="si">}</span><span class="s2">.php&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>これがアプリケーションスクリプトです。通常のOOPを使ったオブジェクトの世界ではなく、シェルスクリプトのように処理手順が記述してあるスクリプトの世界です。</p>
+
+<p>アプリケーションオブジェクトはアプリケーションスクリプトが使う全てのサービス（オブジェクト）を保持したオブジェクトです。スクリプトで取得して１つの$appという変数に代入しています。アプリケーションスクリプトでそのサービスを使って全体のフローを簡潔に構成します。</p>
+
+<h3>ページリソースで構成の意図を</h3>
+
+<p>アプリケーションスクリプトではページリソースのURIを組み立て、ページリソースリクエストを行いその結果を出力しています。</p>
+
+<p>ページリソースは自らをページとして構成するのが役割ですが、<strong>その構成意図はコードで表されます。</strong></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Posts</span> <span class="k">extends</span> <span class="nx">Page</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">use</span> <span class="nx">ResourceInject</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nv">$body</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s1">&#39;posts&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span>
+</span><span class='line'>    <span class="p">];</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * @Cache</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onGet</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="p">[</span><span class="s1">&#39;posts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">resource</span>
+</span><span class='line'>            <span class="o">-&gt;</span><span class="na">get</span>
+</span><span class='line'>            <span class="o">-&gt;</span><span class="na">uri</span><span class="p">(</span><span class="s1">&#39;app://self/blog/posts&#39;</span><span class="p">)</span>
+</span><span class='line'>            <span class="o">-&gt;</span><span class="na">withQuery</span><span class="p">([</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">])</span>
+</span><span class='line'>            <span class="o">-&gt;</span><span class="na">request</span><span class="p">();</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>セットすべきコンテンツ</h3>
+
+<p>$bodyプロパティはこのページでコンテンツ&#8217;posts&#8217;を用意する必要があるのを表しています。</p>
+
+<h3>指定可能なGETクエリー</h3>
+
+<p>GETリクエストにはidクエリーの指定が必須であることも表されています。</p>
+
+<h3>コンテンツとリソースをリンク</h3>
+
+<p>メソッド内では、コンテンツ<strong>posts</strong>を<strong>app://self/blog/posts?id=$id</strong>リソースにするという意図が示されてます。</p>
+
+<p>app://self/blog/postsが何を示すのかはこのコードには現れてないのに注意してください。これが特定のPHPクラスを指すのか、特定ファイルの内容なのか、あるいはリモートアクセスの結果なのか、ここでは指定されていません。<strong>app://self/blog/postsというURIで表されるリソースを自身のpostsコンテンツにするという意図</strong>が表されているだけです。<sup><a href="#footnote_3_1035" id="identifier_3_1035" class="footnote-link footnote-identifier-link" title="もしかしたらThriftで繋がれたC++モジュールが何かの実行を行ってくれるのかもしれません">4</a></sup></p>
+
+<p>このメソッドには@Cacheというアノテーションがありますが、<strong>キャッシュを行うという意図</strong>が表されてるだけです。実際にどのようなキャッシュアダプターがどのようにキャッシュを行うかはこのコードには現れません。</p>
+
+<p>これは単に設定ファイルをアノテーションにしただけではないのに注意してください。アプリケーションはbootstrap時にこの意図をみて、このメソッドとキャッシュの実装アスペクトを織り込みます。</p>
+
+<h3>フォームの仕様</h3>
+
+<p>以下はPOSTメソッドはフォームからPOSTサブミットのリクエストインターフェイスです。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onPost</span><span class="p">(</span>
+</span><span class='line'>        <span class="nv">$name</span><span class="p">,</span>
+</span><span class='line'>        <span class="nv">$gender</span><span class="p">,</span>
+</span><span class='line'>        <span class="nv">$age</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span>
+</span><span class='line'>        <span class="nv">$hobby</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span>
+</span><span class='line'>        <span class="nv">$lang</span> <span class="o">=</span> <span class="s1">&#39;PHP&#39;</span>
+</span><span class='line'>    <span class="p">)</span> <span class="p">{</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ここではPOSTメソッドでサブミットされるフォームに対してのリクエストインターフェイスがメソッドシグネチャーで表されています。$nameと$genderは入力必須、その他はオプションで$langを入力しなければ&#8221;PHP&#8221;になります。</p>
+
+<p>リクエストサービスオブジェクトから値を取り出す方法と比べて、PHPのメソッドとHTTPリクエストがシームレスに統合され、<strong>コードがPOSTフォームのドキュメンテーションになっています。</strong><sup><a href="#footnote_4_1035" id="identifier_4_1035" class="footnote-link footnote-identifier-link" title="webに&rdquo;型&rdquo;がないようにweb言語であるPHPにスカラータイプヒントがありません">5</a></sup></p>
+
+<h3>リソースのリンク</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>    <span class="k">public</span> <span class="nv">$links</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s1">&#39;payment&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span><span class='line'>            <span class="nx">Link</span><span class="o">::</span><span class="na">HREF</span> <span class="o">=&gt;</span> <span class="s1">&#39;app://self/restbucks/payment{?id}&#39;</span><span class="p">,</span>
+</span><span class='line'>            <span class="nx">Link</span><span class="o">::</span><span class="na">TEMPLATED</span> <span class="o">=&gt;</span> <span class="k">true</span>
+</span><span class='line'>        <span class="p">],</span>
+</span><span class='line'>    <span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>リソースの関係はAPIドキュメント内だけにあるのではなく、コードにも存在しています。この例では注文IDと支払URIの関係がリンクで表されています。</p>
+
+<h3>アプリケーションリソース</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * @Time</span>
+</span><span class='line'><span class="sd">     * @Transactional</span>
+</span><span class='line'><span class="sd">     * @CacheUpdate</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onPost</span><span class="p">(</span><span class="nv">$title</span><span class="p">,</span> <span class="nv">$body</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$values</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>            <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$title</span><span class="p">,</span>
+</span><span class='line'>            <span class="s1">&#39;body&#39;</span> <span class="o">=&gt;</span> <span class="nv">$body</span><span class="p">,</span>
+</span><span class='line'>            <span class="s1">&#39;created&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">time</span>
+</span><span class='line'>        <span class="p">];</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">,</span> <span class="nv">$values</span><span class="p">);</span>
+</span><span class='line'>        <span class="c1">//</span>
+</span><span class='line'>        <span class="nv">$lastId</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">lastInsertId</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">code</span> <span class="o">=</span> <span class="nx">Code</span><span class="o">::</span><span class="na">CREATED</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">links</span><span class="p">[</span><span class="s1">&#39;new_post&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">Link</span><span class="o">::</span><span class="na">HREF</span> <span class="o">=&gt;</span> <span class="s2">&quot;app://self/posts/post?id=</span><span class="si">{</span><span class="nv">$lastId</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">];</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">links</span><span class="p">[</span><span class="s1">&#39;page_new_post&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">Link</span><span class="o">::</span><span class="na">HREF</span> <span class="o">=&gt;</span> <span class="s2">&quot;page://self/blog/posts/post?id=</span><span class="si">{</span><span class="nv">$lastId</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">];</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>このアプリケーションリソースメソッドではデータベースオブジェクトを利用してSQLを発行しますが、ここではアノテーションが実装意図を表すドキュメンテーションになっています。</p>
+
+<p>@Transactionalとアノテートするとこのメソッド内のクエリーはトランザクションとして扱われますが、@Cacheと同様、アノテーションそのものがトランザクションの機能をもっているわけではありません。@Transactionalというアノテート（注記）が（意図を表すドキュメンテーションとして扱われ）アプリケーションでトランザクションインターセプターと合成されています。</p>
+
+<h2>構造、意図、実装</h2>
+
+<p>アプリケーションの構造がアプリケーションスクリプトで表され、アプリケーションを構成するページリソースでは構成の意図が表されています。そのページリソースを構成するためのアプリケーションリソースでは、その構成のための実装が行われますが横断的実装はアスペクトで表され可能な限り下位のレイヤーで実装を行おうとします。</p>
+
+<p>上位のレイヤーでは構成意図を、下位のレイヤーでその実装を行うことでアプリケーションに解決空間の構成と実装のレイヤリングをフレームワークとして与えようとします。</p>
+
+<h3>アプリケーションオブジェクト</h3>
+
+<p>アプリケーションスクリプトからデーターベース操作を行う下位レイヤーまで、レイヤーを上から下に見て来ましたが、最期にそのトップのアプリケーションオブジェクトをみてみましょう。</p>
+
+<p>アプリケーションという<a href="http://en.wikipedia.org/wiki/Object_graph">オブジェクトグラフ</a>の頂点になるこのインスタンスはアプリケーションスクリプトが使う全てのサービス（オブジェクト）を保持するのがその最大責務です。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">final</span> <span class="k">class</span> <span class="nc">App</span> <span class="k">implements</span> <span class="nx">Context</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="sd">/** application dir path @var string */</span>
+</span><span class='line'>    <span class="k">const</span> <span class="no">DIR</span> <span class="o">=</span> <span class="nx">__DIR__</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nv">$injector</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nv">$resource</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nv">$logger</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nv">$response</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nv">$exceptionHandler</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nv">$router</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nv">$globals</span><span class="p">;</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * Constructor</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @param \Ray\Di\InjectorInterface                        $injector         Dependency Injector</span>
+</span><span class='line'><span class="sd">     * @param \BEAR\Resource\ResourceInterface                 $resource         Resource client</span>
+</span><span class='line'><span class="sd">     * @param \BEAR\Sunday\Exception\ExceptionHandlerInterface $exceptionHandler Exception handler</span>
+</span><span class='line'><span class="sd">     * @param \BEAR\Sunday\Application\Logger                  $logger           Application logger</span>
+</span><span class='line'><span class="sd">     * @param \BEAR\Sunday\Web\ResponseInterface               $response         Web / Console response</span>
+</span><span class='line'><span class="sd">     * @param \BEAR\Sunday\Web\RouterInterface                 $router           Resource cache adapter</span>
+</span><span class='line'><span class="sd">     * @param \BEAR\Sunday\Web\GlobalsInterface                $globals          GLOBALS value</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @Inject</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span>
+</span><span class='line'>        <span class="nx">InjectorInterface</span> <span class="nv">$injector</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">ResourceInterface</span> <span class="nv">$resource</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">ExceptionHandlerInterface</span> <span class="nv">$exceptionHandler</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">ApplicationLogger</span> <span class="nv">$logger</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">ResponseInterface</span> <span class="nv">$response</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">RouterInterface</span> <span class="nv">$router</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">GlobalsInterface</span> <span class="nv">$globals</span>
+</span><span class='line'>    <span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">injector</span> <span class="o">=</span> <span class="nv">$injector</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">resource</span> <span class="o">=</span> <span class="nv">$resource</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span> <span class="o">=</span> <span class="nv">$response</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">exceptionHandler</span> <span class="o">=</span> <span class="nv">$exceptionHandler</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">logger</span> <span class="o">=</span> <span class="nv">$logger</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">router</span> <span class="o">=</span> <span class="nv">$router</span><span class="p">;</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">globals</span> <span class="o">=</span> <span class="nv">$globals</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>オブジェクトの生成と実行が完全に分離されたDIシステムを持つBEAR.Sundayでは、アプリケーションスクリプトが利用するサービスの全ては、このアプリケーションのコードで表されます。</p>
+
+<p>アプリケーションの構成に必要な全てのサービスがここに記述されているはずで、要不要が生じればこのコードに反映されることになります。</p>
+
+<h2>Readability, Simplicity and Self-documenting</h2>
+
+<p><strong>簡潔で、可読性が高く、<a href="http://en.wikipedia.org/wiki/Self-documenting">自己記述的</a>であること</strong> &#8211; これはBEAR.Sundayが開発当初から一貫して指向してきたことです。</p>
+
+<p>これは単に表記の問題ではありません。解決しようとする問題の本質を明らかにして、本質的関心だけを浮かび上がる、そういう記述を指向しているということです。そのためにはスコープを適切に持ち、関心を分離し付随的な関心を削ぎ落とす事が必要でこれには多くの前提が必要です。</p>
+
+<p>生成と利用を完全に分離したDIや、横断的関心事を注記<sup><a href="#footnote_5_1035" id="identifier_5_1035" class="footnote-link footnote-identifier-link" title="アノテーション">6</a></sup>に応じて織り込むAOP、アプリケーションプロトコル/プラットフォームであるHTTPとフレームワークとの融合を即するRESTオブジェクト、これらのその前提です。これらDI/AOP/RESTを道具として指向するのではなく、簡潔で可読性が高く自己記述的なアプリケーションコーディングの前提、オブジェクトフレームワークとして機能させようとしています。</p>
+
+<p>これまでの開発で最も多くのスクラップ＆ビルドを繰り返しよりよい解を求めて試行錯誤を繰り返し注力したたのはフレームワークの機能ではなく、アプリケーション記述のあり方です。<sup><a href="#footnote_6_1035" id="identifier_6_1035" class="footnote-link footnote-identifier-link" title="これはアプリケーションドメインなのでアプリケーションアーキテクトが責任を持ちますが、そのスタンダードを示す事が大切だと考えより注力しました。">7</a></sup> 完成が近づくにつれ、その点の関して完成度が高まったと考え、マーティンファウラーの<a href="http://capsctrl.que.jp/kdmsnr/wiki/bliki/?CodeAsDocumentation">CodeAsDocumentation</a>というタイトルで記事にしました。</p>
+
+<p>次の11/03 22:00から<a href="http://www.phpmatsuri.net/2012/">PHP Matsuri2012</a>というイベントでBEAR.Sunday初のワークショップを行う事になりました。当日は簡単なリソース作成を通じて、今回の記事のようなことやDI/AOP、それにOOPや設計の話が出来ればと思ってます。よろしくお願いします。</p>
+
+<ol class="footnotes">
+  <li id="footnote_0_1035" class="footnote">
+    あらかじめ定められた順序または手続きに従って制御の各段階を逐次進めていく制御 [<a href="#identifier_0_1035" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_1_1035" class="footnote">
+    http://ja.wikipedia.org/wiki/%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E5%88%B6%E5%BE%A1 [<a href="#identifier_1_1035" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_2_1035" class="footnote">
+    <a href="http://blog.xao.jp/blog/cakephp/sequence-diagram-of-a-part-of-cakephp-for-my-studying/">CakePHP のシーケンス図を作ってみた</a>という記事を読みました。CakePHP2のアプリケーション／フレームワークのシーケンスが分かるという記事なのですが、面白いと思ったと同時に現在のフレームワークのシーケンスの分かりにくさを表している事でもないかと考えました。 [<a href="#identifier_2_1035" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_3_1035" class="footnote">
+    もしかしたらThriftで繋がれたC++モジュールが何かの実行を行ってくれるのかもしれません [<a href="#identifier_3_1035" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_4_1035" class="footnote">
+    webに&#8221;型&#8221;がないようにweb言語であるPHPにスカラータイプヒントがありません [<a href="#identifier_4_1035" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_5_1035" class="footnote">
+    アノテーション [<a href="#identifier_5_1035" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_6_1035" class="footnote">
+    これはアプリケーションドメインなのでアプリケーションアーキテクトが責任を持ちますが、そのスタンダードを示す事が大切だと考えより注力しました。 [<a href="#identifier_6_1035" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -2673,56 +3104,6 @@ Name:Yoshi Age:18
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/10/the-new-era-of-php-web-development/">The New Era of PHP Web Development</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2011-10-02T00:00:00+09:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2011</span></span> <span class='time'>12:00 am</span></time>
-        
-           | <a href="/2011/10/the-new-era-of-php-web-development/#disqus_thread"
-             data-disqus-identifier="http://koriym.github.io/2011/10/the-new-era-of-php-web-development/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div style="float: right; margin-left: 10px;">
-  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2011/10/the-new-era-of-php-web-development/">Tweet</a>
-</div>
-
-
-
-
-<div style="width:595px" id="__ss_9506430">
-  <strong style="display:block;margin:12px 0 4px"><a href="http://www.slideshare.net/akihito.koriyama/the-new-era-of-php-web-development" title="The new era of PHP web development." target="_blank">The new era of PHP web development.</a></strong> <div style="padding:5px 0 12px">
-    View more <a href="http://www.slideshare.net/" target="_blank">presentations</a> from <a href="http://www.slideshare.net/akihito.koriyama" target="_blank">BEAR-project</a>
-  </div>
-</div>
-
-
-<p>カンファレンスの基調講演かよというような大げさなタイトルですが、参加したPHP勉強会@関東で空き時間があって、持っていったMacBook Airに入っていた以前つくった資料の断片がありその場で飛び入りを決め発表させてもらいました。</p>
-
-<p>元々は自分が5.3+専用のフレームワークをつくるときに、何故作るのか、今求められるものとは何か、現在のweb開発、PHP、フレームワークの潮流とはどういうものなのか、等と自分のフレームワーク制作用に調べた時につくった資料の断片で公開の予定のないものでした。</p>
-
-<p>自分なりに客観性を持って考察したのですが、やはりこういう観察や考察は多分に主観的なところとかあると思います。これと別スライドの<a href="http://www.bear-project.net/blog/2011/07/bear-sunday/">CQRSパターン</a>とMozilla laboのCANVASを使った<a href="http://panda.bear-project.net/panda_sample/">Aceエディター</a>が前のbespineから大分進化してて充分実用レベルです、デザイナーや開発者どうしでのコラボレーションに充分使えます。GitHubで使われてますが、開発で使うと使い勝手いいですよいう話、以上３つの話をいたしました。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/page6">&larr; Older</a>
@@ -2740,6 +3121,10 @@ Name:Yoshi Age:18
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2017/12/16/phpnw/">Phpnw17</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2017/11/10/re-code-reading/">Re: BEAR.Sundayをコードリーディングしたのでメモ程度にアウトプットする</a>
       </li>
     
@@ -2753,10 +3138,6 @@ Name:Yoshi Age:18
     
       <li class="post">
         <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/06/08/haphpy-birthday/">HaPHPy Birthday PHP</a>
       </li>
     
   </ul>
@@ -2810,7 +3191,7 @@ Name:Yoshi Age:18
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2017 - Akihito Koriyama -
+  Copyright &copy; 2018 - Akihito Koriyama -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
