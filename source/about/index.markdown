@@ -32,8 +32,8 @@ footer: false
  * 2015 [PHP Conference Fukuoka Keynote](http://phpcon.fukuoka.jp/2015/index.html) -[slide](https://speakerdeck.com/koriym/the-power-of-connecting-everything-together)
  * 2016 [PHP Conference Osaka](http://conference.kphpug.jp/2016/)
  * 2017 Creating rich universal React apps powered by RESTful PHP [slide](https://speakerdeck.com/koriym/creating-rich-universal-react-apps-powered-by-restful-php)
-   * Sky Sports [photo](https://photos.app.goo.gl/HWNlxg82HrsVi3Jg1) / [program](https://www.linkedin.com/pulse/akihito-koriyama-visits-sky-talk-react-apps-powered-restful-bell/)
-   * PHPNW17 unconf [photo](https://photos.app.goo.gl/FNkJXa14ZcCd5hoH2) / [review](https://joind.in/event/phpnw17/creating-rich-universal-react-apps-powered-by-restful-php)
+   * Sky Sports [blog](https://www.linkedin.com/pulse/akihito-koriyama-visits-sky-talk-react-apps-powered-restful-bell/) / [photo](https://photos.app.goo.gl/HWNlxg82HrsVi3Jg1) / [program](https://www.linkedin.com/pulse/akihito-koriyama-visits-sky-talk-react-apps-powered-restful-bell/)
+   * PHPNW17 unconf [blog](https://codereviewvideos.com/blog/tag/phpnw17/) / [photo](https://photos.app.goo.gl/FNkJXa14ZcCd5hoH2) / [review](https://joind.in/event/phpnw17/creating-rich-universal-react-apps-powered-by-restful-php)
 
 ## Interview
 
