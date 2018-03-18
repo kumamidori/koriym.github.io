@@ -4,7 +4,7 @@
   <title><![CDATA[BEAR Blog]]></title>
   <link href="http://koriym.github.io/atom.xml" rel="self"/>
   <link href="http://koriym.github.io/"/>
-  <updated>2018-03-18T23:51:26+09:00</updated>
+  <updated>2018-03-19T00:01:56+09:00</updated>
   <id>http://koriym.github.io/</id>
   <author>
     <name><![CDATA[Akihito Koriyama]]></name>
@@ -18,7 +18,7 @@
     <link href="http://koriym.github.io/blog/2018/03/18/phpnw/"/>
     <updated>2018-03-18T23:00:00+09:00</updated>
     <id>http://koriym.github.io/blog/2018/03/18/phpnw</id>
-    <content type="html"><![CDATA[<p>時間が経ってしまいましたが、2017年の秋にイギリスのリーズとマンチェスターで登壇したした事を記事にします。</p>
+    <content type="html"><![CDATA[<p>時間が経ってしまいましたが、2017年の秋にイギリスのリーズとマンチェスターで登壇した事を記事にします。</p>
 
 <h2>トラブル発生</h2>
 
@@ -37,7 +37,7 @@
 <h1>Sky Sports</h1>
 
 <p>Sky Sportsというイギリスの衛星放送事業者でPrincipal Software Engineerの職につかれている<a href="https://www.linkedin.com/in/mackstar/">Richard McIntyre</a>氏の招きで、リーズにあるSky Sportsで登壇する機会をいただきました。
-（Sky Sportsは（プレミアムリーグの放映権を全て持っているぐらいの）世界でも最大級の放送事業者で、以前講演したBBC Sportsよりも規模の大きい放送事業者です。Skyはツールドフランスでも有名ですよね）</p>
+（Sky Sportsは（プレミアリーグの放映権を全て持っているぐらいの）世界でも最大級の放送事業者で、以前講演したBBC Sportsよりも規模の大きい放送事業者です。Skyはツールドフランスでも有名ですよね）</p>
 
 <p><img src="http://koriym.github.io/images/phpnw17/sky.jpg"></p>
 
@@ -90,7 +90,7 @@
 
 
 <p>会社がお金を出したくなるような言葉が並びます。
-他にも他の地方や外国から訪れている方のために、半日や一日観光するためには、どうすればおすすめかそういう観光情報も用意されています。</p>
+他にも他の地方や外国から訪れている方のために、半日や一日観光などおすすめ観光情報も用意されていました。</p>
 
 <h2>ハッカソン</h2>
 
