@@ -4,7 +4,7 @@
   <title><![CDATA[BEAR Blog]]></title>
   <link href="http://koriym.github.io/atom.xml" rel="self"/>
   <link href="http://koriym.github.io/"/>
-  <updated>2018-03-19T23:29:39+09:00</updated>
+  <updated>2018-03-19T23:31:43+09:00</updated>
   <id>http://koriym.github.io/</id>
   <author>
     <name><![CDATA[Akihito Koriyama]]></name>
@@ -252,7 +252,7 @@
 
 <h3>フレームワーク</h3>
 
-<p>何人かに聞いた範囲ではUKではSymfonyが多そうでした。しかし事前にリチャードさんに聞いてた通りフレームワークへの関心は低くあまり話題になりません。結局、使用者がそれぞれの価値観で使ってる印象でフレームワーク特有の話がしたい人はLaraconやSymfony Liveに行ってるのかもしれません。</p>
+<p>何人かに聞いた範囲ではUKではSymfonyが多そうでした。しかし事前にリチャードさんに聞いてた通りフレームワークへの関心は低くあまり話題になりません。結局、使用者がそれぞれの価値観で使ってる印象でフレームワーク特有の話がしたい人はLaraconやSymfony Liveに行ってるのだと思います。</p>
 
 <p>スピーカーに限るとアーキテクトの方が多くフルスタックフレームワークよりそれぞれの問題領域に合わせてコンポーネント志向のフレームワークやインハウスフレームワークを作成している方が多い印象がありました。価値観それぞれで、道具の選定に多様性を感じました。</p>
 
