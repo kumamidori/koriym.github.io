@@ -9,7 +9,9 @@
   <meta name="author" content="Akihito Koriyama">
 
   
-  <meta name="description" content="Tweet 決定論 もしもある瞬間における全ての物質の力学的状態と力を知ることができ、かつもしもそれらのデータを解析できるだけの能力の知性が存在するとすれば、この知性にとっては、不確実なことは何もなくなり、その目には未来も（過去同様に）全て見えているであろう。 — 『確率の解析的理論』1812年 &hellip;">
+  <meta name="description" content="Tweet Packagist登録 BEAR.PackageをPackagistに登録しました。
+composerのcreate-projectでインストールできるようになりました。 composerインストール 1
+$ wget http://getcomposer.org/composer. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,102 +80,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/adv9">Advent Day 9: Compile and Runtime</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2012-12-12T00:00:00+09:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>12:00 am</span></time>
-        
-           | <a href="/adv9#disqus_thread"
-             data-disqus-identifier="http://koriym.github.io/adv9">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div style="float: right; margin-left: 10px;">
-  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/adv9">Tweet</a>
-</div>
-
-
-<h2>決定論</h2>
-
-<blockquote><p>もしもある瞬間における全ての物質の力学的状態と力を知ることができ、かつもしもそれらのデータを解析できるだけの能力の知性が存在するとすれば、この知性にとっては、不確実なことは何もなくなり、その目には未来も（過去同様に）全て見えているであろう。</p>
-
-<p>— 『確率の解析的理論』1812年</p></blockquote>
-
-<p><a href="http://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%97%E3%83%A9%E3%82%B9%E3%81%AE%E6%82%AA%E9%AD%94">「ラプラスの悪魔」</a>です。</p>
-
-<p>ラプラスの悪魔のような、こんなデバックツールできないでしょうか？</p>
-
-<blockquote><p><em>もしもある瞬間における全てのオブジェクトの状態と機能を知ることができ、かつもしもそれらのデータを解析できるだけの優れたアナライザーがあるとすれば、このアナライザーにとっては、不確実なことは何もなくなり、その目には全ての潜在的なバグが全て見えるであろう。</em></p></blockquote>
-
-<p>&#8230;夢でしょうか^^;　しかしデバックに苦しむのは「状態の不確実性」からという事は多くないでしょうか？例外でいえばLogicExceptionの原因追及は、RunteimExceptionの例外の原因追及よりずっと簡単です。オブジェクトが&#8221;モード”やHTTPが状態（セッション）をもつと問題解決はずっと複雑になります。状態=不確実性=evil !</p>
-
-<p>この記事ではオブジェクトの不確実性を低減する技術としてのDIを見て見ます。</p>
-
-<h2>再び生成と利用分離原則</h2>
-
-<p>DIでは生成と利用を分離しますが、分離するのはコードだけではありません。その時間（タイミング）も分離されます。「生成」が終わってから「利用」になるためです。BEAR.Sundayではオブジェクトの生成時に依存の注入だけでなく、アスペクトの織り込みも行われます。これがオブジェクトをつくるコンパイル。その時間がコンパイルタイムです。</p>
-
-<p><a href="http://www.bear-project.net/blog/2012/12/advent-day-6-di-soc/">生成・使用分離の原則　DI 関心の分離</a>で[具象コード]と[抽象コード]の分離を示したようにするとこういう風になります。</p>
-
-<p>生成と使用のタイミングが分離されていないパターン</p>
-
-<p>&lt; -&ndash; boot終了 -&ndash;><br/>
-&lt; -&ndash; runtime開始 -&ndash;><br/>
-[生成]<br/>
-[使用]<br/>
-[生成]<br/>
-[使用]<br/>
-[使用]<br/>
-[生成]<br/>
-[使用]</p>
-
-<p>生成と使用のタイミングが分離されているパターン(DI)<br/>
-[生成]<br/>
-[生成]<br/>
-[生成]<br/>
-&lt; -&ndash; boot終了 -&ndash;><br/>
-&lt; -&ndash; runtime開始 -&ndash;><br/>
-[使用]<br/>
-[使用]<br/>
-[使用]<br/>
-[使用]</p>
-
-<h2>オブジェクトグラフの決定</h2>
-
-<p>DI以外のパターン、例えばfactory()メソッドとの比較は分かりやすいでしょう。コードの途中で現れたnew演算子やfactory()メソッドは<strong>&#8220;on demand&#8221;</strong>でオブジェクトの取得を行います。</p>
-
-<p>対してService Locaterを使ったパターンではどうでしょうか。オブジェクトやあるいはオブジェクトの生成方法はboot時に各コンテナに格納されるので<strong>生成と使用のタイミングの分離はDIと同じ</strong>です。</p>
-
-<p>しかしオブジェクト間の関係性=<strong>オブジェクトグラフの決定のタイミングが違います</strong>。SLではオブジェクトをコンテナから取り出しプロパティに格納あるいは直接利用します。その時点でdependentとdependencyの関係性が決定されます。つまり<strong>メソッド内の実装でその関係性が決定されます</strong>。</p>
-
-<p>対してDIではメソッドシグネチャーとその束縛の集合がオブジェクトグラフを決定します。リクエストを受けたboot時にどのオブジェクトグラフが生成されるかが最大限、決定されています。</p>
-
-<h2>その応用</h2>
-
-<p>BEAR.Sundayではその特性を利用してオブジェクト生成の再利用を行っています。莫大なオブジェクトグラフコンストラクションコストは再利用され運用ではほぼ０になります。10万を超えるファンクションコールは1/100の1000程度になります。これは抽象化レイヤーが最少のFWとほぼ同等です。</p>
-
-<p>この設計パターンはパフォーマンスの寄与と、より少ないコード実行を可能にしています。</p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -1587,6 +1493,62 @@ AOPについての初歩的なことはマニュアルの<a href="http://code.go
 
     </article>
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/phpmatsuri2012">PHP:Dis Is It(2012), BEAR.Sunday WS, and WOW !</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2012-11-10T00:00:00+09:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>12:00 am</span></time>
+        
+           | <a href="/phpmatsuri2012#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/phpmatsuri2012">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/phpmatsuri2012">Tweet</a>
+</div>
+
+
+<h1>PHP:Dis Is It(2012)</h1>
+
+<p><a href="http://www.phpmatsuri.net/2012/"> PHPMatsuri 2012</a>という国内最大のPHPハッカソンイベントで「PHP:Dis Is It(2012)」というタイトルで講演を行いました。</p>
+
+<p>これは丁度一年前にPHP Apocalypseというイベントで行った<a href="http://www.bear-project.net/blog/2011/12/php-dis-is-it/">PHP:Dis Is It</a>とほぼ同じものですが、言い足りなかった事を加えたり伝え方をより工夫したりしたものです。最初の講演でice breakerになればいいと思ってPVも加えました。</p>
+
+<p>一年前の資料を再度目を通しスピーチを練り直す作業は、去年の自分の考えが変化したりないかを問い直す事でもあります。PVでも紹介したように現在のPHPは変化の延長にあり、やはりこの視点でのPHP評価というものにはより確信が持てました。PVはその確信をうまく反映できて、なかなか楽しいものになったと思うのですがいかがだったでしょうか。</p>
+
+<p>※ これは&#8221;This is it&#8221;です！</p>
+
+<h2>質疑応答 ?</h2>
+
+<p>前回と違うのは講演後に質疑応答があった事です。この内容で質問！？って感じだったのですが、何故か次々に手が挙がりました（？）しかも質問は講演と直接関係ないことばかりで（！？）「自己紹介」にも質問がありました。（！？！？）</p>
+
+<p>「アセンブラ、Cと来て何故PHPか？」と聞かれ、「言語よりプロダクトや働き方・関わり方にフォーカスしてる」と答えましたが、後で良く考えてみたらもっと単純でその時々に自分が一番カッコイイと思ってるのをずっと追いかけてるだけだと思います。「ゲーム制作」って今でもかっこいいモノだと信じてますが、「90年代前半のファミコン＆ゲームボーイのコンシュマー黎明期、後半の2Dから3Dへのパラダイムチェンジの時期」は本当に特別な時期で全てが輝いていてカッコよかったです。<sup><a href="#footnote_0_1109" id="identifier_0_1109" class="footnote-link footnote-identifier-link" title="それとも自分が年齢を重ねたせいでしょうか">1</a></sup></p>
+
+<p>また自分が16か17の時に始めて知ったテッド・ネルソンのハイパーテキストの概念<sup><a href="#footnote_1_1109" id="identifier_1_1109" class="footnote-link footnote-identifier-link" title="当時さっぱり実装を想像できませんでした">2</a></sup> がWWWという実装になって世界を繋ぐのを20世紀後半にリアルタイムで見た時、やっぱりカッコイイと思いました。アラン・ケイのダイナブックのような夢が実現するとは思いませんでした。</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/phpmatsuri2012">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
   <div class="pagination">
     
       <a class="prev" href="/page5">&larr; Older</a>
@@ -1608,10 +1570,6 @@ AOPについての初歩的なことはマニュアルの<a href="http://code.go
       </li>
     
       <li class="post">
-        <a href="/blog/2018/03/18/phpnw/">PHPNW17</a>
-      </li>
-    
-      <li class="post">
         <a href="/blog/2017/11/10/re-code-reading/">Re: BEAR.Sundayをコードリーディングしたのでメモ程度にアウトプットする</a>
       </li>
     
@@ -1621,6 +1579,10 @@ AOPについての初歩的なことはマニュアルの<a href="http://code.go
     
       <li class="post">
         <a href="/blog/2015/12/04/php7-dot-0-0/">PHP7.0.0</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
       </li>
     
   </ul>
