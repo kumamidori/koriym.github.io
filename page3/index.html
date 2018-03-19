@@ -9,7 +9,7 @@
   <meta name="author" content="Akihito Koriyama">
 
   
-  <meta name="description" content="Tweet 1.0.0 Ray.Di / Ray.Aopのバージョン1.0.0をリリースしました。 これまでも何度か紹介しましたがRay.Diはオブジェクトとオブジェクトの関係の問題を解決するDIフレームワーク、Ray. &hellip;">
+  <meta name="description" content="Tweet PHPメンターズのブログで時計オブジェクト（ドメインクロック）を導入してテスト容易性と意図性を高めるという記事が掲載されました。 この記事のように、現在時刻をアプリケーションでどう扱うかをBEAR.SundayのSandboxアプリケーションで見てみます。 @Timeアノテーション &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,149 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2013/04/time_annotation/">Timeアノテーション</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-04-04T00:00:00+09:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>12:00 am</span></time>
+        
+           | <a href="/2013/04/time_annotation/#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/2013/04/time_annotation/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="float: right; margin-left: 10px;">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/2013/04/time%e3%82%a2%e3%83%8e%e3%83%86%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3/">Tweet</a>
+</div>
+
+
+<p>PHPメンターズのブログで<a href="http://phpmentors.jp/post/46982737824">時計オブジェクト（ドメインクロック）を導入してテスト容易性と意図性を高める</a>という記事が掲載されました。</p>
+
+<p>この記事のように、現在時刻をアプリケーションでどう扱うかをBEAR.SundayのSandboxアプリケーションで見てみます。</p>
+
+<h2>@Timeアノテーション</h2>
+
+<p>現在時刻文字列を扱いたいクラスにはpublicのtimeプロパティを追加しメソッドに<strong>BEAR\Sunday\Annotation\Time</strong>アノテーションを注記（アノテート）します。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">use</span> <span class="nx">BEAR\Sunday\Annotation\Time</span><span class="p">;</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * Current time string</span>
+</span><span class='line'><span class="sd">     *</span>
+</span><span class='line'><span class="sd">     * @string</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nv">$time</span><span class="p">;</span>
+</span><span class='line'>    <span class="sd">/**</span>
+</span><span class='line'><span class="sd">     * @Time</span>
+</span><span class='line'><span class="sd">     */</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">onPut</span><span class="p">(</span><span class="nv">$id</span><span class="p">,</span> <span class="nv">$title</span><span class="p">,</span> <span class="nv">$body</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">time</span><span class="p">;</span> <span class="c1">// 2013-04-03 19:37:40</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>すると<strong>このメソッドがコールされたタイミングで</strong>timeプロパティに現在時刻が代入されるようになます。メソッド内ではそのプロパティを利用するだけです。</p>
+
+<p>テストコードでは以下のようにpublicプロパティに値を代入します。<sup><a href="#footnote_0_1834" id="identifier_0_1834" class="footnote-link footnote-identifier-link" title="セッターメソッドを用意してもいいでしょう">1</a></sup> テストは容易に行う事ができます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'> <span class="nv">$user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">User</span><span class="p">;</span>
+</span><span class='line'> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">time</span> <span class="o">=</span> <span class="s2">&quot;2013-04-03 19:37:40&quot;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>DI ? AOP ?</h2>
+
+<p>働きとしてはプロパティに依存が代入される<strong>プロパティ・インジェクション</strong>なのですが<sup><a href="#footnote_1_1834" id="identifier_1_1834" class="footnote-link footnote-identifier-link" title="Ray.Diではプロパティ・インジェクションをサポートしていません">2</a></sup> 、BEAR.SundayではこれをRay.Aopで行っています。メソッドに束縛されたインターセプターが現在時刻をインジェクション（外部から代入）しています。</p>
+
+<h2>TimeStamper</h2>
+
+<p>BEAR\Package\Module\Database\Dbal\DbalModuleモジュールでDoctrin DBALモジュールを利用するためにDIとAOPの設定を行っていますが、このモジュール内で@Timeとアノテートされたメソッドと現在時刻を代入するインターセプターが束縛されています。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bindInterceptor</span><span class="p">(</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">matcher</span><span class="o">-&gt;</span><span class="na">any</span><span class="p">(),</span> <span class="c1">// どのクラスでも</span>
+</span><span class='line'>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">matcher</span><span class="o">-&gt;</span><span class="na">annotatedWith</span><span class="p">(</span><span class="s1">&#39;BEAR\Sunday\Annotation\Time&#39;</span><span class="p">),</span> <span class="c1">//@Timeとアノテートされてるメソッドに</span>
+</span><span class='line'>    <span class="p">[</span><span class="k">new</span> <span class="nx">TimeStamper</span><span class="p">]</span> <span class="c1">// TimeStamperを束縛</span>
+</span><span class='line'><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>TimeStamperは元メソッドのtimeプロパティに現在時刻をセットするだけの単純なインターセプターです。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">invoke</span><span class="p">(</span><span class="nx">MethodInvocation</span> <span class="nv">$invocation</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$object</span> <span class="o">=</span> <span class="nv">$invocation</span><span class="o">-&gt;</span><span class="na">getThis</span><span class="p">();</span> <span class="c1">// 元オブジェクト</span>
+</span><span class='line'>    <span class="nv">$object</span><span class="o">-&gt;</span><span class="na">time</span> <span class="o">=</span> <span class="nb">date</span><span class="p">(</span><span class="s2">&quot;Y-m-d H:i:s&quot;</span><span class="p">,</span> <span class="nb">time</span><span class="p">());</span>  <span class="c1">// 現在時刻代入</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nv">$invocation</span><span class="o">-&gt;</span><span class="na">proceed</span><span class="p">();</span> <span class="c1">// 元メソッド実行して返す</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>おわりに</h2>
+
+<p>この記事では現在のSandboxアプリケーションで行っている現在時刻文字列を取り扱いましたがこれを\DateTimeにすれば<a href="http://phpmentors.jp/post/46982737824">時計オブジェクト（ドメインクロック）を導入してテスト容易性と意図性を高める</a>記事の中のドメインクロックと同じになると思います。</p>
+
+<p>現在時刻を必要とするメソッドに@Timeと注記しその依存を利用する事でテスト容易性（testability）とコードの意図性（intentionality）が実現されています。</p>
+
+<p>また時刻を用意するという関心を１つのメソッドに集約することでフォーマットの一括変更が可能になるのと同時に、その適用を任意に束縛して決定しているのでアプリケーションコンテキストやメソッド・クラス名に応じて変更する柔軟性も確保しています。</p>
+
+<ol class="footnotes">
+  <li id="footnote_0_1834" class="footnote">
+    セッターメソッドを用意してもいいでしょう [<a href="#identifier_0_1834" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+  <li id="footnote_1_1834" class="footnote">
+    Ray.Diではプロパティ・インジェクションをサポートしていません [<a href="#identifier_1_1834" class="footnote-link footnote-back-link">&#8617;</a>]
+  </li>
+</ol>
+
+
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1332,102 +1475,6 @@ SLをアンチパターンとするときに良く言われるのが、「コン
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/adv9">Advent Day 9: Compile and Runtime</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2012-12-12T00:00:00+09:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>12:00 am</span></time>
-        
-           | <a href="/adv9#disqus_thread"
-             data-disqus-identifier="http://koriym.github.io/adv9">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div style="float: right; margin-left: 10px;">
-  <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.bear-project.net/blog/adv9">Tweet</a>
-</div>
-
-
-<h2>決定論</h2>
-
-<blockquote><p>もしもある瞬間における全ての物質の力学的状態と力を知ることができ、かつもしもそれらのデータを解析できるだけの能力の知性が存在するとすれば、この知性にとっては、不確実なことは何もなくなり、その目には未来も（過去同様に）全て見えているであろう。</p>
-
-<p>— 『確率の解析的理論』1812年</p></blockquote>
-
-<p><a href="http://ja.wikipedia.org/wiki/%E3%83%A9%E3%83%97%E3%83%A9%E3%82%B9%E3%81%AE%E6%82%AA%E9%AD%94">「ラプラスの悪魔」</a>です。</p>
-
-<p>ラプラスの悪魔のような、こんなデバックツールできないでしょうか？</p>
-
-<blockquote><p><em>もしもある瞬間における全てのオブジェクトの状態と機能を知ることができ、かつもしもそれらのデータを解析できるだけの優れたアナライザーがあるとすれば、このアナライザーにとっては、不確実なことは何もなくなり、その目には全ての潜在的なバグが全て見えるであろう。</em></p></blockquote>
-
-<p>&#8230;夢でしょうか^^;　しかしデバックに苦しむのは「状態の不確実性」からという事は多くないでしょうか？例外でいえばLogicExceptionの原因追及は、RunteimExceptionの例外の原因追及よりずっと簡単です。オブジェクトが&#8221;モード”やHTTPが状態（セッション）をもつと問題解決はずっと複雑になります。状態=不確実性=evil !</p>
-
-<p>この記事ではオブジェクトの不確実性を低減する技術としてのDIを見て見ます。</p>
-
-<h2>再び生成と利用分離原則</h2>
-
-<p>DIでは生成と利用を分離しますが、分離するのはコードだけではありません。その時間（タイミング）も分離されます。「生成」が終わってから「利用」になるためです。BEAR.Sundayではオブジェクトの生成時に依存の注入だけでなく、アスペクトの織り込みも行われます。これがオブジェクトをつくるコンパイル。その時間がコンパイルタイムです。</p>
-
-<p><a href="http://www.bear-project.net/blog/2012/12/advent-day-6-di-soc/">生成・使用分離の原則　DI 関心の分離</a>で[具象コード]と[抽象コード]の分離を示したようにするとこういう風になります。</p>
-
-<p>生成と使用のタイミングが分離されていないパターン</p>
-
-<p>&lt; -&ndash; boot終了 -&ndash;><br/>
-&lt; -&ndash; runtime開始 -&ndash;><br/>
-[生成]<br/>
-[使用]<br/>
-[生成]<br/>
-[使用]<br/>
-[使用]<br/>
-[生成]<br/>
-[使用]</p>
-
-<p>生成と使用のタイミングが分離されているパターン(DI)<br/>
-[生成]<br/>
-[生成]<br/>
-[生成]<br/>
-&lt; -&ndash; boot終了 -&ndash;><br/>
-&lt; -&ndash; runtime開始 -&ndash;><br/>
-[使用]<br/>
-[使用]<br/>
-[使用]<br/>
-[使用]</p>
-
-<h2>オブジェクトグラフの決定</h2>
-
-<p>DI以外のパターン、例えばfactory()メソッドとの比較は分かりやすいでしょう。コードの途中で現れたnew演算子やfactory()メソッドは<strong>&#8220;on demand&#8221;</strong>でオブジェクトの取得を行います。</p>
-
-<p>対してService Locaterを使ったパターンではどうでしょうか。オブジェクトやあるいはオブジェクトの生成方法はboot時に各コンテナに格納されるので<strong>生成と使用のタイミングの分離はDIと同じ</strong>です。</p>
-
-<p>しかしオブジェクト間の関係性=<strong>オブジェクトグラフの決定のタイミングが違います</strong>。SLではオブジェクトをコンテナから取り出しプロパティに格納あるいは直接利用します。その時点でdependentとdependencyの関係性が決定されます。つまり<strong>メソッド内の実装でその関係性が決定されます</strong>。</p>
-
-<p>対してDIではメソッドシグネチャーとその束縛の集合がオブジェクトグラフを決定します。リクエストを受けたboot時にどのオブジェクトグラフが生成されるかが最大限、決定されています。</p>
-
-<h2>その応用</h2>
-
-<p>BEAR.Sundayではその特性を利用してオブジェクト生成の再利用を行っています。莫大なオブジェクトグラフコンストラクションコストは再利用され運用ではほぼ０になります。10万を超えるファンクションコールは1/100の1000程度になります。これは抽象化レイヤーが最少のFWとほぼ同等です。</p>
-
-<p>この設計パターンはパフォーマンスの寄与と、より少ないコード実行を可能にしています。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/page4">&larr; Older</a>
@@ -1449,6 +1496,10 @@ SLをアンチパターンとするときに良く言われるのが、「コン
       </li>
     
       <li class="post">
+        <a href="/blog/2018/03/18/phpnw/">PHPNW17</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2017/11/10/re-code-reading/">Re: BEAR.Sundayをコードリーディングしたのでメモ程度にアウトプットする</a>
       </li>
     
@@ -1458,10 +1509,6 @@ SLをアンチパターンとするときに良く言われるのが、「コン
     
       <li class="post">
         <a href="/blog/2015/12/04/php7-dot-0-0/">PHP7.0.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
       </li>
     
   </ul>
