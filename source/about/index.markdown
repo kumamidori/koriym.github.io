@@ -51,6 +51,7 @@ footer: false
  * 1989 NES [Quinty](http://ja.wikipedia.org/wiki/%E3%82%AF%E3%82%A4%E3%83%B3%E3%83%86%E3%82%A3) / [Mendel Palace](http://en.wikipedia.org/wiki/Mendel_Palace)
  * 1991 NES,GameBoy [Yoshi no tamago (JP)](http://ja.wikipedia.org/wiki/%E3%83%A8%E3%83%83%E3%82%B7%E3%83%BC%E3%81%AE%E3%81%9F%E3%81%BE%E3%81%94)  / [Yoshi (US) / Yoshi and Mario (EU)](http://en.wikipedia.org/wiki/Yoshi_\(video_game\))
  * 1994 3DO [Starblade](http://en.wikipedia.org/wiki/Starblade)
+ * [Moby Games](http://www.mobygames.com/developer/sheet/view/developerId,253420/)
 
 ## Travel
 
