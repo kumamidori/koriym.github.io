@@ -5,8 +5,7 @@ comments: false
 sharing: false
 footer: false
 ---
-![Akihito Koriyama](/images/akihito_koriyama.jpg)
-
+<img src="/images/akihito_koriyama.jpg" style="max-width: 600px; width: 100%; height: auto;">
 <div style="font-size:46px; padding:10px 0px">Akihito Koriyama</div>
 <p>PHP Architect. Speaker. Traveller.</p>
 
