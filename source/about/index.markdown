@@ -16,8 +16,10 @@ footer: false
 
 ## Web presence
 
- * [Github](https://github.com/koriym)
  * [Twitter](https://twitter.com/koriym)
+ * [Github](https://github.com/koriym)
+ * [Instagram](https://www.instagram.com/koriym/)
+ * [LinkedIn](https://www.linkedin.com/in/koriym/)
  * [joind.in](https://joind.in/user/view/21191)
 
 ## Speaking
@@ -33,6 +35,7 @@ footer: false
  * 2017 Creating rich universal React apps powered by RESTful PHP [slide](https://speakerdeck.com/koriym/creating-rich-universal-react-apps-powered-by-restful-php)
    * Sky Sports [blog](https://www.linkedin.com/pulse/akihito-koriyama-visits-sky-talk-react-apps-powered-restful-bell/) / [photo](https://photos.app.goo.gl/HWNlxg82HrsVi3Jg1) / [program](https://www.linkedin.com/pulse/akihito-koriyama-visits-sky-talk-react-apps-powered-restful-bell/)
    * PHPNW17 unconf [blog](https://codereviewvideos.com/blog/tag/phpnw17/) / [photo](https://photos.app.goo.gl/FNkJXa14ZcCd5hoH2) / [review](https://joind.in/event/phpnw17/creating-rich-universal-react-apps-powered-by-restful-php)
+ * 2018 [PHPerKaigi](https://phperkaigi.jp/2018/proposal/e2848389-75d3-45e2-9106-85be29f17a87) / [slide](https://speakerdeck.com/koriym/bear-dot-sunday-2018)
 
 ## Interview
 
