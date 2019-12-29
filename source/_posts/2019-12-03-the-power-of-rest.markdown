@@ -1,351 +1,104 @@
 ---
 layout: post
-title: "The-Power-Of-REST (1)"
-date: 2019-12-03 00:18:39 +0900
+title: "RESTの力、RESTの制約"
+date: 2019-12-30 00:00:00 +0900
 comments: true
 categories:
 ---
 
-## RESTの力
+## 今年２つの講演
 
-今年2019年は、3月にphperkaigi 2019で**RESTの力**、12月にはphpカンファレンス 2019で**RESTの制約**の講演を行いました。
+今年2019年は、3月にphperkaigi 2019で**RESTの力**、12月にはphpカンファレンスで**RESTの制約**の講演を行いました。
 
-講演時間の短い`RESTの力`ではREST制約の中からキャッシュ制約とハイパーメディア制約を中心に紹介して、「プレゼンテーションそのものがハイパーメディアであり情報は勇気的に結合されて真の力を発揮する」というストーリーを語りたいと思いました。
+講演時間の短いRESTの力ではREST制約の中から一部を紹介して、「プレゼンテーションそのものがハイパーメディアであり、情報は有機的に結合され真の力を発揮する」というストーリーを語りました。
 
-それから9ヶ月の講演では、残りの制約を含めた9つ全ての制約を紹介して「表現に含まれるハイパーメディアコントロールでアプリケーション状態をコントロール」するRESTのより深い理解ができるものになれば良いと考えました。
+9ヶ月後の講演では、残り9つを含めた全ての制約を紹介して「表現に含まれるハイパーメディアコントロールでアプリケーション状態をコントロール」するRESTをより深く理解するための説明をしました。
 
 * RESTの力 (30 min) https://fortee.jp/phperkaigi-2019/proposal/777a19ee-2d1a-483d-a457-f72ef0bf5fbe
 * RESTの制約 (60 min) https://fortee.jp/phpcon-2019/proposal/9fa39956-77db-4a1d-a5b9-db7bf608ae55
 
+この記事ではそれぞれの講演の振り返りではなく、テーマの背景を記してみたいと思います。
+
+## 最初のスライド
+
 {% img /images/phperkaigi2019/the-power-of-rest.001.jpeg %}
 
-この画像はWikipediaの[ハイパーテキスト](https://ja.wikipedia.org/wiki/%E3%83%8F%E3%82%A4%E3%83%91%E3%83%BC%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88)
-で公開されてる画像でキャプションには「Hypertext Editing System (HES) IBM 2250 ディスプレイ・コンソール – ブラウン大学、1969年」とあります。
+私が他の講演でもたびたび使用しているこの画像はWikipediaの[ハイパーテキスト](https://ja.wikipedia.org/wiki/%E3%83%8F%E3%82%A4%E3%83%91%E3%83%BC%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88)
+で公開されてる画像です。「Hypertext Editing System (HES) IBM 2250 ディスプレイ・コンソール – ブラウン大学、1969年」とキャプションにはあります。
 
-以下は[Hypertext Editing System](https://ja.wikipedia.org/wiki/Hypertext_Editing_System)からの引用です。
+以下はWikiの[Hypertext Editing System](https://ja.wikipedia.org/wiki/Hypertext_Editing_System)からの抜粋です。
 
-> Hypertext Editing System (HES) は、1967年、ブラウン大学の Andries van Dam の指導のもと、テッド・ネルソンらが行った初期のハイパーテキスト研究プロジェクト。HES は先駆的なハイパーテキストシステムであり、データを「リンク」と「分岐するテキスト」で構成している。分岐するテキストは自動的にメニューを構成し、所定の領域内のポイントは「ラベル」と呼ばれる名前を持つことができ、その名前でスクリーン上でアクセスすることができる。
+> Hypertext Editing System (HES) は、1967年、ブラウン大学の Andries van Dam の指導のもと、テッド・ネルソンらが行った初期のハイパーテキスト研究プロジェクト。HES は先駆的なハイパーテキストシステムであり、**データを「リンク」と「分岐するテキスト」で構成している**。
 
-> このシステムは近い将来、利便性向上のために改良・適用されるだろう。ハイパーテキストの様々な機能を実現するサブプログラム群や新機能を追加するサブプログラム群が含まれる。
-
->  1. 複数の対話利用ユーザーを相手にするためのファイル管理の問題
->  1. テキストの属性を知るには、ユーザーがタイプするかライトペンを使えばよい。既存のプログラムで、ユーザーは属性判定の真理値関数やキーワード検索でテキストを検索することができる（たとえば、犬か猫に言及しているが、ハムスターには言及していない部分を探すなど）。これらキーワードの索引も自動的に生成可能である（既存のプログラムで）。
->  1. ユーザーは属性を注釈やラベルに割り当てることもできる。タグに割り当てる属性はシステムが恒久的に定義するもの（「文献目録」タグや「注釈」タグ）とユーザーが定義するものがある。システム定義のタグ属性は他の「文献目録設定」プログラムなどで利用される。全てのタグは属性によってインデックス付けされる。
->  1 スクリーン上でのハイパーテキストの自動的ルーティングや印刷時の自動順序選択など新たな機能の追加が考えられる。ユーザーはとりうる代替案を指定する。これはブッシュの「連想の航跡」とかエンゲルバートのトレイルマーカーに相当する。
->  1. 他にもユーザーの仕事を単純化したり明確化する様々な機能が考えられる。複数のウィンドウをスクリーン上に生成し、様々な文書を同時に表示して作業できるようになるだろう。例えば、ある文章をコピーして別の文書に埋め込むなどである。
->  1. ハイパーテキストが複雑化すると何をしているか見失う可能性がある。そこで我々は文書構造をグラフ的に表示する方法を考えている。部品の少ない状態のグラフは簡単に描けるが、数百のリンクを描くにはどうすべきだろうか？
->  1. ユーザー定義の操作モードの種類は増えていく。そこで活動状況レイアウトに戻る機能が必要となる。ウィンドウのレイアウトとしてはスタック状にして、必要なウィンドウが前面に表示されるようにする。
->  1. ブラウン大学で開発済みの Sketchpad プログラムと連結した拡張グラフィックス機能を追加する。
+>  1. **複数の対話利用ユーザー**
+>  1 スクリーン上でのハイパーテキストの自動的ルーティング。ユーザーはとりうる代替案を指定する。これは **ブッシュの「連想の航跡」とかエンゲルバートのトレイルマーカーに相当**
+>  1. **複数のウィンドウをスクリーン上に生成し、様々な文書を同時に表示して作業できる** ようになるだろう。例えば、ある **文章をコピーして別の文書に埋め込む** などである。
+>  1. ブラウン大学で開発済みの **Sketchpad プログラム** と連結した拡張グラフィックス機能を追加する。
 >  1. 編集履歴を保持し、文書の内容をその任意の時点の状態に戻す機能が考えられる。
->  1. 我々はライトペンよりも適したユーザーインターフェイスに強い関心を持っている。データタブレット、SRIのマウス、指でポイント可能な透過スクリーンなどが操作性向上をもたらすと思われる。テキスト編集ハードウェア向けの機器設計は今後重要な分野となる。
+>  1. 我々はライトペンよりも適したユーザーインターフェイスに強い関心を持っている。
 >  1. 長期的には、このようなシステムはあらゆるテキスト処理に使われるようになると見込まれる。ネルソン（Nelson, 1967）が主張するように印刷物を代替するようになるかどうかは予測できない。しかし、その実用性と有用性は明白である。
 
-2019年のインターネットを知ってる我々にとってこの1967年の初期のハイパーテキスト研究プロジェクトの考察は大変興味深いもので驚くべきものです。
+2019年のインターネットを知ってる我々にとってこの1967年の初期のハイパーテキスト研究プロジェクトの考察は大変興味深いもので、驚くべきものです。
 
-現代のハイパーテキストシステム（WWW)では1のファイル管理も問題はクライアント・サーバ制約や階層化制約、キャッシュ制約によって解決がなされています。
+現代のハイパーテキストシステム（WWW)では「複数の対話利用ユーザー を相手にするためのファイル管理の問題」はクライアント・サーバ制約や階層化制約、キャッシュ制約によって解決がなされています。
+
 GUIによるコンピューティングの予見もライトペンのようなキーボードに加えた新しい入力デバイスの必要性や、開発されたばかりの"Sketchpad プログラム"への注目に見ることができます。
 
+
+* 連想の航跡 （1945）https://ja.wikipedia.org/wiki/Memex
+* スケッチパッド(1963) https://ja.wikipedia.org/wiki/Sketchpad
+
 バージョニングシステムを持った文章管理や、文章構造をグラフで捉えることとその可視化、複数の対話利用ユーザー、まるで半世紀後の今のWWWを語ってるようです。
-その彼らは「ネルソン（Nelson, 1967）が主張するように印刷物を代替するようになるかどうかは予測できない」としつつも「その実用性と有用性は明白である」との確信を得てます。
 
-そして半世紀が経ち、世界の情報の大部分がハイパーテキスストで繋がれました。この白黒写真の背後には壮大なストーリーがあり、縦型モニタのハイパーテキストをタッチペンで操作してる様子には未来を感じます。好きな写真でいくつもの講演で同じこの写真を使ってます。
+その彼らは「ネルソンが主張するように印刷物を代替するようになるかどうかは予測できない」としつつも「その実用性と有用性は明白である」との確信を得ています。
 
-{% img /images/phperkaigi2019/the-power-of-rest.003.jpeg %}
+そして半世紀が経ち、世界の情報はハイパーメディアで繋がれました。
 
-この言葉から始めます。
-ハイパーテキスト。HTMLのHTです。
+この白黒写真の背後には壮大なストーリーがあり、縦型モニタのハイパーテキストをタッチペンで操作してる様子には未来を感じます。好きな写真です。
+
+## ハイパーメディア
 
 {% img /images/phperkaigi2019/the-power-of-rest.004.jpeg %}
 
-普通のテキストは順番があります。
-ハイパーテキストは相互に結ばれ、始まりも終わりもありません。
+普通のテキストは**順番**があります。
+ハイパーテキストは情報が**相互に結ばれ**、始まりも終わりもありません。
 
 {% img /images/phperkaigi2019/the-power-of-rest.005.jpeg %}
 
-この言葉を最初に考えたのは「テッドネルソン」。
-情報の記録は紙がベースになってるという意識を壊したいというイノベーターでした。
+ハイパーテキスト、ハイパーメディアという言葉を作ったのは「テッドネルソン」1965年の事です。
+情報の記録は紙がベースになってるという意識を壊したいと願ったイノベーターです。
 
-「ハイパーテキスト」の概念に初めて言葉を与えたのはテッドネルソンです。1963年にハイパーテキスト、それをテキスト以外のメディアにも拡張したハイパーメディアは1965年に発表されました。
+そのネルソンの映像で、私が好きなのはこれです。
 
-そのテッドネルソンのYouTubeの映像があります。
-
-https://www.youtube.com/watch?v=Bqx6li5dbEY
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Bqx6li5dbEY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 > "the world is a system of ever-changing relationship and structures struck me as a vast truth"
 
 > "It is so difficult to visualize the world as a system of ever changing interconnections."
 
-> "Humanity has no decent writing tools!"
+ネルソンが5才の時に祖父と一緒に公園に行った時の思い出を語ります。ボートから湖面に手を入れた時、手を開いたり閉じたりすると水の流れが変わる、手の動きと水流の関係性。それにネルソン少年は心を奪われます。
 
->> "I'm the only sane person in the computer world.
+それを"超一般化"して「**世界は絶えず変化する、関係と構造のシステムである**」と結論づけ、そういう着想を得てからは相互接続(interconnection) が自分の思索の中心となったと続けます。
 
-「世界は絶えず変化する関係と構造のシステムである」... 5才の時にボートから手を水に入れた時のその手にまとわりついて水の流れからその着想を得たのは驚きですが、以来"インターコネクション"が自分の思索の中心となったと。
-情熱を持ってそのアイデアを語る、その良さがこの映像には溢れてます。この映像を何十回見たかわかりません。
+書くという行為は、その「壮大な関係と構造の織物」をただの「狭いシーケンス(narrow sequence)」にしてしまうものだ、その"間違った圧縮"をHumanity has no decent writing tools!" として断罪もします。
 
-{% img /images/phperkaigi2019/the-power-of-rest.006.jpeg %}
+何という発想でしょうか。
 
-マウスの発明者でもあるエンゲルバートはコンピュータ。
-単なる数値を処理する機械と見なされていたころに、対話型コンピュータとハイパーテキストを活用して、集団的知性の利用を実現することをライフワークとしました。
+内容も素晴らしいですが、この映像は情熱を持ってそのアイデアを語る人の良さが溢れてます。好きな映像で、繰り返し見ました。
 
-{% img /images/phperkaigi2019/the-power-of-rest.007.jpeg %}
+## 続く人々、繋がるアイデア
 
-初めて商用的に成功したのが[HyperCard](https://ja.wikipedia.org/wiki/HyperCard)。 カードをメタファにしたリンクシステムで、リンクのノードとしてカードを使います。しかしコンピューターを超えて情報が結ばれることはありませんでした。
+コンピューターが単なる数値を処理する機械と見なされていたころに、対話型コンピュータとハイパーテキストを活用して、集団的知性の利用を実現することをライフワークとしたエンゲルバート。カードをメタファにしたリンクシステムで世界最初の商用ハイパーテキストシステムを作ったビルアトキンソン。
 
-{% img /images/phperkaigi2019/the-power-of-rest.008.jpeg %}
+ヴィトンサーフらが作ったインターネットというインフラに、ハイパーテキストシステムを作ることを発案したWebの父バーナーズリー。それを論文という形でまとめたフィールディング博士のREST論文。
 
-Hypercardから7年。ついにWorldWideWebの原型となるプロポーザルがWebの父バーナーズリーによって発表されます。30年前の今月のことです。
+生物が他と関係してエコシステムが作られているように、他の知識と関係が無い知識、情報はありません。ハイパーメディアというアイデアも年月をかけ人々のアイデアが繋がり、WWWとして結実しました。
 
-{% img /images/phperkaigi2019/the-power-of-rest.009.jpeg %}
+今までの講演、すなわち全てを結ぶ力(2014年PHPカンファレンス大阪基調講演、2015年PHPカンファレンス福岡基調講演)、RESTの力(2019年phperkaigi)、RESTの制約(2019年PHPカンファレンス東京)、これらのプレゼンテーションを通じて伝えたかった事は、全ての情報が接続されるWWWという人類史的な地球規模の情報ネットワークの壮大さ、その基盤技術としてのRESTの設計水準の高さ、面白さ、そして何よりそのメディアの登場を私たちは目撃しただけでなく制作に参加してる事の素晴らしさです。
 
-1991年に初めてのジョブスが作ったNextコンピューターWebサーバーが駆動します。
+これで「"全ての力"トリロジー」は一旦終了です。5年に渡って大勢の方に講演を聞いていただきました。ありがとうございました。
 
-{% img /images/phperkaigi2019/the-power-of-rest.010.jpeg %}
-
-ヴィントン・サーフの作ったインターネットというインフラの上にハイパーテキストシステムを構築したのがWWWです。 
-(1991年に初めてのWWWサーバーが立ち上がります。バーナーズリーは確かにWebの父であり、人類史に残るような偉大な功績がある事は間違いないと思いますが
-インターネットというインフラにハイパーテキストというソフトウエアを動かしたもので両者はそれまでにあったものです。
-単に一人の偉人が生み出したというだけのものではなく、HESから脈絡と続いた多くの人の夢とアイデアが結実した物という事を伝えたいと思いました。)
-
-{% img /images/phperkaigi2019/the-power-of-rest.011.jpeg %}
-
-WWWは３つの重要なテクノロジーでできています。
-文章にリンクを与えを、その構造をマークアップするHTML。ハイパーメディア
-全ての情報に名前をつけたURI
-中央集権ではなく、分散コンピューティングを前提としたHTTP
-
-(構造化された文章を相互接続するハイパーテキストマークアップ言語 HTML、世界のあらゆる情報にIDを与えるURI。分散ハイパーテキストシステムを可能にするアプリケーションプロトコル HTTP。
-当たり前となってるこれらの技術は1つ1つ大変興味深いものです。
-
-HTMLはテキストではなく構造と接続性を与えられていてそれが大きな力になっています。しかし接続性は大変不完全なシステムです。バージョン管理はされて無いですし、接続の保証もありません。一方的に参照できるだけのものです。
-
-全ての情報にURIをつけるという試みは大変野心的だったもののように思えます。世界レベルでユニークキーが発行できるのですが、誰の何の許可も入りません。呟きの1つ1つにIDがついてそれらは全てユニークです。
-Webが全てFlashでできたパラレル世界があったとしたら情報共有がどれだけ不便でしょうか。
-
-分散コンピューティングはインターネットのネイチャーで、特にハイパーテキストシステムに必須では無いような気もしますが大変相性の良いものであったと思います。
-革新的だったHyperCardもアップル1企業の製品に過ぎず、異なるアーキテクチャのマシンをつなぐことができませんでした。WWW登場直後にはそういう風にHyperCardとの比較した記事を見かけたように思います。)
-
-
-{% img /images/phperkaigi2019/the-power-of-rest.012.jpeg %}
-
-最初のwebから４年後の1995年にPersonal Home Page Tools としてPHPが登場します。
-
-https://groups.google.com/forum/#!msg/comp.infosystems.www.authoring.cgi/PyJ25gZ6z7A/M9FkTUVDfcwJ
-
-(そのラスマス氏に2015年にインタビューをしています。
-
-https://gihyo.jp/news/report/2015/12/1401
-
-よくあるインタビュー後の握手写真（？）のような物を楽しみにしてたのですが、インタビュー終了時にカメラマンの方はもういませんでいた。丸めた背中の写真ばかりというのは英語での出版がなかったこと含めて残念な思い出です。
-インタビューは読む価値のある満足いくものができたと思います。)
-
-{% img /images/phperkaigi2019/the-power-of-rest.013.jpeg %}
-
-翌年96年3月、Jobsが世界初のWebアプリケーションサーバをリリース。コンテンツをダイナミックに生成する新しい時代を宣言します。
-
-https://www.youtube.com/watch?v=DmCu97u35Ek
-
-(「Web Act 1ではスタティックなコンテンツをブラウズできるだけだったものが、これからのWeb Act 2の時代ではユーザーのリクエストに応じて、今まで存在しなかったページが"on the fly"で生成されるんだ！」
-
-今では当然の事を高らかに宣言します。Webの始まりは1991年ですが"、"ダイナミックWebサービス"の時代は1996年に始まったと言って良いのかもしれません。そう考えるとまだ今年でもまだ23年です。
-私たちの巨大な産業がいかに若いということだと思います。（ちなみにこのプレゼンテーションで驚くべのはプレゼンが終わった後の技術的なQAも全てJbosが受けてるところです。びっくりします。）
-
-https://ja.wikipedia.org/wiki/WebObjects
-
-WebObjectは高価でした。最初はエンタープライズバージョンが700万円もしましたが、後に5万円に値下げされ、最後は無料になりました。
-AppleでもiTunes StoreやApple Online Storeで長い間使われていましが、今はどうなってるか分かりません。
-
-世界最初のORMと言われるEnterprise Objects Frameworkが統合されていました。
-
-https://ja.wikipedia.org/wiki/Enterprise_Objects_Framework
-)
-
-{% img /images/phperkaigi2019/the-power-of-rest.014.jpeg %}
-
-2000年にフィールディングのREST論文が発表されますが、Webの成功の後に書かれた論文です。理論や設計を元にHTTPが実装されたのではなく、先にHTTPを作ってから書かれたものです。
-
-{% img /images/phperkaigi2019/the-power-of-rest.015.jpeg %}
-
-2０００年にフィールディングの論文が発表されます。 これはWebの成功の後に書かれた論文です。理論や設計を元にHTTPが実装されたのではなく、先にHTTPを作ってから書かれたものです。
-
-{% img /images/phperkaigi2019/the-power-of-rest.016.jpeg %}
-
-この論文を読む前に読んでおいたほうが良いブログがあります。
-
-{% img /images/phperkaigi2019/the-power-of-rest.017.jpeg %}
-
-フィールディングのブログ。
-**ハイパーテキスト駆動**は必須だと言っています。
-
-https://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven
-
-{% img /images/phperkaigi2019/the-power-of-rest.018.jpeg %}
-
-つまりURIを定義するなと。 
-{% img /images/phperkaigi2019/the-power-of-rest.019.jpeg %}
-
-
-どういう事でしょうか？
-Webのアーキテキチャにはいくつか種類があり、ハイパーメディアスタイルのREST APIと、単なるリモートサーバーのストレージ操作や関数実行のRPC("REST" API)とは違うのです。
-
-誤用が一般化してるため、混乱を避けるために本来のREST APIはHypermedia APIと呼ばれるようになってます。
-
-{% img /images/phperkaigi2019/the-power-of-rest.020.jpeg %}
-
-３つのメンタルモデル。それぞれ違うパラダイムです。
-後で明らかになります。どれが優れてますか？
-
-{% img /images/phperkaigi2019/the-power-of-rest.021.jpeg %}
-
-[](img src="/images/phperkaigi2019/the-power-of-rest.021.jpeg")
-
-{% img /images/phperkaigi2019/the-power-of-rest.022.jpeg %}
-
-RESTful URIという言葉があります。
-
-{% img /images/phperkaigi2019/the-power-of-rest.023.jpeg %}
-
-どのURIがRESTfulなのか フィールディング論文にもRFCにも何も書いていません。
-
-{% img /images/phperkaigi2019/the-power-of-rest.024.jpeg %}
-
-単数か複数か、という単純な質問にも無限に答えが湧いてきます。 RESTFUl URIに疑問。そんなものがあるのでしょうか？
-
-{% img /images/phperkaigi2019/the-power-of-rest.025.jpeg %}
-
-ありません。RESTにとってURIは重要ではないんですね
-重要なのはリンクです。 
-{% img /images/phperkaigi2019/the-power-of-rest.026.jpeg %}
-
-
-{% img /images/phperkaigi2019/the-power-of-rest.027.jpeg %}
-
-REST API にとってのバージョンニングのベストクプラクティスは何でしょうか？
-
-{% img /images/phperkaigi2019/the-power-of-rest.028.jpeg %}
-
-「しない事」です。
-
-{% img /images/phperkaigi2019/the-power-of-rest.029.jpeg %}
-
-RESTは進化可能性のためにあって、“v1”は顧客に対してmiddle fingerを立ててる。
-強い言葉です。/v1はベストプラクティスなんでしょうか？middle fingerなんでしょうか。
-
-{% img /images/phperkaigi2019/the-power-of-rest.030.jpeg %}
-
-RESTのメソッドはリモートデータの操作のマッピングのためにあるのではありません。
-
-{% img /images/phperkaigi2019/the-power-of-rest.031.jpeg %}
-
-このRESTは私たちがよく知ってるRESTと違うようです。
-
-RESTはサーバーにあるリソースを表現として取得すること、だけではないのでしょうか？
-
-{% img /images/phperkaigi2019/the-power-of-rest.032.jpeg %}
-
-RESTは“分散ハイパーメディア”のアーキテクチャスタイルです。
-
-{% img /images/phperkaigi2019/the-power-of-rest.033.jpeg %}
-
-理解するために２つのステートを理解する必要があります。ステートレス
-アプリケーション状態は今のクラアイントの状態、Todo一覧とかアイテムとか
-それがリクエストを送ります。安全または安全ではないリクエスト… サーバーはアプリケーション状態がなんであるか興味を持ちません。
-
-{% img /images/phperkaigi2019/the-power-of-rest.034.jpeg %}
-
-ではAPIの場合は？
-
-{% img /images/phperkaigi2019/the-power-of-rest.035.jpeg %}
-
-クライアントはサーバーによって教えられたリンクを辿ります。
-そのリンクでアプリケーションの状態が変わります。つまりアプリケーション状態の遷移をサーバーが指示できます。
-
-
-{% img /images/phperkaigi2019/the-power-of-rest.036.jpeg %}
-
-例えばお客さんは注文をする前にキャンセルすることができません。1Fから5Fに行くためには２、３、４を上がらなくてはなりません。 それらはバックエンドが知っているビジネスルールです。
-こういう抽象化された「ふるまいのモデル」のことをFSMといいます
-
-{% img /images/phperkaigi2019/the-power-of-rest.037.jpeg %}
-
-例えばお客さんは注文をする前にキャンセルすることができません。1Fから5Fに行くためには２、３、４を上がらなくてはなりません。 それらはバックエンドが知っているビジネスルールです。
-こういう抽象化された「ふるまいのモデル」のことをFSMといいます
-
-{% img /images/phperkaigi2019/the-power-of-rest.038.jpeg %}
-
-フィールディング制約。 ６つのアーキテクチャ制約がありますが、中心になるのは4つのインターフェイス制約です。
-
-{% img /images/phperkaigi2019/the-power-of-rest.040.jpeg %}
-
-Cacheは何のためにするのでしょうか？
-通常キャッシュは時間資源やCPU資源の節約と考えれますが
-
-{% img /images/phperkaigi2019/the-power-of-rest.041.jpeg %}
-
-RESTのキャッシュはネットワークのスケールのためにあります。 1000人が同時に利用できるより10,000人が使える方が良いです。広い意味でのアクセスビリティとも言えます。
-
-{% img /images/phperkaigi2019/the-power-of-rest.042.jpeg %}
-
-初期のキャッシュはネットワーク上のキャッシュだけでしたが、のちに間違ったモデルとして訂正ました。
-
-{% img /images/phperkaigi2019/the-power-of-rest.043.jpeg %}
-
-RESTのキャッシュはクライアント側にあります。
-
-{% img /images/phperkaigi2019/the-power-of-rest.044.jpeg %}
-
-Cacheをコントロールするのはサーバーの仕事、キャッシュを行うのはクライアトです。
-サーバーがリソースの再利用性を知っています。
-
-{% img /images/phperkaigi2019/the-power-of-rest.045.jpeg %}
-
-サーバーが3600秒と指定すると、クライアントは3600秒ネットワークリクエストを行いません。
-
-{% img /images/phperkaigi2019/the-power-of-rest.046.jpeg %}
-{% img /images/phperkaigi2019/the-power-of-rest.047.jpeg %}
-
-エンティティタグつまりコンテンツのハッシュ値などでリソース状態のバージョンを管理します
-
-{% img /images/phperkaigi2019/the-power-of-rest.048.jpeg %}
-
-{% img /images/phperkaigi2019/the-power-of-rest.049.jpeg %}
-{% img /images/phperkaigi2019/the-power-of-rest.050.jpeg %}
-{% img /images/phperkaigi2019/the-power-of-rest.051.jpeg %}
-
-間違ってるだけではなく、これは倫理的問題でもあります。
-共有材のネットワークを無分別に使ってもいいのでしょうか？
-
-{% img /images/phperkaigi2019/the-power-of-rest.052.jpeg %}
-
-HTTPキャッシュに対応したクライアントを使いましょう。クライアントの変更コストはゼロです。
-
-{% img /images/phperkaigi2019/the-power-of-rest.053.jpeg %}
-
-Guzzleは標準でサポートしませんが、プラグインがあります。
-
-{% img /images/phperkaigi2019/the-power-of-rest.054.jpeg %}
-{% img /images/phperkaigi2019/the-power-of-rest.055.jpeg %}
-{% img /images/phperkaigi2019/the-power-of-rest.056.jpeg %}
-
-以上Cacheでした。
-
-{% img /images/phperkaigi2019/the-power-of-rest.056.jpeg %}
-{% img /images/phperkaigi2019/the-power-of-rest.057.jpeg %}
-{% img /images/phperkaigi2019/the-power-of-rest.058.jpeg %}
-
-メディアッタイプとはコンテンツの形式を表現する識別子です。
- IANAがメディアタイプを管理しています。
-
-{% img /images/phperkaigi2019/the-power-of-rest.059.jpeg %}
-
-メディアタイプは汎用のものと特定ドメインに対するものと２種類あります。
-
-{% img /images/phperkaigi2019/the-power-of-rest.060.jpeg %}
-{% img /images/phperkaigi2019/the-power-of-rest.061.jpeg %}
-
-例えば`problem/json`メディアタイプはサーバーサイドのエラーのためのメディアタイプです。そこで使われる`type`や`title`という語の意味が定義され説明されています。
-
-{% img /images/phperkaigi2019/the-power-of-rest.061.jpeg %}
-{% img /images/phperkaigi2019/the-power-of-rest.062.jpeg %}
-{% img /images/phperkaigi2019/the-power-of-rest.063.jpeg %}
-{% img /images/phperkaigi2019/the-power-of-rest.064.jpeg %}
-{% img /images/phperkaigi2019/the-power-of-rest.065.jpeg %}
+ * 2014 全てを結ぶ力 https://www.youtube.com/watch?v=wMYW-ox3BIg
+ * 2015 全てを結ぶ力(2015) https://speakerdeck.com/koriym/the-power-of-connecting-everything-together
+ * 2019 RESTの力 https://www.youtube.com/watch?v=970PiIJqhwQ
+ * 2019 RESTの制約 https://www.youtube.com/watch?v=MPZTfJ9Kpo8
