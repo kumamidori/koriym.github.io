@@ -9,7 +9,7 @@
   <meta name="author" content="Akihito Koriyama">
 
   
-  <meta name="description" content="時間が経ってしまいましたが、2017年の秋にイギリスのリーズとマンチェスターで登壇した事を記事にします。 トラブル発生 行きの飛行のトランジットの時間がギリギリで、乗客は間に合ったのですが荷物の載せ替えが間に合わずスーツケースが未着、翌日宅配便で届くということになってしまいました。 教訓） &hellip;">
+  <meta name="description" content="今年２つの講演 今年2019年は、3月にphperkaigi 2019でRESTの力、12月にはphpカンファレンスでRESTの制約の講演を行いました。 講演時間の短いRESTの力ではREST制約の中から一部を紹介して、「プレゼンテーションそのものがハイパーメディアであり、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,147 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2019/12/30/the-power-of-rest/">RESTの力、RESTの制約</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2019-12-30T00:00:00+09:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>30</span><span class='date-suffix'>th</span>, <span class='date-year'>2019</span></span> <span class='time'>12:00 am</span></time>
+        
+           | <a href="/blog/2019/12/30/the-power-of-rest/#disqus_thread"
+             data-disqus-identifier="http://koriym.github.io/blog/2019/12/30/the-power-of-rest/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>今年２つの講演</h2>
+
+<p>今年2019年は、3月にphperkaigi 2019で<strong>RESTの力</strong>、12月にはphpカンファレンスで<strong>RESTの制約</strong>の講演を行いました。</p>
+
+<p>講演時間の短いRESTの力ではREST制約の中から一部を紹介して、「プレゼンテーションそのものがハイパーメディアであり、情報は有機的に結合され真の力を発揮する」というストーリーを語りました。</p>
+
+<p>9ヶ月後の講演では、残り9つを含めた全ての制約を紹介して「表現に含まれるハイパーメディアコントロールでアプリケーション状態をコントロール」するRESTをより深く理解するための説明をしました。</p>
+
+<ul>
+<li>RESTの力 (30 min) <a href="https://fortee.jp/phperkaigi-2019/proposal/777a19ee-2d1a-483d-a457-f72ef0bf5fbe">https://fortee.jp/phperkaigi-2019/proposal/777a19ee-2d1a-483d-a457-f72ef0bf5fbe</a></li>
+<li>RESTの制約 (60 min) <a href="https://fortee.jp/phpcon-2019/proposal/9fa39956-77db-4a1d-a5b9-db7bf608ae55">https://fortee.jp/phpcon-2019/proposal/9fa39956-77db-4a1d-a5b9-db7bf608ae55</a></li>
+</ul>
+
+
+<p>この記事ではそれぞれの講演の振り返りではなく、テーマの背景を記してみたいと思います。</p>
+
+<h2>最初のスライド</h2>
+
+<p><img src="/images/phperkaigi2019/the-power-of-rest.001.jpeg"></p>
+
+<p>私が他の講演でもたびたび使用しているこの画像はWikipediaの<a href="https://ja.wikipedia.org/wiki/%E3%83%8F%E3%82%A4%E3%83%91%E3%83%BC%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88">ハイパーテキスト</a>
+で公開されてる画像です。「Hypertext Editing System (HES) IBM 2250 ディスプレイ・コンソール – ブラウン大学、1969年」とキャプションにはあります。</p>
+
+<p>以下はWikiの<a href="https://ja.wikipedia.org/wiki/Hypertext_Editing_System">Hypertext Editing System</a>からの抜粋です。</p>
+
+<blockquote><p>Hypertext Editing System (HES) は、1967年、ブラウン大学の Andries van Dam の指導のもと、テッド・ネルソンらが行った初期のハイパーテキスト研究プロジェクト。HES は先駆的なハイパーテキストシステムであり、<strong>データを「リンク」と「分岐するテキスト」で構成している</strong>。</p>
+
+<ol>
+<li><strong>複数の対話利用ユーザー</strong>
+1 スクリーン上でのハイパーテキストの自動的ルーティング。ユーザーはとりうる代替案を指定する。これは <strong>ブッシュの「連想の航跡」とかエンゲルバートのトレイルマーカーに相当</strong></li>
+<li><strong>複数のウィンドウをスクリーン上に生成し、様々な文書を同時に表示して作業できる</strong> ようになるだろう。例えば、ある <strong>文章をコピーして別の文書に埋め込む</strong> などである。</li>
+<li>ブラウン大学で開発済みの <strong>Sketchpad プログラム</strong> と連結した拡張グラフィックス機能を追加する。</li>
+<li>編集履歴を保持し、文書の内容をその任意の時点の状態に戻す機能が考えられる。</li>
+<li>我々はライトペンよりも適したユーザーインターフェイスに強い関心を持っている。</li>
+<li>長期的には、このようなシステムはあらゆるテキスト処理に使われるようになると見込まれる。ネルソン（Nelson, 1967）が主張するように印刷物を代替するようになるかどうかは予測できない。しかし、その実用性と有用性は明白である。</li>
+</ol>
+</blockquote>
+
+<p>2019年のインターネットを知ってる我々にとってこの1967年の初期のハイパーテキスト研究プロジェクトの考察は大変興味深いもので、驚くべきものです。</p>
+
+<p>現代のハイパーテキストシステム（WWW)では「複数の対話利用ユーザー を相手にするためのファイル管理の問題」はクライアント・サーバ制約や階層化制約、キャッシュ制約によって解決がなされています。</p>
+
+<p>GUIによるコンピューティングの予見もライトペンのようなキーボードに加えた新しい入力デバイスの必要性や、開発されたばかりの"Sketchpad プログラム"への注目に見ることができます。</p>
+
+<ul>
+<li>連想の航跡 （1945）<a href="https://ja.wikipedia.org/wiki/Memex">https://ja.wikipedia.org/wiki/Memex</a></li>
+<li>スケッチパッド(1963) <a href="https://ja.wikipedia.org/wiki/Sketchpad">https://ja.wikipedia.org/wiki/Sketchpad</a></li>
+</ul>
+
+
+<p>バージョニングシステムを持った文章管理や、文章構造をグラフで捉えることとその可視化、複数の対話利用ユーザー、まるで半世紀後の今のWWWを語ってるようです。</p>
+
+<p>その彼らは「ネルソンが主張するように印刷物を代替するようになるかどうかは予測できない」としつつも「その実用性と有用性は明白である」との確信を得ています。</p>
+
+<p>そして半世紀が経ち、世界の情報はハイパーメディアで繋がれました。</p>
+
+<p>この白黒写真の背後には壮大なストーリーがあり、縦型モニタのハイパーテキストをタッチペンで操作してる様子には未来を感じます。好きな写真です。</p>
+
+<h2>ハイパーメディア</h2>
+
+<p><img src="/images/phperkaigi2019/the-power-of-rest.004.jpeg"></p>
+
+<p>普通のテキストは<strong>順番</strong>があります。
+ハイパーテキストは情報が<strong>相互に結ばれ</strong>、始まりも終わりもありません。</p>
+
+<p><img src="/images/phperkaigi2019/the-power-of-rest.005.jpeg"></p>
+
+<p>ハイパーテキスト、ハイパーメディアという言葉を作ったのは「テッドネルソン」1965年の事です。
+情報の記録は紙がベースになってるという意識を壊したいと願ったイノベーターです。</p>
+
+<p>そのネルソンの映像で、私が好きなのはこれです。</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Bqx6li5dbEY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+<blockquote><p>&ldquo;the world is a system of ever-changing relationship and structures struck me as a vast truth&rdquo;</p>
+
+<p>&ldquo;It is so difficult to visualize the world as a system of ever changing interconnections.&rdquo;</p></blockquote>
+
+<p>ネルソンが5才の時に祖父と一緒に公園に行った時の思い出を語ります。ボートから湖面に手を入れた時、手を開いたり閉じたりすると水の流れが変わる、手の動きと水流の関係性。それにネルソン少年は心を奪われます。</p>
+
+<p>それを"超一般化"して「<strong>世界は絶えず変化する、関係と構造のシステムである</strong>」と結論づけ、そういう着想を得てからは相互接続(interconnection) が自分の思索の中心となったと続けます。</p>
+
+<p>書くという行為は、その「壮大な関係と構造の織物」をただの「狭いシーケンス(narrow sequence)」にしてしまうものだ、その"間違った圧縮"をHumanity has no decent writing tools!&ldquo; として断罪もします。</p>
+
+<p>何という発想でしょうか。</p>
+
+<p>内容も素晴らしいですが、この映像は情熱を持ってそのアイデアを語る人の良さが溢れてます。好きな映像で、繰り返し見ました。</p>
+
+<h2>続く人々、繋がるアイデア</h2>
+
+<p><img src="/images/phperkaigi2019/web_legends.jpeg"></p>
+
+<p>コンピューターが単なる数値を処理する機械と見なされていたころに、対話型コンピュータとハイパーテキストを活用して、集団的知性の利用を実現することをライフワークとしたエンゲルバート。カードをメタファにしたリンクシステムで世界最初の商用ハイパーテキストシステムを作ったビルアトキンソン。</p>
+
+<p>ヴィトンサーフらが作ったインターネットというインフラに、ハイパーテキストシステムを作ることを発案したWebの父バーナーズリー。それを論文という形でまとめたフィールディング博士のREST論文。</p>
+
+<p>生物が他と関係してエコシステムが作られているように、他の知識と関係が無い知識、情報はありません。ハイパーメディアというアイデアも年月をかけ人々のアイデアが繋がり、WWWとして結実しました。</p>
+
+<p>今までの講演、すなわち全てを結ぶ力(2014年PHPカンファレンス大阪基調講演、2015年PHPカンファレンス福岡基調講演)、RESTの力(2019年phperkaigi)、RESTの制約(2019年PHPカンファレンス東京)、これらのプレゼンテーションを通じて伝えたかった事は、全ての情報が接続されるWWWという人類史的な地球規模の情報ネットワークの壮大さ、その基盤技術としてのRESTの設計水準の高さ、面白さ、そして何よりそのメディアの登場を私たちは目撃しただけでなく制作に参加してる事の素晴らしさです。</p>
+
+<p>これで「"全ての力"トリロジー」は一旦終了です。5年に渡って大勢の方に講演を聞いていただきました。ありがとうございました。</p>
+
+<ul>
+<li>2014 全てを結ぶ力 <a href="https://www.youtube.com/watch?v=wMYW-ox3BIg">https://www.youtube.com/watch?v=wMYW-ox3BIg</a></li>
+<li>2015 全てを結ぶ力(2015) <a href="https://speakerdeck.com/koriym/the-power-of-connecting-everything-together">https://speakerdeck.com/koriym/the-power-of-connecting-everything-together</a></li>
+<li>2019 RESTの力 <a href="https://www.youtube.com/watch?v=970PiIJqhwQ">https://www.youtube.com/watch?v=970PiIJqhwQ</a></li>
+<li>2019 RESTの制約 <a href="https://www.youtube.com/watch?v=MPZTfJ9Kpo8">https://www.youtube.com/watch?v=MPZTfJ9Kpo8</a></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1352,128 +1493,6 @@ phpnwは参加者同士が交流できる多くの時間が用意されていま
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/06/10/tedxtokyo-2014/">TEDxTokyo 2014</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-06-10T02:34:00+09:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>2:34 am</span></time>
-        
-           | <a href="/blog/2014/06/10/tedxtokyo-2014/#disqus_thread"
-             data-disqus-identifier="http://koriym.github.io/blog/2014/06/10/tedxtokyo-2014/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>Connecting the unconnected</h2>
-
-<p>2014 5/31 (土) 9:00 - 18:00</p>
-
-<iframe width="560" height="315" src="//www.youtube.com/embed/AxjuLiiX1mo?rel=0" frameborder="0" allowfullscreen></iframe>
-
-
-<p>5月31日にヒカリエで開かれたTEDxTokyo 2014でオーディエンスとして参加する機会をいただきました。
-去年に続いて二度目です。</p>
-
-<iframe width="560" height="315" src="//www.youtube.com/embed/u8S2-H0E4Q8?rel=0" frameborder="0" allowfullscreen></iframe>
-
-
-<blockquote><p>&ldquo;25年以上前にカンファレンスとして始まりましたが、素晴らしい考えやアイデアを識別し広める幅広いプラットフォームへと進化しました。&rdquo;</p></blockquote>
-
-<p>ビデオにあるように「素晴らしい考えやアイデアを識別し広める幅広いプラットフォーム」それがTEDです。
-TEDxTokyoはその精神を引き継いだ米国以外では初めてのTEDxイベントです。</p>
-
-<p>&ldquo;様々な分野で活躍する参加者が招待され一日かけて各々の考えを他の参加者と共有します。また、その中の一部の人たちは講演を行うことにもなっています。&hellip;主なTEDカンファレンスと同じく、講演者と参加者の区別はほとんどありません。&rdquo;</p>
-
-<p><a href="http://www.tedxtokyo.com/about-tedxtokyo/faq/#sthash.gIvI16UN.dpuf">http://www.tedxtokyo.com/about-tedxtokyo/faq/#sthash.gIvI16UN.dpuf</a></p>
-
-<p>参加者は単にプレゼンテーションを生で観られるというだけではありません。分野の違う人達が集まり、素晴らしい考えやアイデア (Ideas worth spreading)を共有するのです。</p>
-
-<p>セッションは4つに分かれます。Unconnected、Making Patters、Seeking Synchronicityそれに Connnectedとそれぞれ名付けられたセッションは6-8つのプレゼンテーションを持ちます。最大18分の凝縮されたプレゼンテーションはそのうちの１つだけを見ても強く印象に残るものですがそれが30近くもあるのです！まさに<a href="https://twitter.com/MTDO_ch/status/472526122417008640">知の渦にダイブ</a>です。</p>
-
-<h2>結</h2>
-
-<p>一番最初のプレゼンテーションは米国で活動する書家アーティストの<a href="http://www.shift.jp.org/ja/archives/2011/06/aoi_yamaguchi.html">山口 碧生</a>さん、今年のテーマ「Connecting the Unconnected」その「結」を特大の筆で書き上げ、それを壁に掲げます。パフォーマンスと音楽を融合した彼女の"書"は迫力のあるものです。</p>
-
-<p>しかし同時に自分たち＝ここに集まった大勢の人が見ているのは「文字を一文字書く」それだけの事という事にも気付きます。それが百の言葉より説得力を持ち、力となり、見ている人達の熱狂を誘うのです。今年のTEDxTokyoのテーマを１文字で書き上げる素晴らしいオープニングになったと感じました。</p>
-
-<p>去年最初のパフォーマンスは手妻師の藤山晃太郎さんの江戸古典奇術の「手妻」でまるで何かの魔法を見てるようでしたが、今年も違った魔法が最初のプレゼンテーションとなりました。</p>
-
-<h2>マリアン・グッデル</h2>
-
-<p>「バーニングマン」は8月１週間だけネバダの砂漠に都市「ブラック・ロック・シティ」が現れる奇跡のようなイベントです。数年前に参加した友人の写真で度肝を抜かれました。</p>
-
-<iframe width="560" height="315" src="//www.youtube.com/embed/IP1fh9iO5yo?rel=0" frameborder="0" allowfullscreen></iframe>
-
-
-<p>そのバーニングマンのオーガナイザー、マリアン・グッデルが次のプレゼンテーションを行いました。</p>
-
-<iframe width="560" height="315" src="//www.youtube.com/embed/DXbd2h_cNJI?list=PLsRNoUx8w3rMPnRKHwjijK_kz26T9IAH2" frameborder="0" allowfullscreen></iframe>
-
-
-<p>聞きながら'01年の<a href="http://ja.wikipedia.org/wiki/%E6%AD%A6%E5%B0%8A%E7%A5%AD">武尊祭</a>を思い出し、あの頃のパーティーカルチャーもこのバーニングマンの十大原則のいくつかを共有してるのではと思いました。優れた原則や理念を持ったコミュニティは特別なコミニュケーションを生み出します。バーニングマン、TED、TEDx、独創的なオーガナイザーによって開かれた幾多のパーティー、みな共通するものがあるのではないでしょうか。</p>
-
-<p><img src="/images/tedxtokyo/burningman_principles.png"></p>
-
-<h2>情熱</h2>
-
-<p>多くのプレゼンテーションの中でも特に印象に残ったのがこの２つです。</p>
-
-<iframe width="560" height="315" src="//www.youtube.com/embed/-uTRVcvEUMY?rel=0" frameborder="0" allowfullscreen></iframe>
-
-
-
-
-<iframe width="560" height="315" src="//www.youtube.com/embed/q84-jGZO3Rg?rel=0" frameborder="0" allowfullscreen></iframe>
-
-
-<p>経営学者の<a href="http://www.tedxtokyo.com/talk/yoko-ishikura/">石倉 洋子</a>さんのスピーチは非常にパーソナルな内容で、自分の半生をカイトに見立て、時に舞い上がり、時に逆風にさらされる様を静かに熱く語ります。</p>
-
-<p>フォトグラファーの<a href="http://www.tedxtokyo.com/talk/leslie-kee/">レスリー・キー</a>さんは世界的名声を得た今も青年の時の気持ちをずっと胸にいだき、それを大切にしてきたか、それが伝わる情熱に満ちたものでした。</p>
-
-<p>そうなのです、”知の渦にダイブ"のTEDxで強く心に残るのは、自らが求める課題に対峙するその真摯な姿勢なのです。
-語られる「広める価値のある」優れたアイデアは頭に脳に強く作用するのですが、それを語る人達の精神性や人間性に心が打たれるのです。</p>
-
-<p>前回は特に<a href="http://www.tedxtokyo.com/talk/manabu/">田子 學</a>さんと<a href="http://www.tedxtokyo.com/talk/ban/">坂 茂</a>さんのスピーチがそうでした。田子さんは今回オーディエンスとして参加されていて、去年のスピーチの感想や印象を伝える事ができました。嬉しくて「講演者と参加者の区別はほとんどありません」のTEDxの理念はどこかに飛んでいきスターにあったファンのように興奮し（コーヒーをこぼすぐらい！）田子さんのスピーチがいかにその後に影響を与え、ずっと印象に残ってるかを話しました。</p>
-
-<p>ケンジ・ウイリアムズさんの最後のスピーチは特別なものでした。スピーカーとオーディエンスという形で再会でき、彼のバイオリンを8年振りに聞く事ができたのです。演じた「Bella Gaia」の一部は音楽と地球規模のデータの融合し、見ている人の意識に作用する素晴らしいパーフォマンスでした。アフターパーティーではBella Gaiaの方と意見交換する事もできました。</p>
-
-<iframe width="560" height="315" src="//www.youtube.com/embed/RCV0vOrABTw?rel=0" frameborder="0" allowfullscreen></iframe>
-
-
-<h2>熱狂の一日</h2>
-
-<p>イタリア人画家のマッテーオさんと会って色々な話を出来た事も大きな刺激でした。絵画が好きなのですが、職業画家の方と話しができたのは初めてです。彼はTEDxTokyo 2005の<a href="https://www.youtube.com/watch?v=eONkG8fhrf8">スピーカー</a>でもあり、話題にした美術や芸術の話は興味深い事ばかりでした。</p>
-
-<p>可能な限り人に話しかけ各分野の興味深い話を聞きたいと思うのですが、プレゼンテーションは沢山ありこれ以上濃くする事ができないくらい濃密な時間はあっという間に過ぎて行きます。</p>
-
-<p>二年目の参加で少しは落ち着いていられるかと思ったのですが、さらにエキサイトして頭に心に全身に作用した熱狂の一日となりました。主催のパトリックさん、トッドさん、ボランティア、チームの方々、スピーカーの方々、そしてパートナーの方々、この素晴らしい一日をつくりあげた方々に感謝します！</p>
-
-<p>TEDxTokyo 2014 Photo Studio<br>
-<a href="https://www.facebook.com/media/set/?set=a.10152494229284859.1073741838.98089389858&amp;type=3">https://www.facebook.com/media/set/?set=a.10152494229284859.1073741838.98089389858&amp;type=3</a></p>
-
-<p><img src="/images/tedxtokyo/DSC01928.jpg">
-<img src="/images/tedxtokyo/DSC02020.jpg">
-<br>
-田子さんありがとうございました！ / ボランティアの方達は本当に素晴らしいです。/ <a href="http://www.tedxtokyo.com/touchy-human-camera/">Touchy</a>にも会えました。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/page2">&larr; Older</a>
@@ -1489,6 +1508,10 @@ TEDxTokyoはその精神を引き継いだ米国以外では初めてのTEDxイ�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2019/12/30/the-power-of-rest/">RESTの力、RESTの制約</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2018/03/18/phpnw17/">PHPNW17</a>
       </li>
     
@@ -1502,10 +1525,6 @@ TEDxTokyoはその精神を引き継いだ米国以外では初めてのTEDxイ�
     
       <li class="post">
         <a href="/blog/2015/12/04/php7-dot-0-0/">PHP7.0.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/07/01/phpconfuk2015/">基調講演「全てを結ぶ力」(2015)</a>
       </li>
     
   </ul>
