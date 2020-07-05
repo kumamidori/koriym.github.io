@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "BEAR.Package 1.10"
-date: 2020-07-03 02:10:19 +0900
+date: 2020-07-06 03:00:00 +0900
 comments: true
-categories: 
+categories:
 ---
 
 BEAR.Package 1.10をリリースします。
@@ -12,10 +12,10 @@ BEAR.Package 1.10をリリースします。
 最新の Ray.Aop/Di/Compilerはオンデマンドコンパイルの耐障害性が向上しました。新しいスケルトンも用意しました。
 
 ## 後方互換性
- 
+
 マイナーバージョンアップなので後方互換性は維持されます。@deprecatedとマークされたクラスも引き続き使用可能で将来の廃止も予定にありません。
- 
-## BEAR.Injector 
+
+## BEAR.Injector
 
 インジェクターが改善され開発時に高速になりました。特に連続してインジェクターを使うテストで顕著です。
 
@@ -56,14 +56,14 @@ $htmlInjector =  Injector::getInstance('html-app');
 
 
 ## BEAR.Resource
- 
- 
+
+
 [BEAR.Resource 1.14.3](https://github.com/bearsunday/BEAR.Resource/releases/tag/1.14.3) 以降、`ResourceObject`で`declare(strict_types=1);`を宣言してもstring以外もタイプできます。
- ```php	
+ ```php
  public function onGet(int $num = 0)
   {
  ```
- 
+
 ## BEAR.Skeletonの変更
 
 新しいBEAR.PakcageのInjectorに対応したスケルトンを用意しました。加えてQAやテストのテンプレートを強化しました。
