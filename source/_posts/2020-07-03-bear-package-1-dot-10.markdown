@@ -6,10 +6,12 @@ comments: true
 categories:
 ---
 
-BEAR.Package 1.10をリリースします。
+BEAR.Package 1.10をリリースしました。
 
 新しいインジェクターにより開発時のパフォーマンスが大幅に改善し、コンパイラはより最適化された`autoload.php`や`preload.php`を出力します。
-最新の Ray.Aop/Di/Compilerはオンデマンドコンパイルの耐障害性が向上しました。新しいスケルトンも用意しました。
+最新の Ray.Aop/Di/Compilerはオンデマンドコンパイルの耐障害性が向上しました。
+
+用意された新しいスケルトン [BEAR.Skeleton 1.8](https://github.com/bearsunday/BEAR.Skeleton/releases/tag/1.8.0)はハイパーメディアとHTTPテストが追加され、より厳しいQAツールの設定に変更されました。
 
 ## 後方互換性
 
