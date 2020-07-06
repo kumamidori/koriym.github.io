@@ -52,7 +52,7 @@ $htmlInjector =  Injector::getInstance('html-app');
 
 ## キャッシュクリア
 
-新しいインジェクターでは、以前までの`src`のタイムスタンプをキャッシュキーに含める方法は廃止されました。これは元々、コンパイル環境とプロダクション環境が同一なことを前提として、APCのクリアもwebサーバーの再起動無しに行う、tmp削除の権限のないユーザーなどの理由で設置されたものですが、prodキャッシュの変更の変更によりより単純に開発時は`tmp/`を消去するというのがキャッシュクリアの方法になります。
+新しいインジェクターでは、以前までの`src`のタイムスタンプをキャッシュキーに含める方法は廃止されました。これは元々、コンパイル環境とプロダクション環境が同一なことを前提として、APCのクリアもwebサーバーの再起動無しに行う、tmp削除の権限のないユーザーなどの理由で設置されたものですが、prodキャッシュの変更により単純に開発時は`tmp/`を消去するというのがキャッシュクリアの方法になります。
 
 
 ## BEAR.Resource
@@ -90,7 +90,7 @@ $htmlInjector =  Injector::getInstance('html-app');
 Index.phpのサンプルを以下のように変更しました。
 
  * strict_types=1に
- * bodyの配列を方を表すarray shapes記法(Object-like arrays)に。
+ * bodyの配列を型を表すarray shapes記法(Object-like arrays)に。
  * return typeを`static`に
 
 ```
