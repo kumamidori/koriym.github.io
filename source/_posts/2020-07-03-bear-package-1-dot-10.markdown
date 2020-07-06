@@ -42,7 +42,12 @@ $htmlInjector =  Injector::getInstance('html-app');
 
 コンパイラが改善され、`autoload.php`、`preload`がより正確に出力されオブジェクトグラフの描画出力(`module.dot`)も行われます。
 
-ファイルの上書きに気が付くように`(overwritten)`の表示が行われるようになりました。複数コンテキストのコンパイルを行うときにはファイルの対比が必要です。
+ファイルの上書きに気が付くように`(overwritten)`の表示が行われるようになりました。
+コンテントネゴシエーションを行う場合など(ex. api-app, html-app)1つのアプリケーションで複数コンテキストのコンパイルを行うときにはファイルの退避が必要です。
+
+```sh
+$ mv autoload.php api.autoload.php
+```
 
 ## prodキャッシュの変更
 
@@ -56,7 +61,6 @@ $htmlInjector =  Injector::getInstance('html-app');
 
 
 ## BEAR.Resource
-
 
 [BEAR.Resource 1.14.3](https://github.com/bearsunday/BEAR.Resource/releases/tag/1.14.3) 以降、`ResourceObject`で`declare(strict_types=1);`を宣言してもstring以外もタイプできます。
  ```php
@@ -93,7 +97,7 @@ Index.phpのサンプルを以下のように変更しました。
  * bodyの配列を型を表すarray shapes記法(Object-like arrays)に。
  * return typeを`static`に
 
-```
+```php
 <?php
 
 declare(strict_types=1);
@@ -119,7 +123,7 @@ class Index extends ResourceObject
 }
 ```
 
-return staticはphp8で採用予定です。従来の`ResourceObject`リターンタイプより正確です。
+return staticはPHP8で採用予定です。従来の`ResourceObject`リターンタイプより正確です。
 
 * [https://wiki.php.net/rfc/static_return_type](https://wiki.php.net/rfc/static_return_type)
 
