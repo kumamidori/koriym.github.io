@@ -38,7 +38,7 @@ $htmlInjector =  Injector::getInstance('html-app');
 
 従来の`Bootstrap`、`AppInjector` から新しいインジェクターに移行するガイドを用意しています。
 
-[http://bearsunday.github.io/manuals/1.0/ja/upgrade/injector.html](http://bearsunday.github.io/manuals/1.0/ja/upgrade/injector.htm)
+[http://bearsunday.github.io/manuals/1.0/ja/upgrade/injector.html](http://bearsunday.github.io/manuals/1.0/ja/upgrade/injector.html)
 
 ## コンパイラ
 
